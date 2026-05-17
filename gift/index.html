@@ -1494,6 +1494,10 @@ function runAIGift(val, rel, budget) {
   var section = document.getElementById('ai-premium-section');
   section.className = 'ai-premium-section visible';
 
+  // Hide dev banner if not in dev mode
+  var banner = document.getElementById('dev-banner');
+  if (banner) banner.style.display = DEV_MODE ? 'block' : 'none';
+
   // Hide results, show loader
   document.getElementById('ai-loading').style.display = 'block';
   document.getElementById('ai-narrative-card').className = 'ai-result-card';
@@ -1757,7 +1761,6 @@ function ideaHTML(idea, idx) {
 function renderAIResponse(data) {
   document.getElementById('ai-loading').style.display = 'none';
 
-  // Store all ideas and avoid items globally for unlock
   _allIdeas   = data.ideas || [];
   _avoidItems = data.avoid || [];
 
@@ -1768,21 +1771,27 @@ function renderAIResponse(data) {
   // Show ideas card
   document.getElementById('ai-ideas-card').className = 'ai-result-card visible';
 
-  // First idea — always free
-  if (_allIdeas.length > 0) {
-    document.getElementById('ai-idea-first').innerHTML = ideaHTML(_allIdeas[0], 1);
-  }
-
-  // Build blurred previews of remaining 4 for the locked overlay
-  var blurHTML = '';
-  _allIdeas.slice(1).forEach(function(idea, i) {
-    blurHTML += ideaHTML(idea, i+2);
+  // Show ALL ideas immediately — user has already paid
+  var allHTML = '';
+  _allIdeas.forEach(function(idea, i) {
+    allHTML += ideaHTML(idea, i+1);
   });
-  document.getElementById('ai-ideas-blur').innerHTML = blurHTML;
+  document.getElementById('ai-idea-first').innerHTML = allHTML;
 
-  // In dev mode unlock immediately, otherwise show lock
-  if (DEV_MODE) {
-    unlockRemaining();
+  // Hide locked overlay — not needed
+  document.getElementById('ai-ideas-locked').style.display = 'none';
+
+  // Show avoid section
+  if (_avoidItems.length > 0) {
+    var avoidHTML = '';
+    _avoidItems.forEach(function(item) {
+      avoidHTML += '<div class="avoid-item">'
+        + '<div class="avoid-name">Avoid: ' + item.name + '</div>'
+        + '<div class="avoid-why">' + item.why + '</div>'
+        + '</div>';
+    });
+    document.getElementById('ai-avoid-list').innerHTML = avoidHTML;
+    document.getElementById('ai-avoid-card').style.display = 'block';
   }
 }
 
