@@ -1,1 +1,1876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1LINE Gift - Gift intelligence from one line about the person</title>
+  <meta name="description" content="Describe someone in one line. 1LINE Gift derives five specific gift ideas, a personality profile, gift categories and budget logic - instantly." />
+  <meta name="keywords" content="gift ideas, personalised gift guide, gift generator, what to buy, gift for partner, gift for colleague, unique gift ideas, gift intelligence" />
+  <meta property="og:title" content="1LINE Gift - Know exactly what to buy" />
+  <meta property="og:description" content="One line about the person. Five specific gift ideas. No guessing." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --cream: #FAF8F5;
+      --white: #FFFFFF;
+      --ink: #1A1A18;
+      --ink-mid: #4A4A46;
+      --ink-muted: #888884;
+      --ink-faint: #C4C4BE;
+      --border: rgba(26,26,24,0.10);
+      --border-mid: rgba(26,26,24,0.18);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --max: 640px;
+      --green: #2D7A5A;
+      --red: #C0392B;
+      --amber: #A0620A;
+      --gold: #B8903A;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+    /* -- NAV -- */
+    nav { padding: 28px 0 0; display: flex; align-items: baseline; justify-content: space-between; }
+    .brand { font-family: var(--serif); font-size: 13px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+
+    /* -- 1LINE WORDMARK -- */
+    .oneline-mark { display: inline-flex; align-items: baseline; gap: 0.04em; line-height: 1; text-decoration: none; }
+    .oneline-mark .n { font-family: var(--sans); font-weight: 500; font-size: 1em; color: var(--ink); letter-spacing: -0.02em; }
+    .oneline-mark .l { font-family: var(--sans); font-weight: 500; font-size: 0.5em; letter-spacing: 0.18em; text-transform: uppercase; color: #1A7FE8; position: relative; top: -0.1em; }
+
+    /* -- B-USEFUL BADGE -- */
+    .buseful-badge { display: inline-flex; align-items: center; background: #1A2744; border-radius: 5px; padding: 5px 12px 5px 10px; text-decoration: none; margin-bottom: 16px; transition: opacity 0.2s; }
+    .buseful-badge:hover { opacity: 0.82; }
+    .buseful-badge-text { font-family: var(--sans); font-size: 11px; font-weight: 500; color: #FFFFFF; letter-spacing: 0.02em; }
+    .buseful-badge-text em { font-style: italic; color: #C4A96A; }
+
+    /* -- HERO -- */
+    .hero { padding: 64px 0 48px; border-bottom: 0.5px solid var(--border); }
+    .hero-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 20px; }
+    .hero h1 { font-family: var(--serif); font-size: clamp(30px, 5vw, 42px); font-weight: 300; line-height: 1.18; color: var(--ink); margin-bottom: 18px; letter-spacing: -0.01em; }
+    .hero-sub { font-size: 15px; color: var(--ink-mid); font-weight: 300; max-width: 480px; line-height: 1.65; }
+
+    /* -- INPUT SECTION -- */
+    .input-section { padding: 48px 0 0; }
+    .input-prompt { font-family: var(--serif); font-size: 20px; font-weight: 400; color: var(--ink); margin-bottom: 6px; }
+    .input-hint { font-size: 12px; color: var(--ink-muted); margin-bottom: 22px; line-height: 1.6; }
+
+    /* -- SELECTORS -- */
+    .selector-block { margin-bottom: 24px; }
+    .selector-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 10px; display: block; }
+    .selector-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .sel-btn {
+      padding: 9px 16px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--ink-mid);
+      background: var(--white);
+      border: 0.5px solid var(--border-mid);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .sel-btn:hover { border-color: var(--ink-mid); color: var(--ink); }
+    .sel-btn.selected { background: var(--ink); color: var(--white); border-color: var(--ink); }
+
+    /* -- TEXTAREA -- */
+    textarea {
+      width: 100%;
+      min-height: 88px;
+      padding: 16px 18px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--white);
+      border: 0.5px solid var(--border-mid);
+      border-radius: 10px;
+      resize: none;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    textarea::placeholder { color: var(--ink-faint); }
+    textarea:focus { border-color: var(--ink-mid); }
+
+    .char-counter { display: flex; justify-content: space-between; margin-top: 8px; font-size: 11px; color: var(--ink-muted); }
+    .char-count { font-weight: 500; }
+    .char-count.valid { color: var(--green); }
+    .char-count.over  { color: var(--red); }
+
+    /* -- SPELL PANEL -- */
+    .spell-panel { display: none; margin-top: 14px; background: #FFFBF0; border: 0.5px solid rgba(160,98,10,0.22); border-radius: 10px; padding: 18px 20px; }
+    .spell-panel.visible { display: block; }
+    .spell-heading { font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; }
+    .spell-corrected { font-size: 14px; color: var(--ink); line-height: 1.7; font-weight: 300; margin-bottom: 16px; }
+    .spell-corrected mark { background: rgba(160,98,10,0.13); color: var(--amber); border-radius: 2px; padding: 0 3px; }
+    .spell-actions { display: flex; gap: 8px; }
+    .spell-btn { padding: 9px 18px; font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 7px; cursor: pointer; transition: opacity 0.15s; border: 0.5px solid; }
+    .spell-btn:hover { opacity: 0.72; }
+    .spell-btn.accept { background: var(--ink); color: var(--white); border-color: var(--ink); }
+    .spell-btn.ignore { background: transparent; color: var(--ink-mid); border-color: var(--border-mid); }
+
+    /* -- GENERATE -- */
+    .generate-btn { width: 100%; margin-top: 16px; padding: 15px 24px; font-family: var(--sans); font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--white); background: var(--ink); border: none; border-radius: 10px; cursor: pointer; transition: opacity 0.2s, transform 0.1s; }
+    .generate-btn:hover:not(:disabled) { opacity: 0.82; }
+    .generate-btn:active:not(:disabled) { transform: scale(0.99); }
+    .generate-btn:disabled { opacity: 0.28; cursor: default; }
+    .input-provenance { margin-top: 12px; font-size: 11px; color: var(--ink-faint); text-align: center; letter-spacing: 0.04em; }
+
+    /* -- HOW IT WORKS -- */
+    .how-section { padding: 56px 0 48px; border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); margin-top: 56px; }
+    .section-eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 32px; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .step-num { font-family: var(--serif); font-size: 32px; font-weight: 300; color: var(--ink-faint); line-height: 1; margin-bottom: 10px; }
+    .step-text { font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
+
+    /* -- OUTPUT -- */
+    #output-section { display: none; padding: 56px 0; border-top: 0.5px solid var(--border); margin-top: 56px; }
+    #output-section.visible { display: block; }
+
+    .out-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 10px; display: block; }
+    .out-card { background: var(--white); border: 0.5px solid var(--border); border-radius: 12px; padding: 22px; margin-bottom: 12px; }
+
+    /* Profile tag */
+    .profile-block { margin-bottom: 28px; }
+    .profile-tag { font-family: var(--serif); font-size: clamp(22px, 4vw, 30px); font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.2; margin-top: 8px; }
+
+    /* Gift direction */
+    .direction-value { font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--ink); margin-top: 6px; line-height: 1.3; }
+    .direction-sub { font-size: 12px; color: var(--ink-muted); margin-top: 6px; line-height: 1.55; }
+
+    /* Categories row */
+    .categories-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .category-pill {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--ink-mid);
+      background: var(--cream);
+      border: 0.5px solid var(--border-mid);
+      border-radius: 20px;
+      padding: 5px 16px;
+    }
+
+    /* Budget tiers */
+    .budget-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+    .budget-card { background: var(--cream); border: 0.5px solid var(--border); border-radius: 9px; padding: 14px; }
+    .budget-tier-name { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 6px; }
+    .budget-range { font-family: var(--serif); font-size: 18px; font-weight: 300; color: var(--ink); margin-bottom: 4px; }
+    .budget-desc { font-size: 11px; color: var(--ink-muted); line-height: 1.5; }
+    .budget-card.recommended { border-color: var(--ink); background: var(--white); }
+    .budget-card.recommended .budget-tier-name { color: var(--ink); }
+
+    /* Gift ideas */
+    .gift-ideas-block { margin-bottom: 12px; }
+    .gift-idea-card {
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 8px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .gift-idea-num { font-family: var(--serif); font-size: 24px; font-weight: 300; color: var(--ink-faint); line-height: 1; flex-shrink: 0; min-width: 24px; }
+    .gift-idea-body { flex: 1; }
+    .gift-idea-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+    .gift-idea-why { font-size: 12px; color: var(--ink-muted); line-height: 1.6; }
+    .gift-idea-tag { display: inline-block; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); background: var(--cream); border: 0.5px solid var(--border); border-radius: 3px; padding: 2px 7px; margin-top: 6px; }
+
+    /* Premium card */
+    .premium-card { background: var(--ink); border-radius: 12px; padding: 26px; margin-bottom: 12px; text-align: center; }
+    .premium-heading { font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--white); margin-bottom: 6px; }
+    .premium-sub { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 18px; line-height: 1.6; }
+    .premium-btn { padding: 12px 28px; font-family: var(--sans); font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); background: var(--white); border: none; border-radius: 8px; cursor: pointer; transition: opacity 0.15s; }
+    .premium-btn:hover { opacity: 0.88; }
+    .premium-price { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 8px; display: block; }
+
+    /* Imprint */
+    .imprint-card { background: var(--white); border: 0.5px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 12px; }
+    .imprint-text { font-family: var(--serif); font-size: 15px; font-style: italic; font-weight: 300; color: var(--ink-mid); line-height: 1.75; border-left: 2px solid var(--border-mid); padding-left: 16px; margin: 12px 0 10px; }
+    .imprint-meta { font-size: 11px; color: var(--ink-muted); }
+
+    /* Cross-sell */
+    .crosssell-block { margin: 28px 0 12px; padding: 24px; background: var(--white); border: 0.5px solid var(--border); border-radius: 12px; }
+    .crosssell-heading { font-family: var(--serif); font-size: 17px; font-weight: 300; color: var(--ink); margin-bottom: 14px; }
+    .crosssell-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .crosssell-card { display: flex; flex-direction: column; gap: 5px; padding: 14px 16px; background: var(--cream); border: 0.5px solid var(--border); border-radius: 9px; text-decoration: none; transition: border-color 0.2s; }
+    .crosssell-card:hover { border-color: var(--border-mid); }
+    .crosssell-name { font-size: 12px; font-weight: 500; color: var(--ink); }
+    .crosssell-desc { font-size: 11px; color: var(--ink-muted); line-height: 1.5; flex: 1; }
+    .crosssell-cta  { font-size: 11px; color: var(--ink); font-weight: 500; margin-top: 4px; }
+
+    /* -- EXAMPLE SECTION -- */
+    .example-section {
+      margin-bottom: 12px;
+    }
+    .example-toggle {
+      width: 100%;
+      padding: 13px 18px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--ink-mid);
+      background: var(--white);
+      border: 0.5px solid var(--border-mid);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+    }
+    .example-toggle:hover { border-color: var(--ink); color: var(--ink); }
+
+    .example-panel {
+      display: none;
+      margin-top: 8px;
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+    }
+    .example-panel.visible { display: block; }
+
+    .example-header { margin-bottom: 16px; }
+    .example-input-text {
+      display: block;
+      font-family: var(--serif);
+      font-size: 13px;
+      font-style: italic;
+      color: var(--ink-muted);
+      margin-top: 6px;
+      line-height: 1.6;
+    }
+    .example-narrative {
+      font-size: 13px;
+      color: var(--ink-mid);
+      line-height: 1.75;
+      font-weight: 300;
+      border-left: 2px solid var(--border-mid);
+      padding-left: 14px;
+      margin-bottom: 18px;
+      font-style: italic;
+    }
+
+    .example-ideas { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+    .ex-idea {
+      display: flex;
+      gap: 14px;
+      padding: 14px 16px;
+      background: var(--cream);
+      border-radius: 9px;
+    }
+    .ex-idea.blurred { filter: blur(4px); opacity: 0.4; pointer-events: none; user-select: none; }
+    .ex-idea-num {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 300;
+      color: var(--ink-faint);
+      line-height: 1;
+      min-width: 18px;
+      flex-shrink: 0;
+    }
+    .ex-idea-name { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+    .ex-idea-why  { font-size: 11px; color: var(--ink-muted); line-height: 1.6; margin-bottom: 3px; }
+    .ex-idea-where { font-size: 10px; color: var(--ink-faint); font-style: italic; }
+
+    .example-cta-note {
+      font-size: 11px;
+      color: var(--ink-muted);
+      text-align: center;
+      font-style: italic;
+      margin-top: 4px;
+    }
+
+    /* -- UNLOCK CARD -- */
+    .unlock-card {
+      background: var(--ink);
+      border-radius: 12px;
+      padding: 28px 24px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .unlock-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .unlock-heading {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.2;
+    }
+    .unlock-sub { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: -4px; }
+    .unlock-btn {
+      padding: 14px 32px;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--white);
+      border: none;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      margin-top: 4px;
+    }
+    .unlock-btn:hover { opacity: 0.9; }
+    .unlock-btn:active { transform: scale(0.99); }
+    .unlock-price { font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 0.04em; }
+
+    /* -- AI PREMIUM OUTPUT -- */
+    /* Locked ideas overlay */
+    .locked-ideas-overlay {
+      position: relative;
+      margin-top: 10px;
+    }
+    .locked-ideas-blur {
+      filter: blur(5px);
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.35;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .locked-ideas-gate {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-align: center;
+      padding: 16px;
+    }
+    .locked-gate-heading {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--ink);
+    }
+    .locked-gate-sub {
+      font-size: 12px;
+      color: var(--ink-muted);
+      max-width: 260px;
+    }
+    .locked-gate-btn {
+      padding: 12px 24px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--ink);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      margin-top: 4px;
+    }
+    .locked-gate-btn:hover { opacity: 0.82; }
+    .locked-gate-price { font-size: 10px; color: var(--ink-faint); letter-spacing: 0.04em; }
+
+    /* Avoid section */
+    .avoid-card { border-color: rgba(160,98,10,0.2); background: #FFFBF5; }
+    .avoid-badge { background: rgba(160,98,10,0.08); color: var(--amber); border-color: rgba(160,98,10,0.2); }
+    .avoid-list { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+    .avoid-item {
+      padding: 14px 16px;
+      background: rgba(160,98,10,0.05);
+      border-radius: 9px;
+      border-left: 2px solid rgba(160,98,10,0.25);
+    }
+    .avoid-name { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+    .avoid-why  { font-size: 12px; color: var(--ink-muted); line-height: 1.6; }
+
+
+    .ai-premium-section {
+      display: none;
+      margin-top: 12px;
+    }
+    .ai-premium-section.visible { display: block; }
+
+    .ai-loading-card {
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .ai-spinner {
+      width: 24px; height: 24px;
+      border: 2px solid var(--border-mid);
+      border-top-color: var(--ink);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+      margin-bottom: 14px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .ai-loading-text { font-size: 13px; color: var(--ink-muted); }
+
+    .ai-result-card {
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 12px;
+      display: none;
+    }
+    .ai-result-card.visible { display: block; }
+
+    .ai-ideas-list { margin-top: 10px; display: flex; flex-direction: column; gap: 10px; }
+    .ai-idea-item {
+      padding: 16px 18px;
+      background: var(--cream);
+      border-radius: 9px;
+      border-left: 2px solid var(--ink);
+    }
+    .ai-idea-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 5px; }
+    .ai-idea-why { font-size: 12px; color: var(--ink-muted); line-height: 1.6; margin-bottom: 5px; }
+    .ai-idea-where { font-size: 11px; color: var(--ink-faint); font-style: italic; }
+
+    .ai-narrative {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink-mid);
+      line-height: 1.75;
+      border-left: 2px solid var(--border-mid);
+      padding-left: 16px;
+      margin-top: 10px;
+    }
+
+    .ai-badge {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--amber);
+      background: rgba(160,98,10,0.08);
+      border: 0.5px solid rgba(160,98,10,0.2);
+      border-radius: 4px;
+      padding: 3px 8px;
+      margin-bottom: 12px;
+    }
+
+    .dev-banner {
+      background: rgba(45,122,90,0.08);
+      border: 0.5px solid rgba(45,122,90,0.25);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 11px;
+      color: var(--green);
+      margin-bottom: 12px;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    .share-nudge { margin-top: 32px; text-align: center; font-size: 12px; color: var(--ink-muted); letter-spacing: 0.06em; }
+
+    /* -- FOOTER -- */
+    footer { border-top: 0.5px solid var(--border); padding: 40px 0 48px; margin-top: 56px; }
+    .footer-network-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 14px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+    .footer-link { font-size: 12px; color: var(--ink-muted); background: var(--white); border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 14px; text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+    .footer-link:hover { color: var(--ink); border-color: var(--border-mid); }
+    .footer-copy { font-size: 11px; color: var(--ink-faint); }
+
+    @media (max-width: 480px) {
+      .steps { grid-template-columns: 1fr; gap: 20px; }
+      .budget-row { grid-template-columns: 1fr; }
+      .crosssell-cards { grid-template-columns: 1fr; }
+      .selector-row { gap: 6px; }
+      .sel-btn { font-size: 11px; padding: 8px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <nav>
+    <a href="/" class="brand">1LINE Gift</a>
+    <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" aria-label="Part of 1LINE">
+      <span class="n">1</span><span class="l">LINE</span>
+    </a>
+  </nav>
+
+  <section class="hero">
+    <a href="https://oi-ecosystem.github.io/b-useful/" target="_blank" rel="noopener" class="buseful-badge">
+      <span class="buseful-badge-text">B-<em>Useful</em></span>
+    </a>
+    <p class="hero-eyebrow">A 1LINE gift utility</p>
+    <h1>Know exactly what to buy. One line about the person.</h1>
+    <p class="hero-sub">Describe who you are buying for. 1LINE Gift derives a personality profile, specific gift recommendations with individual reasoning, and exactly what to avoid - from your exact words. No guessing.</p>
+  </section>
+
+  <section class="input-section">
+    <p class="input-prompt">Describe the person you are buying for in one line.</p>
+    <p class="input-hint">Include their interests, personality, lifestyle, age, what they love and what they hate. The more honest the description, the more precise the ideas.</p>
+
+    <!-- Relationship selector -->
+    <div class="selector-block">
+      <span class="selector-label">Your relationship to them</span>
+      <div class="selector-row" id="relationship-row">
+        <button class="sel-btn selected" data-val="partner" onclick="selectRel(this)">Partner</button>
+        <button class="sel-btn" data-val="family" onclick="selectRel(this)">Family</button>
+        <button class="sel-btn" data-val="friend" onclick="selectRel(this)">Friend</button>
+        <button class="sel-btn" data-val="colleague" onclick="selectRel(this)">Colleague</button>
+        <button class="sel-btn" data-val="client" onclick="selectRel(this)">Client</button>
+        <button class="sel-btn" data-val="lastminute" onclick="selectRel(this)">Last minute</button>
+      </div>
+    </div>
+
+    <!-- Budget selector -->
+    <div class="selector-block">
+      <span class="selector-label">Your budget</span>
+      <div class="selector-row" id="budget-row">
+        <button class="sel-btn" data-val="low" onclick="selectBudget(this)">Under &pound;30</button>
+        <button class="sel-btn selected" data-val="mid" onclick="selectBudget(this)">&pound;30 &ndash; &pound;75</button>
+        <button class="sel-btn" data-val="high" onclick="selectBudget(this)">&pound;75 &ndash; &pound;150</button>
+        <button class="sel-btn" data-val="premium" onclick="selectBudget(this)">&pound;150+</button>
+      </div>
+    </div>
+
+    <textarea
+      id="main-input"
+      maxlength="200"
+      placeholder="My partner is 32, loves coffee, minimalist design, works in architecture, hates clutter, enjoys long walks and has a dry sense of humour."
+      aria-label="Describe the person you are buying for"
+    ></textarea>
+
+    <div class="char-counter">
+      <span>80 – 200 characters</span>
+      <span class="char-count" id="char-count">0</span>
+    </div>
+
+    <div class="spell-panel" id="spell-panel">
+      <div class="spell-heading">We noticed a few spellings &mdash; here is the corrected version</div>
+      <div class="spell-corrected" id="spell-corrected"></div>
+      <div class="spell-actions">
+        <button class="spell-btn accept" onclick="acceptCorrection()">Use corrected version</button>
+        <button class="spell-btn ignore" onclick="ignoreCorrection()">Keep as entered</button>
+      </div>
+    </div>
+
+    <button class="generate-btn" id="generate-btn" disabled onclick="handleGenerate()">
+      Generate Gift Intelligence
+    </button>
+    <p class="input-provenance">Everything derived from the exact words you enter.</p>
+  </section>
+
+  <section class="how-section">
+    <p class="section-eyebrow">How it works</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Describe the person honestly. Select your relationship and budget. One line is all it takes.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">1LINE Gift detects personality signals, preference patterns and gift logic from your description.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Receive five specific ideas, a personality profile, gift categories and a structured reasoning note.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="output-section" aria-live="polite">
+    <p class="section-eyebrow">Your gift intelligence</p>
+
+    <!-- Personality profile tag -->
+    <div class="out-card profile-block">
+      <span class="out-label">Personality profile</span>
+      <div class="profile-tag" id="out-profile"></div>
+    </div>
+
+    <!-- Gift direction + categories -->
+    <div class="out-card" style="margin-bottom:12px;">
+      <span class="out-label">Primary gift direction</span>
+      <div class="direction-value" id="out-direction"></div>
+      <div class="direction-sub" id="out-direction-sub"></div>
+      <div class="categories-row" id="out-categories"></div>
+    </div>
+
+    <!-- Budget tiers -->
+    <div class="out-card" style="margin-bottom:28px;">
+      <span class="out-label">Budget logic</span>
+      <div class="budget-row" id="out-budget"></div>
+    </div>
+
+    <!-- Premium unlock button -->
+    <!-- Example output — see before you buy -->
+    <div class="example-section">
+      <button class="example-toggle" onclick="toggleExample()" id="example-toggle-btn">
+        <span id="example-toggle-label">See an example output &darr;</span>
+      </button>
+      <div class="example-panel" id="example-panel">
+        <div class="example-header">
+          <span class="out-label" style="margin-bottom:0;">Example: Partner &middot; &pound;30&ndash;&pound;75 &middot; Showjumper</span>
+          <span class="example-input-text">&ldquo;My partner competes in showjumping, loves horses and the outdoors, practical and no-nonsense, appreciates quality, hates fussy gifts.&rdquo;</span>
+        </div>
+        <div class="example-narrative">
+          This is someone who lives a physical, purposeful life. The strongest signal is practicality — they will notice quality immediately and dismiss anything that feels decorative or unnecessary. The best gift for this person earns its place by being genuinely useful in the context of what they love. With your budget, there is real range to find something specific to their world rather than something generically nice.
+        </div>
+        <div class="example-ideas">
+          <div class="ex-idea">
+            <div class="ex-idea-num">1</div>
+            <div class="ex-idea-body">
+              <div class="ex-idea-name">A premium riding glove in a quality leather from a specialist equestrian brand</div>
+              <div class="ex-idea-why">Worn on every ride, noticed every time. A quality pair from Charles Owen, Roeckl or Shires in exactly the right size — practical, lasting and specific to their world.</div>
+              <div class="ex-idea-where">Robinsons, Equestrian.co.uk, or direct from Roeckl</div>
+            </div>
+          </div>
+          <div class="ex-idea">
+            <div class="ex-idea-num">2</div>
+            <div class="ex-idea-body">
+              <div class="ex-idea-name">A session with a top equestrian coach or sports physio</div>
+              <div class="ex-idea-why">A serious competitor values improvement above almost anything. A session with a respected coach in their discipline, or a sports physio who works with riders, is the kind of gift they would never book for themselves.</div>
+              <div class="ex-idea-where">British Showjumping accredited coaches via bsja.co.uk, or equine sports physios via local riding clubs</div>
+            </div>
+          </div>
+          <div class="ex-idea">
+            <div class="ex-idea-num">3</div>
+            <div class="ex-idea-body">
+              <div class="ex-idea-name">A premium thermos or insulated bottle designed for outdoor use</div>
+              <div class="ex-idea-why">Long days at competition yards or in the saddle mean this gets used constantly. A Stanley, Yeti or Hydroflask in their colour is genuinely practical — and they will use it every single day.</div>
+              <div class="ex-idea-where">Amazon, Go Outdoors, or direct from Stanley or Yeti</div>
+            </div>
+          </div>
+          <div class="ex-idea blurred">
+            <div class="ex-idea-num">4</div>
+            <div class="ex-idea-body">
+              <div class="ex-idea-name">A personalised item specific to their competition record</div>
+              <div class="ex-idea-why">Unlock to see this idea and the fifth recommendation — both specific to this person.</div>
+              <div class="ex-idea-where">Unlock to see where to find it</div>
+            </div>
+          </div>
+          <div class="ex-idea blurred">
+            <div class="ex-idea-num">5</div>
+            <div class="ex-idea-body">
+              <div class="ex-idea-name">An experience connected to their equestrian world</div>
+              <div class="ex-idea-why">Unlock to see the full idea and reasoning.</div>
+              <div class="ex-idea-where">Unlock to see where to find it</div>
+            </div>
+          </div>
+        </div>
+        <p class="example-cta-note">Your output will be written specifically for the person you described &mdash; not a template.</p>
+      </div>
+    </div>
+
+    <!-- Unlock card -->
+    <div class="unlock-card" id="premium-gate">
+      <div class="unlock-inner">
+        <p class="unlock-heading">Five gift ideas written specifically for your person.</p>
+        <p class="unlock-sub">With individual reasoning, what to avoid, and exactly where to find each one.</p>
+        <button class="unlock-btn" onclick="unlockAI()">Get my gift ideas &mdash; &pound;9</button>
+        <span class="unlock-price">One-time &middot; Instant &middot; No account needed</span>
+      </div>
+    </div>
+
+    <!-- AI Premium output section -->
+    <div class="ai-premium-section" id="ai-premium-section">
+      <div class="dev-banner" id="dev-banner">DEV MODE &mdash; Mock AI response. No tokens used.</div>
+
+      <!-- Loading state -->
+      <div class="ai-loading-card" id="ai-loading" style="display:none;">
+        <div class="ai-spinner"></div>
+        <p class="ai-loading-text" id="ai-loading-text">Analysing your description...</p>
+      </div>
+
+      <!-- AI narrative -->
+      <div class="ai-result-card" id="ai-narrative-card">
+        <span class="out-label">AI gift profile</span>
+        <div class="ai-badge">AI-generated</div>
+        <div class="ai-narrative" id="ai-narrative-text"></div>
+      </div>
+
+      <!-- AI gift ideas — first free, remaining locked -->
+      <div class="ai-result-card" id="ai-ideas-card">
+        <span class="out-label">Your gift ideas</span>
+        <div class="ai-badge">Specific to this person</div>
+
+        <!-- First idea — always free -->
+        <div class="ai-ideas-list" id="ai-idea-first"></div>
+
+        <!-- Remaining 4 — locked until paid -->
+        <div id="ai-ideas-locked">
+          <div class="locked-ideas-overlay">
+            <div class="locked-ideas-blur" id="ai-ideas-blur"></div>
+            <div class="locked-ideas-gate">
+              <p class="locked-gate-heading">4 more ideas written for this person</p>
+              <p class="locked-gate-sub">With individual reasoning and exactly where to find each one.</p>
+              <button class="locked-gate-btn" onclick="unlockRemaining()">Unlock all 4 &mdash; &pound;9</button>
+              <span class="locked-gate-price">One-time &middot; Instant &middot; No account needed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Unlocked remaining ideas (hidden until paid) -->
+        <div class="ai-ideas-list" id="ai-ideas-remaining" style="display:none;"></div>
+      </div>
+
+      <!-- Avoid section — shown after unlock -->
+      <div class="ai-result-card avoid-card" id="ai-avoid-card" style="display:none;">
+        <span class="out-label">Gifts to avoid for this person</span>
+        <div class="ai-badge avoid-badge">Advisory</div>
+        <div class="avoid-list" id="ai-avoid-list"></div>
+      </div>
+    </div>
+
+    <!-- Imprint -->
+    <div class="imprint-card">
+      <span class="out-label">Preserved gift moment</span>
+      <div class="imprint-text" id="out-imprint-text"></div>
+      <div class="imprint-meta" id="out-imprint-meta"></div>
+    </div>
+
+    <!-- Cross-sell -->
+    <div class="crosssell-block">
+      <p class="crosssell-heading">More clarity from one line.</p>
+      <div class="crosssell-cards">
+        <a class="crosssell-card" href="#">
+          <span class="crosssell-name">1LINE Bio</span>
+          <span class="crosssell-desc">Compress who you are into every platform bio you need.</span>
+          <span class="crosssell-cta">Try it &rarr;</span>
+        </a>
+        <a class="crosssell-card" href="#">
+          <span class="crosssell-name">EverEcho</span>
+          <span class="crosssell-desc">A symbolic name and identity for a new baby.</span>
+          <span class="crosssell-cta">Try it &rarr;</span>
+        </a>
+        <a class="crosssell-card" href="#">
+          <span class="crosssell-name">1LINE Resolver</span>
+          <span class="crosssell-desc">Turn a difficult situation into a structured response.</span>
+          <span class="crosssell-cta">Try it &rarr;</span>
+        </a>
+      </div>
+    </div>
+
+    <p class="share-nudge">Unlock AI gift intelligence to get five specific, personalised recommendations for this person.</p>
+  </section>
+
+  <footer>
+    <div class="footer-network-label">Other <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:10px;"><span class="n">1</span><span class="l">LINE</span></a> utilities</div>
+    <div class="footer-links">
+      <a class="footer-link" href="#">EverEcho &mdash; baby identity</a>
+      <a class="footer-link" href="#">1LINE Pitch &mdash; business positioning</a>
+      <a class="footer-link" href="#">1LINE Bio &mdash; identity compression</a>
+      <a class="footer-link" href="#">1LINE OOO &mdash; out of office</a>
+      <a class="footer-link" href="#">1LINE Resolver &mdash; conflict clarity</a>
+    </div>
+    <p class="footer-copy">&copy; 1LINE Gift. A <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:11px;"><span class="n">1</span><span class="l">LINE</span></a> gift utility. Everything derived from your exact words.</p>
+  </footer>
+
+</div>
+
+<script>
+
+/* -- STATE -- */
+var _relationship = 'partner';
+var _budget = 'mid';
+var _correctedText = '';
+var _spellChecked = false;
+var _ignoreSpell = false;
+
+/* -- SELECTORS -- */
+function selectRel(el) {
+  _relationship = el.dataset.val;
+  document.querySelectorAll('#relationship-row .sel-btn').forEach(function(b) { b.classList.remove('selected'); });
+  el.classList.add('selected');
+}
+function selectBudget(el) {
+  _budget = el.dataset.val;
+  document.querySelectorAll('#budget-row .sel-btn').forEach(function(b) { b.classList.remove('selected'); });
+  el.classList.add('selected');
+}
+
+/* -- CHAR COUNTER -- */
+document.addEventListener('DOMContentLoaded', function() {
+  var inputEl = document.getElementById('main-input');
+  var countEl = document.getElementById('char-count');
+  var btnEl   = document.getElementById('generate-btn');
+  if (!inputEl) return;
+  inputEl.addEventListener('input', function() {
+    var len = inputEl.value.length;
+    countEl.textContent = len;
+    countEl.className = 'char-count' + (len >= 80 && len <= 200 ? ' valid' : len > 200 ? ' over' : '');
+    btnEl.disabled = !(len >= 80 && len <= 200);
+    if (_spellChecked || _ignoreSpell) { hideSpellPanel(); _spellChecked = false; _ignoreSpell = false; }
+  });
+});
+
+/* -- SPELL CHECK -- */
+var CORRECTIONS = {
+  /* A */
+  'adventorous':'adventurous','adventourous':'adventurous','adventuros':'adventurous',
+  'anniversery':'anniversary','anniverssary':'anniversary',
+  'appriciate':'appreciate','apreciate':'appreciate',
+  'artisanal':'artisanal','artisinal':'artisanal',
+  /* B */
+  'beutiful':'beautiful','beautifull':'beautiful','beatiful':'beautiful','beutifull':'beautiful',
+  'birtday':'birthday','birthay':'birthday','birthdya':'birthday',
+  /* C */
+  'caharacteristics':'characteristics','caracteristics':'characteristics',
+  'cofee':'coffee','coffe':'coffee',
+  'colection':'collection','colector':'collector',
+  'creativ':'creative','crative':'creative','creativly':'creatively',
+  'colege':'colleague','collegue':'colleague',
+  /* D */
+  'desing':'design','desgn':'design',
+  /* E */
+  'elegent':'elegant','elemant':'elegant','elgant':'elegant',
+  'enthusiatic':'enthusiastic','enthusiaastic':'enthusiastic',
+  'experiance':'experience','experence':'experience',
+  /* F */
+  'favourit':'favourite','favorit':'favorite','favourte':'favourite',
+  'freind':'friend','frend':'friend','freinds':'friends','frends':'friends',
+  /* G */
+  'gardaning':'gardening','gardining':'gardening','gardenig':'gardening',
+  'gentel':'gentle','genttle':'gentle',
+  /* H */
+  'hilarius':'hilarious',
+  'hobbys':'hobbies',
+  'humourous':'humorous',
+  /* I */
+  'independant':'independent','independnet':'independent',
+  'inteligent':'intelligent','intelligant':'intelligent',
+  /* J */
+  'jewlery':'jewellery','jewellry':'jewellery','jewelery':'jewellery','jewlrey':'jewellery',
+  /* K */
+  'kniting':'knitting','kniiting':'knitting',
+  /* L */
+  'loveing':'loving',
+  /* M */
+  'meditaion':'meditation','meditaton':'meditation',
+  'minimalsit':'minimalist','minimlaist':'minimalist','minmalist':'minimalist',
+  'meaningfull':'meaningful',
+  /* N */
+  'naturaly':'naturally','natrually':'naturally',
+  /* O */
+  'outdoorsey':'outdoorsy',
+  /* P */
+  'pasionate':'passionate','passioante':'passionate',
+  'personalty':'personality','personailty':'personality','personaliy':'personality',
+  'photograpy':'photography','photograhpy':'photography','photogrphy':'photography',
+  'practicle':'practical','practial':'practical','practcal':'practical',
+  'preferes':'prefers','preferrs':'prefers',
+  /* R */
+  'restaurent':'restaurant','resturant':'restaurant','restaraunt':'restaurant',
+  'resilant':'resilient','resilent':'resilient',
+  /* S */
+  'sentimentl':'sentimental','sentimantal':'sentimental','sentimantle':'sentimental',
+  'simplisitc':'simplistic','simplict':'simplistic',
+  'sophistcated':'sophisticated','sophisticted':'sophisticated','sophisicated':'sophisticated',
+  'strenght':'strength','strenth':'strength',
+  'sucesful':'successful','succesfull':'successful','sucessful':'successful',
+  /* T */
+  'tecnology':'technology','techology':'technology',
+  'thoughtfull':'thoughtful','thougtful':'thoughtful','thoughful':'thoughtful',
+  'timeles':'timeless',
+  'traveler':'traveller','travling':'travelling','travalling':'travelling',
+  /* U */
+  'uniqu':'unique','uniqe':'unique','uniuqe':'unique',
+  /* V */
+  'valueable':'valuable','valuble':'valuable','valuabel':'valuable',
+  /* W */
+  'wanderlsut':'wanderlust',
+  'wanderful':'wonderful','wonderfull':'wonderful',
+  'wellbieng':'wellbeing','wellbieign':'wellbeing',
+  /* Y */
+  'yoag':'yoga','yogaa':'yoga',
+  /* Common letter swaps / phonetic misspellings */
+  'freend':'friend','freiend':'friend','frend':'friend','friand':'friend',
+  'bier':'beer','beir':'beer','bir':'beer',
+  'tex':'tea','tee':'tea',
+  'enjoyes':'enjoys','enjois':'enjoys',
+  'humourous':'humorous','humerous':'humorous',
+  'beutifull':'beautiful','beautyful':'beautiful',
+  'helthy':'healthy','heathy':'healthy',
+  'atheltic':'athletic','athltetic':'athletic',
+  'succseful':'successful','succesful':'successful',
+  'intresting':'interesting','intresing':'interesting',
+  'amasing':'amazing','amazng':'amazing',
+  'lovley':'lovely','lovly':'lovely',
+  'funney':'funny','funy':'funny',
+  'cloting':'clothing','clothng':'clothing',
+  'sociel':'social','socail':'social',
+  'minmalist':'minimalist','minimalst':'minimalist',
+  'adventrous':'adventurous','adventuros':'adventurous',
+  'fasion':'fashion','fashon':'fashion',
+  'diiving':'diving','divng':'diving',
+  'skieing':'skiing','skieng':'skiing',
+  'climing':'climbing','climbng':'climbing',
+  'swiming':'swimming','swimmng':'swimming',
+  'runing':'running','runng':'running',
+  'cyceling':'cycling','cyclng':'cycling',
+  'hikeing':'hiking','hikng':'hiking',
+  'readng':'reading','readig':'reading',
+  'cookng':'cooking','cookig':'cooking',
+  'gardeing':'gardening','gardenng':'gardening',
+  'traveing':'travelling','travelng':'travelling',
+  'enjoing':'enjoying','enjoyng':'enjoying',
+  'likeing':'liking','likng':'liking',
+  'loveing':'loving','lovng':'loving',
+  'hateing':'hating','hatng':'hating',
+  'workng':'working','workig':'working',
+};
+
+function spellCheck(text) {
+  var sc_changed = false;
+  var corrected = text.replace(/([a-zA-Z]+)/g, function(word) {
+    var lower = word.toLowerCase();
+    if (CORRECTIONS[lower]) {
+      sc_changed = true;
+      var fix = CORRECTIONS[lower];
+      return (word[0] === word[0].toUpperCase() && word[0] !== word[0].toLowerCase())
+        ? fix.charAt(0).toUpperCase() + fix.slice(1) : fix;
+    }
+    return word;
+  });
+  return { corrected: corrected, changed: sc_changed };
+}
+function highlightDiffs(o, c) {
+  var ot = o.split(/(\b)/), ct = c.split(/(\b)/), html = '';
+  for (var i = 0; i < Math.max(ot.length, ct.length); i++) {
+    var ow = ot[i]||'', cw = ct[i]||'';
+    html += (ow !== cw && /[a-zA-Z]/.test(cw)) ? '<mark>' + cw + '</mark>' : cw;
+  }
+  return html || c;
+}
+function showSpellPanel(orig, corr) {
+  document.getElementById('spell-corrected').innerHTML = highlightDiffs(orig, corr);
+  document.getElementById('spell-panel').className = 'spell-panel visible';
+  _correctedText = corr;
+}
+function hideSpellPanel() { document.getElementById('spell-panel').className = 'spell-panel'; }
+function acceptCorrection() {
+  var inputEl = document.getElementById('main-input');
+  inputEl.value = _correctedText;
+  var len = _correctedText.length;
+  document.getElementById('char-count').textContent = len;
+  document.getElementById('char-count').className = 'char-count' + (len >= 80 && len <= 200 ? ' valid' : '');
+  hideSpellPanel(); _spellChecked = true; _ignoreSpell = false;
+  generateGift(_correctedText);
+}
+function ignoreCorrection() { hideSpellPanel(); _ignoreSpell = true; _spellChecked = false; generateGift(document.getElementById('main-input').value.trim()); }
+function looksLikeTypo(word) {
+  /* Heuristic: consonant clusters that rarely appear in English */
+  if (word.length < 3) return false;
+  var lower = word.toLowerCase();
+  /* Two or more of same vowel not standard */
+  if (/[^aeiou]{4,}/.test(lower)) return true;
+  /* Common double-letter errors */
+  if (/(.){2,}/.test(lower)) return true;
+  return false;
+}
+
+function handleGenerate() {
+  var val = document.getElementById('main-input').value.trim();
+  if (val.length < 80 || val.length > 200) return;
+  if (!_spellChecked && !_ignoreSpell) {
+    var r = spellCheck(val);
+    if (r.changed) { _spellChecked = true; showSpellPanel(val, r.corrected); return; }
+    /* Secondary check: any word looks like a typo even if not in dictionary */
+    var words = val.split(/\s+/);
+    var suspectWords = words.filter(function(w) {
+      return w.length > 2 && looksLikeTypo(w.replace(/[^a-z]/gi,''));
+    });
+    if (suspectWords.length > 0 && !_ignoreSpell) {
+      /* Show a soft warning but allow proceed */
+      var panel = document.getElementById('spell-panel');
+      document.getElementById('spell-corrected').innerHTML =
+        'We spotted some words that may contain typos: <mark>' + suspectWords.join('</mark>, <mark>') + '</mark>. '
+        + 'Please check your description before generating for the best results.';
+      _correctedText = val;
+      panel.className = 'spell-panel visible';
+      _spellChecked = true;
+      return;
+    }
+  }
+  generateGift(val);
+}
+
+/* -- ENGINE HELPERS -- */
+function charSum(str) {
+  return str.split('').reduce(function(a,c) {
+    var v = c.toLowerCase(); return a + (v >= 'a' && v <= 'z' ? v.charCodeAt(0)-96 : 0);
+  }, 0);
+}
+function cap(str) { return str ? str.charAt(0).toUpperCase() + str.slice(1) : ''; }
+
+/* -- KEYWORD EXTRACTION -- */
+var STOP_WORDS = {
+  'a':1,'an':1,'the':1,'and':1,'or':1,'but':1,'for':1,'with':1,'of':1,'to':1,
+  'in':1,'is':1,'are':1,'was':1,'were':1,'that':1,'this':1,'it':1,'at':1,'by':1,
+  'from':1,'on':1,'as':1,'be':1,'i':1,'we':1,'our':1,'my':1,'their':1,'who':1,
+  'what':1,'which':1,'into':1,'so':1,'not':1,'no':1,'have':1,'has':1,'can':1,
+  'will':1,'do':1,'does':1,'did':1,'about':1,'more':1,'than':1,'very':1,'just':1,
+  'all':1,'any':1,'some':1,'they':1,'he':1,'she':1,'you':1,'your':1,'its':1,
+  'how':1,'when':1,'where':1,'would':1,'could':1,'should':1,'may':1,'might':1,
+  'also':1,'even':1,'after':1,'before':1,'yet':1,'both':1,'each':1,'few':1,
+  'most':1,'been':1,'being':1,'had':1,'him':1,'her':1,'them':1,'me':1,'us':1,
+  'am':1,'up':1,'out':1,'get':1,'got':1,'still':1,'works':1,'work':1,
+  'loves':1,'love':1,'likes':1,'like':1,'hates':1,'hate':1,'enjoys':1,'enjoy':1,
+  'partner':1,'friend':1,'colleague':1,'husband':1,'wife':1,
+  'brother':1,'sister':1,'mum':1,'dad':1
+};
+
+function extractWords(str) {
+  return str.toLowerCase().replace(/[^a-z\s]/g,'').split(/\s+/).filter(function(w) {
+    return w.length > 2 && !STOP_WORDS[w];
+  });
+}
+
+/* -- PERSONALITY DETECTION -- */
+var PERSONALITY_SIGNALS = {
+  minimalist:   ['minimal','minimalist','simple','clean','clutter','unclutter','less','stripped','sleek','tidy','neat','sparse','white space','uncluttered','declutter'],
+  creative:     ['creative','artist','design','designer','art','craft','make','maker','paint','draw','write','writer','photographer','photography','musician','music','illustrat','pottery','knit','sew','sculpt','print','sketch'],
+  experiential: ['experience','travel','adventure','explore','outdoors','hike','hiking','climb','surf','yoga','theatre','concert','festival','gig','trip','journey','tour','visit','event','show','class','lesson','workshop','course'],
+  sensory:      ['coffee','food','cook','cooking','wine','whisky','gin','beer','ale','taste','smell','texture','scent','fragrance','candle','bath','spa','wellness','meditation','foodie','restaurant','eating','tasting','cheese','chocolate'],
+  intellectual: ['book','books','read','reading','learn','learning','podcast','documentary','history','science','philosophy','knowledge','curious','research','data','news','magazine','article','ideas','thinking','chess','crossword'],
+  social:       ['social','pub','bar','friends','party','celebrate','gather','host','entertaining','dinner','barbecue','game','games','nights out','night out','drinks','going out','outings','outing','people','crowd','sociable','gregarious','fun','lively','group'],
+  sporting:     ['golf','football','cricket','rugby','tennis','cycling','running','gym','fitness','sport','sports','swimming','rowing','squash','badminton','basketball','netball','triathlon','marathon','race','training','athlete','active','exercise','weights','crossfit'],
+  fashion:      ['fashion','clothing','clothes','style','dress','shoes','trainers','sneakers','bags','accessories','jewellery','jewelry','watches','tailored','wardrobe','outfits','boutique','designer clothes','shopping','trends','aesthetic','looks'],
+  homebody:     ['home','homebody','cosy','cozy','interior','decor','garden','cooking','baking','sofa','comfort','relaxing','films','movies','tv','netflix','streaming','board games','puzzles','quiet','calm','stay in'],
+  practical:    ['practical','useful','functional','efficient','productive','organised','organise','tool','tech','gadget','technology','earphones','headphones','kit','gear','equipment','tools'],
+  sentimental:  ['sentimental','memory','memories','family','personal','meaningful','keepsake','photo','photograph','nostalgic','home','treasures','mementos','significant','cherish','remember'],
+  luxury:       ['luxury','premium','quality','finest','artisan','handmade','bespoke','curated','elegant','sophisticated','splurge','treat','indulge','high-end','expensive taste','champagne','cashmere'],
+  nature:       ['nature','garden','gardening','plant','plants','outdoors','walking','countryside','beach','sea','ocean','green','eco','sustainable','wildlife','birds','trees','hiking','allotment','foraging'],
+};
+
+function detectPersonality(str) {
+  var lower = str.toLowerCase();
+  var scores = {};
+  Object.keys(PERSONALITY_SIGNALS).forEach(function(trait) {
+    scores[trait] = PERSONALITY_SIGNALS[trait].reduce(function(n, sig) {
+      return n + (lower.indexOf(sig) !== -1 ? 1 : 0);
+    }, 0);
+  });
+  var sorted = Object.keys(scores).sort(function(a,b) { return scores[b]-scores[a]; });
+  var ranked = sorted.filter(function(t) { return scores[t] > 0; }).slice(0,3);
+  // Fallback: if nothing detected, infer from relationship
+  if (ranked.length === 0) {
+    if (_relationship === 'colleague' || _relationship === 'client') ranked = ['practical','sensory'];
+    else ranked = ['sensory','experiential'];
+  }
+  return ranked;
+}
+
+/* -- PROFILE TAG BUILDER -- */
+var PROFILE_TAGS = {
+  'minimalist,creative':      'The considered creative',
+  'minimalist,practical':     'The purposeful pragmatist',
+  'minimalist,intellectual':  'The quiet thinker',
+  'minimalist,sensory':       'The refined sensualist',
+  'creative,experiential':    'The adventure creative',
+  'creative,sensory':         'The sensory maker',
+  'creative,intellectual':    'The thoughtful creator',
+  'experiential,sensory':     'The immersive explorer',
+  'experiential,social':      'The vibrant connector',
+  'experiential,nature':      'The grounded adventurer',
+  'sensory,luxury':           'The artisan appreciator',
+  'sensory,intellectual':     'The curious epicurean',
+  'intellectual,practical':   'The structured thinker',
+  'intellectual,social':      'The curious conversationalist',
+  'practical,social':         'The grounded host',
+  'luxury,social':            'The generous entertainer',
+  'sentimental,social':       'The warm connector',
+  'sentimental,creative':     'The nostalgic maker',
+  'nature,sensory':           'The grounded naturalist',
+  'nature,experiential':      'The outdoor spirit',
+  'social,sporting':          'The active social type',
+  'sporting,practical':       'The dedicated sportsperson',
+  'sporting,experiential':    'The competitive adventurer',
+  'fashion,social':           'The stylish socialiser',
+  'fashion,luxury':           'The quality dresser',
+  'homebody,sensory':         'The contented homebody',
+  'homebody,creative':        'The creative nester',
+  'social,sensory':           'The convivial host',
+  'social,fashion':           'The social stylist',
+};
+
+function buildProfileTag(traits, str) {
+  if (traits.length >= 2) {
+    var key = traits[0] + ',' + traits[1];
+    if (PROFILE_TAGS[key]) return PROFILE_TAGS[key];
+    key = traits[1] + ',' + traits[0];
+    if (PROFILE_TAGS[key]) return PROFILE_TAGS[key];
+  }
+  var fallbacks = {
+    'minimalist':   'The considered minimalist',
+    'creative':     'The expressive creator',
+    'experiential': 'The experience seeker',
+    'sensory':      'The sensory appreciator',
+    'intellectual': 'The thoughtful mind',
+    'social':       'The natural connector',
+    'sporting':     'The active sportsperson',
+    'fashion':      'The style-conscious individual',
+    'homebody':     'The contented homebody',
+    'practical':    'The focused pragmatist',
+    'sentimental':  'The warm rememberer',
+    'luxury':       'The quality connoisseur',
+    'nature':       'The grounded naturalist',
+  };
+  return fallbacks[traits[0]] || 'The thoughtful individual';
+}
+
+/* -- GIFT DIRECTION -- */
+var DIRECTIONS = {
+  minimalist:   { dir: 'Objects of quiet excellence', sub: 'Single beautiful things that earn their place. Nothing superfluous - everything intentional.' },
+  creative:     { dir: 'Tools and materials for making', sub: 'Gifts that enable expression. The best version of what they already use to create.' },
+  experiential: { dir: 'Experiences over objects', sub: 'Memories that last longer than things. Shared or solo adventures chosen for them specifically.' },
+  sensory:      { dir: 'Artisan sensory pleasures', sub: 'Exceptional versions of everyday rituals. Coffee, scent, taste, texture - elevated.' },
+  intellectual: { dir: 'Knowledge and exploration', sub: 'Books, courses, tools for thinking. Gifts that satisfy curiosity and reward attention.' },
+  social:       { dir: 'Shared experiences and social occasions', sub: 'Gifts that enhance their social world. Experiences, hosting gifts and things to enjoy with others.' },
+  sporting:     { dir: 'Kit, gear and sporting experiences', sub: 'The best version of what they use. Premium gear, club memberships or sporting experiences.' },
+  fashion:      { dir: 'Style, accessories and quality clothing', sub: 'Gifts that express their aesthetic. Quality over quantity - something they would choose themselves.' },
+  homebody:     { dir: 'Comfort, cosiness and home pleasures', sub: 'Gifts that make their home feel better. Things that reward staying in.' },
+  practical:    { dir: 'Purposeful tools they will actually use', sub: 'Considered functional gifts. The thing they have wanted but not bought themselves.' },
+  sentimental:  { dir: 'Personalised and preserving', sub: 'Gifts that hold meaning. Something that captures a moment, a place or a person.' },
+  luxury:       { dir: 'Premium quality they would not buy themselves', sub: 'The finest version. Something they appreciate but consider an indulgence.' },
+  nature:       { dir: 'The natural world brought closer', sub: 'Gifts rooted in the outdoors - tools, experiences and objects connected to nature.' },
+};
+
+/* -- CATEGORIES -- */
+var CATEGORY_MAP = {
+  minimalist:   ['Physical', 'Artisan', 'Considered'],
+  creative:     ['Physical', 'Experiential', 'Personalised'],
+  experiential: ['Experiential', 'Shared', 'Memorable'],
+  sensory:      ['Artisan', 'Physical', 'Consumable'],
+  intellectual: ['Physical', 'Digital', 'Experiential'],
+  social:       ['Experiential', 'Shared', 'Physical'],
+  sporting:     ['Physical', 'Experiential', 'Functional'],
+  fashion:      ['Physical', 'Wearable', 'Premium'],
+  homebody:     ['Physical', 'Experiential', 'Consumable'],
+  practical:    ['Physical', 'Tech', 'Functional'],
+  sentimental:  ['Personalised', 'Keepsake', 'Meaningful'],
+  luxury:       ['Premium', 'Physical', 'Artisan'],
+  nature:       ['Experiential', 'Physical', 'Organic'],
+};
+
+/* -- BUDGET LOGIC -- */
+var BUDGET_BANDS = {
+  low: {
+    tiers: [
+      { name:'Entry', range:'Under £20', desc:'Small but considered. A single beautiful thing.', rec:false },
+      { name:'Sweet spot', range:'£20 – £30', desc:'Most of the best small gifts live here.', rec:true },
+      { name:'Stretch', range:'£30 – £50', desc:'Meaningful without overspending.', rec:false },
+    ]
+  },
+  mid: {
+    tiers: [
+      { name:'Considered', range:'£30 – £50', desc:'Thoughtful and personal. Strong value.', rec:false },
+      { name:'Sweet spot', range:'£50 – £75', desc:'The ideal range for most mid-tier gifts.', rec:true },
+      { name:'Premium', range:'£75 – £100', desc:'Elevated experience or quality object.', rec:false },
+    ]
+  },
+  high: {
+    tiers: [
+      { name:'Considered', range:'£75 – £100', desc:'Quality over quantity. One great thing.', rec:false },
+      { name:'Sweet spot', range:'£100 – £150', desc:'The right range for a meaningful gift.', rec:true },
+      { name:'Statement', range:'£150 – £200', desc:'A gift that will be remembered.', rec:false },
+    ]
+  },
+  premium: {
+    tiers: [
+      { name:'Premium', range:'£150 – £250', desc:'Luxury quality, lasting impression.', rec:false },
+      { name:'Statement', range:'£250 – £400', desc:'The finest version of something they love.', rec:true },
+      { name:'Exceptional', range:'£400+', desc:'An experience or object they will never forget.', rec:false },
+    ]
+  },
+};
+
+/* -- GIFT IDEA POOLS -- */
+var GIFT_POOLS = {
+  minimalist: {
+    partner:   ['A single-origin coffee subscription from a micro-roaster','A handthrown ceramic mug from a named maker','A premium linen journal with no branding','A monogrammed brass pen','A Japanese wood-and-brass cardholder'],
+    family:    ['An unscented pure beeswax candle set','A single beautiful art print for their home','A high-quality cotton robe in neutral tones','A copper measuring set for the kitchen','An engraved wooden photo block'],
+    friend:    ['A premium notebook with a fine-tipped pen','A small concrete planter with a slow-growing succulent','A linen tote with interior pockets','A wooden phone stand for their desk','A set of matching linen napkins'],
+    colleague: ['A quality desk plant in a ceramic pot','A clean-design leather notebook cover','A premium sustainable pen set','A minimal wooden business card holder','A personalised brass paperweight'],
+    client:    ['A branded monochrome stationery set','A premium beeswax candle in matte packaging','An embossed leather portfolio','A Japanese wire notebook in black','A curated desk accessories kit'],
+    lastminute:['A high-quality candle from a clean brand','A premium notebook','A good coffee subscription gift card','A simple framed art print','A linen pouch of artisan chocolate'],
+  },
+  creative: {
+    partner:   ['A premium watercolour set from Winsor and Newton','A Leuchtturm1917 dot-grid notebook','A course with a living artist they admire','A risograph print from an independent printmaker','A film camera and three rolls of film'],
+    family:    ['A family photography session voucher','A hand-binding bookmaking kit','A subscription to a creative learning platform','A quality linocut printing kit','A personalised illustrated portrait commission'],
+    friend:    ['A premium sketchbook and a set of Staedtler pens','An independent art print from their favourite illustrator','A letterpress notecard set','A collage kit with archival materials','A zine subscription from an independent publisher'],
+    colleague: ['A beautifully bound blank journal','A set of quality coloured pencils','A print from a local gallery','A design book from their field','A hand-painted greeting card set'],
+    client:    ['A limited edition art print','A quality leather-bound journal','A curated creative book','A beautifully packaged pencil set','A print subscription to a design publication'],
+    lastminute:['A design book','A sketchbook and good pens','An art print gift card','A quality notebook','A creative subscription gift card'],
+  },
+  experiential: {
+    partner:   ['A private chef dinner experience for two','A weekend wild swimming and foraging course','Tickets to a show they have mentioned','A whisky tasting masterclass','A coastal kayaking day'],
+    family:    ['A pottery making afternoon','A family escape room booking','A bread baking masterclass','A foraging walk with a guide','A cinema screening of their favourite film'],
+    friend:    ['A cocktail making class for two','A comedy night and dinner booking','A spa afternoon for two','A paddleboard lesson on a local lake','A sunset sailing trip for two'],
+    colleague: ['A cooking class voucher','A wine tasting experience','A city food tour booking','A meditation and breathwork session','A virtual reality experience voucher'],
+    client:    ['A curated experience voucher','A restaurant gift card','A spa voucher for one','A cooking masterclass booking','A premium cinema experience'],
+    lastminute:['An experience voucher for a local venue','A restaurant gift card','A cinema gift card','An online masterclass gift subscription','A spa gift voucher'],
+  },
+  sensory: {
+    partner:   ['A speciality coffee subscription from a roaster they will love','A Japanese incense set with ceramic burner','A natural skincare ritual kit','A premium loose-leaf tea collection','A handmade soap set from an artisan maker'],
+    family:    ['A selection of artisan hot chocolates','A scented beeswax candle collection','A premium bath soak set','A curated spice kit for adventurous cooking','A handcrafted ceramic mug filled with speciality coffee'],
+    friend:    ['A gin tasting set with botanicals','A coffee and biscuit hamper from a specialist shop','A bath ritual kit with salts and oils','A hand-poured soy candle set','A premium tea and teapot set'],
+    colleague: ['A speciality coffee hamper','A curated chocolate tasting box','A premium hand cream set','A quality diffuser with natural oils','A flavoured honey and cheese gift set'],
+    client:    ['A premium tea gift box','A curated chocolate collection','A hand cream and lip balm set','A speciality coffee selection','A scented candle from a known brand'],
+    lastminute:['A speciality coffee bag with a handwritten note','A premium chocolate box','A candle from a quality brand','A hand cream set','A herbal tea collection'],
+  },
+  intellectual: {
+    partner:   ['A rare or signed first edition of a book they love','A subscription to Audible or Blinkist','A masterclass annual subscription','A beautiful annotated atlas or illustrated encyclopaedia','A philosophy card game for evenings in'],
+    family:    ['A curated book bundle on a topic they love','A documentary series subscription','A National Geographic subscription','A beautifully illustrated history book','A subscription to a quality newspaper or magazine'],
+    friend:    ['A book subscription box curated to their interests','A thought-provoking card game','A podcast microphone starter kit','A subscription to a learning platform','An illustrated science or history book'],
+    colleague: ['A business book they have not read','A podcast subscription or audiobook credit','A quality magazine subscription','A curated reading list with the first book','A TED Talks book collection'],
+    client:    ['A business or design book from their field','A premium magazine subscription','A curated knowledge gift card','An illustrated reference book','A book and a handwritten note'],
+    lastminute:['A Kindle gift card','A book voucher','An Audible credit','A magazine subscription','A well-chosen book'],
+  },
+  social: {
+    partner:   ['A table at a restaurant they have been wanting to try','Tickets to a comedy show or live event','A cocktail masterclass for two','A games night hamper with quality drinks and snacks','A weekend away in a city they have mentioned'],
+    family:    ['A big family board game or party game set','A dinner out at a favourite restaurant','A subscription to a streaming service for movie nights','A premium prosecco and snacks hamper','A family day out to an experience venue'],
+    friend:    ['A pair of tickets to a live show or gig','A cocktail bar experience for two','A craft beer or wine tasting set to share','A games night box with snacks and activities','A reservation at a restaurant they love'],
+    colleague: ['A quality bottle of wine with nice glasses','A pub lunch gift card','A board game for the office or team','A drinks hamper for sharing','A team experience voucher'],
+    client:    ['A premium drinks gift set','A restaurant gift card','A quality hamper for sharing','A games or entertainment gift','A drinks and snacks selection'],
+    lastminute:['A restaurant gift card','A cinema voucher for two','A drinks hamper','A quality bottle of wine','A pub gift card'],
+  },
+  sporting: {
+    partner:   ['A round of golf at a course they have wanted to play','Premium golf balls in a personalised box','A sports massage or physio session','A high-performance training top from their favourite brand','A fitness tracker upgrade'],
+    family:    ['A family sports day experience','Tickets to watch their favourite team live','A premium gym bag with accessories','A quality water bottle and nutrition kit','A sport-specific coaching session or lesson'],
+    friend:    ['A guest pass to a premium gym or club','Tickets to a major sporting event','A quality sports kit from their chosen sport','A sports nutrition hamper','A running or cycling accessory they would love'],
+    colleague: ['A quality fitness water bottle','A sports gift card for a major retailer','A foam roller and recovery kit','A premium gym towel set','A sport-themed book or documentary subscription'],
+    client:    ['A premium sports gift card','A quality branded gym bag','A sport-specific accessory set','A fitness experience voucher','A health and wellbeing hamper'],
+    lastminute:['A sports retailer gift card','A premium water bottle','A fitness app subscription','A sports nutrition pack','A quality gym accessory'],
+  },
+  fashion: {
+    partner:   ['A quality silk scarf from an independent label','A premium leather belt or wallet','A cashmere jumper in their signature colour','A voucher to their favourite boutique or brand','A quality fragrance they wear regularly'],
+    family:    ['A gift card to a brand they love','A quality leather handbag or wallet','A premium knit or cardigan','A jewellery piece from an independent maker','A tailored shirt or quality blouse'],
+    friend:    ['A voucher for a personal styling session','A quality accessory from a brand they admire','A premium jewellery piece from a small maker','A luxury scarf or wrap','A gift card for their favourite clothing brand'],
+    colleague: ['A quality silk pocket square or scarf','A premium belt or card holder','A gift card for a well-regarded brand','A quality fragrance or aftershave','A smart accessory in their style'],
+    client:    ['A premium leather cardholder or wallet','A quality branded accessory','A gift card for a respected retailer','A luxury fragrance set','A premium branded gift'],
+    lastminute:['A gift card for their favourite brand','A quality leather accessory','A premium fragrance','A quality scarf','A jewellery gift card'],
+  },
+  homebody: {
+    partner:   ['A luxury throw blanket in their favourite texture','A high-end scented candle collection for evenings in','A coffee machine upgrade or premium coffee subscription','A premium board game for cosy nights in','A luxurious bath and body set for winding down'],
+    family:    ['A quality bedding set in a tactile fabric','A premium candle and bath gift set','A subscription to a streaming service','A personalised home print or illustration','A cosy robe and slipper set'],
+    friend:    ['A premium hot chocolate and treat hamper','A luxury candle and bath soak set','A cosy evening kit with a good book, tea and treats','A board game they have not played','A personalised home print from a local illustrator'],
+    colleague: ['A premium tea and biscuit hamper','A quality home fragrance diffuser','A cosy mug and hot drink set','A nice plant in quality packaging','A relaxation gift set'],
+    client:    ['A premium home fragrance set','A quality hamper for staying in','A luxury candle collection','A nice plant in ceramic packaging','A quality tea and treat set'],
+    lastminute:['A premium candle','A quality chocolate and hot drink set','A book and tea hamper','A streaming service gift card','A quality home scent'],
+  },
+  practical: {
+    partner:   ['A premium leather cable organiser for their desk','A quality multi-tool in a leather case','A premium wireless charger in matte finish','A noise-cancelling earbud upgrade','A leather travel wallet with all compartments'],
+    family:    ['A herb garden kit for the kitchen windowsill','A quality kitchen knife with a sharpening stone','A portable battery pack','A smart home device that solves a real problem','A premium water filter for the kitchen'],
+    friend:    ['A premium reusable coffee cup they will actually use','A leather key organiser','A compact travel adapter','A quality pen and pencil set','A personalised phone case with a practical design'],
+    colleague: ['A premium desk organiser','A portable phone stand','A quality tote bag with inner pockets','A leather phone wallet','A compact laptop stand'],
+    client:    ['A premium notebook and pen set','A quality USB hub','A branded portable charger','A leather desk pad','A practical travel kit'],
+    lastminute:['A premium reusable cup','A good charging cable set','A quality pen','A practical travel pouch','A compact umbrella in a quality case'],
+  },
+  sentimental: {
+    partner:   ['A custom illustration of a place that matters to both of you','A book of printed photos from your year together','A personalised star map from a meaningful date','A coordinates necklace or bracelet','An engraved piece of jewellery with a private word or date'],
+    family:    ['A commissioned family portrait illustration','A personalised recipe book with family recipes','A photo album with handwritten captions','A custom birth poster for a child or grandchild','A map print of the town they grew up in'],
+    friend:    ['A personalised friendship book with photos and memories','A custom illustration of their pet','A print of the first gig or event you attended together','A birthstone piece of jewellery','A personalised soundtrack print of a year that mattered'],
+    colleague: ['A personalised thank you book from the team','A custom illustration of their workspace','An engraved pen with a meaningful message','A framed team photo with a print finish','A personalised mug with an inside reference'],
+    client:    ['A personalised thank you card and quality gift','A custom print of their company milestone','A branded keepsake from a shared project','An engraved item with their initials','A bespoke illustrated card with a quality gift'],
+    lastminute:['A personalised card with a gift card inside','A framed printed photo','A custom engraved keyring','A name print download','A personalised message in a bottle'],
+  },
+  luxury: {
+    partner:   ['A bottle of aged single malt from a distillery they would not buy','A private wine tasting at a vineyard','A cashmere throw in a signature colour','A luxury fragrance from an independent house','A premium leather wallet or cardholder'],
+    family:    ['A truffle oil and artisan pasta set from a specialist deli','A luxury linen bedding set','A premium leather travel bag','A high-end cookbook from a Michelin-starred chef','A cashmere scarf in a classic colour'],
+    friend:    ['A luxury spa day for two','A premium champagne and artisan chocolate set','A silk sleep mask and pillow mist set','A high-end fragrance discovery set','A luxury afternoon tea booking for two'],
+    colleague: ['A premium hamper from a quality retailer','A luxury candle from a known name','A good bottle of wine and quality glasses','A leather notebook cover','A premium pen from a recognised brand'],
+    client:    ['A curated luxury hamper','A premium champagne with personalised label','A luxury brand gift card','A high-end experience voucher','A premium branded corporate gift set'],
+    lastminute:['A luxury gift card','A premium hamper from a quality online retailer','A fine wine or champagne','A luxury candle','A premium fragrance gift set'],
+  },
+  nature: {
+    partner:   ['A two-night wild camping experience with a guide','A personalised wildflower seed kit for their garden','A foraging day course with a chef naturalist','A premium pair of lightweight binoculars','A hammock and camping kit for two'],
+    family:    ['A family tree planting day at a local woodland','A raised bed veg growing kit','A nature journal and field guide bundle','A subscription to a nature documentary platform','A bird feeding station and identification guide'],
+    friend:    ['A guided coastal walk and picnic experience','A wildflower growing kit in a ceramic pot','A premium reusable water bottle in their colour','A hammock for solo outdoor time','A nature photography walk and workshop'],
+    colleague: ['A desk plant in a quality ceramic pot','A botanical print from an independent illustrator','A seed growing kit for a windowsill','A quality reusable cup with a nature motif','A nature book from a well-regarded author'],
+    client:    ['A planted succulent in premium packaging','A botanical candle collection','A quality reusable bottle','A nature book or illustrated field guide','A curated seed packet set'],
+    lastminute:['A quality plant from a florist','A wildflower seed pack','A premium reusable cup','A nature-themed book','A botanical print gift card'],
+  },
+};
+
+function pickIdeas(traits, relationship, budget, str) {
+  var seed = charSum(str);
+  var ideas = [];
+  var seen = {};
+  var rel = relationship || 'friend';
+  if (!GIFT_POOLS[GIFT_POOLS.hasOwnProperty(rel) ? rel : 'friend']) rel = 'friend';
+
+  // Draw 2 from primary, 2 from secondary, 1 from tertiary
+  // Use different offsets to avoid duplicate indices
+  var offsets = [
+    [0, 1, 2, 3, 4],
+    [1, 2, 3, 4, 0],
+    [2, 3, 4, 0, 1],
+  ];
+
+  traits.forEach(function(trait, ti) {
+    if (!GIFT_POOLS[trait]) return;
+    var pool = GIFT_POOLS[trait][rel] || GIFT_POOLS[trait]['friend'];
+    var count = ti === 0 ? 2 : ti === 1 ? 2 : 1;
+    var usedInTrait = {};
+    for (var i = 0; i < count; i++) {
+      var idx = (seed + offsets[ti][i]) % pool.length;
+      // Walk forward to find an unseen idea
+      var attempts = 0;
+      while ((seen[pool[idx]] || usedInTrait[idx]) && attempts < pool.length) {
+        idx = (idx + 1) % pool.length;
+        attempts++;
+      }
+      var idea = pool[idx];
+      if (!seen[idea]) {
+        seen[idea] = true;
+        usedInTrait[idx] = true;
+        ideas.push({ idea: idea, trait: trait });
+      }
+    }
+  });
+
+  // Fill to 5 using all available pools in order
+  var allTraits = Object.keys(GIFT_POOLS);
+  var fillOffset = 0;
+  while (ideas.length < 5 && fillOffset < 50) {
+    var fillTrait = allTraits[fillOffset % allTraits.length];
+    // Prefer traits that were detected
+    if (fillOffset < traits.length * 5) {
+      fillTrait = traits[fillOffset % traits.length];
+    }
+    if (GIFT_POOLS[fillTrait]) {
+      var fillPool = GIFT_POOLS[fillTrait][rel] || GIFT_POOLS[fillTrait]['friend'];
+      var fillIdx = (seed + fillOffset * 3) % fillPool.length;
+      var fillIdea = fillPool[fillIdx];
+      if (!seen[fillIdea]) {
+        seen[fillIdea] = true;
+        ideas.push({ idea: fillIdea, trait: fillTrait });
+      }
+    }
+    fillOffset++;
+  }
+
+  return ideas.slice(0, 5);
+}
+
+/* -- REASONING NOTES -- */
+var REASONING = {
+  minimalist:   'This person values restraint and intention. They appreciate one well-chosen thing over many average ones.',
+  creative:     'This person is energised by making and expressing. The best version of their creative tools will be well-used and well-loved.',
+  experiential: 'This person values memories and moments over objects. An experience will outlast anything wrapped in a box.',
+  sensory:      'This person finds meaning in the quality of everyday pleasures - taste, scent, texture and ritual.',
+  intellectual: 'This person is curious and enjoys depth. Gifts that feed their thinking or satisfy their appetite for ideas land well.',
+  social:       'This person is energised by other people. Gifts that create shared moments, or enhance their social occasions, fit their character.',
+  sporting:     'This person is committed to their sport or activity. Quality gear, experiences or recovery tools are always well-received.',
+  fashion:      'This person cares about how they present themselves. Quality accessories or clothing in their aesthetic will be noticed and appreciated.',
+  homebody:     'This person finds comfort and joy at home. Gifts that make their home environment more pleasurable are the most meaningful.',
+  practical:    'This person appreciates function and quality. A gift they will genuinely use every day matters more to them than something decorative.',
+  sentimental:  'This person values meaning and memory in a gift. Something personal and thoughtful will be far more treasured than something expensive.',
+  luxury:       'This person appreciates quality and craftsmanship. They notice the difference - and they would never buy the finest version for themselves.',
+  nature:       'This person finds meaning in the natural world. Gifts connected to the outdoors, growing things or natural materials resonate deeply.',
+};
+
+/* -- MAIN GENERATE -- */
+function generateGift(val) {
+  if (!val) val = document.getElementById('main-input').value.trim();
+  /* Store for AI unlock */
+  _lastVal    = val;
+  _lastRel    = _relationship;
+  _lastBudget = _budget;
+  var traits = detectPersonality(val);
+  if (traits.length === 0) traits = ['sensory', 'experiential'];
+
+  var profileTag  = buildProfileTag(traits, val);
+  var direction   = DIRECTIONS[traits[0]] || DIRECTIONS['sensory'];
+  var categories  = CATEGORY_MAP[traits[0]] || ['Experiential','Physical','Personalised'];
+  var budgetTiers = BUDGET_BANDS[_budget] || BUDGET_BANDS['mid'];
+  var ideas       = pickIdeas(traits, _relationship, _budget, val);
+  var reasoning   = REASONING[traits[0]] || REASONING['sensory'];
+  var today       = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+
+  /* Profile */
+  document.getElementById('out-profile').textContent = profileTag;
+
+  /* Direction */
+  document.getElementById('out-direction').textContent = direction.dir;
+  document.getElementById('out-direction-sub').textContent = direction.sub + ' ' + reasoning;
+  document.getElementById('out-categories').innerHTML = categories.map(function(c) {
+    return '<span class="category-pill">' + c + '</span>';
+  }).join('');
+
+  /* Budget */
+  document.getElementById('out-budget').innerHTML = budgetTiers.tiers.map(function(t) {
+    return '<div class="budget-card' + (t.rec ? ' recommended' : '') + '">'
+      + '<div class="budget-tier-name">' + t.name + (t.rec ? ' \u2014 recommended' : '') + '</div>'
+      + '<div class="budget-range">' + t.range + '</div>'
+      + '<div class="budget-desc">' + t.desc + '</div>'
+      + '</div>';
+  }).join('');
+
+  /* Free ideas removed - AI unlock is the primary output */
+
+  /* Imprint */
+  var clean = spellCheck(val).corrected;
+  document.getElementById('out-imprint-text').textContent = clean;
+  document.getElementById('out-imprint-meta').textContent = 'This gift profile was derived from the description entered on ' + today + '.';
+
+  var section = document.getElementById('output-section');
+  section.className = 'visible';
+  section.scrollIntoView({ behavior:'smooth', block:'start' });
+
+  _spellChecked = false;
+  _ignoreSpell  = false;
+}
+
+
+/* ================================================================
+   AI PREMIUM ENGINE
+   DEV_MODE = true  -> mock response, zero API cost
+   DEV_MODE = false -> real Anthropic API call
+   PREMIUM_GATED = false -> anyone can unlock (testing)
+   PREMIUM_GATED = true  -> requires Lemon Squeezy payment
+================================================================ */
+var DEV_MODE       = false;
+var PREMIUM_GATED  = true;
+var _aiUnlocked    = false;
+var _lastVal       = '';
+var _lastRel       = '';
+var _lastBudget    = '';
+
+function toggleExample() {
+  var panel = document.getElementById('example-panel');
+  var label = document.getElementById('example-toggle-label');
+  var isOpen = panel.className === 'example-panel visible';
+  panel.className = isOpen ? 'example-panel' : 'example-panel visible';
+  label.innerHTML = isOpen ? 'See an example output &darr;' : 'Hide example &uarr;';
+}
+
+function unlockAI() {
+  if (PREMIUM_GATED) {
+    var val = _lastVal || document.getElementById('main-input').value.trim();
+    var rel = _lastRel || _relationship;
+    var bud = _lastBudget || _budget;
+    sessionStorage.setItem('gift_data', JSON.stringify({ val: val, rel: rel, bud: bud }));
+    window.location.href = 'https://your-lemon-squeezy-link.com';
+    return;
+  }
+  _aiUnlocked = true;
+  var val = _lastVal || document.getElementById('main-input').value.trim();
+  var rel = _lastRel || _relationship;
+  var bud = _lastBudget || _budget;
+  runAIGift(val, rel, bud);
+}
+
+function runAIGift(val, rel, budget) {
+  // Show the section
+  var section = document.getElementById('ai-premium-section');
+  section.className = 'ai-premium-section visible';
+
+  // Hide results, show loader
+  document.getElementById('ai-loading').style.display = 'block';
+  document.getElementById('ai-narrative-card').className = 'ai-result-card';
+  document.getElementById('ai-ideas-card').className = 'ai-result-card';
+
+  // Scroll to it
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  var loadingMsgs = [
+    'Reading their personality signals...',
+    'Considering their lifestyle...',
+    'Matching to your budget and relationship...',
+    'Generating personalised ideas...',
+    'Writing individual reasoning...'
+  ];
+  var msgIdx = 0;
+  var loadingEl = document.getElementById('ai-loading-text');
+  var msgInterval = setInterval(function() {
+    msgIdx = (msgIdx + 1) % loadingMsgs.length;
+    if (loadingEl) loadingEl.textContent = loadingMsgs[msgIdx];
+  }, 800);
+
+  if (DEV_MODE) {
+    // Simulate network delay then return mock response
+    setTimeout(function() {
+      clearInterval(msgInterval);
+      var mockResponse = getMockResponse(val, rel, budget);
+      renderAIResponse(mockResponse);
+    }, 3200);
+  } else {
+    callAnthropicAPI(val, rel, budget, function(response) {
+      clearInterval(msgInterval);
+      renderAIResponse(response);
+    }, function(err) {
+      clearInterval(msgInterval);
+      document.getElementById('ai-loading').style.display = 'none';
+      alert('Something went wrong. Please try again.');
+    });
+  }
+}
+
+function buildAvoidList(lower, rel) {
+  var avoids = [];
+
+  var hasMinimal  = /minimal|simple|clean|clutter/.test(lower);
+  var hasSport    = /golf|sport|gym|fitness|running|cycling|swim|tennis|cricket|rugby|football/.test(lower);
+  var hasLuxury   = /luxury|premium|quality|finest|cashmere/.test(lower);
+  var hasSocial   = /pub|bar|social|party|dinner|drink|going out/.test(lower);
+  var hasPractical= /practical|functional|useful|tool|gadget/.test(lower);
+  var hasSentiment= /sentimental|memory|personal|meaningful/.test(lower);
+  var hasCreative = /creative|art|design|craft|paint|music/.test(lower);
+  var hasIntellect= /book|read|learn|curious|research|podcast/.test(lower);
+  var hasNature   = /garden|outdoor|nature|plant|walk|hike/.test(lower);
+
+  if (hasMinimal) avoids.push({
+    name: 'Novelty or cluttered gift sets',
+    why: 'This person values simplicity and intentional objects. A hamper of mixed items or a novelty gift will feel at odds with who they are. One excellent thing is always better than many average ones.'
+  });
+  if (hasSport) avoids.push({
+    name: 'Generic sports gift sets or clothing in the wrong brand',
+    why: 'Serious sportspeople are particular about kit. A generic branded sports bag or clothing from a brand they do not use will feel unconsidered. Research what they actually use before buying anything sport-related.'
+  });
+  if (hasSocial) avoids.push({
+    name: 'Solitary or stay-at-home gifts',
+    why: 'This person is energised by being with others. A gift designed for a quiet evening in - a bathrobe, a puzzle, a solo experience - will not connect with who they are.'
+  });
+  if (hasPractical) avoids.push({
+    name: 'Decorative or purely aesthetic gifts',
+    why: 'This is someone who values usefulness. A decorative object with no function - a ornament, a novelty item, anything that simply looks nice - will be appreciated politely and forgotten quickly.'
+  });
+  if (hasCreative) avoids.push({
+    name: 'Generic creativity kits or beginner sets',
+    why: 'A creative person already has their materials and their process. A starter kit or generic art set implies they are just beginning - which will feel slightly condescending. Invest in quality materials they already use, not entry-level alternatives.'
+  });
+  if (hasIntellect) avoids.push({
+    name: 'Popular bestsellers they have almost certainly already read',
+    why: 'An intellectual reader stays ahead of bestseller lists. Giving them a book that has been in Waterstones window for six months risks duplication and suggests you did not look very hard. Go for the specific, the obscure, or the edition that makes it special.'
+  });
+  if (hasNature) avoids.push({
+    name: 'Artificial or plastic plants and overly styled home decor',
+    why: 'Someone connected to the natural world will notice and dislike anything artificial or synthetic. Real plants, natural materials and organic forms are what resonates - avoid anything that mimics nature rather than embodying it.'
+  });
+  if (rel === 'colleague' || rel === 'client') avoids.push({
+    name: 'Anything too personal or intimate',
+    why: 'Professional gifting has implicit boundaries. Fragrance, clothing or anything that references their personal life too directly can create awkwardness. Keep it warm but boundaried - consumables, quality objects and experiences work best.'
+  });
+
+  // Always add at least one universal avoid
+  if (avoids.length === 0) avoids.push({
+    name: 'Generic gift cards with no context',
+    why: 'A gift card without a note explaining why you chose that particular place or brand says very little about the person. If you use a gift card, pair it with a handwritten note that shows you thought about why that specific place matters to them.'
+  });
+
+  return avoids.slice(0, 3);
+}
+
+function getMockResponse(val, rel, budget) {
+  var lower = val.toLowerCase();
+  var bLabel = { low:'under £30', mid:'£30-£75', high:'£75-£150', premium:'£150+' }[budget] || '£30-£75';
+  var relLabel = { partner:'your partner', family:'them', friend:'your friend', colleague:'your colleague', client:'your client', lastminute:'them' }[rel] || 'them';
+
+  // Detect key signals from the actual input
+  var hasGolf      = /golf/.test(lower);
+  var hasSport     = /golf|football|cricket|rugby|tennis|cycling|running|gym|swim|sport/.test(lower);
+  var hasFashion   = /cloth|fashion|style|shoes|dress|bag|accessori|jewel|watch/.test(lower);
+  var hasSocial    = /pub|bar|social|friend|party|dinner|going out|outing|drink/.test(lower);
+  var hasCoffee    = /coffee|cafe|espresso/.test(lower);
+  var hasWine      = /wine|champagne|prosecco|fizz/.test(lower);
+  var hasBeer      = /beer|ale|craft|brew/.test(lower);
+  var hasWhisky    = /whisky|whiskey|bourbon|scotch/.test(lower);
+  var hasFood      = /food|cook|bak|eat|restaurant|foodie|chef/.test(lower);
+  var hasReading   = /book|read|novel|fiction|nonfiction/.test(lower);
+  var hasTravel    = /travel|adventure|explore|trip|holiday/.test(lower);
+  var hasMinimal   = /minimal|simple|clean|clutter/.test(lower);
+  var hasNature    = /garden|outdoor|nature|plant|walk|hike|countryside/.test(lower);
+  var hasCreative  = /art|design|craft|paint|draw|photo|music|creative/.test(lower);
+  var hasHome      = /home|cosy|interior|decor|stay in|film|movie/.test(lower);
+  var hasTech      = /tech|gadget|phone|laptop|earphone|headphone/.test(lower);
+  var hasLuxury    = /luxury|premium|quality|finest|cashmere|silk|champagne/.test(lower);
+  var hasFunny     = /funny|humour|humor|laugh|joke|dry/.test(lower);
+  var hasClocks    = /clock|watch|time/.test(lower);
+  var hasCollect   = /collect|collect/.test(lower);
+
+  // Build a narrative that references what was actually described
+  var signals = [];
+  if (hasSport) signals.push('their sporting life');
+  if (hasGolf) signals.push('their passion for golf');
+  if (hasFashion) signals.push('their sense of style');
+  if (hasSocial) signals.push('how much they enjoy social occasions');
+  if (hasCoffee) signals.push('their love of coffee');
+  if (hasWine || hasBeer || hasWhisky) signals.push('their appreciation for a good drink');
+  if (hasFood) signals.push('their relationship with food');
+  if (hasReading) signals.push('their love of reading');
+  if (hasTravel) signals.push('their appetite for travel');
+  if (hasNature) signals.push('their connection to the outdoors');
+  if (hasCreative) signals.push('their creative side');
+  if (hasMinimal) signals.push('their minimalist sensibility');
+  if (hasClocks || hasCollect) signals.push('their collector instinct');
+
+  var signalText = signals.length > 0
+    ? 'The clearest signals here are ' + signals.slice(0,3).join(', ') + '.'
+    : 'There is a clear picture of this person in your description.';
+
+  var narrative = 'Reading your description of ' + relLabel + ', ' + signalText
+    + ' The best gift for this person is one that shows you were paying attention to the specifics'
+    + ' - not a generic selection, but something that connects directly to who they are.'
+    + ' With a budget of ' + bLabel + ', there is real range here to do something genuinely memorable.';
+
+  // Build ideas pool based on detected signals - pick most relevant
+  var allIdeas = [];
+
+  if (hasGolf) allIdeas.push(
+    { name: 'A round at a course they have been wanting to play', why: 'Golf is personal - the course matters as much as the game. A booking at somewhere they have mentioned or a new course in a great location is a gift that becomes a story.', where: 'GolfNow, the club directly, or a golf experience day via Golfbreaks.com' },
+    { name: 'A personalised golf ball set with their initials or a private message', why: 'Used on every round and noticed every time. Premium balls (Titleist Pro V1 or Callaway Chrome Soft) with personalisation elevate a practical gift into something considered.', where: 'Titleist personalisation at titleist.co.uk, American Golf, or Golfballs.com' },
+    { name: 'A premium golf accessory they would not buy themselves', why: 'A quality rangefinder, a Motocaddy GPS watch, or a premium leather scorecard holder - the kind of thing they want but would never justify spending on themselves.', where: 'American Golf, Scottsdale Golf, or direct from brand websites' }
+  );
+
+  if (hasWine) allIdeas.push(
+    { name: 'A curated case of natural or fine wine from a specialist', why: 'Not a supermarket selection - a hand-picked case from a merchant who knows their stuff. Six bottles, each different, each with tasting notes. Genuinely educational and enjoyable.', where: 'Honest Grapes, Vinvm, Berry Bros and Rudd, or a local independent wine merchant' },
+    { name: 'A private wine tasting experience for two', why: 'An evening guided by a sommelier through six to eight wines is memorable in a way a bottle never quite is. Works well as a date or a shared experience with you.', where: 'Vinopolis, local wine bars offering tasting evenings, or The Wine Show experiences' }
+  );
+
+  if (hasBeer) allIdeas.push(
+    { name: 'A craft beer subscription or curated mixed case', why: 'A rotating monthly selection from independent breweries means every delivery is a discovery. Far more interesting than a gift card.', where: 'Beer52, Honest Brew, or a local craft brewery with subscription or gift boxes' },
+    { name: 'A premium glassware set from a specialist brewery', why: 'The right glass changes the experience. A set of tulip glasses, Teku glasses or branded pint glasses from a brewery they love makes every pint better.', where: 'BrewDog, Cloudwater, or specialist beer shops like Hop Burns and Black' }
+  );
+
+  if (hasWhisky) allIdeas.push(
+    { name: 'A whisky tasting masterclass at a distillery or bar', why: 'Two hours guided through five or six drams with expert commentary is a genuinely excellent evening. Especially good if there is a distillery they have mentioned.', where: 'The Whisky Shop experiences, local whisky bars, or direct from distillery visitor centres' },
+    { name: 'A bottle from a distillery they have not tried yet', why: 'The joy of whisky is discovery. A bottle from a smaller independent distillery - Daftmill, Ncnean, or Ardnamurchan - feels considered and opens a new direction for them.', where: 'Master of Malt, The Whisky Exchange, or independent off-licences' }
+  );
+
+  if (hasFashion) allIdeas.push(
+    { name: 'A quality accessory from a brand in their aesthetic', why: 'A leather belt, card holder, or silk scarf in the right material and colour from a brand they respect lands well. The key is matching their aesthetic, not your taste.', where: 'Depends on their style - ask yourself what brands they already wear and go one level up' },
+    { name: 'A voucher for a personal styling session', why: 'An hour with a good stylist who shops with them changes how they dress for years. Particularly powerful if they have mentioned wanting to update their wardrobe.', where: 'Thread.com, personal stylists via Instagram, or department store personal shopping services' }
+  );
+
+  if (hasSocial) allIdeas.push(
+    { name: 'A booking at a restaurant or bar they have been wanting to try', why: 'Removes the "we keep meaning to go" barrier and creates a committed occasion. The act of booking is part of the gift - it makes the plan real.', where: 'OpenTable, Resy, or direct with the venue - bonus points for somewhere with a waiting list' },
+    { name: 'A premium games night set with quality drinks and snacks', why: 'For someone who loves being with people, a box of great games plus a carefully chosen bottle and snacks creates an instant occasion at home.', where: 'Coiledspring Games for quality games, combine with a wine merchant or deli selection' }
+  );
+
+  if (hasFood || hasCoffee) allIdeas.push(
+    { name: 'A speciality coffee subscription from a micro-roaster', why: 'For a coffee lover, a monthly delivery of freshly roasted single-origin beans from a roaster they have not tried is a genuine discovery. Far better than any coffee shop gift card.', where: 'Pact Coffee, Origin Coffee, Rave Coffee, or Square Mile - all do gift subscriptions' },
+    { name: 'A masterclass with a chef or food producer they admire', why: 'A morning in a kitchen learning a specific technique - pasta, bread, pastry - is the kind of gift that gets talked about for months afterwards.', where: 'Waitrose Cookery School, Borough Market events, or local cookery schools' }
+  );
+
+  if (hasReading) allIdeas.push(
+    { name: 'A rare, signed or beautifully produced edition of a book they love', why: 'Not just a book - a physical object worth keeping. A signed first edition, a special Folio Society edition, or a beautiful illustrated version of something they care about.', where: 'AbeBooks for rare editions, The Folio Society, or Waterstones for signed stock' }
+  );
+
+  if (hasNature) allIdeas.push(
+    { name: 'A foraging day or wild food experience with a guide', why: 'A half-day in woodland or on a coast learning what is edible is memorable, unusual and directly connected to their love of the natural world.', where: 'Find a Forager, local foraging courses via Airbnb Experiences, or the Woodland Trust events' },
+    { name: 'A premium pair of binoculars for birdwatching or wildlife', why: 'A quality pair of compact binoculars changes how they experience the outdoors completely. Brands like Kowa, Swarovski entry-level, or Zeiss Terra are the sweet spot.', where: 'RSPB shop, Optics Warehouse, or Wex Photo Video' }
+  );
+
+  if (hasClocks || hasCollect) allIdeas.push(
+    { name: 'A vintage or limited piece to add to their collection', why: 'A collector always appreciates something that fits their collection rather than duplicates it. Research what they have and find the gap - a piece from a different era, maker or style.', where: 'eBay for vintage, Etsy for small makers, or specialist collector shops in their category' }
+  );
+
+  if (hasMinimal) allIdeas.push(
+    { name: 'A single beautiful object from a named maker', why: 'For a minimalist, one excellent thing is far better than several average ones. A handthrown ceramic piece, a quality piece of Japanese stationery, or a single considered object.', where: 'Etsy for independent makers, The New Craftsmen, or specialty design shops' }
+  );
+
+  if (hasTech) allIdeas.push(
+    { name: 'A premium upgrade to a device or accessory they use daily', why: 'The best version of something they already use and notice quality in. Noise-cancelling earbuds, a quality wireless charger, or a premium keyboard - whatever is in their daily kit.', where: 'Apple Store, Bang and Olufsen, or specialist tech retailers depending on the item' }
+  );
+
+  if (hasLuxury) allIdeas.push(
+    { name: 'Something in cashmere they would never justify buying themselves', why: 'A cashmere jumper, gloves or throw in exactly the right colour is the kind of gift that gets worn for a decade and always remembered. Quality over quantity.', where: 'John Smedley, Brora, N.Peal, or Uniqlo for accessible cashmere' }
+  );
+
+  // Always add a universal fallback idea relevant to the relationship
+  var fallbacks = {
+    partner:   { name: 'An experience booked specifically for the two of you', why: 'The most personal gift you can give is dedicated time. A cooking class, a spa day, a gig - something with a date in the diary that becomes an occasion.', where: 'Virgin Experience Days, Red Letter Days, or directly with local venues' },
+    family:    { name: 'A personalised keepsake that references a shared family memory', why: 'Something that only your family would understand - a map of a meaningful place, a print of a date that matters, or a commissioned illustration of a shared memory.', where: 'Not On The High Street, Etsy commissioned illustrators, or Artifact Uprising for photo products' },
+    friend:    { name: 'A gift that creates an occasion for the two of you', why: 'The best friend gifts create time together. Two tickets, a booking for two, a class for two - something that becomes a shared memory rather than a wrapped object.', where: 'Local event listings, Dice, Eventbrite, or book directly with venues' },
+    colleague: { name: 'A premium consumable they will genuinely enjoy', why: 'For a colleague, something enjoyable and appropriate - a quality food or drink selection, a good plant, or a premium notebook - lands better than anything too personal.', where: 'Fortnum and Mason, Bettys, Daylesford, or a well-curated local deli' },
+    client:    { name: 'A curated hamper from a quality retailer with a handwritten note', why: 'Professional gifting is about warmth and quality. A well-chosen hamper with a personal note is always appropriate and always appreciated.', where: 'Fortnum and Mason, Bettys, or a specialist food hall in your area' },
+    lastminute:{ name: 'A gift card for somewhere they genuinely shop or eat', why: 'Last minute does not have to mean thoughtless. A gift card for a restaurant they love, a bookshop they use, or a brand they wear is immediately useful and genuinely welcome.', where: 'Buy directly from the brand or retailer - most offer instant digital delivery' },
+  };
+  if (fallbacks[rel]) allIdeas.push(fallbacks[rel]);
+
+  // Deduplicate and take first 5
+  var seen = {};
+  var finalIdeas = [];
+  allIdeas.forEach(function(idea) {
+    if (!seen[idea.name] && finalIdeas.length < 5) {
+      seen[idea.name] = true;
+      finalIdeas.push(idea);
+    }
+  });
+
+  // If still under 5, add generic high-quality fillers
+  var fillers = [
+    { name: 'A high-quality personalised item from an independent maker', why: 'Something made specifically for them, by a real person, carries weight that no mass-produced gift can match.', where: 'Etsy, Not On The High Street, or The New Craftsmen' },
+    { name: 'An experience in a category they have mentioned', why: 'Memories outlast objects. A booked experience in something connected to their interests creates a story they will tell.', where: 'Airbnb Experiences, Virgin Experience Days, or local specialist providers' },
+    { name: 'A premium version of something in their daily routine', why: 'The best version of something they use every day is often the most appreciated gift - because they notice the difference every single time they use it.', where: 'Specialist retailers in their category - focus on quality over brand recognition' },
+  ];
+  fillers.forEach(function(f) {
+    if (!seen[f.name] && finalIdeas.length < 5) {
+      seen[f.name] = true;
+      finalIdeas.push(f);
+    }
+  });
+
+  return { narrative: narrative, ideas: finalIdeas };
+}
+
+var _allIdeas   = [];
+var _avoidItems = [];
+
+function ideaHTML(idea, idx) {
+  return '<div class="ai-idea-item">'
+    + '<div class="ai-idea-name">' + idx + '. ' + idea.name + '</div>'
+    + '<div class="ai-idea-why">' + idea.why + '</div>'
+    + '<div class="ai-idea-where">Where to find it: ' + idea.where + '</div>'
+    + '</div>';
+}
+
+function renderAIResponse(data) {
+  document.getElementById('ai-loading').style.display = 'none';
+
+  // Store all ideas and avoid items globally for unlock
+  _allIdeas   = data.ideas || [];
+  _avoidItems = data.avoid || [];
+
+  // Narrative
+  document.getElementById('ai-narrative-text').textContent = data.narrative;
+  document.getElementById('ai-narrative-card').className = 'ai-result-card visible';
+
+  // Show ideas card
+  document.getElementById('ai-ideas-card').className = 'ai-result-card visible';
+
+  // First idea — always free
+  if (_allIdeas.length > 0) {
+    document.getElementById('ai-idea-first').innerHTML = ideaHTML(_allIdeas[0], 1);
+  }
+
+  // Build blurred previews of remaining 4 for the locked overlay
+  var blurHTML = '';
+  _allIdeas.slice(1).forEach(function(idea, i) {
+    blurHTML += ideaHTML(idea, i+2);
+  });
+  document.getElementById('ai-ideas-blur').innerHTML = blurHTML;
+
+  // In dev mode unlock immediately, otherwise show lock
+  if (DEV_MODE) {
+    unlockRemaining();
+  }
+}
+
+function unlockRemaining() {
+  if (PREMIUM_GATED) {
+    sessionStorage.setItem('gift_data', JSON.stringify({ val: _lastVal, rel: _lastRel, bud: _lastBudget }));
+    window.location.href = 'https://your-lemon-squeezy-link.com';
+    return;
+  }
+
+  // Show remaining ideas
+  var remainHTML = '';
+  _allIdeas.slice(1).forEach(function(idea, i) {
+    remainHTML += ideaHTML(idea, i+2);
+  });
+  document.getElementById('ai-ideas-remaining').innerHTML = remainHTML;
+  document.getElementById('ai-ideas-remaining').style.display = 'flex';
+  document.getElementById('ai-ideas-remaining').style.flexDirection = 'column';
+  document.getElementById('ai-ideas-remaining').style.gap = '10px';
+  document.getElementById('ai-ideas-remaining').style.marginTop = '10px';
+
+  // Hide locked overlay
+  document.getElementById('ai-ideas-locked').style.display = 'none';
+
+  // Show avoid section
+  if (_avoidItems.length > 0) {
+    var avoidHTML = '';
+    _avoidItems.forEach(function(item) {
+      avoidHTML += '<div class="avoid-item">'
+        + '<div class="avoid-name">Avoid: ' + item.name + '</div>'
+        + '<div class="avoid-why">' + item.why + '</div>'
+        + '</div>';
+    });
+    document.getElementById('ai-avoid-list').innerHTML = avoidHTML;
+    document.getElementById('ai-avoid-card').style.display = 'block';
+  }
+}
+
+function callAnthropicAPI(val, rel, budget, onSuccess, onError) {
+  var budgetLabels = { low:'under £30', mid:'£30-£75', high:'£75-£150', premium:'£150+' };
+  var relLabels    = { partner:'romantic partner', family:'family member', friend:'friend', colleague:'work colleague', client:'professional client', lastminute:'someone (last minute)' };
+
+  var systemPrompt = 'You are a gift intelligence engine. You receive a description of a person and generate highly specific, personalised gift recommendations. Never give generic suggestions. Every idea must be specific to what was described. Always include where to buy each gift. Respond only in valid JSON with this structure: {"narrative": "string", "ideas": [{"name":"","why":"","where":""}], "avoid": [{"name":"","why":""}]}. No markdown, no preamble, just the JSON object.';
+
+  var relLabel    = relLabels[rel] || rel;
+  var budgetLabel = budgetLabels[budget] || budget;
+  var userPrompt  = 'Person description: ' + val
+    + '. Relationship: ' + relLabel
+    + '. Budget: ' + budgetLabel
+    + '. Generate 5 specific gift ideas. Be specific about products, brands and where to find them.'
+    + ' Write the narrative as one paragraph about this specific person and why the gifts suit them.'
+    + ' Include 2-3 things to avoid with reasons.';
+
+  fetch('https://rcloop-proxy.vercel.app/api/ai', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ system: systemPrompt, prompt: userPrompt })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    var text = data.content && data.content[0] ? data.content[0].text : '';
+    onSuccess(JSON.parse(text.replace(/```json|```/g, '').trim()));
+  })
+  .catch(function(err) { onError(err); });
+}
+
+/* -- Return from Lemon Squeezy payment -- */
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.location.search.indexOf('unlocked=true') !== -1) {
+    var stored = sessionStorage.getItem('gift_data');
+    if (stored) {
+      try {
+        var d = JSON.parse(stored);
+        if (d.val) {
+          _lastVal     = d.val;
+          _lastRel     = d.rel || 'partner';
+          _lastBudget  = d.bud || 'mid';
+          _relationship = _lastRel;
+          _budget       = _lastBudget;
+          _aiUnlocked   = true;
+          runAIGift(d.val, _lastRel, _lastBudget);
+        }
+      } catch(e) {}
+    }
+  }
+});
+
+</script>
+
+<!-- GoatCounter Analytics -->
+<script data-goatcounter="https://signal333.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
