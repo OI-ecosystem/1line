@@ -1,4 +1,4 @@
-<!-- 1LINE Gift v1.2 | Updated: 17 May 2026 16:35 | No second gate - all 5 ideas render immediately -->
+<!-- 1LINE Gift v1.3 | Updated: 18 May 2026 | Lemon Squeezy URL live -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1446,7 +1446,7 @@ function generateGift(val) {
    PREMIUM_GATED = true  -> requires Lemon Squeezy payment
 ================================================================ */
 var DEV_MODE       = false;
-var PREMIUM_GATED  = false;
+var PREMIUM_GATED  = true;
 var _aiUnlocked    = false;
 var _lastVal       = '';
 var _lastRel       = '';
@@ -1466,7 +1466,7 @@ function unlockAI() {
     var rel = _lastRel || _relationship;
     var bud = _lastBudget || _budget;
     sessionStorage.setItem('gift_data', JSON.stringify({ val: val, rel: rel, bud: bud }));
-    window.location.href = 'https://your-lemon-squeezy-link.com';
+    window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/bf8cfe64-3345-4374-b7b0-9d2c7d2326a3';
     return;
   }
   _aiUnlocked = true;
