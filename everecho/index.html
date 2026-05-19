@@ -1,4 +1,4 @@
-<!-- 1LINE EverEcho v1.7 | Updated: 20 May 2026 00:10 | Dynamic PDF layout fix -->
+<!-- 1LINE EverEcho v1.9 | Updated: 20 May 2026 00:30 | Bulletproof PDF layout -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -1261,22 +1261,35 @@ function buildPDF(name, altName, colour, colName, meaning, imprint, nums, today)
   doc.setDrawColor(220,218,213);
   doc.line(W/2 - 20, 80, W/2 + 20, 80);
 
+  /* MEANING — shrink font until it fits in max 4 lines */
   doc.setFont('times','italic');
-  doc.setFontSize(11);
   doc.setTextColor(74, 74, 70);
-  var meaningLines = doc.splitTextToSize(meaning, W - 40);
+  var mSize = 11;
+  var meaningLines;
+  while (mSize >= 8) {
+    doc.setFontSize(mSize);
+    meaningLines = doc.splitTextToSize(meaning, W - 40);
+    if (meaningLines.length <= 4) break;
+    mSize--;
+  }
+  /* If still too long, truncate to 4 lines */
+  if (meaningLines.length > 4) meaningLines = meaningLines.slice(0, 4);
   doc.text(meaningLines, W/2, 90, { align:'center' });
-  var curY = 90 + (meaningLines.length * 7) + 10;
+
+  /* Fixed block heights below meaning — total = 98mm available (90 to 188) */
+  /* meaning block: max 4 lines * 6.5 = 26mm, so meaning ends by y=116 */
+  /* remaining sections fit in 116 to 188 = 72mm — plenty */
+  var curY = 90 + (meaningLines.length * 6.5) + 7;
 
   doc.setFont('times','normal');
   doc.setFontSize(9);
   doc.setTextColor(136, 136, 132);
   doc.text('LUCKY NUMBERS', W/2, curY, { align:'center' });
-  curY += 10;
+  curY += 9;
   doc.setFontSize(18);
   doc.setTextColor(26, 26, 24);
   doc.text(nums, W/2, curY, { align:'center' });
-  curY += 14;
+  curY += 11;
 
   doc.setFontSize(8);
   doc.setTextColor(180,180,175);
@@ -1285,7 +1298,7 @@ function buildPDF(name, altName, colour, colName, meaning, imprint, nums, today)
   doc.setFontSize(12);
   doc.setTextColor(74,74,70);
   doc.text(colName, W/2, curY, { align:'center' });
-  curY += 14;
+  curY += 11;
 
   doc.setDrawColor(220,218,213);
   doc.line(14, curY, W-14, curY);
@@ -1294,12 +1307,14 @@ function buildPDF(name, altName, colour, colName, meaning, imprint, nums, today)
   doc.setFontSize(7);
   doc.setTextColor(180,180,175);
   doc.text('PRESERVED PARENTAL MOMENT', W/2, curY, { align:'center' });
-  curY += 8;
+  curY += 7;
 
+  /* IMPRINT — cap at 3 lines, font size 9, fits in remaining space */
   doc.setFont('times','italic');
   doc.setFontSize(9);
   doc.setTextColor(136,136,132);
   var imprintLines = doc.splitTextToSize(imprint, W - 36);
+  if (imprintLines.length > 3) imprintLines = imprintLines.slice(0, 3);
   doc.text(imprintLines, W/2, curY, { align:'center' });
 
   doc.setDrawColor(220,218,213);
