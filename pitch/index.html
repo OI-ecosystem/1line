@@ -1,4 +1,4 @@
-<!-- 1LINE Pitch v4.7 | Updated: 20 May 2026 | Fix unlock reads input directly like Gift -->
+<!-- 1LINE Pitch v4.8 | Updated: 20 May 2026 | Fix free teaser sentence + scroll to AI results -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -551,7 +551,7 @@ function buildPositioningOptions(str) {
   var a = method
     ? 'I help ' + who + ' ' + outcome + ' through ' + method + '.'
     : 'I help ' + who + ' ' + outcome + ' — without the guesswork.';
-  var b = 'I help ' + who + ' close the gap between where they are and the ' + outcome + ' they need.';
+  var b = 'I help ' + who + ' ' + outcome + ' — by closing the gap between where they are and where they need to be.';
   var c = founderType + ' helping ' + who + ' ' + outcome + '.';
 
   /* Score — prefer A if method found, B otherwise */
@@ -787,6 +787,10 @@ function renderAIPitch(d) {
   document.getElementById('ai-avoid').textContent         = d.avoid || '';
 
   document.getElementById('ai-output-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(function() {
+    var aiResults = document.getElementById('ai-results');
+    if (aiResults) aiResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 300);
 }
 
 /* ── Return from Lemon Squeezy ── */
