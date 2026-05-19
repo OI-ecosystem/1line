@@ -1,1 +1,1159 @@
+<!-- 1LINE Bio v2.3 | Updated: 20 May 2026 | Lemon Squeezy URL added -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1LINE Bio — Your identity compressed into every platform bio you need</title>
+  <meta name="description" content="Enter one line about who you are. 1LINE Bio derives a LinkedIn bio, X bio, creator bio, minimal bio, identity tag, positioning category and tone signature from your exact words." />
+  <meta name="keywords" content="bio generator, LinkedIn bio, Twitter bio, personal branding, identity statement, professional bio, creator bio" />
+  <meta property="og:title" content="1LINE Bio — Identity compression from one line" />
+  <meta property="og:description" content="Your LinkedIn bio, X bio, creator bio and identity tag — all derived from one honest line about who you are." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --cream: #FAF8F5;
+      --white: #FFFFFF;
+      --ink: #1A1A18;
+      --ink-mid: #4A4A46;
+      --ink-muted: #888884;
+      --ink-faint: #C4C4BE;
+      --border: rgba(26,26,24,0.10);
+      --border-mid: rgba(26,26,24,0.18);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --max: 640px;
+      --green: #2D7A5A;
+      --red: #C0392B;
+      --amber: #A0620A;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+    /* ── NAV ── */
+    nav {
+      padding: 28px 0 0;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    .brand {
+      font-family: var(--serif);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    /* ── 1LINE WORDMARK ── */
+    .oneline-mark {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.04em;
+      line-height: 1;
+      text-decoration: none;
+    }
+    .oneline-mark .n {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 1em;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .oneline-mark .l {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 0.5em;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #1A7FE8;
+      position: relative;
+      top: -0.1em;
+    }
+
+    /* ── B-USEFUL BADGE ── */
+    .buseful-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #1A2744;
+      border-radius: 5px;
+      padding: 5px 12px 5px 10px;
+      text-decoration: none;
+      margin-bottom: 16px;
+      transition: opacity 0.2s;
+    }
+    .buseful-badge:hover { opacity: 0.82; }
+    .buseful-badge-text {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      color: #FFFFFF;
+      letter-spacing: 0.02em;
+    }
+    .buseful-badge-text em { font-style: italic; color: #C4A96A; }
+
+    /* ── HERO ── */
+    .hero { padding: 64px 0 48px; border-bottom: 0.5px solid var(--border); }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(30px, 5vw, 42px);
+      font-weight: 300;
+      line-height: 1.18;
+      color: var(--ink);
+      margin-bottom: 18px;
+      letter-spacing: -0.01em;
+    }
+    .hero-sub {
+      font-size: 15px;
+      color: var(--ink-mid);
+      font-weight: 300;
+      max-width: 480px;
+      line-height: 1.65;
+    }
+
+    /* ── INPUT ── */
+    .input-section { padding: 48px 0 0; }
+    .input-prompt {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .input-hint {
+      font-size: 12px;
+      color: var(--ink-muted);
+      margin-bottom: 22px;
+      line-height: 1.6;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 96px;
+      padding: 16px 18px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--white);
+      border: 0.5px solid var(--border-mid);
+      border-radius: 10px;
+      resize: none;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    textarea::placeholder { color: var(--ink-faint); }
+    textarea:focus { border-color: var(--ink-mid); }
+
+    .char-counter {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--ink-muted);
+    }
+    .char-count { font-weight: 500; }
+    .char-count.valid { color: var(--green); }
+    .char-count.over  { color: var(--red); }
+
+    /* ── SPELL PANEL ── */
+    .spell-panel {
+      display: none;
+      margin-top: 14px;
+      background: #FFFBF0;
+      border: 0.5px solid rgba(160,98,10,0.22);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+    .spell-panel.visible { display: block; }
+    .spell-heading {
+      font-size: 11px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 12px;
+    }
+    .spell-corrected {
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.7;
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+    .spell-corrected mark {
+      background: rgba(160,98,10,0.13);
+      color: var(--amber);
+      border-radius: 2px;
+      padding: 0 3px;
+    }
+    .spell-actions { display: flex; gap: 8px; }
+    .spell-btn {
+      padding: 9px 18px;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      border: 0.5px solid;
+    }
+    .spell-btn:hover { opacity: 0.72; }
+    .spell-btn.accept { background: var(--ink); color: var(--white); border-color: var(--ink); }
+    .spell-btn.ignore { background: transparent; color: var(--ink-mid); border-color: var(--border-mid); }
+
+    /* ── GENERATE ── */
+    .generate-btn {
+      width: 100%;
+      margin-top: 16px;
+      padding: 15px 24px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--ink);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .generate-btn:hover:not(:disabled) { opacity: 0.82; }
+    .generate-btn:active:not(:disabled) { transform: scale(0.99); }
+    .generate-btn:disabled { opacity: 0.28; cursor: default; }
+    .input-provenance {
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--ink-faint);
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      padding: 56px 0 48px;
+      border-top: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
+      margin-top: 56px;
+    }
+    .section-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 32px;
+    }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .step-num {
+      font-family: var(--serif);
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--ink-faint);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .step-text { font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
+
+    /* ── OUTPUT ── */
+    #output-section {
+      display: none;
+      padding: 56px 0;
+      border-top: 0.5px solid var(--border);
+      margin-top: 56px;
+    }
+    #output-section.visible { display: block; }
+
+    .out-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .out-card {
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 12px;
+    }
+
+    /* Primary bio */
+    .primary-bio {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.5;
+      margin-top: 6px;
+    }
+
+    /* Platform variants */
+    .platforms-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .platform-card {
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      position: relative;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .platform-card:hover { border-color: var(--border-mid); }
+    .platform-name {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .platform-bio {
+      font-size: 13px;
+      color: var(--ink);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+    .copy-btn {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      background: none;
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 8px;
+      cursor: pointer;
+      font-family: var(--sans);
+      transition: all 0.15s;
+    }
+    .copy-btn:hover { color: var(--ink); border-color: var(--border-mid); }
+    .copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+    /* Identity tag + tone row */
+    .meta-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .tag-value {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-top: 6px;
+    }
+    .tone-value {
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-top: 6px;
+    }
+    .tone-sub {
+      font-size: 11px;
+      color: var(--ink-muted);
+      margin-top: 5px;
+    }
+
+    /* Positioning category */
+    .category-value {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--ink);
+      margin-top: 6px;
+    }
+    .category-sub {
+      font-size: 11px;
+      color: var(--ink-muted);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    /* Premium card */
+    .premium-card {
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .premium-blur {
+      filter: blur(4px);
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.5;
+      font-family: var(--serif);
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.7;
+      margin-top: 6px;
+    }
+    .premium-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(250,248,245,0.82);
+      border-radius: 12px;
+      gap: 10px;
+    }
+    .premium-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+    .premium-btn {
+      padding: 10px 22px;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--ink);
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .premium-btn:hover { opacity: 0.8; }
+    .premium-price {
+      font-size: 11px;
+      color: var(--ink-muted);
+    }
+
+    /* Imprint */
+    .imprint-card {
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 12px;
+    }
+    .imprint-text {
+      font-family: var(--serif);
+      font-size: 15px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.75;
+      border-left: 2px solid var(--border-mid);
+      padding-left: 16px;
+      margin: 12px 0 10px;
+    }
+    .imprint-meta { font-size: 11px; color: var(--ink-muted); letter-spacing: 0.03em; }
+
+    /* Cross-sell nudge */
+    .crosssell-nudge {
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-bottom: 12px;
+      display: none;
+    }
+    .crosssell-nudge.visible { display: block; }
+    .crosssell-text {
+      font-size: 13px;
+      color: var(--ink-mid);
+      line-height: 1.6;
+    }
+    .crosssell-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      border-bottom: 0.5px solid var(--border-mid);
+      padding-bottom: 1px;
+      transition: border-color 0.2s;
+    }
+    .crosssell-link:hover { border-color: var(--ink); }
+
+    .share-nudge {
+      margin-top: 28px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--ink-muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── FOOTER ── */
+    footer { border-top: 0.5px solid var(--border); padding: 40px 0 48px; margin-top: 56px; }
+    .footer-network-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 14px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+    .footer-link {
+      font-size: 12px;
+      color: var(--ink-muted);
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 20px;
+      padding: 5px 14px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .footer-link:hover { color: var(--ink); border-color: var(--border-mid); }
+    .footer-copy { font-size: 11px; color: var(--ink-faint); }
+
+    @media (max-width: 480px) {
+      .steps { grid-template-columns: 1fr; gap: 20px; }
+      .platforms-grid { grid-template-columns: 1fr; }
+      .meta-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="processing-banner" style="display:none;position:fixed;top:0;left:0;width:100%;background:#1a1a18;color:#f5f3ee;text-align:center;padding:14px 20px;font-size:14px;letter-spacing:0.04em;z-index:9999;">Generating your identity card — please wait a moment...</div>
+<script>if(window.location.search.indexOf('unlocked=true')!==-1){document.getElementById('processing-banner').style.display='block';}</script>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="brand">1LINE Bio</a>
+    <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" aria-label="Part of 1LINE">
+      <span class="n">1</span><span class="l">LINE</span>
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <a href="https://oi-ecosystem.github.io/b-useful/" target="_blank" rel="noopener" class="buseful-badge">
+      <span class="buseful-badge-text">B-<em>Useful</em></span>
+    </a>
+    <p class="hero-eyebrow">A 1LINE identity utility</p>
+    <h1>Every platform bio you need, derived from one honest line about who you are.</h1>
+    <p class="hero-sub">Enter one line describing yourself — your work, your background, your direction. 1LINE Bio derives a LinkedIn bio, X bio, creator bio, minimal bio, identity tag, positioning category and tone signature from your exact words.</p>
+  </section>
+
+  <!-- INPUT -->
+  <section class="input-section">
+    <p class="input-prompt">Describe who you are in one line.</p>
+    <p class="input-hint">Include what you do, who you do it for, your background, your interests and your direction — all in one continuous line. Be honest rather than polished.</p>
+
+    <textarea
+      id="main-input"
+      maxlength="180"
+      oninput="countChars()"
+      spellcheck="true"
+      autocorrect="on"
+      autocomplete="off"
+      autocapitalize="sentences"
+      placeholder="Marketing manager who builds creator funnels, loves systems thinking, previously worked in finance, focused on clarity and simplification."
+      aria-label="Describe who you are in one line"
+    ></textarea>
+
+    <div class="char-counter">
+      <span>120 – 180 characters</span>
+      <span class="char-count" id="char-count">0</span>
+    </div>
+
+    <div class="spell-panel" id="spell-panel">
+      <p class="spell-heading">Some words may contain spelling errors.</p>
+      <p class="spell-corrected">Please review the red underlined words before continuing. Your wording affects the precision of your bio.</p>
+      <div class="spell-actions">
+        <button class="spell-btn ignore" onclick="spellReview()">Review Text</button>
+        <button class="spell-btn accept" onclick="spellContinue()">Continue Anyway</button>
+      </div>
+    </div>
+
+    <button class="generate-btn" id="generate-btn" disabled onclick="handleGenerate()">
+      Generate Bio
+    </button>
+    <p class="input-provenance">Everything derived from the exact words you enter.</p>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <p class="section-eyebrow">How it works</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Describe yourself in one line — your role, background, interests and direction.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">1LINE Bio extracts your tone, positioning and identity signals from what you wrote.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Receive four platform-ready bios, an identity tag, tone signature and positioning category.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTPUT -->
+  <section id="output-section" aria-live="polite">
+    <p class="section-eyebrow">Your identity</p>
+
+    <!-- Primary bio -->
+    <div class="out-card" style="margin-bottom:12px;">
+      <span class="out-label">Primary bio</span>
+      <div class="primary-bio" id="out-primary"></div>
+    </div>
+
+    <!-- Platform variants -->
+    <div class="platforms-grid">
+      <div class="platform-card">
+        <div class="platform-name">
+          <span>LinkedIn</span>
+          <button class="copy-btn" onclick="copyBio('out-linkedin', this)">Copy</button>
+        </div>
+        <div class="platform-bio" id="out-linkedin"></div>
+      </div>
+      <div class="platform-card">
+        <div class="platform-name">
+          <span>X / Twitter</span>
+          <button class="copy-btn" onclick="copyBio('out-x', this)">Copy</button>
+        </div>
+        <div class="platform-bio" id="out-x"></div>
+      </div>
+      <div class="platform-card">
+        <div class="platform-name">
+          <span>Creator</span>
+          <button class="copy-btn" onclick="copyBio('out-creator', this)">Copy</button>
+        </div>
+        <div class="platform-bio" id="out-creator"></div>
+      </div>
+      <div class="platform-card">
+        <div class="platform-name">
+          <span>Minimal</span>
+          <button class="copy-btn" onclick="copyBio('out-minimal', this)">Copy</button>
+        </div>
+        <div class="platform-bio" id="out-minimal"></div>
+      </div>
+    </div>
+
+    <!-- Identity tag + Tone -->
+    <div class="meta-row">
+      <div class="out-card" style="margin-bottom:0;">
+        <span class="out-label">Identity tag</span>
+        <div class="tag-value" id="out-tag"></div>
+      </div>
+      <div class="out-card" style="margin-bottom:0;">
+        <span class="out-label">Tone signature</span>
+        <div class="tone-value" id="out-tone"></div>
+        <div class="tone-sub" id="out-tone-sub"></div>
+      </div>
+    </div>
+
+    <!-- Positioning category -->
+    <div class="out-card" style="margin-top:12px; margin-bottom:12px;">
+      <span class="out-label">Positioning category</span>
+      <div class="category-value" id="out-category"></div>
+      <div class="category-sub" id="out-category-sub"></div>
+    </div>
+
+    <!-- Cross-sell nudge (shown if founder/business signals detected) -->
+    <div class="crosssell-nudge" id="crosssell-nudge">
+      <span class="out-label">You might also need</span>
+      <p class="crosssell-text" id="crosssell-text"></p>
+      <a class="crosssell-link" href="#" id="crosssell-link">Explore →</a>
+    </div>
+
+    <!-- Premium — locked Identity Card -->
+    <div class="premium-card">
+      <span class="out-label">Identity card — downloadable PDF</span>
+      <div class="premium-blur" id="premium-preview">
+        A beautifully formatted one-page identity card containing your primary bio, all four platform variants, identity tag, tone signature and positioning category — ready to share, print or send to a designer as a brief.
+      </div>
+      <div class="premium-overlay">
+        <span class="premium-label">Premium output</span>
+        <button class="premium-btn" onclick="unlockBio()">
+          Unlock Identity Card — £9
+        </button>
+        <span class="premium-price">One-time. Instant download.</span>
+      </div>
+    </div>
+
+    <!-- Imprint -->
+    <div class="imprint-card">
+      <span class="out-label">Preserved identity imprint</span>
+      <div class="imprint-text" id="out-imprint-text"></div>
+      <div class="imprint-meta" id="out-imprint-meta"></div>
+    </div>
+
+    <p class="share-nudge">Screenshot your bios to share or save them.</p>
+  </section>
+
+  <!-- AI OUTPUT SECTION -->
+  <section id="ai-output-section" style="display:none;">
+    <div id="ai-loading" style="display:none; text-align:center; padding:40px 20px;">
+      <p id="ai-loading-text" style="font-size:14px; color:#888884; letter-spacing:0.04em;">Generating your identity card...</p>
+    </div>
+    <div id="ai-results" style="display:none;">
+      <p class="section-eyebrow">Your identity card</p>
+
+      <div class="platforms-grid" style="margin-bottom:12px;">
+        <div class="platform-card"><div class="platform-name"><span>Profession</span></div><div class="platform-bio" id="ai-profession"></div></div>
+        <div class="platform-card"><div class="platform-name"><span>Personality</span></div><div class="platform-bio" id="ai-personality"></div></div>
+        <div class="platform-card"><div class="platform-name"><span>Tone</span></div><div class="platform-bio" id="ai-tone-signal"></div></div>
+        <div class="platform-card"><div class="platform-name"><span>Uniqueness</span></div><div class="platform-bio" id="ai-uniqueness"></div></div>
+      </div>
+
+      <div class="out-card" style="background:#f0f7ff; border-left:3px solid #a0bfe0;">
+        <span class="out-label">Your quirk</span>
+        <div class="primary-bio" id="ai-quirk" style="font-style:italic;"></div>
+      </div>
+
+      <div class="platforms-grid">
+        <div class="platform-card"><div class="platform-name"><span>LinkedIn</span><button class="copy-btn" onclick="copyBio('ai-linkedin',this)">Copy</button></div><div class="platform-bio" id="ai-linkedin"></div></div>
+        <div class="platform-card"><div class="platform-name"><span>X / Twitter</span><button class="copy-btn" onclick="copyBio('ai-x',this)">Copy</button></div><div class="platform-bio" id="ai-x"></div></div>
+        <div class="platform-card"><div class="platform-name"><span>Website</span><button class="copy-btn" onclick="copyBio('ai-website',this)">Copy</button></div><div class="platform-bio" id="ai-website"></div></div>
+        <div class="platform-card"><div class="platform-name"><span>Creator</span><button class="copy-btn" onclick="copyBio('ai-creator',this)">Copy</button></div><div class="platform-bio" id="ai-creator"></div></div>
+        <div class="platform-card"><div class="platform-name"><span>Minimal</span><button class="copy-btn" onclick="copyBio('ai-minimal',this)">Copy</button></div><div class="platform-bio" id="ai-minimal"></div></div>
+      </div>
+
+      <div class="meta-row">
+        <div class="out-card" style="margin-bottom:0;"><span class="out-label">Identity tag</span><div class="tag-value" id="ai-tag"></div></div>
+        <div class="out-card" style="margin-bottom:0;"><span class="out-label">Tone signature</span><div class="tone-value" id="ai-tone"></div></div>
+      </div>
+
+      <div class="out-card" style="margin-top:12px; border-left:3px solid #e0a0a0;">
+        <span class="out-label">What not to say</span>
+        <div class="primary-bio" id="ai-avoid"></div>
+      </div>
+
+      <p class="share-nudge">Screenshot this card to save or share it.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-network-label">Other <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:10px;"><span class="n">1</span><span class="l">LINE</span></a> utilities</div>
+    <div class="footer-links">
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/everecho/">EverEcho — baby identity</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/pitch/">1LINE Pitch — business positioning</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/ooo/">1LINE OOO — out of office</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/resolver/">1LINE Resolver — conflict clarity</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/gift/">1LINE Gift — gift logic</a>
+    </div>
+    <p class="footer-copy">&copy; 1LINE Bio. A <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:11px;"><span class="n">1</span><span class="l">LINE</span></a> identity utility. Everything derived from your exact words.</p>
+  </footer>
+
+</div>
+
+<!-- ══════════════════════════════════════════
+     ENGINE
+══════════════════════════════════════════ -->
+<script>
+
+/* ── STATE ── */
+var PREMIUM_GATED   = true;
+var _spellWarned    = false;
+var _lastCountedVal = '';
+var _lastVal        = '';
+
+/* ── CHAR COUNTER ── */
+function countChars() {
+  var ta  = document.getElementById('main-input');
+  var cc  = document.getElementById('char-count');
+  var btn = document.getElementById('generate-btn');
+  if (!ta || !cc) return;
+  var len = ta.value.length;
+  cc.textContent = len;
+  cc.className = 'char-count' + (len >= 120 && len <= 180 ? ' valid' : len > 180 ? ' over' : '');
+  if (btn) btn.disabled = !(len >= 120 && len <= 180);
+  if (ta.value !== _lastCountedVal) {
+    _lastCountedVal = ta.value;
+    _spellWarned = false;
+    var p = document.getElementById('spell-panel');
+    if (p) p.className = 'spell-panel';
+  }
+}
+
+/* ── UNIVERSAL SPELL WARNING ── */
+function handleGenerate() {
+  var val = document.getElementById('main-input').value.trim();
+  if (val.length < 120 || val.length > 180) return;
+  if (!_spellWarned) {
+    _spellWarned = true;
+    document.getElementById('spell-panel').className = 'spell-panel visible';
+    var btn = document.getElementById('generate-btn');
+    if (btn) btn.disabled = true;
+    return;
+  }
+  _lastVal = val;
+  generateBio(val);
+}
+function spellReview() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  document.getElementById('main-input').focus();
+}
+function spellContinue() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  var val = document.getElementById('main-input').value.trim();
+  _lastVal = val;
+  generateBio(val);
+}
+
+/* ── AI BIO ── */
+function runAIBio(val) {
+  var banner = document.getElementById('processing-banner');
+  if (banner) banner.style.display = 'none';
+  var aiSection = document.getElementById('ai-output-section');
+  var aiLoading = document.getElementById('ai-loading');
+  var aiResults = document.getElementById('ai-results');
+  if (aiSection) aiSection.style.display = 'block';
+  if (aiLoading) aiLoading.style.display = 'block';
+  if (aiResults) aiResults.style.display = 'none';
+
+  var msgs = ['Reading your identity signals...','Extracting your tone profile...','Crafting your platform bios...','Building your quirk layer...','Finalising your identity card...'];
+  var idx = 0;
+  var loadEl = document.getElementById('ai-loading-text');
+  var interval = setInterval(function() { idx = (idx+1) % msgs.length; if (loadEl) loadEl.textContent = msgs[idx]; }, 1400);
+
+  var system = 'You are an expert personal brand and identity writer. You receive one honest paragraph describing a person. Generate a complete identity profile with platform bios and identity signals. Everything must feel specific, human and derived from what was actually written — not generic or templated. Respond ONLY in valid JSON, no markdown, no preamble.';
+
+  var prompt = 'Person description: "' + val + '"\n\n'
+    + 'Return ONLY this JSON:\n'
+    + '{\n'
+    + '"professionSignal":"2-4 words. What they do. e.g. Brand Strategist, Systems Thinker, Product Builder.",\n'
+    + '"personalitySignal":"2-4 words. How they work. e.g. Quietly Precise, Creatively Structured.",\n'
+    + '"toneSignal":"2-4 words. Their communication style. e.g. Direct and Warm, Calm Authority.",\n'
+    + '"uniquenessSignal":"One short sentence. What makes them genuinely different from others in their field.",\n'
+    + '"linkedin":"LinkedIn bio. 2-3 sentences. Professional, authority-driven, achievement-oriented. Specific to this person.",\n'
+    + '"x":"X/Twitter bio. Max 160 chars. Compressed, punchy, human.",\n'
+    + '"website":"Website bio. 2-3 sentences. Readable, narrative, balanced between professional and personal.",\n'
+    + '"creator":"Creator bio. 2 sentences. Human tone, slightly expressive, for newsletters or podcasts.",\n'
+    + '"minimal":"Ultra-minimal bio. One sharp sentence. Pure identity distillation.",\n'
+    + '"quirk":"One sentence. A quirky angle, humorous framing or metaphor-based identity statement that captures their personality. e.g. Professional overthinker with a preference for clean systems.",\n'
+    + '"identityTag":"3 hyphenated words that compress their identity. e.g. systems-clarity-builder",\n'
+    + '"toneSignature":"2-3 word tone signature. e.g. Quietly Ambitious, Analytically Creative.",\n'
+    + '"antiBio":"2-3 sentences. Specific phrases or positioning clichés this person should avoid. Make it specific to them, not generic advice."\n'
+    + '}';
+
+  fetch('https://rcloop-proxy.vercel.app/api/ai', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ system: system, prompt: prompt })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    clearInterval(interval);
+    var text = data.content && data.content[0] ? data.content[0].text : '';
+    var clean = text.replace(/```json/g,'').replace(/```/g,'').trim();
+    var start = clean.indexOf('{'); var end = clean.lastIndexOf('}');
+    if (start !== -1 && end !== -1) clean = clean.substring(start, end+1);
+    var parsed = JSON.parse(clean);
+    if (aiLoading) aiLoading.style.display = 'none';
+    if (aiResults) aiResults.style.display = 'block';
+    var set = function(id, v) { var el = document.getElementById(id); if (el) el.textContent = v || ''; };
+    set('ai-profession', parsed.professionSignal);
+    set('ai-personality', parsed.personalitySignal);
+    set('ai-tone-signal', parsed.toneSignal);
+    set('ai-uniqueness', parsed.uniquenessSignal);
+    set('ai-linkedin', parsed.linkedin);
+    set('ai-x', parsed.x);
+    set('ai-website', parsed.website);
+    set('ai-creator', parsed.creator);
+    set('ai-minimal', parsed.minimal);
+    set('ai-quirk', parsed.quirk);
+    set('ai-tag', parsed.identityTag);
+    set('ai-tone', parsed.toneSignature);
+    set('ai-avoid', parsed.antiBio);
+    if (aiResults) aiResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  })
+  .catch(function() {
+    clearInterval(interval);
+    if (aiLoading) aiLoading.style.display = 'none';
+    alert('Something went wrong. Please try again.');
+  });
+}
+
+/* ── PAYMENT ── */
+function unlockBio() {
+  var val = _lastVal || document.getElementById('main-input').value.trim();
+  if (PREMIUM_GATED) {
+    sessionStorage.setItem('bio_data', JSON.stringify({ val: val }));
+    window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/3bba14a0-c1cd-494f-aa72-91c5ce8f1246';
+    return;
+  }
+  runAIBio(val);
+}
+
+/* ── RETURN FROM PAYMENT ── */
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.location.search.indexOf('unlocked=true') !== -1) {
+    var stored = sessionStorage.getItem('bio_data');
+    if (stored) {
+      try {
+        var d = JSON.parse(stored);
+        if (d.val) {
+          var ta = document.getElementById('main-input');
+          if (ta) { ta.value = d.val; countChars(); }
+          _lastVal = d.val;
+          var aiSection = document.getElementById('ai-output-section');
+          var aiLoading = document.getElementById('ai-loading');
+          if (aiSection) { aiSection.style.display = 'block'; aiSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+          if (aiLoading) aiLoading.style.display = 'block';
+          generateBio(d.val);
+          runAIBio(d.val);
+        }
+      } catch(e) {}
+    }
+  }
+});
+
+/* ── COPY ── */
+function copyBio(id, btn) {
+  var text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied';
+    btn.className = 'copy-btn copied';
+    setTimeout(() => { btn.textContent = 'Copy'; btn.className = 'copy-btn'; }, 2000);
+  });
+}
+
+/* ── HELPERS ── */
+function charSum(str) {
+  return str.split('').reduce((a,c) => {
+    var v = c.toLowerCase(); return a + (v >= 'a' && v <= 'z' ? v.charCodeAt(0)-96 : 0);
+  }, 0);
+}
+function digitReduce(n) {
+  n = Math.abs(Math.round(n));
+  while (n > 9) n = String(n).split('').reduce((a,c) => a+(parseInt(c)||0), 0);
+  return n || 1;
+}
+function cap(str) { return str ? str.charAt(0).toUpperCase() + str.slice(1) : ''; }
+function capitaliseSentences(str) {
+  return str.trim().replace(/(^\w|[.!?]\s+\w)/g, c => c.toUpperCase());
+}
+
+/* ── KEYWORD EXTRACTION (strips proper nouns) ── */
+function extractWords(str) {
+  var stops = new Set(['a','an','the','and','or','but','for','with','of','to','in','is','are','was','were','that','this','it','at','by','from','on','as','be','i','we','our','my','their','who','what','which','into','so','not','no','have','has','can','will','do','does','did','about','more','than','very','just','all','any','some','they','he','she','you','your','its','how','when','where','would','could','should','may','might','also','even','after','before','yet','both','each','few','most','been','being','had','now','then','here','there','these','those','always','never','often','work','worked','working','previously','focused','focus','currently','love','loves','enjoy','enjoys']);
+  var properNouns = new Set(
+    str.split(/\s+/).filter((w,i) => i > 0 && /^[A-Z]/.test(w)).map(w => w.toLowerCase().replace(/[^a-z]/g,''))
+  );
+  return str.toLowerCase().replace(/[^a-z\s]/g,'').split(/\s+/)
+    .filter(w => w.length > 2 && !stops.has(w) && !properNouns.has(w));
+}
+
+/* ── CATEGORY DETECTION ── */
+var CATEGORIES = [
+  { label:'Marketing & Growth',    sub:'Funnels, content, brand, audience, campaigns',     signals:['marketing','brand','content','audience','funnel','campaign','growth','seo','social','ads','email','conversion','copy','storytelling','media'] },
+  { label:'Technology & Product',  sub:'Software, product, engineering, systems',           signals:['product','engineer','software','developer','tech','data','system','platform','code','api','saas','startup','app','build','architect'] },
+  { label:'Finance & Strategy',    sub:'Finance, investment, analysis, planning',            signals:['finance','financial','investment','strategy','analysis','banking','economics','planning','revenue','budget','accounting','consulting'] },
+  { label:'Design & Creative',     sub:'Visual, UX, brand identity, creative direction',    signals:['design','creative','visual','brand','ux','ui','art','illustration','typography','motion','identity','aesthetic','photography','film','music'] },
+  { label:'People & Leadership',   sub:'Management, coaching, HR, organisational',          signals:['management','leadership','people','team','hr','coach','mentor','talent','culture','organisation','hiring','training','facilitate','community'] },
+  { label:'Creator & Media',       sub:'Content creation, publishing, audience building',   signals:['creator','newsletter','podcast','youtube','writer','journalist','author','publisher','media','blog','broadcast','production','video','storyteller'] },
+  { label:'Consulting & Advisory', sub:'Freelance, advisory, expert positioning',           signals:['consultant','advisor','freelance','independent','contractor','expert','specialist','fractional','interim','agency'] },
+  { label:'Education & Research',  sub:'Teaching, research, knowledge, learning',           signals:['education','teach','research','academic','learning','professor','trainer','curriculum','school','university','knowledge','writing'] },
+  { label:'Health & Wellbeing',    sub:'Health, care, wellness, mental health',             signals:['health','wellness','wellbeing','mental','coach','therapy','nutrition','fitness','care','medical','clinical','mindfulness'] },
+  { label:'Operations & Systems',  sub:'Process, efficiency, systems thinking, ops',       signals:['operations','systems','process','efficiency','ops','logistics','supply','project','agile','lean','productivity','workflow','clarity','simplification','structured'] },
+];
+
+function detectCategory(str) {
+  var words = extractWords(str);
+  var best = null, bestScore = 0;
+  for (var cat of CATEGORIES) {
+    var score = cat.signals.reduce((n,sig) => n + (words.some(w => w.includes(sig)) ? 1 : 0), 0);
+    if (score > bestScore) { bestScore = score; best = cat; }
+  }
+  return best || CATEGORIES[0];
+}
+
+/* ── TONE DETECTION ── */
+var TONES = [
+  { label:'Analytical calm',       sub:'Clear, structured, methodical in tone',            signals:['systems','data','analysis','structure','clarity','process','logic','research','efficiency','simplification','organised'] },
+  { label:'Creative structured',   sub:'Inventive but grounded, ideas with intent',         signals:['creative','design','build','create','idea','brand','visual','story','craft','aesthetic','write','imagine','content'] },
+  { label:'Quietly ambitious',     sub:'Goal-oriented but measured, not loud',              signals:['growth','scale','build','founder','startup','launch','lead','develop','grow','strategy','vision','opportunity'] },
+  { label:'Human-centred',         sub:'People first, empathetic, connection-driven',       signals:['people','community','team','mentor','coach','care','support','culture','relationship','trust','connect','belong','wellbeing'] },
+  { label:'Commercially sharp',    sub:'Revenue-aware, performance-minded, direct',         signals:['revenue','conversion','funnel','sales','marketing','performance','results','roi','business','commercial','growth','acquisition'] },
+  { label:'Expert and grounded',   sub:'Deep knowledge, restrained confidence',             signals:['experience','expertise','years','background','specialise','specialist','consultant','advisor','senior','professional','previously'] },
+];
+
+function detectTone(str) {
+  var words = extractWords(str);
+  var best = null, bestScore = 0;
+  for (var tone of TONES) {
+    var score = tone.signals.reduce((n,sig) => n + (words.some(w => w.includes(sig)) ? 1 : 0), 0);
+    if (score > bestScore) { bestScore = score; best = tone; }
+  }
+  return best || TONES[0];
+}
+
+/* ── BIO CONSTRUCTION ── */
+function buildPrimaryBio(words, category, tone, seed) {
+  var cat = category.label;
+  var t = tone.label.toLowerCase();
+  var templates = [
+    cap(cat) + ' professional with a ' + t + ' approach. Helping clients cut through complexity and move with clarity.',
+    'Independent ' + cat.toLowerCase() + ' specialist. ' + cap(t) + ' by nature — focused on outcomes that actually matter.',
+    'Working at the sharp end of ' + cat.toLowerCase() + '. ' + cap(tone.sub.split(',')[0].trim().toLowerCase()) + ', always.',
+    cat + ' professional. ' + cap(t) + '. Built on real experience, not theory.',
+  ];
+  return capitaliseSentences(templates[seed % templates.length]);
+}
+
+function buildLinkedIn(words, category, tone, seed) {
+  var cat = category.label;
+  var sub = category.sub.split(',')[0].trim();
+  var templates = [
+    cap(cat) + ' | ' + cap(tone.label) + ' | ' + sub,
+    'Specialist in ' + cat.toLowerCase() + '. ' + cap(tone.label) + ' approach. ' + sub + '.',
+    cap(cat) + ' professional focused on ' + sub.toLowerCase() + '. ' + cap(tone.label) + '.',
+    cap(sub) + ' | ' + cat + ' | ' + tone.label + '.',
+  ];
+  return templates[(seed + 1) % templates.length];
+}
+
+function buildX(words, category, tone, seed) {
+  var d1 = words[0] || 'clarity';
+  var d2 = words[1] || 'systems';
+  var templates = [
+    ''+(cap(d1))+' + '+(d2)+'. '+(category.label)+'. '+(tone.label)+'.',
+    'Building '+(d1)+' in '+(category.label.toLowerCase())+'. '+(tone.label.toLowerCase())+' by nature.',
+    ''+(cap(category.label))+' | '+(cap(d1))+' | '+(cap(d2))+'',
+    ''+(cap(d1))+'-led. '+(cap(category.label))+'-focused. '+(tone.label)+'.',
+  ];
+  return templates[(seed + 2) % templates.length];
+}
+
+function buildCreator(words, category, tone, seed) {
+  var d1 = words[0] || 'clarity';
+  var d2 = words[1] || 'systems';
+  var d3 = words[2] || 'ideas';
+  var templates = [
+    'I write and think about '+(d1)+' and '+(d2)+'. '+(cap(category.label))+' background. Always chasing '+(d3)+'.',
+    'Making '+(d1)+' and '+(d2)+' feel less complicated. '+(cap(category.label))+' × '+(cap(d3))+'.',
+    ''+(cap(d1))+' obsessed. '+(cap(category.label))+'-trained. Creating '+(d2)+' that actually sticks.',
+    'Thinking out loud about '+(d1)+', '+(d2)+' and what '+(d3)+' really looks like.',
+  ];
+  return templates[(seed + 3) % templates.length];
+}
+
+function buildMinimal(words, category, seed) {
+  var d1 = words[0] || 'clarity';
+  var templates = [
+    ''+(cap(d1))+'. '+(category.label)+'.',
+    ''+(cap(category.label))+' × '+(cap(d1))+'.',
+    ''+(cap(d1))+'-focused '+(category.label.toLowerCase())+' professional.',
+    ''+(cap(d1))+' in '+(category.label.toLowerCase())+'.',
+  ];
+  return templates[(seed + 4) % templates.length];
+}
+
+function buildIdentityTag(words, tone, seed) {
+  var descriptors = words.filter(w => w.length > 4).slice(0, 6);
+  var w1 = descriptors[seed % Math.max(descriptors.length,1)] || tone.label.split(' ')[0].toLowerCase();
+  var w2 = descriptors[(seed+2) % Math.max(descriptors.length,1)] || 'clarity';
+  var w3 = descriptors[(seed+5) % Math.max(descriptors.length,1)] || 'builder';
+  var deduped = [...new Set([w1, w2, w3])];
+  while (deduped.length < 3) deduped.push(['thinker','maker','navigator','systems'][deduped.length]);
+  return deduped.slice(0,3).join('-');
+}
+
+/* ── CROSS-SELL LOGIC ── */
+var FOUNDER_SIGNALS = ['founder','startup','launch','venture','business','entrepreneur','freelance','independent','consultant','build','scale'];
+function detectCrossSell(str) {
+  var lower = str.toLowerCase();
+  var isFounder = FOUNDER_SIGNALS.some(s => lower.includes(s));
+  if (isFounder) return { text: 'Your bio suggests you may also need a business positioning statement. 1LINE Pitch derives your elevator pitch from a single line about what you do.', link: '#', label: 'Try 1LINE Pitch →' };
+  return null;
+}
+
+/* ── MAIN GENERATE ── */
+function generateBio(val) {
+  var words    = extractWords(val);
+  var category = detectCategory(val);
+  var tone     = detectTone(val);
+  var seed     = charSum(val) % 4;
+
+  document.getElementById('out-primary').textContent  = buildPrimaryBio(words, category, tone, seed);
+  document.getElementById('out-linkedin').textContent = buildLinkedIn(words, category, tone, seed);
+  document.getElementById('out-x').textContent        = buildX(words, category, tone, seed);
+  document.getElementById('out-creator').textContent  = buildCreator(words, category, tone, seed);
+  document.getElementById('out-minimal').textContent  = buildMinimal(words, category, seed);
+
+  document.getElementById('out-tag').textContent      = buildIdentityTag(words, tone, seed);
+  document.getElementById('out-tone').textContent     = tone.label;
+  document.getElementById('out-tone-sub').textContent = tone.sub;
+  document.getElementById('out-category').textContent = category.label;
+  document.getElementById('out-category-sub').textContent = category.sub;
+
+  // Cross-sell nudge
+  var xsell = detectCrossSell(val);
+  var nudge = document.getElementById('crosssell-nudge');
+  if (xsell) {
+    document.getElementById('crosssell-text').textContent = xsell.text;
+    document.getElementById('crosssell-link').textContent = xsell.label;
+    document.getElementById('crosssell-link').href = xsell.link;
+    nudge.className = 'crosssell-nudge visible';
+  } else {
+    nudge.className = 'crosssell-nudge';
+  }
+
+  // Imprint
+  var today = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+  document.getElementById('out-imprint-text').textContent = capitaliseSentences(val);
+  document.getElementById('out-imprint-meta').textContent = 'This identity was derived from the moment entered on '+today+'.';
+
+  var section = document.getElementById('output-section');
+  section.className = 'visible';
+  section.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+</script>
+
+<!-- GoatCounter Analytics -->
+<script data-goatcounter="https://signal333.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
