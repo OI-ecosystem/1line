@@ -1,4 +1,4 @@
-<!-- 1LINE Pitch v5.0 | Updated: 20 May 2026 | Banner shows immediately on page load -->
+<!-- 1LINE Pitch v5.1 | Updated: 20 May 2026 | Scroll to loading state on return -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -815,6 +815,11 @@ document.addEventListener('DOMContentLoaded', function() {
           if (countEl) { countEl.textContent = d.val.length; countEl.className = 'char-count valid'; }
           if (btnEl)   btnEl.disabled = false;
           _lastVal = d.val;
+          /* Show AI section and scroll to it immediately so user sees loading messages */
+          var aiSection = document.getElementById('ai-output-section');
+          var aiLoading = document.getElementById('ai-loading');
+          if (aiSection) { aiSection.style.display = 'block'; aiSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+          if (aiLoading) aiLoading.style.display = 'block';
           runFreeOutput(d.val);
           runAIPitch(d.val);
         }
