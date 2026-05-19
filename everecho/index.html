@@ -1,4 +1,4 @@
-<!-- 1LINE EverEcho v1.6 | Updated: 19 May 2026 23:55 | PREMIUM_GATED_EE flag added -->
+<!-- 1LINE EverEcho v1.7 | Updated: 20 May 2026 00:10 | Dynamic PDF layout fix -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -1266,34 +1266,41 @@ function buildPDF(name, altName, colour, colName, meaning, imprint, nums, today)
   doc.setTextColor(74, 74, 70);
   var meaningLines = doc.splitTextToSize(meaning, W - 40);
   doc.text(meaningLines, W/2, 90, { align:'center' });
+  var curY = 90 + (meaningLines.length * 7) + 10;
 
   doc.setFont('times','normal');
   doc.setFontSize(9);
   doc.setTextColor(136, 136, 132);
-  doc.text('LUCKY NUMBERS', W/2, 112, { align:'center' });
+  doc.text('LUCKY NUMBERS', W/2, curY, { align:'center' });
+  curY += 10;
   doc.setFontSize(18);
   doc.setTextColor(26, 26, 24);
-  doc.text(nums, W/2, 122, { align:'center' });
+  doc.text(nums, W/2, curY, { align:'center' });
+  curY += 14;
 
   doc.setFontSize(8);
   doc.setTextColor(180,180,175);
-  doc.text('IDENTITY COLOUR', W/2, 134, { align:'center' });
+  doc.text('IDENTITY COLOUR', W/2, curY, { align:'center' });
+  curY += 8;
   doc.setFontSize(12);
   doc.setTextColor(74,74,70);
-  doc.text(colName, W/2, 141, { align:'center' });
+  doc.text(colName, W/2, curY, { align:'center' });
+  curY += 14;
 
   doc.setDrawColor(220,218,213);
-  doc.line(14, 151, W-14, 151);
+  doc.line(14, curY, W-14, curY);
+  curY += 8;
 
   doc.setFontSize(7);
   doc.setTextColor(180,180,175);
-  doc.text('PRESERVED PARENTAL MOMENT', W/2, 159, { align:'center' });
+  doc.text('PRESERVED PARENTAL MOMENT', W/2, curY, { align:'center' });
+  curY += 8;
 
   doc.setFont('times','italic');
   doc.setFontSize(9);
   doc.setTextColor(136,136,132);
   var imprintLines = doc.splitTextToSize(imprint, W - 36);
-  doc.text(imprintLines, W/2, 166, { align:'center' });
+  doc.text(imprintLines, W/2, curY, { align:'center' });
 
   doc.setDrawColor(220,218,213);
   doc.line(14, H-22, W-14, H-22);
