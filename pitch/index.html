@@ -1,4 +1,4 @@
-<!-- 1LINE Pitch v4.5 | Updated: 20 May 2026 | Lemon Squeezy URL added -->
+<!-- 1LINE Pitch v4.6 | Updated: 20 May 2026 | Fixed DOMContentLoaded element refs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -796,11 +796,12 @@ document.addEventListener('DOMContentLoaded', function() {
       try {
         var d = JSON.parse(stored);
         if (d.val) {
-          inputEl.value = d.val;
-          var len = d.val.length;
-          countEl.textContent = len;
-          countEl.className = 'char-count valid';
-          btnEl.disabled = false;
+          var inputEl = document.getElementById('main-input');
+          var countEl = document.getElementById('char-count');
+          var btnEl   = document.getElementById('generate-btn');
+          if (inputEl) inputEl.value = d.val;
+          if (countEl) { countEl.textContent = d.val.length; countEl.className = 'char-count valid'; }
+          if (btnEl)   btnEl.disabled = false;
           _lastVal = d.val;
           runFreeOutput(d.val);
           runAIPitch(d.val);
