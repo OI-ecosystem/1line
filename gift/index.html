@@ -1,4 +1,4 @@
-<!-- 1LINE Gift v2.5 | Updated: 19 May 2026 23:20 | Debug alerts to trace sessionStorage issue -->
+<!-- 1LINE Gift v2.6 | Updated: 19 May 2026 23:25 | Return handler fixed - rebuilds free output first like resume -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1302,10 +1302,7 @@ function unlockAI() {
     var val = _lastVal || document.getElementById('main-input').value.trim();
     var rel = _lastRel || _relationship;
     var bud = _lastBudget || _budget;
-    if (!val) { alert('DEBUG: val is empty - _lastVal=' + _lastVal); return; }
     sessionStorage.setItem('gift_data', JSON.stringify({ val: val, rel: rel, bud: bud }));
-    var stored = sessionStorage.getItem('gift_data');
-    if (!stored) { alert('DEBUG: sessionStorage failed to store'); return; }
     window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/bf8cfe64-3345-4374-b7b0-9d2c7d2326a3';
     return;
   }
@@ -1661,37 +1658,36 @@ function callAnthropicAPI(val, rel, budget, onSuccess, onError) {
 }
 
 /* -- Return from Lemon Squeezy payment -- */
-function checkUnlocked() {
+document.addEventListener('DOMContentLoaded', function() {
   if (window.location.search.indexOf('unlocked=true') !== -1) {
     var stored = sessionStorage.getItem('gift_data');
     if (stored) {
       try {
         var d = JSON.parse(stored);
         if (d.val) {
+          /* Restore state */
           _lastVal      = d.val;
           _lastRel      = d.rel || 'partner';
           _lastBudget   = d.bud || 'mid';
           _relationship = _lastRel;
           _budget       = _lastBudget;
-          _aiUnlocked   = true;
-          /* Populate textarea so user can see what was entered */
+          /* Populate textarea */
           var ta = document.getElementById('main-input');
-          if (ta) ta.value = d.val;
+          if (ta) { ta.value = d.val; }
+          /* Restore selector buttons */
+          document.querySelectorAll('#relationship-row .sel-btn').forEach(function(b) {
+            b.className = b.dataset.val === _lastRel ? 'sel-btn selected' : 'sel-btn';
+          });
+          document.querySelectorAll('#budget-row .sel-btn').forEach(function(b) {
+            b.className = b.dataset.val === _lastBudget ? 'sel-btn selected' : 'sel-btn';
+          });
+          /* Rebuild free output first, then fire AI */
+          generateGift(d.val);
           runAIGift(d.val, _lastRel, _lastBudget);
         }
       } catch(e) {}
     }
   }
-}
-/* Run immediately and also on load/DOMContentLoaded as fallback */
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', checkUnlocked);
-} else {
-  checkUnlocked();
-}
-window.addEventListener('pageshow', function(e) {
-  /* Fires on back-forward cache restore too */
-  checkUnlocked();
 });
 
 </script>
