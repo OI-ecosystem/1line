@@ -1,4 +1,4 @@
-<!-- 1LINE Pitch v4.6 | Updated: 20 May 2026 | Fixed DOMContentLoaded element refs -->
+<!-- 1LINE Pitch v4.7 | Updated: 20 May 2026 | Fix unlock reads input directly like Gift -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -703,12 +703,13 @@ function capitalise(str) { return str ? str.charAt(0).toUpperCase() + str.slice(
 
 /* ── PAYMENT ── */
 function unlockPitch() {
+  var val = _lastVal || document.getElementById('main-input').value.trim();
   if (PREMIUM_GATED) {
-    sessionStorage.setItem('pitch_data', JSON.stringify({ val: _lastVal }));
+    sessionStorage.setItem('pitch_data', JSON.stringify({ val: val }));
     window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/6869247f-e840-44ef-900f-ebefa0bbb1d1';
     return;
   }
-  runAIPitch(_lastVal);
+  runAIPitch(val);
 }
 
 /* ── AI PITCH ── */
