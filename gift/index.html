@@ -1,4 +1,4 @@
-<!-- 1LINE Gift v2.0 | Updated: 19 May 2026 22:45 | Universal spellcheck, payment flow fixed -->
+<!-- 1LINE Gift v2.3 | Updated: 19 May 2026 23:05 | Robust JSON parse - extracts {} from any response -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1358,7 +1358,7 @@ function runAIGift(val, rel, budget) {
     }, function(err) {
       clearInterval(msgInterval);
       document.getElementById('ai-loading').style.display = 'none';
-      alert('Something went wrong. Please try again.');
+      alert('Error: ' + (err && err.message ? err.message : 'Unknown error'));
     });
   }
 }
@@ -1624,16 +1624,15 @@ function callAnthropicAPI(val, rel, budget, onSuccess, onError) {
   var budgetLabels = { low:'under £30', mid:'£30-£75', high:'£75-£150', premium:'£150+' };
   var relLabels    = { partner:'romantic partner', family:'family member', friend:'friend', colleague:'work colleague', client:'professional client', lastminute:'someone (last minute)' };
 
-  var systemPrompt = 'You are a gift intelligence engine. You receive a description of a person and generate highly specific, personalised gift recommendations. Never give generic suggestions. Every idea must be specific to what was described. Always include where to buy each gift. Respond only in valid JSON with this structure: {"narrative": "string", "ideas": [{"name":"","why":"","where":""}], "avoid": [{"name":"","why":""}]}. No markdown, no preamble, just the JSON object.';
+  var systemPrompt = 'You are a gift intelligence engine. You receive a description of a person and generate highly specific, personalised gift recommendations. Never give generic suggestions. Every idea must be specific to what was described. Always include where to buy each gift. Respond ONLY in valid JSON with no markdown, no preamble, no explanation.';
 
   var relLabel    = relLabels[rel] || rel;
   var budgetLabel = budgetLabels[budget] || budget;
   var userPrompt  = 'Person description: ' + val
     + '. Relationship: ' + relLabel
     + '. Budget: ' + budgetLabel
-    + '. Generate 5 specific gift ideas. Be specific about products, brands and where to find them.'
-    + ' Write the narrative as one paragraph about this specific person and why the gifts suit them.'
-    + ' Include 2-3 things to avoid with reasons.';
+    + '. Generate 5 specific gift ideas with individual reasoning and where to find each one.'
+    + ' Return ONLY this JSON structure: {"narrative":"string","ideas":[{"name":"","why":"","where":""}],"avoid":[{"name":"","why":""}]}';
 
   fetch('https://rcloop-proxy.vercel.app/api/ai', {
     method: 'POST',
@@ -1643,7 +1642,17 @@ function callAnthropicAPI(val, rel, budget, onSuccess, onError) {
   .then(function(r) { return r.json(); })
   .then(function(data) {
     var text = data.content && data.content[0] ? data.content[0].text : '';
-    onSuccess(JSON.parse(text.replace(/```json|```/g, '').trim()));
+    if (!text) { onError(new Error('Empty response')); return; }
+    try {
+      var clean = text.replace(/```json/g,'').replace(/```/g,'').trim();
+      /* Find the JSON object even if there's surrounding text */
+      var start = clean.indexOf('{');
+      var end   = clean.lastIndexOf('}');
+      if (start !== -1 && end !== -1) clean = clean.substring(start, end + 1);
+      onSuccess(JSON.parse(clean));
+    } catch(e) {
+      onError(new Error('Parse error: ' + text.substring(0, 200)));
+    }
   })
   .catch(function(err) { onError(err); });
 }
