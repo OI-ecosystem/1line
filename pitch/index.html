@@ -1,4 +1,4 @@
-<!-- 1LINE Pitch v4.9 | Updated: 20 May 2026 | Processing banner added -->
+<!-- 1LINE Pitch v5.0 | Updated: 20 May 2026 | Banner shows immediately on page load -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -195,6 +195,7 @@
 <body>
 
 <div id="processing-banner" style="display:none;position:fixed;top:0;left:0;width:100%;background:#1a1a18;color:#f5f3ee;text-align:center;padding:14px 20px;font-size:14px;letter-spacing:0.04em;z-index:9999;">Generating your full positioning — please wait a moment...</div>
+<script>if(window.location.search.indexOf('unlocked=true')!==-1){document.getElementById('processing-banner').style.display='block';}</script>
 
 <div class="page">
 
