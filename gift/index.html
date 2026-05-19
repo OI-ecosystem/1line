@@ -1,4 +1,4 @@
-<!-- 1LINE Gift v1.3 | Updated: 18 May 2026 | Lemon Squeezy URL live -->
+<!-- 1LINE Gift v1.6 | Updated: 19 May 2026 | Universal spellcheck applied -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -564,6 +564,11 @@
     <textarea
       id="main-input"
       maxlength="200"
+      oninput="countChars()"
+      spellcheck="true"
+      autocorrect="on"
+      autocomplete="off"
+      autocapitalize="sentences"
       placeholder="My partner is 32, loves coffee, minimalist design, works in architecture, hates clutter, enjoys long walks and has a dry sense of humour."
       aria-label="Describe the person you are buying for"
     ></textarea>
@@ -574,11 +579,11 @@
     </div>
 
     <div class="spell-panel" id="spell-panel">
-      <div class="spell-heading">We noticed a few spellings &mdash; here is the corrected version</div>
-      <div class="spell-corrected" id="spell-corrected"></div>
+      <p class="spell-heading">Some words may contain spelling errors.</p>
+      <p class="spell-corrected">Please review the red underlined words before continuing. Your wording affects the precision of your gift ideas.</p>
       <div class="spell-actions">
-        <button class="spell-btn accept" onclick="acceptCorrection()">Use corrected version</button>
-        <button class="spell-btn ignore" onclick="ignoreCorrection()">Keep as entered</button>
+        <button class="spell-btn ignore" onclick="spellReview()">Review Text</button>
+        <button class="spell-btn accept" onclick="spellContinue()">Continue Anyway</button>
       </div>
     </div>
 
@@ -787,9 +792,8 @@
 /* -- STATE -- */
 var _relationship = 'partner';
 var _budget = 'mid';
-var _correctedText = '';
-var _spellChecked = false;
-var _ignoreSpell = false;
+var _spellWarned = false;
+var _lastCountedVal = '';
 
 /* -- SELECTORS -- */
 function selectRel(el) {
@@ -804,208 +808,47 @@ function selectBudget(el) {
 }
 
 /* -- CHAR COUNTER -- */
-document.addEventListener('DOMContentLoaded', function() {
-  var inputEl = document.getElementById('main-input');
-  var countEl = document.getElementById('char-count');
-  var btnEl   = document.getElementById('generate-btn');
-  if (!inputEl) return;
-  inputEl.addEventListener('input', function() {
-    var len = inputEl.value.length;
-    countEl.textContent = len;
-    countEl.className = 'char-count' + (len >= 80 && len <= 200 ? ' valid' : len > 200 ? ' over' : '');
-    btnEl.disabled = !(len >= 80 && len <= 200);
-    if (_spellChecked || _ignoreSpell) { hideSpellPanel(); _spellChecked = false; _ignoreSpell = false; }
-  });
-});
-
-/* -- SPELL CHECK -- */
-var CORRECTIONS = {
-  /* A */
-  'adventorous':'adventurous','adventourous':'adventurous','adventuros':'adventurous',
-  'anniversery':'anniversary','anniverssary':'anniversary',
-  'appriciate':'appreciate','apreciate':'appreciate',
-  'artisanal':'artisanal','artisinal':'artisanal',
-  /* B */
-  'beutiful':'beautiful','beautifull':'beautiful','beatiful':'beautiful','beutifull':'beautiful',
-  'birtday':'birthday','birthay':'birthday','birthdya':'birthday',
-  /* C */
-  'caharacteristics':'characteristics','caracteristics':'characteristics',
-  'cofee':'coffee','coffe':'coffee',
-  'colection':'collection','colector':'collector',
-  'creativ':'creative','crative':'creative','creativly':'creatively',
-  'colege':'colleague','collegue':'colleague',
-  /* D */
-  'desing':'design','desgn':'design',
-  /* E */
-  'elegent':'elegant','elemant':'elegant','elgant':'elegant',
-  'enthusiatic':'enthusiastic','enthusiaastic':'enthusiastic',
-  'experiance':'experience','experence':'experience',
-  /* F */
-  'favourit':'favourite','favorit':'favorite','favourte':'favourite',
-  'freind':'friend','frend':'friend','freinds':'friends','frends':'friends',
-  /* G */
-  'gardaning':'gardening','gardining':'gardening','gardenig':'gardening',
-  'gentel':'gentle','genttle':'gentle',
-  /* H */
-  'hilarius':'hilarious',
-  'hobbys':'hobbies',
-  'humourous':'humorous',
-  /* I */
-  'independant':'independent','independnet':'independent',
-  'inteligent':'intelligent','intelligant':'intelligent',
-  /* J */
-  'jewlery':'jewellery','jewellry':'jewellery','jewelery':'jewellery','jewlrey':'jewellery',
-  /* K */
-  'kniting':'knitting','kniiting':'knitting',
-  /* L */
-  'loveing':'loving',
-  /* M */
-  'meditaion':'meditation','meditaton':'meditation',
-  'minimalsit':'minimalist','minimlaist':'minimalist','minmalist':'minimalist',
-  'meaningfull':'meaningful',
-  /* N */
-  'naturaly':'naturally','natrually':'naturally',
-  /* O */
-  'outdoorsey':'outdoorsy',
-  /* P */
-  'pasionate':'passionate','passioante':'passionate',
-  'personalty':'personality','personailty':'personality','personaliy':'personality',
-  'photograpy':'photography','photograhpy':'photography','photogrphy':'photography',
-  'practicle':'practical','practial':'practical','practcal':'practical',
-  'preferes':'prefers','preferrs':'prefers',
-  /* R */
-  'restaurent':'restaurant','resturant':'restaurant','restaraunt':'restaurant',
-  'resilant':'resilient','resilent':'resilient',
-  /* S */
-  'sentimentl':'sentimental','sentimantal':'sentimental','sentimantle':'sentimental',
-  'simplisitc':'simplistic','simplict':'simplistic',
-  'sophistcated':'sophisticated','sophisticted':'sophisticated','sophisicated':'sophisticated',
-  'strenght':'strength','strenth':'strength',
-  'sucesful':'successful','succesfull':'successful','sucessful':'successful',
-  /* T */
-  'tecnology':'technology','techology':'technology',
-  'thoughtfull':'thoughtful','thougtful':'thoughtful','thoughful':'thoughtful',
-  'timeles':'timeless',
-  'traveler':'traveller','travling':'travelling','travalling':'travelling',
-  /* U */
-  'uniqu':'unique','uniqe':'unique','uniuqe':'unique',
-  /* V */
-  'valueable':'valuable','valuble':'valuable','valuabel':'valuable',
-  /* W */
-  'wanderlsut':'wanderlust',
-  'wanderful':'wonderful','wonderfull':'wonderful',
-  'wellbieng':'wellbeing','wellbieign':'wellbeing',
-  /* Y */
-  'yoag':'yoga','yogaa':'yoga',
-  /* Common letter swaps / phonetic misspellings */
-  'freend':'friend','freiend':'friend','frend':'friend','friand':'friend',
-  'bier':'beer','beir':'beer','bir':'beer',
-  'tex':'tea','tee':'tea',
-  'enjoyes':'enjoys','enjois':'enjoys',
-  'humourous':'humorous','humerous':'humorous',
-  'beutifull':'beautiful','beautyful':'beautiful',
-  'helthy':'healthy','heathy':'healthy',
-  'atheltic':'athletic','athltetic':'athletic',
-  'succseful':'successful','succesful':'successful',
-  'intresting':'interesting','intresing':'interesting',
-  'amasing':'amazing','amazng':'amazing',
-  'lovley':'lovely','lovly':'lovely',
-  'funney':'funny','funy':'funny',
-  'cloting':'clothing','clothng':'clothing',
-  'sociel':'social','socail':'social',
-  'minmalist':'minimalist','minimalst':'minimalist',
-  'adventrous':'adventurous','adventuros':'adventurous',
-  'fasion':'fashion','fashon':'fashion',
-  'diiving':'diving','divng':'diving',
-  'skieing':'skiing','skieng':'skiing',
-  'climing':'climbing','climbng':'climbing',
-  'swiming':'swimming','swimmng':'swimming',
-  'runing':'running','runng':'running',
-  'cyceling':'cycling','cyclng':'cycling',
-  'hikeing':'hiking','hikng':'hiking',
-  'readng':'reading','readig':'reading',
-  'cookng':'cooking','cookig':'cooking',
-  'gardeing':'gardening','gardenng':'gardening',
-  'traveing':'travelling','travelng':'travelling',
-  'enjoing':'enjoying','enjoyng':'enjoying',
-  'likeing':'liking','likng':'liking',
-  'loveing':'loving','lovng':'loving',
-  'hateing':'hating','hatng':'hating',
-  'workng':'working','workig':'working',
-};
-
-function spellCheck(text) {
-  var sc_changed = false;
-  var corrected = text.replace(/([a-zA-Z]+)/g, function(word) {
-    var lower = word.toLowerCase();
-    if (CORRECTIONS[lower]) {
-      sc_changed = true;
-      var fix = CORRECTIONS[lower];
-      return (word[0] === word[0].toUpperCase() && word[0] !== word[0].toLowerCase())
-        ? fix.charAt(0).toUpperCase() + fix.slice(1) : fix;
-    }
-    return word;
-  });
-  return { corrected: corrected, changed: sc_changed };
-}
-function highlightDiffs(o, c) {
-  var ot = o.split(/(\b)/), ct = c.split(/(\b)/), html = '';
-  for (var i = 0; i < Math.max(ot.length, ct.length); i++) {
-    var ow = ot[i]||'', cw = ct[i]||'';
-    html += (ow !== cw && /[a-zA-Z]/.test(cw)) ? '<mark>' + cw + '</mark>' : cw;
+function countChars() {
+  var ta  = document.getElementById('main-input');
+  var cc  = document.getElementById('char-count');
+  var btn = document.getElementById('generate-btn');
+  if (!ta || !cc) return;
+  var len = ta.value.length;
+  cc.textContent = len;
+  cc.className = 'char-count' + (len >= 80 && len <= 200 ? ' valid' : len > 200 ? ' over' : '');
+  if (btn) btn.disabled = !(len >= 80 && len <= 200);
+  if (ta.value !== _lastCountedVal) {
+    _lastCountedVal = ta.value;
+    _spellWarned = false;
+    var p = document.getElementById('spell-panel');
+    if (p) p.className = 'spell-panel';
   }
-  return html || c;
-}
-function showSpellPanel(orig, corr) {
-  document.getElementById('spell-corrected').innerHTML = highlightDiffs(orig, corr);
-  document.getElementById('spell-panel').className = 'spell-panel visible';
-  _correctedText = corr;
-}
-function hideSpellPanel() { document.getElementById('spell-panel').className = 'spell-panel'; }
-function acceptCorrection() {
-  var inputEl = document.getElementById('main-input');
-  inputEl.value = _correctedText;
-  var len = _correctedText.length;
-  document.getElementById('char-count').textContent = len;
-  document.getElementById('char-count').className = 'char-count' + (len >= 80 && len <= 200 ? ' valid' : '');
-  hideSpellPanel(); _spellChecked = true; _ignoreSpell = false;
-  generateGift(_correctedText);
-}
-function ignoreCorrection() { hideSpellPanel(); _ignoreSpell = true; _spellChecked = false; generateGift(document.getElementById('main-input').value.trim()); }
-function looksLikeTypo(word) {
-  /* Heuristic: consonant clusters that rarely appear in English */
-  if (word.length < 3) return false;
-  var lower = word.toLowerCase();
-  /* Two or more of same vowel not standard */
-  if (/[^aeiou]{4,}/.test(lower)) return true;
-  /* Common double-letter errors */
-  if (/(.){2,}/.test(lower)) return true;
-  return false;
 }
 
+/* -- UNIVERSAL SPELL WARNING -- */
 function handleGenerate() {
   var val = document.getElementById('main-input').value.trim();
   if (val.length < 80 || val.length > 200) return;
-  if (!_spellChecked && !_ignoreSpell) {
-    var r = spellCheck(val);
-    if (r.changed) { _spellChecked = true; showSpellPanel(val, r.corrected); return; }
-    /* Secondary check: any word looks like a typo even if not in dictionary */
-    var words = val.split(/\s+/);
-    var suspectWords = words.filter(function(w) {
-      return w.length > 2 && looksLikeTypo(w.replace(/[^a-z]/gi,''));
-    });
-    if (suspectWords.length > 0 && !_ignoreSpell) {
-      /* Show a soft warning but allow proceed */
-      var panel = document.getElementById('spell-panel');
-      document.getElementById('spell-corrected').innerHTML =
-        'We spotted some words that may contain typos: <mark>' + suspectWords.join('</mark>, <mark>') + '</mark>. '
-        + 'Please check your description before generating for the best results.';
-      _correctedText = val;
-      panel.className = 'spell-panel visible';
-      _spellChecked = true;
-      return;
-    }
+  if (!_spellWarned) {
+    _spellWarned = true;
+    document.getElementById('spell-panel').className = 'spell-panel visible';
+    var btn = document.getElementById('generate-btn');
+    if (btn) btn.disabled = true;
+    return;
   }
+  generateGift(val);
+}
+function spellReview() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  document.getElementById('main-input').focus();
+}
+function spellContinue() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  var val = document.getElementById('main-input').value.trim();
   generateGift(val);
 }
 
@@ -1422,19 +1265,13 @@ function generateGift(val) {
       + '</div>';
   }).join('');
 
-  /* Free ideas removed - AI unlock is the primary output */
-
   /* Imprint */
-  var clean = spellCheck(val).corrected;
-  document.getElementById('out-imprint-text').textContent = clean;
+  document.getElementById('out-imprint-text').textContent = val;
   document.getElementById('out-imprint-meta').textContent = 'This gift profile was derived from the description entered on ' + today + '.';
 
   var section = document.getElementById('output-section');
   section.className = 'visible';
   section.scrollIntoView({ behavior:'smooth', block:'start' });
-
-  _spellChecked = false;
-  _ignoreSpell  = false;
 }
 
 
