@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- 1LINE EverEcho v1.4 | Updated: 19 May 2026 23:10 | Robust JSON parse applied -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -600,6 +600,11 @@
     <textarea
       id="main-input"
       maxlength="180"
+      oninput="countChars()"
+      spellcheck="true"
+      autocorrect="on"
+      autocomplete="off"
+      autocapitalize="sentences"
       placeholder="Ella and James hoping for a calm adventurous creative child connected to nature and kindness with a timeless elegant name."
       aria-label="Describe the future you hope for your child"
     ></textarea>
@@ -611,11 +616,11 @@
 
     <!-- SPELL CHECK PANEL -->
     <div class="spell-panel" id="spell-panel">
-      <div class="spell-heading">We noticed a few spellings - here is the corrected version</div>
-      <div class="spell-corrected" id="spell-corrected"></div>
+      <p class="spell-heading">Some words may contain spelling errors.</p>
+      <p class="spell-corrected">Please review the red underlined words before continuing. Your wording affects the identity derived from your line.</p>
       <div class="spell-actions">
-        <button class="spell-btn accept" onclick="acceptCorrection()">Use corrected version</button>
-        <button class="spell-btn ignore" onclick="ignoreCorrection()">Keep as entered</button>
+        <button class="spell-btn ignore" onclick="spellReview()">Review Text</button>
+        <button class="spell-btn accept" onclick="spellContinue()">Continue Anyway</button>
       </div>
     </div>
 
@@ -767,295 +772,62 @@
 
 /* STATE */
 var selectedGender = 'unknown';
-var correctedText  = '';
-var spellChecked   = false;
-var ignoreSpell    = false;
-var lastCheckedVal = '';
-var inputEl        = null;
-var countEl        = null;
-var btnEl          = null;
-var _eeState       = {};
-var DEV_MODE_EE      = false;
-var PREMIUM_GATED_EE = true;
 
-/* DOM READY */
-document.addEventListener('DOMContentLoaded', function() {
-  inputEl = document.getElementById('main-input');
-  countEl = document.getElementById('char-count');
-  btnEl   = document.getElementById('generate-btn');
-  if (!inputEl) return;
-  inputEl.addEventListener('input', function() {
-    var len = inputEl.value.length;
-    countEl.textContent = len;
-    countEl.className = 'char-count' + (len >= 120 && len <= 180 ? ' valid' : len > 180 ? ' over' : '');
-    btnEl.disabled = !(len >= 120 && len <= 180);
-    /* Reset spell state when text changes */
-    spellChecked = false;
-    ignoreSpell  = false;
-    lastCheckedVal = '';
-    hideSpellPanel();
-  });
-});
-
-/* GENDER */
 function selectGender(g) {
   selectedGender = g;
-  document.querySelectorAll('.gender-btn').forEach(function(b) {
-    b.classList.toggle('selected', b.dataset.gender === g);
-  });
-}
-
-/* SPELL CHECKER */
-var CORRECTIONS = {
-  'abcense':'absence','absense':'absence','abscence':'absence',
-  'accidently':'accidentally','accidentaly':'accidentally',
-  'accomodate':'accommodate','acommodate':'accommodate',
-  'acheive':'achieve','achive':'achieve',
-  'adventorous':'adventurous','adventourous':'adventurous',
-  'agressive':'aggressive','agresive':'aggressive',
-  'allready':'already','alreday':'already',
-  'amature':'amateur','amatuer':'amateur',
-  'anniversery':'anniversary','anniverssary':'anniversary',
-  'appriciate':'appreciate','apreciate':'appreciate',
-  'apropriate':'appropriate',
-  'arguement':'argument',
-  'asperation':'aspiration',
-  'avalable':'available','availble':'available','availible':'available',
-  'awfull':'awful','aweful':'awful',
-  'beautifull':'beautiful','beutiful':'beautiful','beautful':'beautiful',
-  'becuase':'because','becasue':'because','beacuse':'because',
-  'begining':'beginning',
-  'beleive':'believe','belive':'believe',
-  'benificial':'beneficial',
-  'boundries':'boundaries',
-  'brillant':'brilliant',
-  'buisness':'business','bussiness':'business',
-  'careing':'caring',
-  'charachter':'character',
-  'chiold':'child','chidl':'child',
-  'childen':'children',
-  'colege':'colleague','collegue':'colleague',
-  'comming':'coming',
-  'compasion':'compassion',
-  'completly':'completely',
-  'concious':'conscious',
-  'confidance':'confidence',
-  'corageous':'courageous',
-  'crative':'creative',
-  'curiousity':'curiosity',
-  'daugther':'daughter','dauhgter':'daughter','dauther':'daughter',
-  'definate':'definite','definately':'definitely','definatly':'definitely',
-  'desparate':'desperate',
-  'develoment':'development','developement':'development',
-  'diferent':'different','differant':'different',
-  'disapear':'disappear',
-  'elegent':'elegant','elemant':'elegant',
-  'empthy':'empathy',
-  'enviroment':'environment',
-  'especally':'especially',
-  'excellant':'excellent','excelent':'excellent',
-  'existance':'existence',
-  'experiance':'experience','experence':'experience',
-  'faimly':'family','familly':'family',
-  'fasinating':'fascinating',
-  'favourit':'favourite',
-  'freind':'friend','freinds':'friends',
-  'furthur':'further',
-  'genious':'genius',
-  'gentel':'gentle',
-  'goverment':'government',
-  'gratefull':'grateful','greatful':'grateful',
-  'grammer':'grammar',
-  'guidence':'guidance',
-  'happyness':'happiness','hapiness':'happiness',
-  'helpfull':'helpful',
-  'hoppe':'hope','hoppes':'hopes',
-  'humerous':'humorous',
-  'ignorence':'ignorance',
-  'imediately':'immediately',
-  'impotant':'important',
-  'independant':'independent',
-  'inteligent':'intelligent','intellegent':'intelligent',
-  'intresting':'interesting',
-  'joyfull':'joyful',
-  'kindnes':'kindness',
-  'knowlege':'knowledge',
-  'lonelyness':'loneliness',
-  'loveing':'loving',
-  'maintainance':'maintenance',
-  'managment':'management',
-  'meaningfull':'meaningful',
-  'millenium':'millennium',
-  'mischevious':'mischievous',
-  'naturaly':'naturally',
-  'necesary':'necessary','neccesary':'necessary',
-  'noticable':'noticeable',
-  'nuturing':'nurturing',
-  'ocasion':'occasion',
-  'occured':'occurred',
-  'opportunitiy':'opportunity','opportunitity':'opportunity','opportuniity':'opportunity',
-  'opporunity':'opportunity','opportunty':'opportunity','oppurtunity':'opportunity',
-  'opportunitey':'opportunity','oppertunity':'opportunity','opportunety':'opportunity',
-  'optomistic':'optimistic',
-  'orignal':'original',
-  'paralel':'parallel',
-  'pasionate':'passionate',
-  'patiance':'patience',
-  'percieve':'perceive',
-  'permenent':'permanent',
-  'persistance':'persistence',
-  'personalty':'personality',
-  'persue':'pursue',
-  'phenominal':'phenomenal',
-  'posession':'possession',
-  'priveledge':'privilege',
-  'probaly':'probably',
-  'proffesional':'professional','profesional':'professional',
-  'purposfull':'purposeful',
-  'realy':'really',
-  'recieve':'receive',
-  'recomend':'recommend',
-  'relevent':'relevant',
-  'religous':'religious',
-  'remeber':'remember',
-  'resilant':'resilient','resilent':'resilient',
-  'resistence':'resistance',
-  'sandwhich':'sandwich',
-  'sensative':'sensitive',
-  'seperate':'separate',
-  'simalar':'similar',
-  'sincerly':'sincerely',
-  'spiritul':'spiritual',
-  'spontanious':'spontaneous',
-  'stong':'strong',
-  'strenght':'strength',
-  'sucesful':'successful','succesfull':'successful','sucessful':'successful',
-  'suprise':'surprise',
-  'surounded':'surrounded','sorrounded':'surrounded',
-  'tendancy':'tendency',
-  'timeles':'timeless',
-  'tommorow':'tomorrow','tomorow':'tomorrow',
-  'truely':'truly',
-  'unfortunatly':'unfortunately',
-  'untill':'until',
-  'usualy':'usually',
-  'valueable':'valuable','valuble':'valuable',
-  'visable':'visible',
-  'warmht':'warmth',
-  'wierd':'weird',
-  'wisdome':'wisdom',
-  'withold':'withhold',
-  'writting':'writing'
-};
-
-function spellCheck(text) {
-  var sc_changed = false;
-  var corrected = text.replace(/([a-zA-Z]+)/g, function(word) {
-    var lower = word.toLowerCase();
-    if (CORRECTIONS[lower]) {
-      sc_changed = true;
-      var fix = CORRECTIONS[lower];
-      if (word[0] === word[0].toUpperCase() && word[0] !== word[0].toLowerCase()) {
-        return fix.charAt(0).toUpperCase() + fix.slice(1);
-      }
-      return fix;
-    }
-    return word;
-  });
-  return { corrected: corrected, changed: sc_changed };
-}
-
-function highlightDiffs(original, corrected) {
-  var o = original.split(/()/);
-  var cv = corrected.split(/()/);
-  var html = '';
-  var max = Math.max(o.length, cv.length);
-  for (var i = 0; i < max; i++) {
-    var ow = o[i] || '';
-    var cw = cv[i] || '';
-    if (ow !== cw && /[a-zA-Z]/.test(cw)) {
-      html += '<mark>' + cw + '</mark>';
-    } else {
-      html += cw;
-    }
+  var btns = document.querySelectorAll('.gender-btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].className = btns[i].dataset.gender === g ? 'gender-btn selected' : 'gender-btn';
   }
-  return html || corrected;
 }
+/* -- EverEcho State -- */
 
-function showSpellPanel(orig, corr) {
-  document.getElementById('spell-corrected').innerHTML = highlightDiffs(orig, corr);
-  document.getElementById('spell-panel').className = 'spell-panel visible';
-  correctedText = corr;
-}
+/* -- UNIVERSAL SPELL WARNING -- */
+var _spellWarned = false;
+var _lastCountedVal = '';
 
-function hideSpellPanel() {
-  var p = document.getElementById('spell-panel');
-  if (p) p.className = 'spell-panel';
-}
-
-function acceptCorrection() {
-  var el = document.getElementById('main-input');
-  el.value = correctedText;
-  var len = correctedText.length;
-  var ce = document.getElementById('char-count');
-  if (ce) {
-    ce.textContent = len;
-    ce.className = 'char-count' + (len >= 120 && len <= 180 ? ' valid' : '');
+function countChars() {
+  var ta  = document.getElementById('main-input');
+  var cc  = document.getElementById('char-count');
+  var btn = document.getElementById('generate-btn');
+  if (!ta || !cc) return;
+  var len = ta.value.length;
+  cc.textContent = len;
+  cc.className = 'char-count' + (len >= 120 && len <= 180 ? ' valid' : len > 180 ? ' over' : '');
+  if (btn) btn.disabled = !(len >= 120 && len <= 180);
+  if (ta.value !== _lastCountedVal) {
+    _lastCountedVal = ta.value;
+    _spellWarned = false;
+    var p = document.getElementById('spell-panel');
+    if (p) p.className = 'spell-panel';
   }
-  hideSpellPanel();
-  spellChecked = true;
-  ignoreSpell  = false;
-  lastCheckedVal = correctedText;
-  generateIdentity(correctedText);
-}
-
-function ignoreCorrection() {
-  hideSpellPanel();
-  ignoreSpell  = true;
-  spellChecked = false;
-  var el = document.getElementById('main-input');
-  generateIdentity(el.value.trim());
 }
 
 function handleGenerate() {
-  var el = document.getElementById('main-input');
-  if (!el) return;
-  var val = el.value.trim();
+  var val = document.getElementById('main-input').value.trim();
   if (val.length < 120 || val.length > 180) return;
-
-  /* Run spell check EVERY time, no state flags */
-  var sc_result = spellCheck(val);
-  if (sc_result.changed) {
-    /* Show panel and STOP - do not generate */
-    var panel = document.getElementById('spell-panel');
-    var corrEl = document.getElementById('spell-corrected');
-    corrEl.innerHTML = sc_result.corrected.replace(
-      new RegExp('(' + Object.keys(CORRECTIONS).filter(function(k){ return val.toLowerCase().indexOf(k) !== -1; }).join('|') + ')', 'gi'),
-      '<mark>$1</mark>'
-    );
-    /* Better highlight - just show the corrected text with changes marked */
-    corrEl.textContent = '';
-    var orig_words = val.split(' ');
-    var corr_words = sc_result.corrected.split(' ');
-    for (var i = 0; i < corr_words.length; i++) {
-      if (i > 0) corrEl.appendChild(document.createTextNode(' '));
-      if (orig_words[i] && orig_words[i].toLowerCase() !== corr_words[i].toLowerCase()) {
-        var mark = document.createElement('mark');
-        mark.textContent = corr_words[i];
-        corrEl.appendChild(mark);
-      } else {
-        corrEl.appendChild(document.createTextNode(corr_words[i]));
-      }
-    }
-    correctedText = sc_result.corrected;
-    panel.className = 'spell-panel visible';
-    return; /* STOP here */
+  if (!_spellWarned) {
+    _spellWarned = true;
+    document.getElementById('spell-panel').className = 'spell-panel visible';
+    var btn = document.getElementById('generate-btn');
+    if (btn) btn.disabled = true;
+    return;
   }
-
-  /* No spelling issues - generate */
   generateIdentity(val);
 }
-
+function spellReview() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  document.getElementById('main-input').focus();
+}
+function spellContinue() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  var val = document.getElementById('main-input').value.trim();
+  generateIdentity(val);
+}
 
 /* HELPERS */
 function letterVal(ch) {
@@ -1219,9 +991,8 @@ function generateIdentity(val) {
   var meaning = buildMeaning(val);
   var today  = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
 
-  /* Spell-correct the imprint so it looks clean */
-  var cleanImprint = spellCheck(val).corrected;
-  var imprintFinal = capitaliseSentences(cleanImprint);
+  /* Imprint */
+  var imprintFinal = capitaliseSentences(val);
 
   /* Populate output */
   var nameEl = document.getElementById('out-name-primary');
@@ -1266,9 +1037,8 @@ function generateIdentity(val) {
   /* Store state for PDF */
   _eeState = { val:val, names:names, nums:nums, colour:colour, meaning:meaning, imprint:imprintFinal };
 
-  /* Reset spell flags */
-  spellChecked = false;
-  ignoreSpell  = false;
+  /* Reset spell warning */
+  _spellWarned = false;
 
   /* Reset preservation UI */
   var gate = document.getElementById('preservation-gate');
@@ -1318,7 +1088,10 @@ function runAIPreservation() {
   .then(function(r) { return r.json(); })
   .then(function(data) {
     var text = data.content && data.content[0] ? data.content[0].text : '';
-    var parsed = JSON.parse(text.replace(/```json|```/g, '').trim());
+    var clean = text.replace(/```json/g,'').replace(/```/g,'').trim();
+    var start = clean.indexOf('{'); var end = clean.lastIndexOf('}');
+    if (start !== -1 && end !== -1) clean = clean.substring(start, end + 1);
+    var parsed = JSON.parse(clean);
     if (parsed.enhancedMeaning) _eeState.meaning      = parsed.enhancedMeaning;
     if (parsed.nameRationale)   _eeState.nameRationale = parsed.nameRationale;
     runPreservation();
