@@ -1,1 +1,1093 @@
+<!-- 1LINE Resolver v3.6 | Updated: 20 May 2026 | LS URL, unlock fix, banner, scroll -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1LINE Resolver — Conflict reframing from one line</title>
+  <meta name="description" content="Describe a difficult situation in one line. 1LINE Resolver transforms it into five structured, de-escalated responses — neutral, calm, boundaried, soft and direct." />
+  <meta name="keywords" content="conflict resolution, de-escalate, reframe message, difficult conversation, professional response, workplace conflict, communication tool" />
+  <meta property="og:title" content="1LINE Resolver — Turn conflict into clarity" />
+  <meta property="og:description" content="One line about your situation. Five structured, de-escalated responses. No judgment." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --cream: #FAF8F5;
+      --white: #FFFFFF;
+      --ink: #1A1A18;
+      --ink-mid: #4A4A46;
+      --ink-muted: #888884;
+      --ink-faint: #C4C4BE;
+      --border: rgba(26,26,24,0.10);
+      --border-mid: rgba(26,26,24,0.18);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --max: 640px;
+      --green: #2D7A5A;
+      --red: #C0392B;
+      --amber: #A0620A;
+      --temp-low: #4A8C6A;
+      --temp-mid: #A07030;
+      --temp-high: #9C3A2A;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+    /* ── NAV ── */
+    nav {
+      padding: 28px 0 0;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    .brand {
+      font-family: var(--serif);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    /* ── 1LINE WORDMARK ── */
+    .oneline-mark {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.04em;
+      line-height: 1;
+      text-decoration: none;
+    }
+    .oneline-mark .n {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 1em;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .oneline-mark .l {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 0.5em;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #1A7FE8;
+      position: relative;
+      top: -0.1em;
+    }
+
+    /* ── B-USEFUL BADGE ── */
+    .buseful-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #1A2744;
+      border-radius: 5px;
+      padding: 5px 12px 5px 10px;
+      text-decoration: none;
+      margin-bottom: 16px;
+      transition: opacity 0.2s;
+    }
+    .buseful-badge:hover { opacity: 0.82; }
+    .buseful-badge-text {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      color: #FFFFFF;
+      letter-spacing: 0.02em;
+    }
+    .buseful-badge-text em { font-style: italic; color: #C4A96A; }
+
+    /* ── HERO ── */
+    .hero { padding: 64px 0 48px; border-bottom: 0.5px solid var(--border); }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(30px, 5vw, 42px);
+      font-weight: 300;
+      line-height: 1.18;
+      color: var(--ink);
+      margin-bottom: 18px;
+      letter-spacing: -0.01em;
+    }
+    .hero-sub {
+      font-size: 15px;
+      color: var(--ink-mid);
+      font-weight: 300;
+      max-width: 480px;
+      line-height: 1.65;
+    }
+    .hero-note {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--ink-faint);
+      font-style: italic;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── INPUT ── */
+    .input-section { padding: 48px 0 0; }
+    .input-prompt {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .input-hint {
+      font-size: 12px;
+      color: var(--ink-muted);
+      margin-bottom: 22px;
+      line-height: 1.6;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 96px;
+      padding: 16px 18px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--white);
+      border: 0.5px solid var(--border-mid);
+      border-radius: 10px;
+      resize: none;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    textarea::placeholder { color: var(--ink-faint); }
+    textarea:focus { border-color: var(--ink-mid); }
+
+    .char-counter {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--ink-muted);
+    }
+    .char-count { font-weight: 500; }
+    .char-count.valid { color: var(--green); }
+    .char-count.over  { color: var(--red); }
+
+    /* ── SPELL PANEL ── */
+    .spell-panel {
+      display: none;
+      margin-top: 14px;
+      background: #FFFBF0;
+      border: 0.5px solid rgba(160,98,10,0.22);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+    .spell-panel.visible { display: block; }
+    .spell-heading {
+      font-size: 11px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 12px;
+    }
+    .spell-corrected {
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.7;
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+    .spell-corrected mark {
+      background: rgba(160,98,10,0.13);
+      color: var(--amber);
+      border-radius: 2px;
+      padding: 0 3px;
+    }
+    .spell-actions { display: flex; gap: 8px; }
+    .spell-btn {
+      padding: 9px 18px;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      border: 0.5px solid;
+    }
+    .spell-btn:hover { opacity: 0.72; }
+    .spell-btn.accept { background: var(--ink); color: var(--white); border-color: var(--ink); }
+    .spell-btn.ignore { background: transparent; color: var(--ink-mid); border-color: var(--border-mid); }
+
+    /* ── GENERATE ── */
+    .generate-btn {
+      width: 100%;
+      margin-top: 16px;
+      padding: 15px 24px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--ink);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .generate-btn:hover:not(:disabled) { opacity: 0.82; }
+    .generate-btn:active:not(:disabled) { transform: scale(0.99); }
+    .generate-btn:disabled { opacity: 0.28; cursor: default; }
+    .input-provenance {
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--ink-faint);
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      padding: 56px 0 48px;
+      border-top: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
+      margin-top: 56px;
+    }
+    .section-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 32px;
+    }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .step-num {
+      font-family: var(--serif);
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--ink-faint);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .step-text { font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
+
+    /* ── OUTPUT ── */
+    #output-section {
+      display: none;
+      padding: 56px 0;
+      border-top: 0.5px solid var(--border);
+      margin-top: 56px;
+    }
+    #output-section.visible { display: block; }
+
+    .out-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .out-card {
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 12px;
+    }
+
+    /* ── DIAGNOSTIC ROW ── */
+    .diagnostic-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .diag-card {
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+    .diag-value {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-top: 5px;
+    }
+    .diag-sub {
+      font-size: 11px;
+      color: var(--ink-muted);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    /* Temperature colours */
+    .temp-low  { color: var(--temp-low); }
+    .temp-mid  { color: var(--temp-mid); }
+    .temp-high { color: var(--temp-high); }
+
+    /* Temperature bar */
+    .temp-bar-wrap {
+      margin-top: 8px;
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .temp-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+
+    /* Response cards */
+    .response-card {
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 12px;
+    }
+    .response-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .response-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+    .copy-btn {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      background: none;
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 8px;
+      cursor: pointer;
+      font-family: var(--sans);
+      transition: all 0.15s;
+    }
+    .copy-btn:hover { color: var(--ink); border-color: var(--border-mid); }
+    .copy-btn.copied { color: var(--green); border-color: var(--green); }
+    .response-body {
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    /* Imprint */
+    .imprint-card {
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 12px;
+    }
+    .imprint-text {
+      font-family: var(--serif);
+      font-size: 15px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.75;
+      border-left: 2px solid var(--border-mid);
+      padding-left: 16px;
+      margin: 12px 0 10px;
+    }
+    .imprint-meta { font-size: 11px; color: var(--ink-muted); }
+
+    /* Cross-sell */
+    .crosssell-block {
+      margin: 32px 0 12px;
+      padding: 28px 24px;
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+    }
+    .crosssell-heading {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .crosssell-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .crosssell-card {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 14px 16px;
+      background: var(--cream);
+      border: 0.5px solid var(--border);
+      border-radius: 9px;
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .crosssell-card:hover { border-color: var(--border-mid); }
+    .crosssell-name { font-size: 12px; font-weight: 500; color: var(--ink); }
+    .crosssell-desc { font-size: 11px; color: var(--ink-muted); line-height: 1.5; flex: 1; }
+    .crosssell-cta  { font-size: 11px; color: var(--ink); font-weight: 500; margin-top: 4px; }
+
+    .share-nudge {
+      margin-top: 32px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--ink-muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── FOOTER ── */
+    footer { border-top: 0.5px solid var(--border); padding: 40px 0 48px; margin-top: 56px; }
+    .footer-network-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 14px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+    .footer-link {
+      font-size: 12px;
+      color: var(--ink-muted);
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 20px;
+      padding: 5px 14px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .footer-link:hover { color: var(--ink); border-color: var(--border-mid); }
+    .footer-copy { font-size: 11px; color: var(--ink-faint); }
+
+    @media (max-width: 480px) {
+      .steps { grid-template-columns: 1fr; gap: 20px; }
+      .diagnostic-row { grid-template-columns: 1fr; }
+      .crosssell-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="processing-banner" style="display:none;position:fixed;top:0;left:0;width:100%;background:#1a1a18;color:#f5f3ee;text-align:center;padding:14px 20px;font-size:14px;letter-spacing:0.04em;z-index:9999;">Generating your resolution — please wait a moment...</div>
+<script>if(window.location.search.indexOf('unlocked=true')!==-1){document.getElementById('processing-banner').style.display='block';}</script>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="brand">1LINE Resolver</a>
+    <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" aria-label="Part of 1LINE">
+      <span class="n">1</span><span class="l">LINE</span>
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <a href="https://oi-ecosystem.github.io/b-useful/" target="_blank" rel="noopener" class="buseful-badge">
+      <span class="buseful-badge-text">B-<em>Useful</em></span>
+    </a>
+    <p class="hero-eyebrow">A 1LINE conflict utility</p>
+    <h1>Turn a difficult situation into five structured, de-escalated responses.</h1>
+    <p class="hero-sub">Describe a conflict, tension or difficult situation in one line. 1LINE Resolver reframes it into calm, structured language — without judgment, without advice. Just clarity.</p>
+    <p class="hero-note">No moral judgment. No advice. Pure reframing.</p>
+  </section>
+
+  <!-- INPUT -->
+  <section class="input-section">
+    <p class="input-prompt">Describe your situation in one line.</p>
+    <p class="input-hint">Include what happened, who is involved, and how it is making you feel — in one continuous line. Write it honestly. The more direct you are, the more precise the reframe.</p>
+
+    <textarea
+      id="main-input"
+      maxlength="180"
+      oninput="countChars()" spellcheck="true" autocorrect="on" autocomplete="off" autocapitalize="sentences"
+      placeholder="My co-founder ignored deadlines and I am frustrated but do not want to escalate it into a bigger conflict."
+      aria-label="Describe your conflict or difficult situation in one line"
+    ></textarea>
+
+    <div class="char-counter">
+      <span>120 – 180 characters</span>
+      <span class="char-count" id="char-count">0</span>
+    </div>
+
+    <div class="spell-panel" id="spell-panel">
+      <p class="spell-heading">Some words may contain spelling errors.</p>
+      <p class="spell-corrected">Please review the red underlined words before continuing. Your wording affects response precision.</p>
+      <div class="spell-actions">
+        <button class="spell-btn ignore" onclick="spellReview()">Review Text</button>
+        <button class="spell-btn accept" onclick="spellContinue()">Continue Anyway</button>
+      </div>
+    </div>
+
+    <button class="generate-btn" id="generate-btn" disabled onclick="handleGenerate()">
+      Reframe Situation
+    </button>
+    <p class="input-provenance">Nothing is stored. Your situation stays with you.</p>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <p class="section-eyebrow">How it works</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Describe the situation honestly — who is involved, what happened, how it feels.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">1LINE Resolver detects conflict type, emotional temperature and the right tone path.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Receive five structured responses. Use the one that fits. Send it. Move forward.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTPUT -->
+  <section id="output-section" aria-live="polite">
+    <p class="section-eyebrow">Your reframe</p>
+
+    <!-- Diagnostic row -->
+    <div class="diagnostic-row">
+      <div class="diag-card">
+        <span class="out-label">Conflict type</span>
+        <div class="diag-value" id="out-conflict-type"></div>
+        <div class="diag-sub" id="out-conflict-sub"></div>
+      </div>
+      <div class="diag-card">
+        <span class="out-label">Emotional temperature</span>
+        <div class="diag-value" id="out-temperature"></div>
+        <div class="temp-bar-wrap">
+          <div class="temp-bar-fill" id="out-temp-bar"></div>
+        </div>
+        <div class="diag-sub" id="out-temp-sub"></div>
+      </div>
+      <div class="diag-card">
+        <span class="out-label">Recommended path</span>
+        <div class="diag-value" id="out-tone-path"></div>
+        <div class="diag-sub" id="out-path-sub"></div>
+      </div>
+    </div>
+
+    <!-- Five response cards -->
+    <div class="response-card">
+      <div class="response-header">
+        <span class="response-label">Neutral reframe</span>
+        <button class="copy-btn" onclick="copyResponse('out-neutral', this)">Copy</button>
+      </div>
+      <div class="response-body" id="out-neutral"></div>
+    </div>
+
+    <div class="response-card">
+      <div class="response-header">
+        <span class="response-label">Calm professional</span>
+        <button class="copy-btn" onclick="copyResponse('out-calm', this)">Copy</button>
+      </div>
+      <div class="response-body" id="out-calm"></div>
+    </div>
+
+    <div class="response-card">
+      <div class="response-header">
+        <span class="response-label">Boundary setting</span>
+        <button class="copy-btn" onclick="copyResponse('out-boundary', this)">Copy</button>
+      </div>
+      <div class="response-body" id="out-boundary"></div>
+    </div>
+
+    <div class="response-card">
+      <div class="response-header">
+        <span class="response-label">Soft resolution</span>
+        <button class="copy-btn" onclick="copyResponse('out-soft', this)">Copy</button>
+      </div>
+      <div class="response-body" id="out-soft"></div>
+    </div>
+
+    <div class="response-card">
+      <div class="response-header">
+        <span class="response-label">Direct but controlled</span>
+        <button class="copy-btn" onclick="copyResponse('out-direct', this)">Copy</button>
+      </div>
+      <div class="response-body" id="out-direct"></div>
+    </div>
+
+    <!-- Imprint -->
+    <div class="imprint-card">
+      <span class="out-label">Preserved moment</span>
+      <div class="imprint-text" id="out-imprint-text"></div>
+      <div class="imprint-meta" id="out-imprint-meta"></div>
+    </div>
+
+  </section>
+
+  <!-- PAYMENT GATE -->
+  <section id="resolver-gate" style="display:none;background:var(--ink);border-radius:16px;padding:36px 32px;text-align:center;margin:40px 0;">
+    <p style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:12px;">Unlock your full resolution</p>
+    <h2 style="font-family:var(--serif);font-size:clamp(20px,4vw,26px);font-weight:300;color:#fff;line-height:1.3;margin-bottom:8px;">Deeper responses written<br>for your exact situation.</h2>
+    <p style="font-size:13px;font-weight:300;color:rgba(255,255,255,0.55);max-width:400px;margin:0 auto 24px;line-height:1.7;">Five AI-written responses specific to the people and dynamic you described. Plus a psychological insight, what to avoid saying, and a realistic path forward.</p>
+    <button onclick="unlockResolver()" style="background:#fff;color:var(--ink);border:none;padding:14px 32px;border-radius:8px;font-family:var(--sans);font-size:15px;font-weight:500;cursor:pointer;">Unlock Full Resolution — £9</button>
+    <p style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:12px;">One-time · Instant · Nothing stored</p>
+  </section>
+
+  <!-- AI OUTPUT -->
+  <section id="ai-output" style="display:none;padding-top:40px;border-top:0.5px solid var(--border);margin-top:8px;">
+    <div id="ai-loading" style="text-align:center;padding:40px 0;">
+      <p style="font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ink-muted);" id="ai-loading-text">Reading the situation carefully...</p>
+    </div>
+    <div id="ai-results" style="display:none;">
+      <p class="section-eyebrow">Your personalised resolution</p>
+      <div style="background:#F0F7F4;border:0.5px solid rgba(45,122,90,0.2);border-radius:12px;padding:20px;margin-bottom:12px;">
+        <span style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#2D7A5A;margin-bottom:10px;display:block;">What is actually happening here</span>
+        <div style="font-size:14px;font-weight:300;color:var(--ink-mid);line-height:1.75;" id="ai-insight"></div>
+      </div>
+      <div id="ai-responses" style="margin-bottom:12px;"></div>
+      <div style="background:#FDF2F2;border:0.5px solid rgba(192,57,43,0.18);border-radius:12px;padding:20px;margin-bottom:12px;">
+        <span style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#C0392B;margin-bottom:10px;display:block;">What not to say</span>
+        <div style="font-size:14px;font-weight:300;color:var(--ink-mid);line-height:1.75;" id="ai-avoid"></div>
+      </div>
+      <div style="background:#F0F7F4;border:0.5px solid rgba(45,122,90,0.2);border-radius:12px;padding:20px;margin-bottom:12px;">
+        <span style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#2D7A5A;margin-bottom:10px;display:block;">The path forward</span>
+        <div style="font-size:14px;font-weight:300;color:var(--ink-mid);line-height:1.75;" id="ai-path"></div>
+      </div>
+      <p class="share-nudge">Screenshot your resolution or copy directly. Move forward.</p>
+    </div>
+  </section>
+
+  <!-- CROSSSELL -->
+  <section id="output-section-2" style="display:none;">
+    <!-- Cross-sell -->
+    <div class="crosssell-block">
+      <p class="crosssell-heading">More clarity from one line.</p>
+      <div class="crosssell-cards">
+        <a class="crosssell-card" href="https://oi-ecosystem.github.io/1line/bio/">
+          <span class="crosssell-name">1LINE Bio</span>
+          <span class="crosssell-desc">Compress who you are into every platform bio you need.</span>
+          <span class="crosssell-cta">Try it &rarr;</span>
+        </a>
+        <a class="crosssell-card" href="https://oi-ecosystem.github.io/1line/pitch/">
+          <span class="crosssell-name">1LINE Pitch</span>
+          <span class="crosssell-desc">Your business positioning derived from one honest line.</span>
+          <span class="crosssell-cta">Try it &rarr;</span>
+        </a>
+        <a class="crosssell-card" href="https://oi-ecosystem.github.io/1line/ooo/">
+          <span class="crosssell-name">1LINE OOO</span>
+          <span class="crosssell-desc">Five polished out-of-office messages from one line.</span>
+          <span class="crosssell-cta">Try it &rarr;</span>
+        </a>
+      </div>
+    </div>
+    <p class="share-nudge">Screenshot your reframe or copy it directly. Move forward.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-network-label">Other <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:10px;"><span class="n">1</span><span class="l">LINE</span></a> utilities</div>
+    <div class="footer-links">
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/everecho/">EverEcho — baby identity</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/pitch/">1LINE Pitch — business positioning</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/bio/">1LINE Bio — identity compression</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/ooo/">1LINE OOO — out of office</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/gift/">1LINE Gift — gift logic</a>
+    </div>
+    <p class="footer-copy">&copy; 1LINE Resolver. A <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:11px;"><span class="n">1</span><span class="l">LINE</span></a> conflict utility. Nothing stored. No judgment.</p>
+  </footer>
+
+</div>
+
+<script>
+
+/* ── FLAGS ── */
+var PREMIUM_GATED    = true;
+var _spellWarned     = false;
+var _lastVal         = '';
+
+/* ── CHAR COUNTER ── */
+var _lastCountedVal = '';
+function countChars() {
+  var ta  = document.getElementById('main-input');
+  var cc  = document.getElementById('char-count');
+  var btn = document.getElementById('generate-btn');
+  if (!ta || !cc) return;
+  var len = ta.value.length;
+  cc.textContent = len;
+  cc.className = 'char-count' + (len >= 120 && len <= 180 ? ' valid' : len > 180 ? ' over' : '');
+  if (btn) btn.disabled = !(len >= 120 && len <= 180);
+  /* Only reset spell warning if text has actually changed */
+  if (ta.value !== _lastCountedVal) {
+    _lastCountedVal = ta.value;
+    _spellWarned = false;
+    var p = document.getElementById('spell-panel');
+    if (p) p.className = 'spell-panel';
+  }
+}
+
+/* ── UNIVERSAL SPELL WARNING — fires once per input ── */
+function handleGenerate() {
+  var val = document.getElementById('main-input').value.trim();
+  if (val.length < 120 || val.length > 180) return;
+  if (!_spellWarned) {
+    _spellWarned = true;
+    document.getElementById('spell-panel').className = 'spell-panel visible';
+    var btn = document.getElementById('generate-btn');
+    if (btn) btn.disabled = true;
+    return;
+  }
+  _lastVal = val;
+  generateResolver(val);
+}
+function spellReview() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  document.getElementById('main-input').focus();
+}
+function spellContinue() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  var val = document.getElementById('main-input').value.trim();
+  _lastVal = val;
+  generateResolver(val);
+}
+
+/* ── COPY ── */
+function copyResponse(id, btn) {
+  var text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = 'Copied';
+    btn.className = 'copy-btn copied';
+    setTimeout(function() { btn.textContent = 'Copy'; btn.className = 'copy-btn'; }, 2000);
+  });
+}
+
+/* ── PAYMENT GATE ── */
+function unlockResolver() {
+  var val = _lastVal || document.getElementById('main-input').value.trim();
+  if (PREMIUM_GATED) {
+    sessionStorage.setItem('resolver_data', JSON.stringify({ val: val }));
+    window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/1f6366a2-e591-473c-8cbc-1361ff665177';
+    return;
+  }
+  runAIResolver(val);
+}
+
+/* ── RETURN FROM LEMON SQUEEZY ── */
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.location.search.indexOf('unlocked=true') !== -1) {
+    var stored = sessionStorage.getItem('resolver_data');
+    if (stored) {
+      try {
+        var d = JSON.parse(stored);
+        if (d.val) {
+          var ta = document.getElementById('main-input');
+          if (ta) { ta.value = d.val; countChars(); }
+          _lastVal = d.val;
+          var aiSection = document.getElementById('ai-output');
+          var aiLoading = document.getElementById('ai-loading');
+          if (aiSection) { aiSection.style.display = 'block'; aiSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+          if (aiLoading) aiLoading.style.display = 'block';
+          generateResolver(d.val);
+          runAIResolver(d.val);
+        }
+      } catch(e) {}
+    }
+  }
+});
+
+/* ── DETERMINISTIC HELPERS ── */
+
+/* ── DETERMINISTIC HELPERS ── */
+function charSum(str) {
+  return str.split('').reduce(function(a, c) {
+    var v = c.toLowerCase();
+    return a + (v >= 'a' && v <= 'z' ? v.charCodeAt(0) - 96 : 0);
+  }, 0);
+}
+function cap(str) { return str ? str.charAt(0).toUpperCase() + str.slice(1) : ''; }
+function capSentences(str) {
+  return str.trim().replace(/(^\w|[.!?]\s+\w)/g, function(c) { return c.toUpperCase(); });
+}
+
+/* ── KEYWORD EXTRACTION (strips proper nouns) ── */
+function extractWords(str) {
+  var stops = {'a':1,'an':1,'the':1,'and':1,'or':1,'but':1,'for':1,'with':1,'of':1,'to':1,
+    'in':1,'is':1,'are':1,'was':1,'were':1,'that':1,'this':1,'it':1,'at':1,'by':1,'from':1,
+    'on':1,'as':1,'be':1,'i':1,'we':1,'our':1,'my':1,'their':1,'who':1,'what':1,'which':1,
+    'into':1,'so':1,'not':1,'no':1,'have':1,'has':1,'can':1,'will':1,'do':1,'does':1,'did':1,
+    'about':1,'more':1,'than':1,'very':1,'just':1,'all':1,'any':1,'some':1,'they':1,'he':1,
+    'she':1,'you':1,'your':1,'its':1,'how':1,'when':1,'where':1,'would':1,'could':1,'should':1,
+    'may':1,'might':1,'also':1,'even':1,'after':1,'before':1,'yet':1,'both':1,'each':1,
+    'want':1,'feel':1,'dont':1,'dont':1,'really':1,'know':1,'think':1,'make':1,'made':1,
+    'been':1,'being':1,'had':1,'now':1,'then':1,'here':1,'there':1,'these':1,'those':1,
+    'him':1,'her':1,'them':1,'me':1,'us':1,'am':1,'up':1,'out':1,'get':1,'got':1,'still':1};
+  var properNouns = {};
+  str.split(/\s+/).forEach(function(w, i) {
+    if (i > 0 && /^[A-Z]/.test(w)) properNouns[w.toLowerCase().replace(/[^a-z]/g, '')] = 1;
+  });
+  return str.toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/).filter(function(w) {
+    return w.length > 2 && !stops[w] && !properNouns[w];
+  });
+}
+
+/* ── CONFLICT TYPE DETECTION ── */
+var CONFLICT_TYPES = [
+  { label:'Communication',  sub:'Misalignment in how information was shared or received',
+    signals:['communicate','communication','respond','response','message','told','said','email','ignored','silence','listen','misunderstand','clarity','unclear','feedback'] },
+  { label:'Expectation',    sub:'A gap between what was expected and what was delivered',
+    signals:['expect','expected','deadline','promise','agreed','commit','deliver','should','suppose','understand','assumed','thought','plan','schedule','target'] },
+  { label:'Trust',          sub:'A breakdown in confidence or reliability between people',
+    signals:['trust','honest','lie','lied','deceive','hide','secret','behind','loyal','betray','reliable','depend','doubt','suspect','believe'] },
+  { label:'Responsibility', sub:'Disagreement over who owns what and who is accountable',
+    signals:['responsible','accountability','fault','blame','owner','task','duty','role','credit','work','effort','contribution','fair','unfair','shared','owe'] },
+  { label:'Timing',         sub:'A mismatch between pace, urgency or availability',
+    signals:['late','delayed','slow','urgent','time','soon','wait','rush','deadline','behind','schedule','overdue','quick','fast','priority'] },
+  { label:'Boundary',       sub:'A personal or professional line that feels crossed',
+    signals:['boundary','respect','personal','private','appropriate','uncomfortable','pressured','forced','pushed','cross','intrude','space','limit','acceptable'] },
+  { label:'Power',          sub:'An imbalance in authority, control or influence',
+    signals:['power','control','manage','boss','senior','authority','decision','overrule','dismiss','undermine','micromanage','dominate','override','influence'] },
+];
+
+function detectConflictType(str) {
+  var words = extractWords(str);
+  var best = null, bestScore = 0;
+  CONFLICT_TYPES.forEach(function(ct) {
+    var score = ct.signals.reduce(function(n, sig) {
+      return n + (words.some(function(w) { return w.indexOf(sig) !== -1; }) ? 1 : 0);
+    }, 0);
+    if (score > bestScore) { bestScore = score; best = ct; }
+  });
+  return best || CONFLICT_TYPES[0];
+}
+
+/* ── EMOTIONAL TEMPERATURE ── */
+var HIGH_WORDS   = ['furious','rage','betrayed','humiliated','violated','livid','disgusted','devastated','outraged','attack','hostile','explosion','destroyed','toxic','abuse','bully'];
+var MED_WORDS    = ['frustrated','angry','upset','hurt','resentful','ignored','dismissed','disrespected','unfair','conflict','argument','clash','tense','difficult','problem','issue','escalate','annoyed','disappointed'];
+var LOW_WORDS    = ['concern','unclear','misunderstand','confused','awkward','uncomfortable','uneasy','worry','wonder','question','uncertain','unsure','slight','minor','small','bit'];
+
+function detectTemperature(str) {
+  var lower = str.toLowerCase();
+  var highScore = HIGH_WORDS.filter(function(w) { return lower.indexOf(w) !== -1; }).length;
+  var medScore  = MED_WORDS.filter(function(w)  { return lower.indexOf(w) !== -1; }).length;
+  var lowScore  = LOW_WORDS.filter(function(w)  { return lower.indexOf(w) !== -1; }).length;
+  if (highScore >= 1 || medScore >= 3)    return { level:'High',   cssClass:'temp-high', barWidth:'90%', barColor:'#9C3A2A', sub:'Strong emotional charge detected in your words.' };
+  if (medScore >= 1 || lowScore >= 2)     return { level:'Medium', cssClass:'temp-mid',  barWidth:'55%', barColor:'#A07030', sub:'Moderate tension present. Reframing will help.' };
+  return                                         { level:'Low',    cssClass:'temp-low',  barWidth:'22%', barColor:'#4A8C6A', sub:'Relatively calm situation. Clarity will resolve it.' };
+}
+
+/* ── TONE PATH ── */
+var TONE_PATHS = {
+  'High':   { path:'De-escalate',  sub:'Lower the temperature before anything else is said.' },
+  'Medium': { path:'Clarify',      sub:'Establish shared understanding of what actually happened.' },
+  'Low':    { path:'Assert',       sub:'State your position clearly and with composure.' },
+};
+function getTonePath(temp, conflictType) {
+  if (conflictType.label === 'Boundary' || conflictType.label === 'Trust') {
+    return { path:'Assert', sub:'Name the issue clearly. Boundary situations need directness.' };
+  }
+  if (temp.level === 'Low' && conflictType.label === 'Communication') {
+    return { path:'Clarify', sub:'A calm conversation about what was said or meant.' };
+  }
+  return TONE_PATHS[temp.level] || TONE_PATHS['Medium'];
+}
+
+/* ── RESPONSE BUILDERS ── */
+function buildNeutral(words, conflictType, temp, str) {
+  var d1 = words[0] || 'the situation';
+  var d2 = words[1] || 'the matter';
+  var templates = [
+    'There appears to be a difference in how this situation has been understood by those involved. It may help to establish what each person expected and whether those expectations were made explicit.',
+    'The current situation reflects a gap between what was intended and what was experienced. Naming that gap directly, without assigning cause, is a useful first step.',
+    'This looks like a situation where ' + d1 + ' and ' + d2 + ' have not been fully aligned. A neutral conversation to establish shared facts would likely move things forward.',
+    'There is a disconnect here worth addressing. The goal would be to establish what actually happened, what each person understood, and what a reasonable path forward looks like.',
+  ];
+  return templates[charSum(str) % templates.length];
+}
+
+function buildCalm(words, conflictType, temp, str) {
+  var d1 = words[0] || 'this';
+  var templates = [
+    'I wanted to raise something I have been reflecting on. I think there may be a gap between what I understood we had agreed and how things have unfolded. I would find it useful to talk through that, if you are open to it.',
+    'I would like to address something that has been on my mind. It is not about assigning blame — I just think it would help both of us to get clearer on where we stand with regard to ' + d1 + '.',
+    'I think it would be worth having a calm conversation about what has happened. I have some concerns I would like to share, and I am also genuinely interested in understanding your perspective on this.',
+    'I would appreciate the chance to talk through this with you directly. I think we may have different understandings of the situation, and I would rather surface that clearly than let it go unaddressed.',
+  ];
+  return templates[(charSum(str) + 1) % templates.length];
+}
+
+function buildBoundary(words, conflictType, temp, str) {
+  var d1 = words[0] || 'this';
+  var templates = [
+    'I need to be clear about something. What has happened has crossed a line for me, and I want to name that directly. I am not raising this to create conflict — I am raising it because the current situation is not acceptable to me and I want to address it properly.',
+    'I want to be straightforward with you. There is something about how ' + d1 + ' has been handled that I am not comfortable with. I am naming this now because I think it is important we both understand where I stand.',
+    'I would like to set something straight. I have a clear expectation about how things should work between us, and I think that expectation has not been met. I want to address this directly rather than let it continue.',
+    'There is something I need to address plainly. This is not about creating an argument — it is about being honest that what has happened does not sit right with me, and that I need things to change going forward.',
+  ];
+  return templates[(charSum(str) + 2) % templates.length];
+}
+
+function buildSoft(words, conflictType, temp, str) {
+  var d1 = words[0] || 'things';
+  var templates = [
+    'I hope we can find a way through this together. I do not think either of us intended for things to feel this way, and I believe we are both capable of working it out. It would mean a lot to me if we could talk honestly and find some common ground.',
+    'I think we both want the same thing here — for ' + d1 + ' to work well and for our relationship to stay intact. I would love to find a way to move forward that feels right for both of us.',
+    'I value what we have built together, and I do not want this situation to damage that. Can we find a moment to talk it through properly? I am confident we can get to a better place.',
+    'I do not want this to become bigger than it needs to be. I think if we sit down and talk honestly, we will probably find that we are closer in our thinking than it currently feels.',
+  ];
+  return templates[(charSum(str) + 3) % templates.length];
+}
+
+function buildDirect(words, conflictType, temp, str) {
+  var d1 = words[0] || 'this';
+  var templates = [
+    'I am going to be direct. What has happened is not okay with me and I want it addressed. I am not interested in blame — I am interested in a clear conversation about what went wrong and what needs to change.',
+    'Here is where I stand. ' + cap(d1) + ' has not been handled in a way I find acceptable, and I need that acknowledged. I am open to a conversation, but I need that conversation to be honest and practical.',
+    'I need to address this plainly. The current situation cannot continue as it is. I am raising this now because I believe addressing it directly is the only way to actually resolve it.',
+    'I want to be clear with you. This is something I feel strongly about and I am not prepared to leave it unaddressed. I am happy to have the conversation, but it needs to be a real one.',
+  ];
+  return templates[(charSum(str) + 4) % templates.length];
+}
+
+/* ── MAIN GENERATE ── */
+function generateResolver(val) {
+  if (!val) val = document.getElementById('main-input').value.trim();
+  if (val.length < 120 || val.length > 180) return;
+
+  var words        = extractWords(val);
+  var conflictType = detectConflictType(val);
+  var temp         = detectTemperature(val);
+  var tonePath     = getTonePath(temp, conflictType);
+  var today        = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+
+  /* Diagnostic */
+  document.getElementById('out-conflict-type').textContent = conflictType.label;
+  document.getElementById('out-conflict-sub').textContent  = conflictType.sub;
+
+  var tempEl = document.getElementById('out-temperature');
+  tempEl.textContent  = temp.level;
+  tempEl.className    = 'diag-value ' + temp.cssClass;
+  document.getElementById('out-temp-sub').textContent = temp.sub;
+  var bar = document.getElementById('out-temp-bar');
+  bar.style.width      = temp.barWidth;
+  bar.style.background = temp.barColor;
+
+  document.getElementById('out-tone-path').textContent = tonePath.path;
+  document.getElementById('out-path-sub').textContent  = tonePath.sub;
+
+  /* Five responses */
+  document.getElementById('out-neutral').textContent  = buildNeutral(words, conflictType, temp, val);
+  document.getElementById('out-calm').textContent     = buildCalm(words, conflictType, temp, val);
+  document.getElementById('out-boundary').textContent = buildBoundary(words, conflictType, temp, val);
+  document.getElementById('out-soft').textContent     = buildSoft(words, conflictType, temp, val);
+  document.getElementById('out-direct').textContent   = buildDirect(words, conflictType, temp, val);
+
+  /* Imprint */
+  document.getElementById('out-imprint-text').textContent = capSentences(val);
+  document.getElementById('out-imprint-meta').textContent = 'This reframe was derived from the situation entered on ' + today + '.';
+
+  var section = document.getElementById('output-section');
+  section.className = 'visible';
+  document.getElementById('resolver-gate').style.display = 'block';
+  var cs = document.getElementById('output-section-2');
+  if (cs) cs.style.display = 'block';
+  section.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+/* ── AI RESOLVER ── */
+function runAIResolver(val) {
+  document.getElementById('resolver-gate').style.display = 'none';
+  document.getElementById('ai-output').style.display = 'block';
+  document.getElementById('ai-loading').style.display = 'block';
+  document.getElementById('ai-results').style.display = 'none';
+
+  var msgs = ['Reading the situation carefully...','Understanding the emotional dynamic...','Crafting your responses...','Considering what not to say...','Preparing your resolution...'];
+  var mi = 0;
+  var lel = document.getElementById('ai-loading-text');
+  var intv = setInterval(function() { mi = (mi+1)%msgs.length; if(lel) lel.textContent = msgs[mi]; }, 1200);
+
+  var system = 'You are an expert in conflict resolution and human communication. You receive a description of a real personal or professional conflict and generate deeply specific, emotionally intelligent responses. Every response must feel written for THIS exact situation — never generic. Respond ONLY in valid JSON, no markdown, no preamble.';
+  var prompt = 'Situation: "' + val + '"\n\nReturn ONLY:\n{\n  "insight": "2-3 sentences on what is psychologically happening. Honest, specific, non-judgmental.",\n  "responses": [\n    {"tone":"Neutral reframe","text":"2-3 sentences"},\n    {"tone":"Calm and open","text":"2-3 sentences"},\n    {"tone":"Boundary setting","text":"2-3 sentences"},\n    {"tone":"Soft resolution","text":"2-3 sentences"},\n    {"tone":"Direct but controlled","text":"2-3 sentences"}\n  ],\n  "avoid": "2-3 sentences on what specifically to avoid saying in this situation.",\n  "path": "2-3 sentences on the realistic path forward."\n}';
+
+  fetch('https://rcloop-proxy.vercel.app/api/ai', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ system: system, prompt: prompt })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    clearInterval(intv);
+    var text = data.content && data.content[0] ? data.content[0].text : '';
+    var clean = text.replace(/```json/g,'').replace(/```/g,'').trim();
+    var start = clean.indexOf('{'); var end = clean.lastIndexOf('}');
+    if (start !== -1 && end !== -1) clean = clean.substring(start, end + 1);
+    var parsed = JSON.parse(clean);
+    renderAIResolver(parsed);
+  })
+  .catch(function() {
+    clearInterval(intv);
+    document.getElementById('ai-loading').style.display = 'none';
+    alert('Something went wrong. Please try again.');
+    document.getElementById('resolver-gate').style.display = 'block';
+  });
+}
+
+function renderAIResolver(data) {
+  var banner = document.getElementById('processing-banner');
+  if (banner) banner.style.display = 'none';
+  document.getElementById('ai-loading').style.display = 'none';
+  document.getElementById('ai-results').style.display = 'block';
+  document.getElementById('ai-insight').textContent = data.insight || '';
+  var html = '';
+  (data.responses || []).forEach(function(r) {
+    html += '<div class="response-card"><div class="response-header"><span class="response-label">' + r.tone + '</span>'
+      + '<button class="copy-btn" onclick="copyText(this,\'' + r.text.replace(/'/g,"\\'") + '\')">Copy</button></div>'
+      + '<div class="response-body">' + r.text + '</div></div>';
+  });
+  document.getElementById('ai-responses').innerHTML = html;
+  document.getElementById('ai-avoid').textContent = data.avoid || '';
+  document.getElementById('ai-path').textContent  = data.path  || '';
+  document.getElementById('ai-output').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function copyText(btn, text) {
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = 'Copied'; btn.className = 'copy-btn copied';
+    setTimeout(function() { btn.textContent = 'Copy'; btn.className = 'copy-btn'; }, 2000);
+  });
+}
+
+</script>
+
+<!-- GoatCounter Analytics -->
+<script data-goatcounter="https://signal333.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
