@@ -1,1 +1,467 @@
+<!-- 1LINE Decide v1.3 | Updated: 20 May 2026 | Enhanced with reallyAbout + Stoic reframe -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>1LINE Decide — When your thinking splits in two.</title>
+<meta name="description" content="Describe a difficult decision in one paragraph. 1LINE Decide structures the pressure behind it — stay or change paths, hidden drivers and what your language reveals.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FAF8F5;--white:#FFFFFF;--ink:#1A1A18;--ink-mid:#4A4A46;--ink-muted:#888884;--ink-faint:#C4C4BE;
+  --border:rgba(26,26,24,0.10);--border-mid:rgba(26,26,24,0.18);
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+  --max:640px;--green:#2D7A5A;--red:#C0392B;--amber:#A0620A;--blue:#1A7FE8;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased}
+.page{max-width:var(--max);margin:0 auto;padding:0 24px}
+nav{padding:28px 0 0;display:flex;align-items:baseline;justify-content:space-between}
+.brand{font-family:var(--serif);font-size:13px;font-weight:400;letter-spacing:0.28em;text-transform:uppercase;color:var(--ink);text-decoration:none}
+.oneline-mark{display:inline-flex;align-items:baseline;gap:0.04em;line-height:1;text-decoration:none}
+.oneline-mark .n{font-family:var(--sans);font-weight:500;font-size:1em;color:var(--ink);letter-spacing:-0.02em}
+.oneline-mark .l{font-family:var(--sans);font-weight:500;font-size:0.5em;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);position:relative;top:-0.1em}
+.buseful-badge{display:inline-flex;align-items:center;background:#1A2744;border-radius:5px;padding:5px 12px 5px 10px;text-decoration:none;margin-bottom:16px}
+.buseful-badge-text{font-family:var(--sans);font-size:11px;font-weight:500;color:#fff;letter-spacing:0.02em}
+.buseful-badge-text em{font-style:italic;color:#C4A96A}
+.hero{padding:64px 0 48px;border-bottom:0.5px solid var(--border)}
+.hero-eyebrow{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:20px}
+.hero h1{font-family:var(--serif);font-size:clamp(30px,5vw,44px);font-weight:300;line-height:1.15;color:var(--ink);margin-bottom:18px;letter-spacing:-0.01em}
+.hero-sub{font-size:15px;color:var(--ink-mid);font-weight:300;max-width:480px;line-height:1.65}
+.input-section{padding:48px 0 0}
+.input-prompt{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--ink);margin-bottom:6px}
+.input-hint{font-size:12px;color:var(--ink-muted);margin-bottom:22px;line-height:1.6}
+textarea{width:100%;min-height:120px;padding:16px 18px;font-family:var(--sans);font-size:14px;font-weight:300;line-height:1.65;color:var(--ink);background:var(--white);border:0.5px solid var(--border-mid);border-radius:10px;resize:none;outline:none;transition:border-color 0.2s;-webkit-appearance:none}
+textarea::placeholder{color:var(--ink-faint)}
+textarea:focus{border-color:var(--ink-mid)}
+.char-counter{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:11px;color:var(--ink-muted)}
+.char-count{font-weight:500;transition:color 0.2s}
+.char-count.valid{color:var(--green)}
+.char-count.over{color:var(--red)}
+.spell-panel{display:none;margin-top:14px;background:#FFFBF0;border:0.5px solid rgba(160,98,10,0.22);border-radius:10px;padding:18px 20px}
+.spell-panel.visible{display:block}
+.spell-heading{font-size:11px;letter-spacing:0.10em;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+.spell-corrected{font-size:13px;color:var(--ink-mid);line-height:1.65;margin-bottom:14px;font-weight:300}
+.spell-actions{display:flex;gap:8px}
+.spell-btn{padding:9px 18px;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;border-radius:7px;cursor:pointer;transition:opacity 0.15s;border:0.5px solid}
+.spell-btn:hover{opacity:0.72}
+.spell-btn.accept{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.spell-btn.ignore{background:transparent;color:var(--ink-mid);border-color:var(--border-mid)}
+.generate-btn{width:100%;margin-top:16px;padding:15px 24px;font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--white);background:var(--ink);border:none;border-radius:10px;cursor:pointer;transition:opacity 0.2s}
+.generate-btn:hover:not(:disabled){opacity:0.82}
+.generate-btn:disabled{opacity:0.28;cursor:default}
+.input-provenance{margin-top:12px;font-size:11px;color:var(--ink-faint);text-align:center}
+.how-section{padding:56px 0 48px;border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);margin-top:56px}
+.section-eyebrow{font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:32px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.step-num{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--ink-faint);line-height:1;margin-bottom:10px;display:block}
+.step-text{font-size:13px;color:var(--ink-mid);line-height:1.6}
+#output-section{display:none;padding:56px 0 0}
+#output-section.visible{display:block}
+.out-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:10px;display:block}
+.decision-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.path-card{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:20px}
+.path-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:8px;display:block}
+.path-name{font-family:var(--serif);font-size:18px;font-weight:400;color:var(--ink);margin-bottom:8px}
+.path-text{font-size:13px;font-weight:300;color:var(--ink-mid);line-height:1.6}
+.out-card{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:20px;margin-bottom:12px}
+.hidden-driver{font-family:var(--serif);font-size:clamp(16px,2.5vw,19px);font-weight:300;font-style:italic;color:var(--ink);line-height:1.5;margin-top:8px}
+.gate-section{background:var(--ink);border-radius:16px;padding:36px 32px;text-align:center;margin:32px 0;display:none}
+.gate-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:12px;display:block}
+.gate-hed{font-family:var(--serif);font-size:clamp(20px,4vw,26px);font-weight:300;color:#fff;line-height:1.3;margin-bottom:8px}
+.gate-sub{font-size:13px;font-weight:300;color:rgba(255,255,255,0.55);max-width:380px;margin:0 auto 24px;line-height:1.7}
+.unlock-btn{background:#fff;color:var(--ink);border:none;padding:14px 32px;border-radius:8px;font-family:var(--sans);font-size:15px;font-weight:500;cursor:pointer;transition:opacity 0.2s}
+.unlock-btn:hover{opacity:0.88}
+.gate-small{font-size:11px;color:rgba(255,255,255,0.3);margin-top:12px}
+#ai-output{display:none;padding-top:40px;border-top:0.5px solid var(--border);margin-top:8px}
+#ai-loading{text-align:center;padding:40px 0}
+.loading-text{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ink-muted)}
+#ai-results{display:none}
+.ai-card{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:20px;margin-bottom:10px}
+.ai-card-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:10px;display:block}
+.ai-card-text{font-size:14px;font-weight:300;color:var(--ink);line-height:1.75}
+.regret-card{background:#FDF2F2;border:0.5px solid rgba(192,57,43,0.18);border-radius:12px;padding:20px;margin-bottom:12px}
+.direction-card{background:var(--ink);border-radius:12px;padding:24px;margin-bottom:12px}
+.share-nudge{margin-top:32px;text-align:center;font-size:12px;color:var(--ink-muted);letter-spacing:0.06em}
+footer{border-top:0.5px solid var(--border);padding:40px 0 48px;margin-top:56px}
+.footer-network-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:14px}
+.footer-links{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.footer-link{font-size:12px;color:var(--ink-muted);background:var(--white);border:0.5px solid var(--border);border-radius:20px;padding:5px 14px;text-decoration:none}
+.footer-link:hover{color:var(--ink);border-color:var(--border-mid)}
+.footer-copy{font-size:11px;color:var(--ink-faint)}
+@media(max-width:480px){.steps{grid-template-columns:1fr;gap:20px}.decision-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="processing-banner" style="display:none;position:fixed;top:0;left:0;width:100%;background:#1a1a18;color:#f5f3ee;text-align:center;padding:14px 20px;font-size:14px;letter-spacing:0.04em;z-index:9999;">Mapping your decision — please wait a moment...</div>
+<script>if(window.location.search.indexOf('unlocked=true')!==-1){document.getElementById('processing-banner').style.display='block';}</script>
+<div class="page">
 
+<nav>
+  <a href="/" class="brand">1LINE Decide</a>
+  <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark">
+    <span class="n">1</span><span class="l">LINE</span>
+  </a>
+</nav>
+
+<section class="hero">
+  <a href="https://oi-ecosystem.github.io/b-useful/" target="_blank" rel="noopener" class="buseful-badge">
+    <span class="buseful-badge-text">B-<em>Useful</em></span>
+  </a>
+  <p class="hero-eyebrow">A 1LINE decision utility</p>
+  <h1>When your thinking<br>splits in two.</h1>
+  <p class="hero-sub">Describe a difficult decision you are facing. 1LINE Decide structures the pressure behind it — the stay path, the change path, the hidden driver, and what your language reveals about where you already lean.</p>
+</section>
+
+<section class="input-section">
+  <p class="input-prompt">Describe the decision you are facing.</p>
+  <p class="input-hint">Include what the two paths are, what you are afraid of, and what is making it hard. Write it honestly. 200–600 characters.</p>
+
+  <textarea
+    id="main-input"
+    maxlength="600"
+    oninput="countChars()"
+    spellcheck="true"
+    autocorrect="on"
+    autocomplete="off"
+    autocapitalize="sentences"
+    placeholder="I have been offered a new job that pays more but means leaving a team I love and a role I know well. The new role is exciting but uncertain and I am not sure if I am running towards something or away from something."
+  ></textarea>
+
+  <div class="char-counter">
+    <span>200 – 600 characters</span>
+    <span class="char-count" id="char-count">0</span>
+  </div>
+
+  <div class="spell-panel" id="spell-panel">
+    <p class="spell-heading">Some words may contain spelling errors.</p>
+    <p class="spell-corrected">Please review the red underlined words before continuing. Your wording affects the precision of the decision analysis.</p>
+    <div class="spell-actions">
+      <button class="spell-btn ignore" onclick="spellReview()">Review Text</button>
+      <button class="spell-btn accept" onclick="spellContinue()">Continue Anyway</button>
+    </div>
+  </div>
+
+  <button class="generate-btn" id="generate-btn" disabled onclick="handleGenerate()">Structure My Decision</button>
+  <p class="input-provenance">Nothing is stored. Your thinking stays with you.</p>
+</section>
+
+<section class="how-section">
+  <p class="section-eyebrow">How it works</p>
+  <div class="steps">
+    <div class="step"><span class="step-num">1</span><p class="step-text">Describe the decision — both paths, what you fear and what is making it hard.</p></div>
+    <div class="step"><span class="step-num">2</span><p class="step-text">1LINE detects fear signals, opportunity signals, identity pressure and emotional weighting.</p></div>
+    <div class="step"><span class="step-num">3</span><p class="step-text">Receive a decision snapshot and hidden driver — and with unlock, the full pressure map.</p></div>
+  </div>
+</section>
+
+<section id="output-section">
+  <p class="section-eyebrow">Your decision snapshot</p>
+
+  <div class="decision-grid">
+    <div class="path-card">
+      <span class="path-label">Stay path</span>
+      <div class="path-name" id="out-stay-name"></div>
+      <div class="path-text" id="out-stay-text"></div>
+    </div>
+    <div class="path-card">
+      <span class="path-label">Change path</span>
+      <div class="path-name" id="out-change-name"></div>
+      <div class="path-text" id="out-change-text"></div>
+    </div>
+  </div>
+
+  <div class="out-card">
+    <span class="out-label">The hidden driver</span>
+    <div class="hidden-driver" id="out-driver"></div>
+  </div>
+</section>
+
+<div class="gate-section" id="decide-gate">
+  <span class="gate-label">Unlock your full decision map</span>
+  <h2 class="gate-hed">The full pressure map<br>behind your decision.</h2>
+  <p class="gate-sub">Emotional weighting, contradiction detection, likely regret pattern, pressure source and a clarity direction — all derived from exactly what you wrote.</p>
+  <button class="unlock-btn" onclick="unlockDecide()">Unlock Full Decision Map — £9</button>
+  <p class="gate-small">One-time · Instant · Nothing stored</p>
+</div>
+
+<section id="ai-output">
+  <div id="ai-loading">
+    <p class="loading-text" id="ai-loading-text">Reading your decision...</p>
+  </div>
+  <div id="ai-results">
+    <p class="section-eyebrow">Your full decision map</p>
+
+    <div class="ai-card">
+      <span class="ai-card-label">Stay path — what it gives and what it costs</span>
+      <div class="ai-card-text" id="ai-stay"></div>
+    </div>
+    <div class="ai-card">
+      <span class="ai-card-label">Change path — what it gives and what it costs</span>
+      <div class="ai-card-text" id="ai-change"></div>
+    </div>
+    <div class="ai-card">
+      <span class="ai-card-label">The hidden driver</span>
+      <div class="ai-card-text" id="ai-driver"></div>
+    </div>
+    <div class="ai-card">
+      <span class="ai-card-label">What this is really about</span>
+      <div class="ai-card-text" id="ai-really"></div>
+    </div>
+    <div class="ai-card">
+      <span class="ai-card-label">Pressure source</span>
+      <div class="ai-card-text" id="ai-pressure"></div>
+    </div>
+    <div class="regret-card">
+      <span class="out-label" style="color:var(--red);">Likely regret pattern</span>
+      <div style="font-size:14px;font-weight:300;color:var(--ink-mid);line-height:1.75;" id="ai-regret"></div>
+    </div>
+    <div class="ai-card">
+      <span class="ai-card-label">A question worth sitting with</span>
+      <div class="ai-card-text" id="ai-stoic" style="font-family:var(--serif);font-size:17px;font-style:italic;"></div>
+    </div>
+    <div class="direction-card">
+      <span style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:8px;display:block;">Clarity direction</span>
+      <div style="font-family:var(--serif);font-size:18px;font-weight:300;color:#fff;line-height:1.5;" id="ai-direction"></div>
+      <p style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:12px;">This is not advice. It is a reflection of the signals in your own words.</p>
+    </div>
+    <p class="share-nudge">Screenshot your decision map to preserve it.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-network-label">Other <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:10px;"><span class="n">1</span><span class="l">LINE</span></a> utilities</div>
+  <div class="footer-links">
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/clarity/">1LINE Clarity — thinking clarity</a>
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/resolver/">1LINE Resolver — conflict clarity</a>
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/pitch/">1LINE Pitch — business positioning</a>
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/gift/">1LINE Gift — gift logic</a>
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/everecho/">EverEcho — baby identity</a>
+  </div>
+  <p class="footer-copy">&copy; 1LINE Decide. A <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:11px;"><span class="n">1</span><span class="l">LINE</span></a> decision utility.</p>
+</footer>
+
+</div>
+
+<script>
+
+/* ── FLAGS ── */
+var PREMIUM_GATED   = true;
+var _spellWarned    = false;
+var _lastCountedVal = '';
+var _lastVal        = '';
+
+/* ── CHAR COUNTER ── */
+function countChars() {
+  var ta  = document.getElementById('main-input');
+  var cc  = document.getElementById('char-count');
+  var btn = document.getElementById('generate-btn');
+  if (!ta || !cc) return;
+  var len = ta.value.length;
+  cc.textContent = len;
+  cc.className = 'char-count' + (len >= 200 && len <= 600 ? ' valid' : len > 600 ? ' over' : '');
+  if (btn) btn.disabled = !(len >= 200 && len <= 600);
+  if (ta.value !== _lastCountedVal) {
+    _lastCountedVal = ta.value;
+    _spellWarned = false;
+    var p = document.getElementById('spell-panel');
+    if (p) p.className = 'spell-panel';
+  }
+}
+
+/* ── UNIVERSAL SPELL WARNING ── */
+function handleGenerate() {
+  var val = document.getElementById('main-input').value.trim();
+  if (val.length < 200 || val.length > 600) return;
+  if (!_spellWarned) {
+    _spellWarned = true;
+    document.getElementById('spell-panel').className = 'spell-panel visible';
+    var btn = document.getElementById('generate-btn');
+    if (btn) btn.disabled = true;
+    return;
+  }
+  _lastVal = val;
+  generateDecide(val);
+}
+function spellReview() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  document.getElementById('main-input').focus();
+}
+function spellContinue() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  var val = document.getElementById('main-input').value.trim();
+  _lastVal = val;
+  generateDecide(val);
+}
+
+/* ── DETECTION ENGINE ── */
+function detectPaths(str) {
+  var lower = str.toLowerCase();
+  var stayName = 'Stay'; var changeName = 'Change';
+  if (lower.indexOf('job') !== -1 || lower.indexOf('work') !== -1 || lower.indexOf('role') !== -1 || lower.indexOf('career') !== -1) {
+    stayName = 'Stay in current role'; changeName = 'Take the new opportunity';
+  } else if (lower.indexOf('relationship') !== -1 || lower.indexOf('partner') !== -1) {
+    stayName = 'Stay in the relationship'; changeName = 'Leave the relationship';
+  } else if (lower.indexOf('city') !== -1 || lower.indexOf('move') !== -1 || lower.indexOf('relocat') !== -1) {
+    stayName = 'Stay where you are'; changeName = 'Make the move';
+  } else if (lower.indexOf('business') !== -1 || lower.indexOf('startup') !== -1 || lower.indexOf('start') !== -1) {
+    stayName = 'Keep the current path'; changeName = 'Start the business';
+  }
+  var stayBenefits = [];
+  var changeBenefits = [];
+  if (lower.indexOf('safe') !== -1 || lower.indexOf('secure') !== -1 || lower.indexOf('stable') !== -1) stayBenefits.push('security');
+  if (lower.indexOf('know') !== -1 || lower.indexOf('familiar') !== -1) stayBenefits.push('familiarity');
+  if (lower.indexOf('team') !== -1 || lower.indexOf('people') !== -1 || lower.indexOf('colleague') !== -1) stayBenefits.push('existing relationships');
+  if (lower.indexOf('more') !== -1 || lower.indexOf('better') !== -1 || lower.indexOf('growth') !== -1) changeBenefits.push('potential growth');
+  if (lower.indexOf('exciting') !== -1 || lower.indexOf('opportunity') !== -1) changeBenefits.push('new possibilities');
+  if (lower.indexOf('money') !== -1 || lower.indexOf('salary') !== -1 || lower.indexOf('pay') !== -1) changeBenefits.push('financial upside');
+  var stayText = stayBenefits.length > 0 ? 'Preserves ' + stayBenefits.join(', ') + '. Lower risk, known outcome.' : 'Known, predictable, lower risk.';
+  var changeText = changeBenefits.length > 0 ? 'Offers ' + changeBenefits.join(', ') + '. Higher reward, higher uncertainty.' : 'Unknown, uncertain, potentially higher reward.';
+  return { stayName: stayName, changeName: changeName, stayText: stayText, changeText: changeText };
+}
+
+function detectDriver(str) {
+  var lower = str.toLowerCase();
+  if (lower.indexOf('scared') !== -1 || lower.indexOf('fear') !== -1 || lower.indexOf('afraid') !== -1) {
+    if (lower.indexOf('regret') !== -1 || lower.indexOf('miss') !== -1) return 'Your decision appears more driven by fear of regret than immediate dissatisfaction.';
+    return 'Your decision appears more driven by fear of the unknown than a clear preference for the status quo.';
+  }
+  if (lower.indexOf('what people') !== -1 || lower.indexOf('what they') !== -1 || lower.indexOf('what others') !== -1 || lower.indexOf('what will') !== -1) {
+    return 'Your decision appears significantly influenced by how others will perceive you — more than your own preference.';
+  }
+  if (lower.indexOf('should') !== -1 || lower.indexOf('supposed to') !== -1 || lower.indexOf('expected') !== -1) {
+    return 'Your language suggests external obligation is weighing more heavily than personal desire.';
+  }
+  if (lower.indexOf('running towards') !== -1 || lower.indexOf('running away') !== -1) {
+    return 'You have already identified the key question: whether this is movement towards something or away from something. That distinction matters enormously.';
+  }
+  if (lower.indexOf('bored') !== -1 || lower.indexOf('stuck') !== -1 || lower.indexOf('comfortable') !== -1) {
+    return 'Your decision appears driven more by the discomfort of staying than genuine enthusiasm for changing.';
+  }
+  return 'Your decision appears driven by a tension between identity and security — who you want to be versus what feels safe.';
+}
+
+/* ── GENERATE ── */
+function generateDecide(val) {
+  _lastVal = val;
+  var paths  = detectPaths(val);
+  var driver = detectDriver(val);
+
+  document.getElementById('out-stay-name').textContent   = paths.stayName;
+  document.getElementById('out-stay-text').textContent   = paths.stayText;
+  document.getElementById('out-change-name').textContent = paths.changeName;
+  document.getElementById('out-change-text').textContent = paths.changeText;
+  document.getElementById('out-driver').textContent      = driver;
+
+  var section = document.getElementById('output-section');
+  section.className = 'visible';
+  document.getElementById('decide-gate').style.display = 'block';
+  section.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+/* ── PAYMENT ── */
+function unlockDecide() {
+  var val = _lastVal || document.getElementById('main-input').value.trim();
+  if (PREMIUM_GATED) {
+    sessionStorage.setItem('decide_data', JSON.stringify({ val: val }));
+    window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/543ddb95-ad08-4612-99b3-d75d929720b1';
+    return;
+  }
+  runAIDecide(val);
+}
+
+/* ── AI ── */
+function runAIDecide(val) {
+  document.getElementById('decide-gate').style.display = 'none';
+  document.getElementById('ai-output').style.display = 'block';
+  document.getElementById('ai-loading').style.display = 'block';
+  document.getElementById('ai-results').style.display = 'none';
+
+  var msgs = ['Reading your decision...','Mapping the pressure behind it...','Identifying the hidden driver...','Detecting regret patterns...','Preparing your decision map...'];
+  var mi = 0; var lel = document.getElementById('ai-loading-text');
+  var intv = setInterval(function() { mi=(mi+1)%msgs.length; if(lel) lel.textContent=msgs[mi]; }, 1200);
+
+  var system = 'You are an expert in decision psychology and structured thinking. You receive a description of a difficult decision someone faces. Your job is to map the emotional and practical pressure behind it — not to give advice, but to help them see clearly what is actually driving their difficulty. Be honest, specific and non-judgmental. Respond ONLY in valid JSON, no markdown, no preamble.';
+  var prompt = 'Decision described: "' + val + '"\n\nReturn ONLY:\n{\n  "stay": "What staying gives and what it costs — specific to what was described. 2-3 sentences.",\n  "change": "What changing gives and what it costs — specific to what was described. 2-3 sentences.",\n  "driver": "The real hidden driver of this difficulty. What is actually making it hard beneath the surface. 2-3 sentences.",\n  "reallyAbout": "What this decision is really about at its core — often different from the surface question. e.g. This is not really about the job. It is about identity and what success means to you. 1-2 sentences.",\n  "pressure": "Where the pressure is coming from — financial, emotional, identity, family, exhaustion, ambition, or something else. 2-3 sentences specific to this situation.",\n  "regret": "The likely regret pattern. Which path does their language suggest they would more regret not taking. 2-3 sentences. Be specific.",\n  "stoic": "A Stoic reframe. One powerful question or observation — e.g. In ten years, which choice will feel like the braver one? Make it specific to this situation.",\n  "direction": "A clarity direction — not advice. What their language consistently leans toward. One sentence starting with: Your language consistently suggests..."\n}';
+
+  fetch('https://rcloop-proxy.vercel.app/api/ai', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ system: system, prompt: prompt })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    clearInterval(intv);
+    var text = data.content && data.content[0] ? data.content[0].text : '';
+    var clean = text.replace(/```json/g,'').replace(/```/g,'').trim();
+    var start = clean.indexOf('{'); var end = clean.lastIndexOf('}');
+    if (start !== -1 && end !== -1) clean = clean.substring(start, end + 1);
+    var d = JSON.parse(clean);
+    renderAIDecide(d);
+  })
+  .catch(function() {
+    clearInterval(intv);
+    document.getElementById('ai-loading').style.display = 'none';
+    alert('Something went wrong. Please try again.');
+    document.getElementById('decide-gate').style.display = 'block';
+  });
+}
+
+function renderAIDecide(d) {
+  var banner = document.getElementById('processing-banner');
+  if (banner) banner.style.display = 'none';
+  document.getElementById('ai-loading').style.display = 'none';
+  document.getElementById('ai-results').style.display = 'block';
+  document.getElementById('ai-stay').textContent      = d.stay || '';
+  document.getElementById('ai-change').textContent    = d.change || '';
+  document.getElementById('ai-driver').textContent    = d.driver || '';
+  document.getElementById('ai-pressure').textContent  = d.pressure || '';
+  document.getElementById('ai-regret').textContent    = d.regret || '';
+  document.getElementById('ai-direction').textContent = d.direction || '';
+  if (document.getElementById('ai-really')) document.getElementById('ai-really').textContent  = d.reallyAbout || '';
+  if (document.getElementById('ai-stoic'))  document.getElementById('ai-stoic').textContent   = d.stoic || '';
+  document.getElementById('ai-output').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+/* ── RETURN FROM PAYMENT ── */
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.location.search.indexOf('unlocked=true') !== -1) {
+    var stored = sessionStorage.getItem('decide_data');
+    if (stored) {
+      try {
+        var d = JSON.parse(stored);
+        if (d.val) {
+          var ta = document.getElementById('main-input');
+          if (ta) { ta.value = d.val; countChars(); }
+          _lastVal = d.val;
+          var aiSection = document.getElementById('ai-output');
+          var aiLoading = document.getElementById('ai-loading');
+          if (aiSection) { aiSection.style.display = 'block'; aiSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+          if (aiLoading) aiLoading.style.display = 'block';
+          generateDecide(d.val);
+          runAIDecide(d.val);
+        }
+      } catch(e) {}
+    }
+  }
+});
+
+</script>
+
+<!-- GoatCounter Analytics -->
+<script data-goatcounter="https://signal333.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
