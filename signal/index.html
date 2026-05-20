@@ -1,4 +1,4 @@
-<!-- 1LINE Signal v2.0 | Updated: 20 May 2026 16:30 | End-of-day AI analysis, no market-data proxy -->
+<!-- 1LINE Signal v2.1 | Updated: 20 May 2026 17:00 | TradingView EOD chart, AI via api/ai -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -199,7 +199,7 @@ nav {
 
 /* CHART */
 .chart-wrap { background: var(--white); border: 0.5px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 8px; }
-#price-chart { width: 100%; height: 280px; }
+#price-chart { width: 100%; height: 300px; border: none; display: block; }
 
 /* ANALYSIS CARDS */
 .analysis-card { background: var(--white); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 10px; }
@@ -664,58 +664,25 @@ function runAnalysis(ticker, timeframe, context) {
   renderRecent();
 
   /* Fetch end-of-day chart data directly from Yahoo (browser fetch, no proxy needed) */
-  /* EOD daily chart — always use 1d interval, range based on timeframe */
-  var rangeMap = { '1D':'5d', '1W':'1mo', '1M':'3mo', '3M':'6mo', '6M':'1y', '1Y':'2y' };
-  var chartRange = rangeMap[timeframe] || '6mo';
-  var chartUrl = 'https://query1.finance.yahoo.com/v8/finance/chart/' + encodeURIComponent(ticker)
-    + '?interval=1d&range=' + chartRange + '&includePrePost=false';
+  /* Render TradingView EOD chart — no API needed */
+  var tvIntervalMap = { '1D':'D', '1W':'W', '1M':'M', '3M':'3M', '6M':'6M', '1Y':'12M' };
+  var tvInterval = tvIntervalMap[timeframe] || 'D';
+  var chartContainer = document.getElementById('price-chart');
+  chartContainer.innerHTML = '';
+  var iframe = document.createElement('iframe');
+  iframe.src = 'https://s.tradingview.com/widgetembed/?frameElementId=price-chart'
+    + '&symbol=' + encodeURIComponent(ticker)
+    + '&interval=' + tvInterval
+    + '&hidesidetoolbar=1&hidetoptoolbar=0&symboledit=0&saveimage=0&toolbarbg=F1F3F6'
+    + '&studies=[]&theme=light&style=1&timezone=exchange&withdateranges=1'
+    + '&showpopupbutton=0&locale=en';
+  iframe.style.cssText = 'width:100%;height:300px;border:none;display:block;';
+  iframe.setAttribute('allowtransparency', 'true');
+  iframe.setAttribute('frameborder', '0');
+  chartContainer.appendChild(iframe);
 
-  fetch(chartUrl)
-  .then(function(r) { return r.json(); })
-  .then(function(json) {
-    var result = json && json.chart && json.chart.result && json.chart.result[0];
-    var chartData = null;
-    if (result && result.timestamp && result.indicators && result.indicators.quote) {
-      var q = result.indicators.quote[0];
-      var meta = result.meta || {};
-      chartData = {
-        ticker: ticker.toUpperCase(),
-        timeframe: timeframe,
-        currency: meta.currency || 'USD',
-        currentPrice: meta.regularMarketPrice || 0,
-        dayChange: 0,
-        ohlcv: result.timestamp.map(function(ts, i) {
-          return {
-            time: ts,
-            open:   Math.round((q.open[i]  || 0) * 100) / 100,
-            high:   Math.round((q.high[i]  || 0) * 100) / 100,
-            low:    Math.round((q.low[i]   || 0) * 100) / 100,
-            close:  Math.round((q.close[i] || 0) * 100) / 100,
-            volume: q.volume[i] || 0
-          };
-        }).filter(function(c) { return c.close > 0; })
-      };
-      var closes = chartData.ohlcv.map(function(c) { return c.close; });
-      var prev = closes[closes.length - 2] || closes[closes.length - 1];
-      var curr = chartData.currentPrice || closes[closes.length - 1];
-      chartData.dayChange = prev > 0 ? Math.round(((curr - prev) / prev) * 10000) / 100 : 0;
-      chartData.currentPrice = curr;
-    }
-    _marketData = chartData;
-    if (chartData && chartData.ohlcv && chartData.ohlcv.length) {
-      renderChart(chartData);
-    } else {
-      document.getElementById('price-chart').innerHTML = '<p style="padding:20px;color:var(--ink-muted);font-size:13px;">Chart data unavailable — analysis continuing.</p>';
-    }
-    /* Always fire AI analysis regardless of chart success */
-    runAIAnalysis(ticker, timeframe, context, chartData);
-  })
-  .catch(function() {
-    /* Chart fetch failed — still run AI analysis */
-    _marketData = null;
-    document.getElementById('price-chart').innerHTML = '<p style="padding:20px;color:var(--ink-muted);font-size:13px;">Chart data unavailable — analysis continuing.</p>';
-    runAIAnalysis(ticker, timeframe, context, null);
-  });
+  /* Fire AI analysis immediately — no data dependency */
+  runAIAnalysis(ticker, timeframe, context, null);
 }
 
 
