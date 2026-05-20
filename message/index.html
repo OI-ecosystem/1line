@@ -1,4 +1,4 @@
-<!-- 1LINE Message v1.2 | Updated: 20 May 2026 | LS URL, unlock fix, banner, scroll -->
+<!-- 1LINE Message v1.3 | Updated: 20 May 2026 | Etsy unlock fix| LS URL, unlock fix, banner, scroll -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -375,7 +375,7 @@ function generateMessage(val) {
 /* ── PAYMENT ── */
 function unlockMessage() {
   var val = _lastVal || document.getElementById('main-input').value.trim();
-  if (PREMIUM_GATED) {
+  if (PREMIUM_GATED && window.location.search.indexOf("unlocked=true") === -1) {
     sessionStorage.setItem('message_data', JSON.stringify({ val: val }));
     window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/cc638e59-8c5b-4cd6-b6ea-49c4d9ab7869';
     return;
