@@ -1,1 +1,752 @@
+<!-- 1LINE AI-M v2.1 | Updated: 20 May 2026 | runAIAIM added, LS URL, banner, scroll -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1LINE AI-M &mdash; Structured prompt clarity from one line</title>
+  <meta name="description" content="Describe what you want in one line. 1LINE AI-M transforms vague instructions into refined, structured AI prompts using deterministic clarity systems." />
+  <meta name="keywords" content="prompt builder, AI prompt generator, structured prompts, prompt clarity, ChatGPT prompts, Claude prompts, prompt engineering" />
+  <meta property="og:title" content="1LINE AI-M &mdash; One line into structured AI clarity" />
+  <meta property="og:description" content="Transform vague instructions into refined prompts. Deterministic. Structured. Clear." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --cream: #FAF8F5;
+      --white: #FFFFFF;
+      --ink: #1A1A18;
+      --ink-mid: #4A4A46;
+      --ink-muted: #888884;
+      --ink-faint: #C4C4BE;
+      --border: rgba(26,26,24,0.10);
+      --border-mid: rgba(26,26,24,0.18);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --max: 640px;
+      --green: #2D7A5A;
+      --red: #C0392B;
+      --amber: #A0620A;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--cream); color: var(--ink); min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .page { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+    nav { padding: 28px 0 0; display: flex; align-items: baseline; justify-content: space-between; }
+    .brand { font-family: var(--serif); font-size: 13px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+
+    .oneline-mark { display: inline-flex; align-items: baseline; gap: 0.04em; line-height: 1; text-decoration: none; }
+    .oneline-mark .n { font-family: var(--sans); font-weight: 500; font-size: 1em; color: var(--ink); letter-spacing: -0.02em; }
+    .oneline-mark .l { font-family: var(--sans); font-weight: 500; font-size: 0.5em; letter-spacing: 0.18em; text-transform: uppercase; color: #1A7FE8; position: relative; top: -0.1em; }
+
+    .buseful-badge { display: inline-flex; align-items: center; background: #1A2744; border-radius: 5px; padding: 5px 12px 5px 10px; text-decoration: none; margin-bottom: 16px; transition: opacity 0.2s; }
+    .buseful-badge:hover { opacity: 0.82; }
+    .buseful-badge-text { font-family: var(--sans); font-size: 11px; font-weight: 500; color: #FFF; letter-spacing: 0.02em; }
+    .buseful-badge-text em { font-style: italic; color: #C4A96A; }
+
+    .hero { padding: 64px 0 48px; border-bottom: 0.5px solid var(--border); }
+    .hero-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 20px; }
+    .hero h1 { font-family: var(--serif); font-size: clamp(30px,5vw,42px); font-weight: 300; line-height: 1.18; color: var(--ink); margin-bottom: 18px; letter-spacing: -0.01em; }
+    .hero-sub { font-size: 15px; color: var(--ink-mid); font-weight: 300; max-width: 480px; line-height: 1.65; }
+
+    .input-section { padding: 48px 0 0; }
+    .input-prompt { font-family: var(--serif); font-size: 20px; font-weight: 400; color: var(--ink); margin-bottom: 6px; }
+    .input-hint { font-size: 12px; color: var(--ink-muted); margin-bottom: 22px; line-height: 1.6; }
+
+    .example-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+    .ex-pill { font-size: 11px; padding: 5px 12px; border-radius: 20px; border: 0.5px solid var(--border-mid); color: var(--ink-muted); background: var(--white); cursor: pointer; font-style: italic; transition: background 0.15s; }
+    .ex-pill:hover { background: var(--cream); color: var(--ink); }
+
+    textarea { width: 100%; min-height: 80px; padding: 16px 18px; font-family: var(--sans); font-size: 14px; font-weight: 300; line-height: 1.65; color: var(--ink); background: var(--white); border: 0.5px solid var(--border-mid); border-radius: 10px; resize: none; outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
+    textarea::placeholder { color: var(--ink-faint); }
+    textarea:focus { border-color: var(--ink-mid); }
+
+    .char-counter { display: flex; justify-content: space-between; margin-top: 8px; font-size: 11px; color: var(--ink-muted); }
+    .char-count { font-weight: 500; }
+    .char-count.valid { color: var(--green); }
+    .char-count.over  { color: var(--red); }
+
+    .spell-panel { display: none; margin-top: 14px; background: #FFFBF0; border: 0.5px solid rgba(160,98,10,0.22); border-radius: 10px; padding: 18px 20px; }
+    .spell-panel.visible { display: block; }
+    .spell-heading { font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; }
+    .spell-corrected { font-size: 14px; color: var(--ink); line-height: 1.7; font-weight: 300; margin-bottom: 16px; }
+    .spell-corrected mark { background: rgba(160,98,10,0.13); color: var(--amber); border-radius: 2px; padding: 0 3px; }
+    .spell-actions { display: flex; gap: 8px; }
+    .spell-btn { padding: 9px 18px; font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 7px; cursor: pointer; transition: opacity 0.15s; border: 0.5px solid; }
+    .spell-btn:hover { opacity: 0.72; }
+    .spell-btn.accept { background: var(--ink); color: var(--white); border-color: var(--ink); }
+    .spell-btn.ignore { background: transparent; color: var(--ink-mid); border-color: var(--border-mid); }
+
+    .generate-btn { width: 100%; margin-top: 16px; padding: 15px 24px; font-family: var(--sans); font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--white); background: var(--ink); border: none; border-radius: 10px; cursor: pointer; transition: opacity 0.2s, transform 0.1s; }
+    .generate-btn:hover:not(:disabled) { opacity: 0.82; }
+    .generate-btn:active:not(:disabled) { transform: scale(0.99); }
+    .generate-btn:disabled { opacity: 0.28; cursor: default; }
+    .input-provenance { margin-top: 12px; font-size: 11px; color: var(--ink-faint); text-align: center; }
+
+    .how-section { padding: 56px 0 48px; border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); margin-top: 56px; }
+    .section-eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 32px; }
+    .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .step-num { font-family: var(--serif); font-size: 32px; font-weight: 300; color: var(--ink-faint); line-height: 1; margin-bottom: 10px; }
+    .step-text { font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
+
+    #output-section { display: none; padding: 56px 0; border-top: 0.5px solid var(--border); margin-top: 56px; }
+    #output-section.visible { display: block; }
+
+    .out-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 10px; display: block; }
+    .out-card { background: var(--white); border: 0.5px solid var(--border); border-radius: 12px; padding: 22px; margin-bottom: 12px; }
+
+    /* Diagnostic row */
+    .diag-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .diag-card { background: var(--white); border: 0.5px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+    .diag-value { font-family: var(--serif); font-size: 18px; font-weight: 300; color: var(--ink); margin-top: 5px; line-height: 1.2; }
+    .diag-sub { font-size: 11px; color: var(--ink-muted); margin-top: 4px; line-height: 1.4; }
+
+    /* Intent summary */
+    .intent-tag { font-family: var(--serif); font-size: 22px; font-weight: 300; font-style: italic; color: var(--ink); margin-top: 6px; }
+
+    /* Prompt display */
+    .prompt-text { font-size: 14px; color: var(--ink); line-height: 1.8; font-weight: 300; margin-top: 8px; background: var(--cream); border-radius: 8px; padding: 16px; border-left: 2px solid var(--border-mid); }
+    .prompt-copy-row { display: flex; justify-content: flex-end; margin-top: 10px; }
+    .copy-btn { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); background: none; border: 0.5px solid var(--border); border-radius: 4px; padding: 4px 10px; cursor: pointer; font-family: var(--sans); transition: all 0.15s; }
+    .copy-btn:hover { color: var(--ink); border-color: var(--border-mid); }
+    .copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+    /* Premium */
+    .premium-card { background: var(--ink); border-radius: 12px; padding: 26px; margin-bottom: 12px; }
+    .premium-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+    .premium-feature { background: rgba(255,255,255,0.07); border-radius: 8px; padding: 14px; }
+    .premium-feature-name { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.9); margin-bottom: 4px; letter-spacing: 0.04em; }
+    .premium-feature-desc { font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+    .premium-cta-row { text-align: center; }
+    .premium-heading { font-family: var(--serif); font-size: 20px; font-weight: 300; color: var(--white); margin-bottom: 6px; }
+    .premium-sub { font-size: 12px; color: rgba(255,255,255,0.45); margin-bottom: 18px; }
+    .premium-btn { padding: 12px 28px; font-family: var(--sans); font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); background: var(--white); border: none; border-radius: 8px; cursor: pointer; transition: opacity 0.15s; }
+    .premium-btn:hover { opacity: 0.88; }
+    .premium-price { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 8px; display: block; }
+
+    /* Imprint */
+    .imprint-card { background: var(--white); border: 0.5px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 12px; }
+    .imprint-text { font-family: var(--serif); font-size: 15px; font-style: italic; font-weight: 300; color: var(--ink-mid); line-height: 1.75; border-left: 2px solid var(--border-mid); padding-left: 16px; margin: 12px 0 10px; }
+    .imprint-meta { font-size: 11px; color: var(--ink-muted); }
+
+    .crosssell-block { margin: 28px 0 12px; padding: 24px; background: var(--white); border: 0.5px solid var(--border); border-radius: 12px; }
+    .crosssell-heading { font-family: var(--serif); font-size: 17px; font-weight: 300; color: var(--ink); margin-bottom: 14px; }
+    .crosssell-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+    .crosssell-card { display: flex; flex-direction: column; gap: 5px; padding: 14px 16px; background: var(--cream); border: 0.5px solid var(--border); border-radius: 9px; text-decoration: none; transition: border-color 0.2s; }
+    .crosssell-card:hover { border-color: var(--border-mid); }
+    .crosssell-name { font-size: 12px; font-weight: 500; color: var(--ink); }
+    .crosssell-desc { font-size: 11px; color: var(--ink-muted); line-height: 1.5; flex: 1; }
+    .crosssell-cta  { font-size: 11px; color: var(--ink); font-weight: 500; margin-top: 4px; }
+
+    .share-nudge { margin-top: 32px; text-align: center; font-size: 12px; color: var(--ink-muted); }
+
+    footer { border-top: 0.5px solid var(--border); padding: 40px 0 48px; margin-top: 56px; }
+    .footer-network-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 14px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+    .footer-link { font-size: 12px; color: var(--ink-muted); background: var(--white); border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 14px; text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+    .footer-link:hover { color: var(--ink); border-color: var(--border-mid); }
+    .footer-copy { font-size: 11px; color: var(--ink-faint); }
+
+    @media (max-width: 480px) {
+      .steps { grid-template-columns: 1fr; gap: 20px; }
+      .diag-row { grid-template-columns: 1fr; }
+      .premium-grid { grid-template-columns: 1fr; }
+      .crosssell-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div id="processing-banner" style="display:none;position:fixed;top:0;left:0;width:100%;background:#1a1a18;color:#f5f3ee;text-align:center;padding:14px 20px;font-size:14px;letter-spacing:0.04em;z-index:9999;">Building your prompt suite — please wait a moment...</div>
+<script>if(window.location.search.indexOf('unlocked=true')!==-1){document.getElementById('processing-banner').style.display='block';}</script>
+
+<div class="page">
+
+  <nav>
+    <a href="/" class="brand">1LINE AI-M</a>
+    <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" aria-label="Part of 1LINE">
+      <span class="n">1</span><span class="l">LINE</span>
+    </a>
+  </nav>
+
+  <section class="hero">
+    <a href="https://oi-ecosystem.github.io/b-useful/" target="_blank" rel="noopener" class="buseful-badge">
+      <span class="buseful-badge-text">B-<em>Useful</em></span>
+    </a>
+    <p class="hero-eyebrow">A 1LINE prompt utility</p>
+    <h1>One line into structured AI clarity.</h1>
+    <p class="hero-sub">Transform vague instructions into refined, structured prompts using deterministic clarity systems. Not AI generation &mdash; instruction precision.</p>
+  </section>
+
+  <section class="input-section">
+    <p class="input-prompt">Describe what you want AI to do in one line.</p>
+    <p class="input-hint">Be specific about the task, the outcome you want and the context. The system extracts your intent and structures it into a clear, precise instruction.</p>
+
+    <div class="example-pills">
+      <span class="ex-pill" onclick="setIntent('Help me create a competitor analysis for budgeting apps targeting freelancers.')">Competitor analysis</span>
+      <span class="ex-pill" onclick="setIntent('Write a calm professional reply to an angry client email about a missed deadline.')">Calm reply to client</span>
+      <span class="ex-pill" onclick="setIntent('Create a 12-week study plan for learning Python from scratch with daily tasks.')">Study plan</span>
+      <span class="ex-pill" onclick="setIntent('Help me structure a YouTube content strategy for a personal finance channel.')">Content strategy</span>
+      <span class="ex-pill" onclick="setIntent('Turn my rough product notes into a clear one-page business case for investors.')">Business case</span>
+      <span class="ex-pill" onclick="setIntent('Summarise this research paper into five key findings for a non-technical audience.')">Summarise research</span>
+    </div>
+
+    <textarea
+      id="main-input"
+      maxlength="250"
+      oninput="countChars()"
+      spellcheck="true"
+      autocorrect="on"
+      autocomplete="off"
+      autocapitalize="sentences"
+      placeholder="Help me create a competitor analysis for budgeting apps targeting freelancers."
+      aria-label="Describe what you want AI to do"
+    ></textarea>
+
+    <div class="char-counter">
+      <span>60 &ndash; 250 characters</span>
+      <span class="char-count" id="char-count">0</span>
+    </div>
+
+    <div class="spell-panel" id="spell-panel">
+      <p class="spell-heading">Some words may contain spelling errors.</p>
+      <p class="spell-corrected">Please review the red underlined words before continuing. Your wording affects the precision of the prompt.</p>
+      <div class="spell-actions">
+        <button class="spell-btn ignore" onclick="spellReview()">Review Text</button>
+        <button class="spell-btn accept" onclick="spellContinue()">Continue Anyway</button>
+      </div>
+    </div>
+
+    <button class="generate-btn" id="generate-btn" disabled onclick="handleGenerate()">
+      Refine My Prompt
+    </button>
+    <p class="input-provenance">Deterministic refinement. Not AI generation.</p>
+  </section>
+
+  <section class="how-section">
+    <p class="section-eyebrow">How it works</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Describe what you want. One line. Be specific about the task and the outcome.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">1LINE AI-M extracts your objective, domain, tone and output type using structured logic.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Receive a compressed prompt, a role-framed version and a structured execution prompt ready to use.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="output-section" aria-live="polite">
+    <p class="section-eyebrow">Your refined prompt</p>
+
+    <!-- Diagnostic -->
+    <div class="diag-row">
+      <div class="diag-card">
+        <span class="out-label">Domain</span>
+        <div class="diag-value" id="out-domain"></div>
+        <div class="diag-sub" id="out-domain-sub"></div>
+      </div>
+      <div class="diag-card">
+        <span class="out-label">Tone signature</span>
+        <div class="diag-value" id="out-tone"></div>
+        <div class="diag-sub" id="out-tone-sub"></div>
+      </div>
+      <div class="diag-card">
+        <span class="out-label">Intent summary</span>
+        <div class="intent-tag" id="out-intent-tag"></div>
+      </div>
+    </div>
+
+    <!-- Compressed prompt (free) -->
+    <div class="out-card">
+      <span class="out-label">Compressed prompt</span>
+      <div class="prompt-text" id="out-compressed"></div>
+      <div class="prompt-copy-row">
+        <button class="copy-btn" onclick="copyPrompt('out-compressed', this)">Copy</button>
+      </div>
+    </div>
+
+    <!-- Role-framed prompt (free) -->
+    <div class="out-card">
+      <span class="out-label">Role-framed prompt</span>
+      <div class="prompt-text" id="out-roleframed"></div>
+      <div class="prompt-copy-row">
+        <button class="copy-btn" onclick="copyPrompt('out-roleframed', this)">Copy</button>
+      </div>
+    </div>
+
+    <!-- Premium -->
+    <div class="premium-card">
+      <div class="premium-grid">
+        <div class="premium-feature">
+          <div class="premium-feature-name">Structured execution prompt</div>
+          <div class="premium-feature-desc">Role, objective, constraints, outputs and formatting — structured operationally.</div>
+        </div>
+        <div class="premium-feature">
+          <div class="premium-feature-name">Advanced clarity version</div>
+          <div class="premium-feature-desc">Ambiguity removed. Weak wording replaced. High-signal prompt architecture.</div>
+        </div>
+        <div class="premium-feature">
+          <div class="premium-feature-name">Multi-model variants</div>
+          <div class="premium-feature-desc">Optimised versions for ChatGPT, Claude, Gemini and Perplexity.</div>
+        </div>
+        <div class="premium-feature">
+          <div class="premium-feature-name">Downloadable prompt card</div>
+          <div class="premium-feature-desc">A formatted AI-M Prompt Identity Card with timestamp and execution block.</div>
+        </div>
+      </div>
+      <div class="premium-cta-row">
+        <p class="premium-heading">Unlock the full prompt suite</p>
+        <p class="premium-sub">Four premium outputs including multi-model variants and a downloadable prompt card.</p>
+        <button class="premium-btn" onclick="unlockAIM()">Unlock &mdash; &pound;9</button>
+        <span class="premium-price">One-time. Instant access.</span>
+      </div>
+    </div>
+
+    <!-- Imprint -->
+    <div class="imprint-card">
+      <span class="out-label">Original intent preserved</span>
+      <div class="imprint-text" id="out-imprint-text"></div>
+      <div class="imprint-meta" id="out-imprint-meta"></div>
+    </div>
+
+    <!-- Cross-sell -->
+    <div class="crosssell-block">
+      <p class="crosssell-heading">More clarity from one line.</p>
+      <div class="crosssell-cards">
+        <a class="crosssell-card" href="https://oi-ecosystem.github.io/1line/gift/">
+          <span class="crosssell-name">1LINE Pitch</span>
+          <span class="crosssell-desc">Your business positioning derived from one honest line.</span>
+          <span class="crosssell-cta">Try it &rarr;</span>
+        </a>
+        <a class="crosssell-card" href="https://oi-ecosystem.github.io/1line/gift/">
+          <span class="crosssell-name">1LINE Bio</span>
+          <span class="crosssell-desc">Every platform bio you need from one line about who you are.</span>
+          <span class="crosssell-cta">Try it &rarr;</span>
+        </a>
+        <a class="crosssell-card" href="https://oi-ecosystem.github.io/1line/gift/">
+          <span class="crosssell-name">1LINE Resolver</span>
+          <span class="crosssell-desc">Turn a difficult situation into five structured responses.</span>
+          <span class="crosssell-cta">Try it &rarr;</span>
+        </a>
+      </div>
+    </div>
+
+    <p class="share-nudge">Copy your refined prompt and use it immediately. No account needed.</p>
+  </section>
+
+  <!-- AI OUTPUT SECTION -->
+  <section id="ai-output-section" style="display:none; padding:56px 0; border-top:0.5px solid var(--border); margin-top:56px;">
+    <div id="ai-loading" style="display:none; text-align:center; padding:40px 0;">
+      <p id="ai-loading-text" style="font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ink-muted);">Refining your prompt...</p>
+    </div>
+    <div id="ai-results" style="display:none;">
+      <p class="section-eyebrow">Your full prompt suite</p>
+
+      <div class="out-card" style="background:#f5f7ff;border-radius:12px;padding:20px;margin-bottom:12px;">
+        <span class="out-label">Structured execution prompt</span>
+        <div id="ai-structured" style="font-size:14px;line-height:1.75;color:var(--ink);margin-top:8px;white-space:pre-wrap;"></div>
+        <button onclick="copyAI('ai-structured',this)" style="margin-top:10px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;background:none;border:0.5px solid var(--border);padding:6px 14px;border-radius:6px;cursor:pointer;">Copy</button>
+      </div>
+
+      <div class="out-card" style="background:#fff;border:0.5px solid var(--border);border-radius:12px;padding:20px;margin-bottom:12px;">
+        <span class="out-label">Advanced clarity version</span>
+        <div id="ai-advanced" style="font-size:14px;line-height:1.75;color:var(--ink);margin-top:8px;"></div>
+        <button onclick="copyAI('ai-advanced',this)" style="margin-top:10px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;background:none;border:0.5px solid var(--border);padding:6px 14px;border-radius:6px;cursor:pointer;">Copy</button>
+      </div>
+
+      <p class="section-eyebrow" style="margin-top:32px;">Model-specific versions</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
+        <div style="background:#fff;border:0.5px solid var(--border);border-radius:10px;padding:16px;">
+          <span style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-muted);">ChatGPT</span>
+          <div id="ai-chatgpt" style="font-size:13px;line-height:1.7;color:var(--ink);margin-top:6px;"></div>
+          <button onclick="copyAI('ai-chatgpt',this)" style="margin-top:8px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;background:none;border:0.5px solid var(--border);padding:5px 12px;border-radius:5px;cursor:pointer;">Copy</button>
+        </div>
+        <div style="background:#fff;border:0.5px solid var(--border);border-radius:10px;padding:16px;">
+          <span style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-muted);">Claude</span>
+          <div id="ai-claude" style="font-size:13px;line-height:1.7;color:var(--ink);margin-top:6px;"></div>
+          <button onclick="copyAI('ai-claude',this)" style="margin-top:8px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;background:none;border:0.5px solid var(--border);padding:5px 12px;border-radius:5px;cursor:pointer;">Copy</button>
+        </div>
+        <div style="background:#fff;border:0.5px solid var(--border);border-radius:10px;padding:16px;">
+          <span style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-muted);">Gemini</span>
+          <div id="ai-gemini" style="font-size:13px;line-height:1.7;color:var(--ink);margin-top:6px;"></div>
+          <button onclick="copyAI('ai-gemini',this)" style="margin-top:8px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;background:none;border:0.5px solid var(--border);padding:5px 12px;border-radius:5px;cursor:pointer;">Copy</button>
+        </div>
+        <div style="background:#fff;border:0.5px solid var(--border);border-radius:10px;padding:16px;">
+          <span style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-muted);">Perplexity</span>
+          <div id="ai-perplexity" style="font-size:13px;line-height:1.7;color:var(--ink);margin-top:6px;"></div>
+          <button onclick="copyAI('ai-perplexity',this)" style="margin-top:8px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;background:none;border:0.5px solid var(--border);padding:5px 12px;border-radius:5px;cursor:pointer;">Copy</button>
+        </div>
+      </div>
+
+      <div style="background:#FDF2F2;border:0.5px solid rgba(192,57,43,0.18);border-radius:12px;padding:20px;margin-bottom:12px;">
+        <span class="out-label" style="color:#c0392b;">What was weakening your prompt</span>
+        <div id="ai-weakness" style="font-size:14px;line-height:1.75;color:var(--ink-mid);margin-top:8px;"></div>
+      </div>
+
+      <p class="share-nudge">Copy the version that fits. Use it immediately.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-network-label">Other <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:10px;"><span class="n">1</span><span class="l">LINE</span></a> utilities</div>
+    <div class="footer-links">
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/pitch/">1LINE Pitch &mdash; business positioning</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/bio/">1LINE Bio &mdash; identity compression</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/gift/">1LINE Gift &mdash; gift intelligence</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/ooo/">1LINE OOO &mdash; out of office</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/resolver/">1LINE Resolver &mdash; conflict clarity</a>
+    </div>
+    <p class="footer-copy">&copy; 1LINE AI-M. A <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:11px;"><span class="n">1</span><span class="l">LINE</span></a> prompt utility. Deterministic. Structured. Clear.</p>
+  </footer>
+
+</div>
+
+<script>
+
+var PREMIUM_GATED   = true;
+var _spellWarned    = false;
+var _lastCountedVal = '';
+var _lastVal        = '';
+
+/* ── CHAR COUNTER ── */
+function countChars() {
+  var ta  = document.getElementById('main-input');
+  var cc  = document.getElementById('char-count');
+  var btn = document.getElementById('generate-btn');
+  if (!ta || !cc) return;
+  var len = ta.value.length;
+  cc.textContent = len;
+  cc.className = 'char-count' + (len >= 60 && len <= 250 ? ' valid' : len > 250 ? ' over' : '');
+  if (btn) btn.disabled = !(len >= 60 && len <= 250);
+  if (ta.value !== _lastCountedVal) {
+    _lastCountedVal = ta.value;
+    _spellWarned = false;
+    var p = document.getElementById('spell-panel');
+    if (p) p.className = 'spell-panel';
+  }
+}
+
+function setIntent(txt) {
+  var el = document.getElementById('main-input');
+  el.value = txt;
+  countChars();
+}
+
+/* ── COPY ── */
+function copyPrompt(id, btn) {
+  var text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = 'Copied';
+    btn.className = 'copy-btn copied';
+    setTimeout(function() { btn.textContent = 'Copy'; btn.className = 'copy-btn'; }, 2000);
+  });
+}
+
+/* ── UNIVERSAL SPELL WARNING ── */
+function handleGenerate() {
+  var val = document.getElementById('main-input').value.trim();
+  if (val.length < 60 || val.length > 250) return;
+  if (!_spellWarned) {
+    _spellWarned = true;
+    document.getElementById('spell-panel').className = 'spell-panel visible';
+    var btn = document.getElementById('generate-btn');
+    if (btn) btn.disabled = true;
+    return;
+  }
+  _lastVal = val;
+  generate(val);
+}
+function spellReview() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  document.getElementById('main-input').focus();
+}
+function spellContinue() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  var val = document.getElementById('main-input').value.trim();
+  _lastVal = val;
+  generate(val);
+}
+
+/* ── PAYMENT ── */
+function unlockAIM() {
+  var val = _lastVal || document.getElementById('main-input').value.trim();
+  if (PREMIUM_GATED) {
+    sessionStorage.setItem('aim_data', JSON.stringify({ val: val }));
+    window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/94cb3096-04b0-4129-bce0-3a5e8916bd99';
+    return;
+  }
+  runAIAIM(val);
+}
+
+function copyAI(id, btn) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent).then(function() {
+    btn.textContent = 'Copied';
+    setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+  });
+}
+
+function runAIAIM(val) {
+  var banner = document.getElementById('processing-banner');
+  if (banner) banner.style.display = 'none';
+  var aiSection = document.getElementById('ai-output-section');
+  var aiLoading = document.getElementById('ai-loading');
+  var aiResults = document.getElementById('ai-results');
+  if (aiSection) { aiSection.style.display = 'block'; aiSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  if (aiLoading) aiLoading.style.display = 'block';
+  if (aiResults) aiResults.style.display = 'none';
+  var msgs = ['Reading your prompt...','Structuring the execution layer...','Building model-specific versions...','Identifying what to remove...','Finalising your prompt suite...'];
+  var idx = 0;
+  var lel = document.getElementById('ai-loading-text');
+  var interval = setInterval(function() { idx = (idx+1) % msgs.length; if (lel) lel.textContent = msgs[idx]; }, 1400);
+  var system = 'You are an expert AI prompt engineer. You receive a rough prompt or task description. Restructure it into high-performance prompt versions optimised for different AI models. Be specific, structured and remove all vagueness. Respond ONLY in valid JSON, no markdown, no preamble.';
+  var prompt = 'Original prompt or task: "' + val + '"\n\nReturn ONLY this JSON:\n{"structured":"A fully structured execution prompt with role, objective, constraints, output format and tone. Ready to paste.","advanced":"Advanced clarity version. Remove weak language. Replace hedging with precision. Maximum signal-to-noise. Ready to paste.","chatgpt":"Optimised for ChatGPT. Conversational but precise. 2-3 sentences.","claude":"Optimised for Claude. Thoughtful framing with clear constraints. 2-3 sentences.","gemini":"Optimised for Gemini. Direct and structured. 2-3 sentences.","perplexity":"Optimised for Perplexity. Search-oriented framing with clear scope. 2-3 sentences.","weakness":"What was weakening the original — vague language, missing constraints, unclear output format. 2-3 sentences specific to this prompt."}';
+  fetch('https://rcloop-proxy.vercel.app/api/ai', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ system: system, prompt: prompt })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    clearInterval(interval);
+    var text = data.content && data.content[0] ? data.content[0].text : '';
+    var clean = text.replace(/```json/g,'').replace(/```/g,'').trim();
+    var start = clean.indexOf('{'); var end = clean.lastIndexOf('}');
+    if (start !== -1 && end !== -1) clean = clean.substring(start, end+1);
+    var parsed = JSON.parse(clean);
+    if (aiLoading) aiLoading.style.display = 'none';
+    if (aiResults) aiResults.style.display = 'block';
+    var set = function(id, v) { var el = document.getElementById(id); if (el) el.textContent = v || ''; };
+    set('ai-structured', parsed.structured);
+    set('ai-advanced', parsed.advanced);
+    set('ai-chatgpt', parsed.chatgpt);
+    set('ai-claude', parsed.claude);
+    set('ai-gemini', parsed.gemini);
+    set('ai-perplexity', parsed.perplexity);
+    set('ai-weakness', parsed.weakness);
+    if (aiResults) aiResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  })
+  .catch(function() {
+    clearInterval(interval);
+    if (aiLoading) aiLoading.style.display = 'none';
+    alert('Something went wrong. Please try again.');
+  });
+}
+
+/* ── RETURN FROM PAYMENT ── */
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.location.search.indexOf('unlocked=true') !== -1) {
+    var stored = sessionStorage.getItem('aim_data');
+    if (stored) {
+      try {
+        var d = JSON.parse(stored);
+        if (d.val) {
+          var ta = document.getElementById('main-input');
+          if (ta) { ta.value = d.val; countChars(); }
+          _lastVal = d.val;
+          var aiSection = document.getElementById('ai-output-section');
+          var aiLoading = document.getElementById('ai-loading');
+          if (aiSection) { aiSection.style.display = 'block'; aiSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+          if (aiLoading) aiLoading.style.display = 'block';
+          generate(d.val);
+          runAIAIM(d.val);
+        }
+      } catch(e) {}
+    }
+  }
+});
+
+/* ── ENGINE HELPERS ── */
+function charSum(str) {
+  return str.split('').reduce(function(a,c) {
+    var v = c.toLowerCase(); return a + (v >= 'a' && v <= 'z' ? v.charCodeAt(0)-96 : 0);
+  }, 0);
+}
+function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
+
+function extractWords(str) {
+  var stops = {'a':1,'an':1,'the':1,'and':1,'or':1,'for':1,'with':1,'of':1,'to':1,'in':1,'is':1,'are':1,'me':1,'my':1,'i':1,'this':1,'that':1,'it':1,'into':1,'as':1,'be':1,'by':1,'from':1,'on':1,'at':1,'can':1,'do':1,'get':1,'help':1,'make':1,'want':1,'need':1,'turn':1,'create':1,'write':1,'give':1,'show':1,'tell':1,'build':1,'find':1,'using':1,'use':1};
+  return str.toLowerCase().replace(/[^a-z\s]/g,'').split(/\s+/).filter(function(w) {
+    return w.length > 2 && !stops[w];
+  });
+}
+
+/* ── DOMAIN DETECTION ── */
+var DOMAINS = [
+  { label:'Strategy',    sub:'Planning, analysis, positioning',   signals:['strategy','strategic','plan','planning','competitor','analysis','market','position','growth','vision','roadmap','landscape'] },
+  { label:'Writing',     sub:'Copy, content, communication',      signals:['write','writing','email','article','copy','blog','script','rewrite','draft','content','letter','message','reply','paragraph'] },
+  { label:'Research',    sub:'Analysis, synthesis, summarising',  signals:['research','summarise','summarize','summary','findings','paper','study','report','analyze','analyse','investigate','data','evidence'] },
+  { label:'Education',   sub:'Learning, teaching, study plans',   signals:['learn','learning','study','course','teach','tutorial','explain','understand','plan','curriculum','lesson','student','training'] },
+  { label:'Marketing',   sub:'Campaigns, branding, growth',       signals:['marketing','campaign','brand','audience','funnel','social','ads','email','seo','content','growth','customer','conversion'] },
+  { label:'Finance',     sub:'Budgeting, investment, planning',   signals:['finance','financial','budget','invest','money','revenue','profit','cost','pricing','forecast','cashflow','debt','savings'] },
+  { label:'Coding',      sub:'Development, automation, systems',  signals:['code','coding','python','javascript','api','react','bug','automation','script','function','database','develop','software','app'] },
+  { label:'Productivity',sub:'Workflow, organisation, systems',   signals:['productivity','workflow','organise','organize','system','task','project','manage','process','efficiency','schedule','prioritise'] },
+  { label:'Career',      sub:'Job search, positioning, growth',   signals:['career','job','resume','cv','interview','linkedin','promotion','salary','role','hire','application','professional'] },
+  { label:'Creativity',  sub:'Ideas, concepts, creative output',  signals:['creative','idea','concept','design','story','narrative','brainstorm','generate','imagine','invent','artistic','visual'] },
+];
+
+function detectDomain(str) {
+  var words = extractWords(str);
+  var best = null, bestScore = 0;
+  DOMAINS.forEach(function(d) {
+    var score = d.signals.reduce(function(n,sig) {
+      return n + (words.some(function(w) { return w.indexOf(sig) !== -1; }) ? 1 : 0);
+    }, 0);
+    if (score > bestScore) { bestScore = score; best = d; }
+  });
+  return best || DOMAINS[0];
+}
+
+/* ── TONE DETECTION ── */
+var TONES = [
+  { label:'Analytical',   sub:'Structured, data-driven, precise',  signals:['analysis','analyze','analyse','data','metrics','compare','evaluate','assess','research','measure','quantify','evidence'] },
+  { label:'Professional', sub:'Formal, clear, business-ready',     signals:['professional','formal','business','client','stakeholder','report','presentation','email','meeting','executive'] },
+  { label:'Educational',  sub:'Clear, instructional, accessible',  signals:['learn','explain','teach','understand','simple','beginner','step','guide','tutorial','course','study'] },
+  { label:'Creative',     sub:'Expressive, generative, open',      signals:['creative','idea','story','imagine','generate','brainstorm','concept','design','narrative','artistic'] },
+  { label:'Commercial',   sub:'Persuasive, conversion-focused',    signals:['marketing','sell','conversion','persuade','campaign','audience','growth','revenue','customer','brand'] },
+  { label:'Calm',         sub:'Measured, de-escalating, careful',  signals:['calm','reply','response','difficult','angry','complaint','sensitive','careful','measured','tone'] },
+  { label:'Strategic',    sub:'High-level, directional, decisive', signals:['strategy','strategic','plan','vision','direction','roadmap','positioning','competitive','market','long-term'] },
+  { label:'Minimal',      sub:'Concise, compressed, to the point', signals:['concise','short','brief','summarise','summarize','compress','clear','simple','quick','fast'] },
+];
+
+function detectTone(str) {
+  var words = extractWords(str);
+  var best = null, bestScore = 0;
+  TONES.forEach(function(t) {
+    var score = t.signals.reduce(function(n,sig) {
+      return n + (words.some(function(w) { return w.indexOf(sig) !== -1; }) ? 1 : 0);
+    }, 0);
+    if (score > bestScore) { bestScore = score; best = t; }
+  });
+  return best || TONES[0];
+}
+
+/* ── INTENT SUMMARY ── */
+var INTENT_PATTERNS = [
+  { tag:'strategic analysis engine',  signals:['strategy','analysis','competitor','market','research','investigate'] },
+  { tag:'calm communication reframe', signals:['reply','response','email','difficult','angry','customer','client','calm'] },
+  { tag:'structured learning system', signals:['learn','study','plan','course','explain','understand','teach'] },
+  { tag:'content creation workflow',  signals:['write','content','article','blog','script','copy','draft'] },
+  { tag:'financial clarity model',    signals:['finance','budget','revenue','cost','invest','money','financial'] },
+  { tag:'growth strategy framework',  signals:['marketing','growth','campaign','audience','brand','conversion'] },
+  { tag:'code and automation system', signals:['code','python','api','automation','script','develop','build'] },
+  { tag:'productivity clarity engine',signals:['productivity','workflow','organise','system','task','project','manage'] },
+  { tag:'creative concept generator', signals:['creative','idea','story','design','brainstorm','imagine','generate'] },
+  { tag:'career positioning system',  signals:['career','job','resume','linkedin','interview','professional','role'] },
+];
+
+function buildIntentTag(str) {
+  var words = extractWords(str);
+  var best = null, bestScore = 0;
+  INTENT_PATTERNS.forEach(function(p) {
+    var score = p.signals.reduce(function(n,sig) {
+      return n + (words.some(function(w) { return w.indexOf(sig) !== -1; }) ? 1 : 0);
+    }, 0);
+    if (score > bestScore) { bestScore = score; best = p; }
+  });
+  return best ? best.tag : 'structured clarity engine';
+}
+
+/* ── ROLE MAP ── */
+var ROLE_MAP = {
+  'Strategy':    'a senior strategy consultant',
+  'Writing':     'an experienced editor and copywriter',
+  'Research':    'a research analyst with domain expertise',
+  'Education':   'an expert educator and curriculum designer',
+  'Marketing':   'a growth strategist and brand consultant',
+  'Finance':     'a financial analyst and planning specialist',
+  'Coding':      'a senior software engineer',
+  'Productivity':'an expert systems and workflow designer',
+  'Career':      'a career coach and professional positioning expert',
+  'Creativity':  'a creative director and concept strategist',
+};
+
+/* ── PROMPT BUILDERS ── */
+function buildCompressed(val, domain, tone) {
+  var words = extractWords(val);
+  var lower = val.toLowerCase();
+
+  // Extract key action and subject from the input
+  var actionWords = ['create','write','build','generate','analyse','analyze','summarise','summarize','explain','structure','develop','produce','design','plan','review','improve','refine','draft','outline','compare'];
+  var action = '';
+  actionWords.forEach(function(a) {
+    if (!action && lower.indexOf(a) !== -1) action = a;
+  });
+  if (!action) action = 'develop';
+
+  // Build compressed version: clean, direct, no filler
+  var cleaned = val
+    .replace(/^(help me|can you|please|i want to|i need to|i would like to)\s*/i, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  // Capitalise and ensure it ends with a full stop
+  cleaned = cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+  if (!cleaned.match(/[.!?]$/)) cleaned += '.';
+
+  return cleaned + ' Tone: ' + tone.label.toLowerCase() + '. Output: structured and actionable.';
+}
+
+function buildRoleFramed(val, domain, tone) {
+  var role = ROLE_MAP[domain.label] || 'a specialist in this domain';
+  var cleaned = val
+    .replace(/^(help me|can you|please|i want to|i need to|i would like to)\s*/i, '')
+    .trim();
+  cleaned = cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+  if (!cleaned.match(/[.!?]$/)) cleaned += '.';
+
+  return 'Act as ' + role + '. ' + cleaned
+    + ' Apply a ' + tone.label.toLowerCase() + ' approach throughout.'
+    + ' Structure your response clearly with headers where appropriate.'
+    + ' Be direct, precise and actionable. Avoid filler, preamble or unnecessary caveats.';
+}
+
+/* ── MAIN GENERATE ── */
+function generate(val) {
+  if (!val) val = document.getElementById('main-input').value.trim();
+
+  var domain     = detectDomain(val);
+  var tone       = detectTone(val);
+  var intentTag  = buildIntentTag(val);
+  var compressed = buildCompressed(val, domain, tone);
+  var roleFramed = buildRoleFramed(val, domain, tone);
+  var today      = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+
+  document.getElementById('out-domain').textContent     = domain.label;
+  document.getElementById('out-domain-sub').textContent = domain.sub;
+  document.getElementById('out-tone').textContent       = tone.label;
+  document.getElementById('out-tone-sub').textContent   = tone.sub;
+  document.getElementById('out-intent-tag').textContent = intentTag;
+  document.getElementById('out-compressed').textContent = compressed;
+  document.getElementById('out-roleframed').textContent = roleFramed;
+
+  document.getElementById('out-imprint-text').textContent = val;
+  document.getElementById('out-imprint-meta').textContent = 'This prompt was refined from the intent entered on ' + today + '.';
+
+  var section = document.getElementById('output-section');
+  section.className = 'visible';
+  section.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+</script>
+
+<!-- GoatCounter Analytics -->
+<script data-goatcounter="https://signal333.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
