@@ -1,4 +1,4 @@
-<!-- 1LINE Clarity v1.3 | Updated: 20 May 2026 | Lemon Squeezy URL added -->
+<!-- 1LINE Clarity v1.4 | Updated: 20 May 2026 | Etsy unlock fix| Lemon Squeezy URL added -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -363,7 +363,7 @@ function generateClarity(val) {
 /* ── PAYMENT ── */
 function unlockClarity() {
   var val = _lastVal || document.getElementById('main-input').value.trim();
-  if (PREMIUM_GATED) {
+  if (PREMIUM_GATED && window.location.search.indexOf("unlocked=true") === -1) {
     sessionStorage.setItem('clarity_data', JSON.stringify({ val: val }));
     window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/26411f01-d24c-419a-b36e-cca79f210abf';
     return;
