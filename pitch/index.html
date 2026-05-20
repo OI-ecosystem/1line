@@ -1,4 +1,4 @@
-<!-- 1LINE Pitch v5.1 | Updated: 20 May 2026 | Scroll to loading state on return -->
+<!-- 1LINE Pitch v5.2 | Updated: 20 May 2026 | Etsy unlock fix| Scroll to loading state on return -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -707,7 +707,7 @@ function capitalise(str) { return str ? str.charAt(0).toUpperCase() + str.slice(
 /* ── PAYMENT ── */
 function unlockPitch() {
   var val = _lastVal || document.getElementById('main-input').value.trim();
-  if (PREMIUM_GATED) {
+  if (PREMIUM_GATED && window.location.search.indexOf("unlocked=true") === -1) {
     sessionStorage.setItem('pitch_data', JSON.stringify({ val: val }));
     window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/6869247f-e840-44ef-900f-ebefa0bbb1d1';
     return;
