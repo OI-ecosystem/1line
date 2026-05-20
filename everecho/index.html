@@ -1,4 +1,4 @@
-<!-- 1LINE EverEcho v1.9 | Updated: 20 May 2026 00:30 | Bulletproof PDF layout -->
+<!-- 1LINE EverEcho v1.10 | Updated: 20 May 2026 | Etsy unlock fix| Bulletproof PDF layout -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -1054,7 +1054,7 @@ function generateIdentity(val) {
 
 /* PREMIUM PDF */
 function unlockPreservation() {
-  if (PREMIUM_GATED_EE) {
+  if (PREMIUM_GATED_EE && window.location.search.indexOf("unlocked=true") === -1) {
     sessionStorage.setItem('everecho_data', JSON.stringify({
       val:     _eeState.val     || '',
       gender:  selectedGender   || 'unknown',
