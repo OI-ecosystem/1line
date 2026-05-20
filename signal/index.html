@@ -1,4 +1,4 @@
-<!-- 1LINE Signal v1.2 | Updated: 20 May 2026 | sessionStorage key fixed -->
+<!-- 1LINE Signal v2.0 | Updated: 20 May 2026 16:30 | End-of-day AI analysis, no market-data proxy -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +8,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>1LINE Signal — Structured market interpretation</title>
-  <meta name="description" content="One ticker. One structured analysis. Signal transforms live market data into structured technical interpretation." />
+  <meta name="description" content="One ticker. One structured end-of-day reading. Signal interprets price structure, pattern context and key levels into clear, restrained technical analysis." />
   <meta property="og:title" content="1LINE Signal — Structured market interpretation" />
   <meta property="og:description" content="Structured market clarity." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -312,7 +312,7 @@ footer { border-top: 0.5px solid var(--border); padding: 32px 0 24px; margin-top
   </a>
   <p class="hero-eyebrow">A 1LINE market utility</p>
   <h1>One ticker.<br>Structured market clarity.</h1>
-  <p class="hero-sub">Enter a ticker, a timeframe, and what you are trying to understand. Signal transforms live market data into structured technical interpretation.</p>
+  <p class="hero-sub">Enter a ticker, a timeframe, and what you are trying to understand. Signal returns a structured end-of-day technical reading — pattern context, key levels, and scenario analysis. When the noise has settled.</p>
   <p class="hero-note">Not financial advice — structured interpretation.</p>
 </section>
 
@@ -550,7 +550,6 @@ footer { border-top: 0.5px solid var(--border); padding: 32px 0 24px; margin-top
 
 var PREMIUM_GATED = true;
 var VERCEL_PROXY  = 'https://rcloop-proxy.vercel.app/api/ai';
-var MARKET_PROXY  = 'https://rcloop-proxy.vercel.app/api/market-data';
 var LS_URL        = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/d4436007-63cc-4db1-b577-0cc6f78bb4e9';
 
 var _timeframe    = '3M';
@@ -664,26 +663,64 @@ function runAnalysis(ticker, timeframe, context) {
   saveRecent(ticker);
   renderRecent();
 
-  /* Fetch market data */
-  fetch(MARKET_PROXY, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ticker: ticker, timeframe: timeframe })
-  })
+  /* Fetch end-of-day chart data directly from Yahoo (browser fetch, no proxy needed) */
+  var tfMap = {
+    '1D':{interval:'5m',range:'1d'}, '1W':{interval:'60m',range:'5d'},
+    '1M':{interval:'1d',range:'1mo'}, '3M':{interval:'1d',range:'3mo'},
+    '6M':{interval:'1d',range:'6mo'}, '1Y':{interval:'1d',range:'1y'}
+  };
+  var tf = tfMap[timeframe] || tfMap['3M'];
+  var chartUrl = 'https://query1.finance.yahoo.com/v8/finance/chart/' + encodeURIComponent(ticker)
+    + '?interval=' + tf.interval + '&range=' + tf.range + '&includePrePost=false';
+
+  fetch(chartUrl)
   .then(function(r) { return r.json(); })
-  .then(function(data) {
-    if (data.error) { showError(data.error); return; }
-    _marketData = data;
-    renderSnapshot(data);
-    renderChart(data);
-    renderSupportResistance(data);
-    renderMomentumCards(data);
-    runAIAnalysis(data, context);
+  .then(function(json) {
+    var result = json && json.chart && json.chart.result && json.chart.result[0];
+    var chartData = null;
+    if (result && result.timestamp && result.indicators && result.indicators.quote) {
+      var q = result.indicators.quote[0];
+      var meta = result.meta || {};
+      chartData = {
+        ticker: ticker.toUpperCase(),
+        timeframe: timeframe,
+        currency: meta.currency || 'USD',
+        currentPrice: meta.regularMarketPrice || 0,
+        dayChange: 0,
+        ohlcv: result.timestamp.map(function(ts, i) {
+          return {
+            time: ts,
+            open:   Math.round((q.open[i]  || 0) * 100) / 100,
+            high:   Math.round((q.high[i]  || 0) * 100) / 100,
+            low:    Math.round((q.low[i]   || 0) * 100) / 100,
+            close:  Math.round((q.close[i] || 0) * 100) / 100,
+            volume: q.volume[i] || 0
+          };
+        }).filter(function(c) { return c.close > 0; })
+      };
+      var closes = chartData.ohlcv.map(function(c) { return c.close; });
+      var prev = closes[closes.length - 2] || closes[closes.length - 1];
+      var curr = chartData.currentPrice || closes[closes.length - 1];
+      chartData.dayChange = prev > 0 ? Math.round(((curr - prev) / prev) * 10000) / 100 : 0;
+      chartData.currentPrice = curr;
+    }
+    _marketData = chartData;
+    if (chartData && chartData.ohlcv && chartData.ohlcv.length) {
+      renderChart(chartData);
+    } else {
+      document.getElementById('price-chart').innerHTML = '<p style="padding:20px;color:var(--ink-muted);font-size:13px;">Chart data unavailable — analysis continuing.</p>';
+    }
+    /* Always fire AI analysis regardless of chart success */
+    runAIAnalysis(ticker, timeframe, context, chartData);
   })
-  .catch(function(err) {
-    showError('Unable to fetch market data. Please check the ticker and try again.');
+  .catch(function() {
+    /* Chart fetch failed — still run AI analysis */
+    _marketData = null;
+    document.getElementById('price-chart').innerHTML = '<p style="padding:20px;color:var(--ink-muted);font-size:13px;">Chart data unavailable — analysis continuing.</p>';
+    runAIAnalysis(ticker, timeframe, context, null);
   });
 }
+
 
 /* ── SNAPSHOT ── */
 function renderSnapshot(d) {
@@ -810,47 +847,110 @@ function renderMomentumCards(d) {
 }
 
 /* ── AI ANALYSIS ── */
-function runAIAnalysis(d, context) {
+function runAIAnalysis(ticker, timeframe, context, chartData) {
+  /* Build what we know — chart data if available, otherwise ticker + timeframe alone */
+  var hasChart = chartData && chartData.ohlcv && chartData.ohlcv.length > 5;
+  var closes = hasChart ? chartData.ohlcv.map(function(c) { return c.close; }) : [];
+
+  /* Calculate basic indicators if we have chart data */
+  var ma20 = null, ma50 = null, rsi = null, trend = null, high = null, low = null;
+  if (hasChart && closes.length >= 20) {
+    var slice20 = closes.slice(-20);
+    ma20 = Math.round(slice20.reduce(function(a,b){return a+b;},0)/slice20.length * 100)/100;
+  }
+  if (hasChart && closes.length >= 50) {
+    var slice50 = closes.slice(-50);
+    ma50 = Math.round(slice50.reduce(function(a,b){return a+b;},0)/slice50.length * 100)/100;
+  }
+  if (hasChart && closes.length >= 15) {
+    var gains = 0, losses = 0, period = 14;
+    for (var i = closes.length - period; i < closes.length; i++) {
+      var diff = closes[i] - closes[i-1];
+      if (diff >= 0) gains += diff; else losses += Math.abs(diff);
+    }
+    var ag = gains/period, al = losses/period;
+    rsi = al === 0 ? 100 : Math.round((100 - 100/(1 + ag/al)) * 100)/100;
+  }
+  if (hasChart && closes.length >= 20) {
+    var rec = chartData.ohlcv.slice(-20);
+    var fh = rec[rec.length-1].high > rec[0].high, fl = rec[rec.length-1].low > rec[0].low;
+    var dh = rec[rec.length-1].high < rec[0].high, dl = rec[rec.length-1].low < rec[0].low;
+    trend = (fh && fl) ? 'uptrend' : (dh && dl) ? 'downtrend' : 'sideways';
+    high = Math.round(Math.max.apply(null, closes) * 100)/100;
+    low  = Math.round(Math.min.apply(null, closes) * 100)/100;
+  }
+
+  /* Render snapshot cards with what we have */
+  if (hasChart) {
+    var curr = chartData.currentPrice;
+    var prev = closes[closes.length-2] || closes[closes.length-1];
+    var chg  = chartData.dayChange;
+    var priceEl = document.getElementById('snap-price');
+    priceEl.textContent = curr ? curr.toFixed(2) : '—';
+    document.getElementById('snap-currency').textContent = chartData.currency || '';
+    var changeEl = document.getElementById('snap-change');
+    var sign = chg >= 0 ? '+' : '';
+    changeEl.textContent = sign + chg.toFixed(2) + '%';
+    changeEl.className = 'snap-value' + (chg >= 0 ? ' up' : ' down');
+    if (rsi) {
+      document.getElementById('snap-rsi').textContent = rsi.toFixed(1);
+      document.getElementById('snap-rsi-state').textContent = rsi >= 70 ? 'Overbought' : rsi <= 30 ? 'Oversold' : 'Neutral';
+    }
+    if (trend) {
+      var trendMap = { 'uptrend': 'Uptrend', 'downtrend': 'Downtrend', 'sideways': 'Sideways' };
+      document.getElementById('snap-trend').textContent = trendMap[trend] || trend;
+    }
+    if (ma50) {
+      document.getElementById('mom-ma50').textContent = ma50.toFixed(2);
+      document.getElementById('mom-ma50-sub').textContent = curr > ma50 ? 'Price above 50MA' : 'Price below 50MA';
+    }
+    var stateHeader = document.getElementById('state-header');
+    var state = trend === 'uptrend' ? 'Constructive Structure' : trend === 'downtrend' ? 'Bearish Pressure' : 'Range Compression Active';
+    if (rsi && rsi >= 70) state = 'Momentum Extended';
+    if (rsi && rsi <= 30) state = 'Oversold Condition';
+    stateHeader.textContent = state;
+    stateHeader.className = 'state-header visible';
+  }
+
   var signals = {
-    ticker: d.ticker,
-    timeframe: d.timeframe,
-    currentPrice: d.currentPrice,
-    dayChange: d.dayChange,
-    trend: d.trend,
-    rsi: d.rsi,
-    rsiDivergence: d.rsiDivergence,
-    ma50: d.ma50,
-    ma200: d.ma200,
-    aboveMa50: d.aboveMa50,
-    aboveMa200: d.aboveMa200,
-    goldenCross: d.goldenCross,
-    volumeTrend: d.volumeTrend,
-    atr: d.atr,
-    supports: d.supports,
-    resistances: d.resistances,
-    high52: d.high52,
-    low52: d.low52,
-    userContext: context || 'General market clarity'
+    ticker: ticker.toUpperCase(),
+    timeframe: timeframe,
+    currentPrice: hasChart ? chartData.currentPrice : null,
+    dayChange: hasChart ? chartData.dayChange : null,
+    trend: trend,
+    rsi: rsi,
+    ma20: ma20,
+    ma50: ma50,
+    periodHigh: high,
+    periodLow: low,
+    aboveMa50: (ma50 && hasChart) ? chartData.currentPrice > ma50 : null,
+    userContext: context || 'End of day structured reading'
   };
 
-  var system = 'You are a senior technical analyst providing structured market interpretation. You receive deterministic market signals as JSON. Your role is to interpret these signals into clear, restrained, institutional-quality commentary. Never invent price data. Never guarantee outcomes. Never use hype. Use precise, calm analytical language. Respond ONLY in valid JSON.';
+  var system = 'You are a senior technical analyst providing structured end-of-day market interpretation. '
+    + 'You have deep knowledge of price structure, classical chart patterns, volume behaviour, and key technical levels for all major stocks, ETFs, indices and crypto. '
+    + 'Where live data is provided use it. Where it is not, draw on your training knowledge of the asset structure. '
+    + 'Be specific, calm, restrained and institutional in tone. Never use hype. Never guarantee outcomes. '
+    + 'This is an end-of-day reading — patterns and structure, not noise. Respond ONLY in valid JSON.';
 
-  var prompt = 'Market signals: ' + JSON.stringify(signals) + '\n\n'
-    + 'Return ONLY this JSON:\n'
+  var prompt = 'End-of-day signal request for ' + ticker.toUpperCase() + ' (' + timeframe + ' view).\n\n'
+    + 'Available data: ' + JSON.stringify(signals) + '\n\n'
+    + 'User context: ' + (context || 'General end-of-day clarity') + '\n\n'
+    + 'Using the data provided AND your knowledge of this asset, return ONLY this JSON:\n'
     + '{\n'
-    + '"trendAnalysis":"2-3 sentences on trend direction and price structure. Specific to the signals provided.",\n'
-    + '"momentumAnalysis":"2-3 sentences interpreting RSI, volume and MA alignment. Specific and analytical.",\n'
-    + '"patternContext":"2-3 sentences on any notable pattern context or price compression. If no clear pattern: state that clearly.",\n'
-    + '"bullTrigger":"Specific price condition or level that would confirm bullish structure.",\n'
-    + '"bullTarget":"Realistic target level or zone.",\n'
-    + '"bullInvalidation":"Level that would invalidate this scenario.",\n'
-    + '"bearTrigger":"Specific price condition or level that would confirm bearish pressure.",\n'
-    + '"bearDownside":"Realistic downside level or zone.",\n'
-    + '"bearInvalidation":"Level that would invalidate this scenario.",\n'
-    + '"ratingScore":"A number between 3.0 and 9.5 reflecting overall market structure clarity. Be honest.",\n'
+    + '"trendAnalysis":"2-3 sentences on trend direction and price structure based on the timeframe.",\n'
+    + '"momentumAnalysis":"2-3 sentences on momentum, RSI context, and volume character at end of day.",\n'
+    + '"patternContext":"2-3 sentences on any notable end-of-day pattern, compression, or structure forming. Be specific.",\n'
+    + '"bullTrigger":"Specific level or condition that would confirm bullish continuation.",\n'
+    + '"bullTarget":"Realistic near-term target level or zone.",\n'
+    + '"bullInvalidation":"Level that would invalidate the bullish case.",\n'
+    + '"bearTrigger":"Specific level or condition that would confirm bearish pressure.",\n'
+    + '"bearDownside":"Realistic near-term downside level or zone.",\n'
+    + '"bearInvalidation":"Level that would invalidate the bearish case.",\n'
+    + '"ratingScore":"A number 3.0-9.5 reflecting end-of-day structure clarity.",\n'
     + '"ratingCategory":"One of: Weak / Improving / Constructive / Strong / Exhausted / Fragile",\n'
-    + '"ratingReasoning":"2-3 sentences explaining the rating. Reference specific signals.",\n'
-    + '"changeView":"One specific condition that would change this assessment. Precise and actionable."\n'
+    + '"ratingReasoning":"2-3 sentences explaining the rating.",\n'
+    + '"changeView":"One specific condition that would change this end-of-day assessment."\n'
     + '}';
 
   fetch(VERCEL_PROXY, {
@@ -893,6 +993,7 @@ function runAIAnalysis(d, context) {
     document.getElementById('generate-btn').disabled = false;
   });
 }
+
 
 /* ── NEW ANALYSIS ── */
 function runNewAnalysis() {
