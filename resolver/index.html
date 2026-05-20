@@ -1,4 +1,4 @@
-<!-- 1LINE Resolver v3.6 | Updated: 20 May 2026 | LS URL, unlock fix, banner, scroll -->
+<!-- 1LINE Resolver v3.7 | Updated: 20 May 2026 | Etsy unlock fix| LS URL, unlock fix, banner, scroll -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -791,7 +791,7 @@ function copyResponse(id, btn) {
 /* ── PAYMENT GATE ── */
 function unlockResolver() {
   var val = _lastVal || document.getElementById('main-input').value.trim();
-  if (PREMIUM_GATED) {
+  if (PREMIUM_GATED && window.location.search.indexOf("unlocked=true") === -1) {
     sessionStorage.setItem('resolver_data', JSON.stringify({ val: val }));
     window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/1f6366a2-e591-473c-8cbc-1361ff665177';
     return;
