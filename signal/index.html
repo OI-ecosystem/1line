@@ -1,4 +1,4 @@
-<!-- 1LINE Signal v2.1 | Updated: 20 May 2026 17:00 | TradingView EOD chart, AI via api/ai -->
+<!-- 1LINE Signal v2.3 | Updated: 20 May 2026 17:30 | Traffic light verdict panel -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -275,6 +275,61 @@ footer { border-top: 0.5px solid var(--border); padding: 32px 0 24px; margin-top
 .footer-link:hover { color: var(--ink); }
 .footer-copy { font-size: 11px; color: var(--ink-faint); text-align: center; }
 
+
+/* SIGNAL VERDICT PANEL */
+.signal-verdict {
+  background: var(--ink);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 32px;
+}
+.verdict-context {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.verdict-question {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-style: italic;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.verdict-rows { display: flex; flex-direction: column; gap: 10px; }
+.verdict-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+.verdict-light {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.verdict-light.green  { background: #52B788; box-shadow: 0 0 8px rgba(82,183,136,0.6); }
+.verdict-light.amber  { background: #F4A261; box-shadow: 0 0 8px rgba(244,162,97,0.6); }
+.verdict-light.red    { background: #E05252; box-shadow: 0 0 8px rgba(224,82,82,0.6); }
+.verdict-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  min-width: 110px;
+}
+.verdict-text {
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.5;
+  flex: 1;
+}
+
 /* PAYMENT GATE */
 .payment-gate { background: var(--ink); border-radius: var(--radius); padding: 28px 24px; text-align: center; margin: 24px 0; }
 .gate-heading { font-family: var(--serif); font-size: 24px; font-weight: 300; color: #fff; margin-bottom: 8px; }
@@ -360,6 +415,34 @@ footer { border-top: 0.5px solid var(--border); padding: 32px 0 24px; margin-top
 </div>
 
 <section id="output-section" class="output-section">
+
+  <!-- SIGNAL VERDICT -->
+  <div class="signal-verdict" id="signal-verdict" style="display:none;">
+    <div class="verdict-context">Your signal reading</div>
+    <div class="verdict-question" id="verdict-question">—</div>
+    <div class="verdict-rows">
+      <div class="verdict-row">
+        <div class="verdict-light" id="vl-entry"></div>
+        <div class="verdict-label">Entry Timing</div>
+        <div class="verdict-text" id="vt-entry">—</div>
+      </div>
+      <div class="verdict-row">
+        <div class="verdict-light" id="vl-risk"></div>
+        <div class="verdict-label">Risk Level</div>
+        <div class="verdict-text" id="vt-risk">—</div>
+      </div>
+      <div class="verdict-row">
+        <div class="verdict-light" id="vl-trend"></div>
+        <div class="verdict-label">Trend Alignment</div>
+        <div class="verdict-text" id="vt-trend">—</div>
+      </div>
+      <div class="verdict-row">
+        <div class="verdict-light" id="vl-act"></div>
+        <div class="verdict-label">Act Tonight?</div>
+        <div class="verdict-text" id="vt-act">—</div>
+      </div>
+    </div>
+  </div>
 
   <!-- SNAPSHOT -->
   <p class="section-eyebrow">Market Snapshot</p>
@@ -900,21 +983,44 @@ function runAIAnalysis(ticker, timeframe, context, chartData) {
   var prompt = 'End-of-day signal request for ' + ticker.toUpperCase() + ' (' + timeframe + ' view).\n\n'
     + 'Available data: ' + JSON.stringify(signals) + '\n\n'
     + 'User context: ' + (context || 'General end-of-day clarity') + '\n\n'
-    + 'Using the data provided AND your knowledge of this asset, return ONLY this JSON:\n'
+    + 'Using your knowledge of this asset AND the data provided, return ONLY this JSON.\n'
+    + 'For numeric fields use realistic estimated values based on your knowledge — do not use null.\n'
     + '{\n'
-    + '"trendAnalysis":"2-3 sentences on trend direction and price structure based on the timeframe.",\n'
-    + '"momentumAnalysis":"2-3 sentences on momentum, RSI context, and volume character at end of day.",\n'
-    + '"patternContext":"2-3 sentences on any notable end-of-day pattern, compression, or structure forming. Be specific.",\n'
-    + '"bullTrigger":"Specific level or condition that would confirm bullish continuation.",\n'
+    + '"currentPrice":"Estimated current or recent closing price as a number e.g. 189.50",\n'
+    + '"dayChange":"Estimated day change percentage as a number e.g. 1.2 or -0.8",\n'
+    + '"rsi":"Estimated RSI 14 as a number e.g. 54.2",\n'
+    + '"rsiState":"One of: Overbought / Oversold / Neutral",\n'
+    + '"trend":"One of: Uptrend / Downtrend / Sideways",\n'
+    + '"volumeChar":"One of: Increasing / Decreasing / Stable",\n'
+    + '"ma50":"Estimated 50-day MA as a number",\n'
+    + '"ma200":"Estimated 200-day MA as a number",\n'
+    + '"aboveMa50":"true or false",\n'
+    + '"aboveMa200":"true or false",\n'
+    + '"support1":"Nearest support level as a number",\n'
+    + '"support2":"Secondary support level as a number",\n'
+    + '"resist1":"Nearest resistance level as a number",\n'
+    + '"resist2":"Secondary resistance level as a number",\n'
+    + '"trendAnalysis":"2-3 sentences on trend direction and price structure.",\n'
+    + '"momentumAnalysis":"2-3 sentences on momentum, RSI and volume character at end of day.",\n'
+    + '"patternContext":"2-3 sentences on any notable pattern or structure forming. Be specific.",\n'
+    + '"bullTrigger":"Specific level or condition confirming bullish continuation.",\n'
     + '"bullTarget":"Realistic near-term target level or zone.",\n'
     + '"bullInvalidation":"Level that would invalidate the bullish case.",\n'
-    + '"bearTrigger":"Specific level or condition that would confirm bearish pressure.",\n'
+    + '"bearTrigger":"Specific level or condition confirming bearish pressure.",\n'
     + '"bearDownside":"Realistic near-term downside level or zone.",\n'
     + '"bearInvalidation":"Level that would invalidate the bearish case.",\n'
     + '"ratingScore":"A number 3.0-9.5 reflecting end-of-day structure clarity.",\n'
     + '"ratingCategory":"One of: Weak / Improving / Constructive / Strong / Exhausted / Fragile",\n'
     + '"ratingReasoning":"2-3 sentences explaining the rating.",\n'
-    + '"changeView":"One specific condition that would change this end-of-day assessment."\n'
+    + '"changeView":"One specific condition that would change this assessment.",\n'
+    + '"entryRating":"green amber or red based on entry timing",\n'
+    + '"entryVerdict":"One sentence on entry timing for their specific context.",\n'
+    + '"riskRating":"green amber or red based on current risk level",\n'
+    + '"riskVerdict":"One sentence on risk level given current structure.",\n'
+    + '"trendRating":"green amber or red based on trend alignment",\n'
+    + '"trendVerdict":"One sentence on whether trend supports their intention.",\n'
+    + '"actRating":"green amber or red — should they act tonight based on EOD structure",\n'
+    + '"actVerdict":"One direct sentence. Act or wait. Specific reason why."\n'
     + '}';
 
   fetch(VERCEL_PROXY, {
@@ -934,6 +1040,92 @@ function runAIAnalysis(ticker, timeframe, context, chartData) {
     document.getElementById('processing-banner').style.display = 'none';
 
     var set = function(id, v) { var el = document.getElementById(id); if (el) el.textContent = v || '—'; };
+
+    /* Verdict panel */
+    var verdictPanel = document.getElementById('signal-verdict');
+    if (verdictPanel) {
+      verdictPanel.style.display = 'block';
+      var ctx = context || 'General end-of-day reading';
+      document.getElementById('verdict-question').textContent = '"' + ctx + '"';
+      var setLight = function(id, rating) {
+        var el = document.getElementById(id);
+        if (el) { el.className = 'verdict-light ' + (rating || 'amber').toLowerCase(); }
+      };
+      setLight('vl-entry', parsed.entryRating);
+      setLight('vl-risk',  parsed.riskRating);
+      setLight('vl-trend', parsed.trendRating);
+      setLight('vl-act',   parsed.actRating);
+      set('vt-entry', parsed.entryVerdict);
+      set('vt-risk',  parsed.riskVerdict);
+      set('vt-trend', parsed.trendVerdict);
+      set('vt-act',   parsed.actVerdict);
+    }
+
+    /* Snapshot cards */
+    var price = parseFloat(parsed.currentPrice);
+    var chg   = parseFloat(parsed.dayChange);
+    if (price) {
+      document.getElementById('snap-price').textContent = price.toFixed(2);
+      var chgEl = document.getElementById('snap-change');
+      var chgSign = chg >= 0 ? '+' : '';
+      chgEl.textContent = chgSign + chg.toFixed(2) + '%';
+      chgEl.className = 'snap-value' + (chg >= 0 ? ' up' : ' down');
+    }
+    if (parsed.rsi) {
+      document.getElementById('snap-rsi').textContent = parseFloat(parsed.rsi).toFixed(1);
+      document.getElementById('snap-rsi-state').textContent = parsed.rsiState || '';
+    }
+    set('snap-trend',  parsed.trend);
+    set('snap-volume', parsed.volumeChar);
+    var maPos = '';
+    if (parsed.aboveMa50 !== undefined)  maPos += (parsed.aboveMa50  === 'true' ? 'Above' : 'Below') + ' 50MA';
+    if (parsed.aboveMa200 !== undefined) maPos += '\n' + (parsed.aboveMa200 === 'true' ? 'Above' : 'Below') + ' 200MA';
+    set('snap-ma', maPos);
+
+    /* State header */
+    var stateHeader = document.getElementById('state-header');
+    var state = parsed.trend === 'Uptrend' ? 'Constructive Structure' :
+                parsed.trend === 'Downtrend' ? 'Bearish Pressure' : 'Range Compression Active';
+    var rsiNum = parseFloat(parsed.rsi);
+    if (rsiNum >= 70) state = 'Momentum Extended';
+    if (rsiNum <= 30) state = 'Oversold Condition';
+    stateHeader.textContent = state;
+    stateHeader.className = 'state-header visible';
+
+    /* Momentum cards */
+    set('mom-rsi', parsed.rsi ? parseFloat(parsed.rsi).toFixed(1) : '—');
+    set('mom-rsi-div', parsed.rsiState || '—');
+    set('mom-vol', parsed.volumeChar || '—');
+    set('mom-vol-sub', parsed.volumeChar === 'Increasing' ? 'Confirming participation' :
+                       parsed.volumeChar === 'Decreasing' ? 'Weakening participation' : 'Stable participation');
+    set('mom-ma50',     parsed.ma50 ? parseFloat(parsed.ma50).toFixed(2) : '—');
+    set('mom-ma50-sub', parsed.aboveMa50 === 'true' ? 'Price above 50MA' : 'Price below 50MA');
+    set('mom-ma200',     parsed.ma200 ? parseFloat(parsed.ma200).toFixed(2) : '—');
+    set('mom-ma200-sub', parsed.aboveMa200 === 'true' ? 'Price above 200MA' : 'Price below 200MA');
+
+    /* Support & Resistance */
+    var tbody = document.getElementById('sr-body');
+    if (tbody) {
+      tbody.innerHTML = '';
+      var srRows = [];
+      if (parsed.resist2) srRows.push({ price: parseFloat(parsed.resist2), type: 'resistance' });
+      if (parsed.resist1) srRows.push({ price: parseFloat(parsed.resist1), type: 'resistance' });
+      if (parsed.support1) srRows.push({ price: parseFloat(parsed.support1), type: 'support' });
+      if (parsed.support2) srRows.push({ price: parseFloat(parsed.support2), type: 'support' });
+      srRows.sort(function(a,b){ return b.price - a.price; });
+      var currPrice = price || 0;
+      srRows.forEach(function(row) {
+        var pct = currPrice ? ((row.price - currPrice) / currPrice * 100) : 0;
+        var pctSign = pct >= 0 ? '+' : '';
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td><span class="sr-price">' + row.price.toFixed(2) + '</span></td>'
+          + '<td><span class="sr-type-' + row.type + '">' + row.type.toUpperCase() + '</span></td>'
+          + '<td><span class="sr-pct ' + (pct <= 0 ? 'neg' : 'pos') + '">' + pctSign + pct.toFixed(1) + '%</span></td>';
+        tbody.appendChild(tr);
+      });
+    }
+
+    /* Analysis text */
     set('ai-trend-text', parsed.trendAnalysis);
     set('ai-momentum-text', parsed.momentumAnalysis);
     set('ai-pattern-text', parsed.patternContext);
@@ -947,6 +1139,16 @@ function runAIAnalysis(ticker, timeframe, context, chartData) {
     set('rating-category', parsed.ratingCategory);
     set('rating-reasoning', parsed.ratingReasoning);
     set('ai-change-text', parsed.changeView);
+
+    /* Store for PDF */
+    _marketData = {
+      ticker: ticker.toUpperCase(), timeframe: timeframe,
+      currentPrice: price, dayChange: chg, currency: 'USD',
+      rsi: parseFloat(parsed.rsi), trend: parsed.trend,
+      ma50: parseFloat(parsed.ma50), ma200: parseFloat(parsed.ma200),
+      volumeTrend: parsed.volumeChar, high52: parseFloat(parsed.resist2),
+      low52: parseFloat(parsed.support2)
+    };
 
     document.getElementById('output-section').className = 'output-section visible';
     document.getElementById('output-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
