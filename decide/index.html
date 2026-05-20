@@ -1,4 +1,4 @@
-<!-- 1LINE Decide v1.3 | Updated: 20 May 2026 | Enhanced with reallyAbout + Stoic reframe -->
+<!-- 1LINE Decide v1.4 | Updated: 20 May 2026 | Etsy unlock fix| Enhanced with reallyAbout + Stoic reframe -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -373,7 +373,7 @@ function generateDecide(val) {
 /* ── PAYMENT ── */
 function unlockDecide() {
   var val = _lastVal || document.getElementById('main-input').value.trim();
-  if (PREMIUM_GATED) {
+  if (PREMIUM_GATED && window.location.search.indexOf("unlocked=true") === -1) {
     sessionStorage.setItem('decide_data', JSON.stringify({ val: val }));
     window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/543ddb95-ad08-4612-99b3-d75d929720b1';
     return;
