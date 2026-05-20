@@ -1,4 +1,4 @@
-<!-- 1LINE Signal v1.0 | Updated: 20 May 2026 00:00 | Initial build -->
+<!-- 1LINE Signal v1.2 | Updated: 20 May 2026 | sessionStorage key fixed -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -551,7 +551,7 @@ footer { border-top: 0.5px solid var(--border); padding: 32px 0 24px; margin-top
 var PREMIUM_GATED = true;
 var VERCEL_PROXY  = 'https://rcloop-proxy.vercel.app/api/ai';
 var MARKET_PROXY  = 'https://rcloop-proxy.vercel.app/api/market-data';
-var LS_URL        = 'https://your-lemon-squeezy-link.com';
+var LS_URL        = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/d4436007-63cc-4db1-b577-0cc6f78bb4e9';
 
 var _timeframe    = '3M';
 var _marketData   = null;
@@ -649,7 +649,7 @@ function handleGenerate() {
   /* Payment gate — bypass if unlocked=true */
   if (PREMIUM_GATED && window.location.search.indexOf('unlocked=true') === -1) {
     var context = document.getElementById('context-input').value.trim();
-    sessionStorage.setItem('asset_data', JSON.stringify({ ticker: ticker, timeframe: _timeframe, context: context }));
+    sessionStorage.setItem('signal_data', JSON.stringify({ ticker: ticker, timeframe: _timeframe, context: context }));
     window.location.href = LS_URL;
     return;
   }
@@ -1112,7 +1112,7 @@ function exportPDF() {
 /* ── RETURN FROM PAYMENT ── */
 document.addEventListener('DOMContentLoaded', function() {
   if (window.location.search.indexOf('unlocked=true') !== -1) {
-    var stored = sessionStorage.getItem('asset_data');
+    var stored = sessionStorage.getItem('signal_data');
     if (stored) {
       try {
         var d = JSON.parse(stored);
