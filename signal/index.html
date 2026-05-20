@@ -1,4 +1,4 @@
-<!-- 1LINE Signal v2.3 | Updated: 20 May 2026 17:30 | Traffic light verdict panel -->
+<!-- 1LINE Signal v2.4 | Updated: 20 May 2026 17:45 | PDF fixes, verdict in PDF -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1209,10 +1209,12 @@ function exportPDF() {
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(13);
     doc.setTextColor(74, 74, 70);
-    doc.text(d.currentPrice.toFixed(2) + ' ' + (d.currency || ''), margin + 40, y);
-    var chgSign = d.dayChange >= 0 ? '+' : '';
-    doc.setTextColor(d.dayChange >= 0 ? 45 : 155, d.dayChange >= 0 ? 106 : 34, d.dayChange >= 0 ? 79 : 38);
-    doc.text(chgSign + d.dayChange.toFixed(2) + '%', margin + 90, y);
+    var safePrice = d.currentPrice && !isNaN(d.currentPrice) ? d.currentPrice.toFixed(2) : '—';
+    doc.text(safePrice + ' ' + (d.currency || ''), margin + 40, y);
+    var safeChg = d.dayChange && !isNaN(d.dayChange) ? d.dayChange : 0;
+    var chgSign = safeChg >= 0 ? '+' : '';
+    doc.setTextColor(safeChg >= 0 ? 45 : 155, safeChg >= 0 ? 106 : 34, safeChg >= 0 ? 79 : 38);
+    doc.text(chgSign + safeChg.toFixed(2) + '%', margin + 90, y);
     y += 6;
     doc.setTextColor(136, 136, 132);
     doc.setFontSize(9);
@@ -1252,6 +1254,43 @@ function exportPDF() {
     y += 30;
     doc.line(margin, y, W - margin, y);
     y += 8;
+
+    /* Verdict Panel in PDF */
+    var vPanel = document.getElementById('signal-verdict');
+    if (vPanel && vPanel.style.display !== 'none') {
+      if (y > H - 60) { doc.addPage(); y = margin; }
+      doc.setFillColor(26, 26, 24);
+      doc.rect(margin, y, W - margin*2, 8, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7);
+      doc.setTextColor(160, 120, 64);
+      doc.text('YOUR SIGNAL READING', margin + 3, y + 5.5);
+      y += 12;
+      var verdictItems = [
+        ['ENTRY TIMING',    document.getElementById('vt-entry') ? document.getElementById('vt-entry').textContent : ''],
+        ['RISK LEVEL',      document.getElementById('vt-risk')  ? document.getElementById('vt-risk').textContent  : ''],
+        ['TREND ALIGNMENT', document.getElementById('vt-trend') ? document.getElementById('vt-trend').textContent : ''],
+        ['ACT TONIGHT?',    document.getElementById('vt-act')   ? document.getElementById('vt-act').textContent   : ''],
+      ];
+      verdictItems.forEach(function(vi) {
+        if (!vi[1]) return;
+        if (y > H - 30) { doc.addPage(); y = margin; }
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7);
+        doc.setTextColor(136, 136, 132);
+        doc.text(vi[0], margin, y);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(9);
+        doc.setTextColor(26, 26, 24);
+        var vlines = doc.splitTextToSize(vi[1], W - margin*2);
+        if (vlines.length > 2) vlines = vlines.slice(0,2);
+        doc.text(vlines, margin, y + 4);
+        y += vlines.length * 5 + 6;
+      });
+      doc.setDrawColor(220, 218, 213);
+      doc.line(margin, y, W - margin, y);
+      y += 8;
+    }
 
     /* AI Sections */
     var sections = [
