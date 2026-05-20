@@ -1,4 +1,4 @@
-<!-- 1LINE Gift v2.6 | Updated: 19 May 2026 23:25 | Return handler fixed - rebuilds free output first like resume -->
+<!-- 1LINE Gift v2.7 | Updated: 20 May 2026 | Etsy unlock fix| Return handler fixed - rebuilds free output first like resume -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1298,7 +1298,7 @@ function toggleExample() {
 }
 
 function unlockAI() {
-  if (PREMIUM_GATED) {
+  if (PREMIUM_GATED && window.location.search.indexOf("unlocked=true") === -1) {
     var val = _lastVal || document.getElementById('main-input').value.trim();
     var rel = _lastRel || _relationship;
     var bud = _lastBudget || _budget;
