@@ -1,1 +1,1070 @@
+<!-- 1LINE Bill v1.1 | Updated: 20 May 2026 | LS URL added -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>1LINE Bill — One line. One click. Bill clarity.</title>
+  <meta name="description" content="Paste your monthly bills in one line. 1LINE Bill tells you what is worth your attention, what to ignore, and what you are genuinely overpaying for. No commission. No affiliate links. No agenda." />
+  <meta property="og:title" content="1LINE Bill — Bill clarity from one line" />
+  <meta property="og:description" content="No commission. No affiliate links. No agenda. Just an honest look at what you are paying and what you could save." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --cream: #FAF8F5;
+  --white: #FFFFFF;
+  --ink: #1A1A18;
+  --ink-mid: #3A3A36;
+  --ink-muted: #7A7A74;
+  --ink-faint: #C4C4BC;
+  --border: rgba(26,26,24,0.09);
+  --border-mid: rgba(26,26,24,0.16);
+  --gold: #A07840;
+  --gold-light: #C4A96A;
+  --sage: #4A6741;
+  --sage-light: #7A9E72;
+  --sage-bg: #F2F7F0;
+  --amber: #A06020;
+  --amber-bg: #FDF6EE;
+  --red: #9B2226;
+  --red-bg: #FDF2F2;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --max: 720px;
+  --radius: 10px;
+}
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--cream); color: var(--ink); min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.page { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
 
+/* NAV */
+nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 0 16px; border-bottom: 0.5px solid var(--border); margin-bottom: 48px; }
+.brand { font-family: var(--sans); font-size: 13px; font-weight: 500; letter-spacing: 0.04em; color: var(--ink); text-decoration: none; }
+.brand span { font-weight: 300; color: var(--ink-muted); }
+.oneline-mark { font-family: var(--sans); font-size: 12px; font-weight: 500; color: var(--ink); text-decoration: none; letter-spacing: 0.02em; }
+.oneline-mark .n { font-weight: 700; }
+
+/* BUSEFUL */
+.buseful-badge { display: inline-flex; align-items: center; background: #1A2744; border-radius: 5px; padding: 5px 12px 5px 10px; text-decoration: none; margin-bottom: 16px; }
+.buseful-badge-text { font-family: var(--sans); font-size: 11px; font-weight: 600; color: #fff; letter-spacing: 0.04em; }
+.buseful-badge-text em { font-style: italic; color: #C4A96A; }
+
+/* NO AGENDA STRIP */
+.no-agenda { display: inline-block; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); border: 0.5px solid rgba(74,103,65,0.3); border-radius: 4px; padding: 4px 10px; margin-bottom: 20px; }
+
+/* HERO */
+.hero { margin-bottom: 48px; }
+.hero-eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 16px; }
+.hero h1 { font-family: var(--serif); font-size: clamp(34px, 5.5vw, 52px); font-weight: 300; line-height: 1.12; color: var(--ink); margin-bottom: 16px; }
+.hero-sub { font-size: 15px; font-weight: 300; color: var(--ink-mid); line-height: 1.75; max-width: 520px; margin-bottom: 12px; }
+.hero-trust { font-size: 12px; color: var(--sage); font-style: italic; }
+
+/* INPUT */
+.input-section { margin-bottom: 48px; }
+.input-rule { border: none; border-top: 0.5px solid var(--border); margin-bottom: 40px; }
+.input-label { font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--ink); margin-bottom: 6px; }
+.input-hint { font-size: 13px; color: var(--ink-muted); margin-bottom: 20px; line-height: 1.6; }
+
+.bill-textarea {
+  width: 100%; font-family: var(--sans); font-size: 14px; font-weight: 300;
+  color: var(--ink); background: var(--white); border: 0.5px solid var(--border-mid);
+  border-radius: var(--radius); padding: 16px; outline: none; resize: none;
+  height: 120px; line-height: 1.7; transition: border-color 0.2s;
+  spellcheck: true;
+}
+.bill-textarea:focus { border-color: var(--ink-muted); }
+.bill-textarea::placeholder { color: var(--ink-faint); font-style: italic; }
+
+.char-row { display: flex; justify-content: space-between; font-size: 11px; color: var(--ink-muted); margin-top: 6px; margin-bottom: 16px; }
+.char-count.valid { color: var(--sage); }
+.char-count.over { color: var(--red); }
+
+/* OPTIONAL CONTEXT */
+.optional-toggle { font-size: 12px; color: var(--ink-muted); cursor: pointer; margin-bottom: 12px; user-select: none; }
+.optional-toggle:hover { color: var(--ink); }
+.optional-panel { display: none; background: var(--white); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; }
+.optional-panel.open { display: block; }
+.opt-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.opt-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 4px; }
+.opt-select { width: 100%; font-family: var(--sans); font-size: 13px; color: var(--ink); background: var(--cream); border: 0.5px solid var(--border-mid); border-radius: 6px; padding: 8px 10px; outline: none; }
+
+/* SPELL PANEL */
+.spell-panel { display: none; background: var(--amber-bg); border: 0.5px solid rgba(160,96,32,0.25); border-radius: var(--radius); padding: 16px 18px; margin-bottom: 16px; }
+.spell-panel.visible { display: block; }
+.spell-heading { font-size: 13px; font-weight: 500; color: var(--amber); margin-bottom: 8px; }
+.spell-btns { display: flex; gap: 8px; margin-top: 10px; }
+.spell-btn { font-size: 12px; font-weight: 500; padding: 7px 16px; border-radius: 6px; border: 0.5px solid var(--border-mid); background: var(--white); color: var(--ink); cursor: pointer; }
+
+/* GENERATE BTN */
+.generate-btn { width: 100%; padding: 16px; font-family: var(--sans); font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; background: var(--ink); color: var(--cream); border: none; border-radius: var(--radius); cursor: pointer; transition: opacity 0.2s; }
+.generate-btn:hover { opacity: 0.88; }
+.generate-btn:disabled { opacity: 0.38; cursor: not-allowed; }
+.generate-note { text-align: center; font-size: 11px; color: var(--ink-muted); margin-top: 8px; font-style: italic; }
+
+/* HOW IT WORKS */
+.how-section { margin-bottom: 48px; }
+.how-eyebrow { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 20px; }
+.how-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+.how-step-num { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--ink-faint); margin-bottom: 8px; }
+.how-step-text { font-size: 13px; font-weight: 300; color: var(--ink-mid); line-height: 1.65; }
+
+/* LOADING */
+.loading-section { display: none; padding: 56px 0; text-align: center; }
+.loading-section.visible { display: block; }
+.loading-text { font-family: var(--serif); font-style: italic; font-size: 20px; color: var(--ink-muted); margin-bottom: 20px; }
+.loading-bar { width: 48px; height: 1px; background: var(--border-mid); margin: 0 auto; position: relative; overflow: hidden; }
+.loading-bar::after { content: ''; position: absolute; left: -100%; width: 100%; height: 100%; background: var(--ink); animation: scan 1.4s ease-in-out infinite; }
+@keyframes scan { to { left: 100%; } }
+
+/* ERROR */
+.error-card { display: none; background: var(--red-bg); border: 0.5px solid rgba(155,34,38,0.2); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 16px; font-size: 13px; color: var(--red); }
+.error-card.visible { display: block; }
+
+/* FREE OUTPUT */
+.free-output { display: none; }
+.free-output.visible { display: block; }
+.section-rule { border: none; border-top: 0.5px solid var(--border); margin: 32px 0; }
+.section-eyebrow { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 20px; }
+
+.free-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.free-card { background: var(--white); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 16px; }
+.free-card-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 6px; }
+.free-card-value { font-family: var(--serif); font-size: 24px; font-weight: 400; color: var(--ink); }
+.free-card-sub { font-size: 11px; color: var(--ink-muted); margin-top: 2px; }
+
+.free-observation { background: var(--cream); border: 0.5px solid var(--border-mid); border-left: 3px solid var(--ink); border-radius: 0 var(--radius) var(--radius) 0; padding: 16px 18px; font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--ink-mid); line-height: 1.7; margin-bottom: 24px; }
+
+/* PAYMENT GATE */
+.payment-gate { background: var(--ink); border-radius: var(--radius); padding: 28px 24px; text-align: center; margin: 8px 0 24px; }
+.gate-heading { font-family: var(--serif); font-size: 26px; font-weight: 300; color: #fff; margin-bottom: 8px; line-height: 1.2; }
+.gate-sub { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 20px; line-height: 1.65; }
+.gate-features { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 20px; }
+.gate-feat { font-size: 11px; color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.06); padding: 4px 10px; border-radius: 4px; }
+.gate-btn { background: #fff; color: var(--ink); border: none; padding: 14px 32px; font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 8px; cursor: pointer; transition: opacity 0.2s; }
+.gate-btn:hover { opacity: 0.88; }
+.gate-price { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 10px; }
+
+/* FULL OUTPUT */
+.full-output { display: none; }
+.full-output.visible { display: block; }
+
+/* BILL TABLE */
+.bill-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+.bill-table th { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); padding: 0 0 10px; text-align: left; font-weight: 500; }
+.bill-table td { font-size: 13px; padding: 10px 0; border-top: 0.5px solid var(--border); color: var(--ink-mid); vertical-align: top; }
+.bill-table td:first-child { font-weight: 500; color: var(--ink); }
+.bill-table td:last-child { text-align: right; }
+.status-badge { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; }
+.status-reasonable { background: var(--sage-bg); color: var(--sage); }
+.status-review { background: var(--amber-bg); color: var(--amber); }
+.status-act { background: var(--red-bg); color: var(--red); }
+.status-ignore { background: var(--cream); color: var(--ink-muted); border: 0.5px solid var(--border); }
+
+/* ANALYSIS CARDS */
+.analysis-card { background: var(--white); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 10px; }
+.analysis-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 10px; }
+.analysis-text { font-size: 14px; font-weight: 300; color: var(--ink-mid); line-height: 1.75; }
+.analysis-highlight { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--ink); line-height: 1.6; }
+
+/* LIFELOAD */
+.lifeload-card { background: var(--ink); border-radius: var(--radius); padding: 24px; text-align: center; margin-bottom: 10px; }
+.lifeload-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 10px; }
+.lifeload-value { font-family: var(--serif); font-size: 36px; font-weight: 300; color: #fff; margin-bottom: 4px; }
+.lifeload-desc { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 420px; margin: 0 auto; }
+
+/* SAVINGS TABLE */
+.savings-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.saving-card { background: var(--white); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 16px; text-align: center; }
+.saving-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px; }
+.saving-amount { font-family: var(--serif); font-size: 24px; font-weight: 400; color: var(--sage); }
+.saving-period { font-size: 11px; color: var(--ink-muted); margin-top: 2px; }
+
+/* PRIORITY ACTION */
+.priority-card { background: var(--sage-bg); border: 0.5px solid rgba(74,103,65,0.25); border-radius: var(--radius); padding: 20px; margin-bottom: 10px; }
+.priority-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sage); margin-bottom: 8px; }
+.priority-text { font-size: 15px; font-weight: 400; color: var(--ink); line-height: 1.65; }
+
+/* DISCLAIMER */
+.disclaimer { background: var(--cream); border: 0.5px solid var(--border); border-radius: 8px; padding: 14px 16px; margin: 20px 0; }
+.disclaimer p { font-size: 11px; color: var(--ink-muted); line-height: 1.6; font-style: italic; }
+
+/* EXPORT */
+.export-row { display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
+.export-btn { flex: 1; min-width: 130px; padding: 12px 20px; font-family: var(--sans); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; background: var(--white); color: var(--ink); border: 0.5px solid var(--border-mid); border-radius: 8px; cursor: pointer; transition: all 0.15s; }
+.export-btn:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+/* FOOTER */
+footer { border-top: 0.5px solid var(--border); padding: 32px 0 24px; margin-top: 64px; }
+.footer-philosophy { font-size: 12px; color: var(--ink-faint); font-style: italic; text-align: center; margin-bottom: 12px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 12px; }
+.footer-link { font-size: 11px; color: var(--ink-muted); text-decoration: none; }
+.footer-link:hover { color: var(--ink); }
+.footer-copy { font-size: 11px; color: var(--ink-faint); text-align: center; }
+
+@media (max-width: 520px) {
+  .free-grid { grid-template-columns: 1fr 1fr; }
+  .savings-grid { grid-template-columns: 1fr; }
+  .how-grid { grid-template-columns: 1fr; gap: 14px; }
+  .opt-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div id="processing-banner" style="display:none;position:fixed;top:0;left:0;width:100%;background:#1a1a18;color:#f5f3ee;text-align:center;padding:14px 20px;font-size:14px;letter-spacing:0.04em;z-index:9999;">Reviewing your bills — please wait a moment...</div>
+<script>if(window.location.search.indexOf('unlocked=true')!==-1){document.getElementById('processing-banner').style.display='block';}</script>
+
+<div class="page">
+
+<nav>
+  <a href="https://oi-ecosystem.github.io/1line/" class="brand">1LINE <span>Bill</span></a>
+  <a href="https://oi-ecosystem.github.io/1line/" class="oneline-mark"><span class="n">1</span>LINE</a>
+</nav>
+
+<section class="hero">
+  <a href="https://oi-ecosystem.github.io/b-useful/" target="_blank" rel="noopener" class="buseful-badge">
+    <span class="buseful-badge-text">B-<em>Useful</em></span>
+  </a>
+  <div class="no-agenda">No commission &nbsp;·&nbsp; No affiliate links &nbsp;·&nbsp; No agenda</div>
+  <p class="hero-eyebrow">A 1LINE financial utility</p>
+  <h1>One line.<br>Every bill reviewed.</h1>
+  <p class="hero-sub">Describe your monthly bills in one honest paragraph. 1LINE Bill tells you what is worth your attention, what to ignore, and where your money is genuinely leaking.</p>
+  <p class="hero-trust">Not financial advice — structured bill clarity.</p>
+</section>
+
+<section class="input-section">
+  <hr class="input-rule" />
+  <p class="input-label">Describe your monthly bills.</p>
+  <p class="input-hint">Include amounts, providers and any services you pay for. The more honest you are, the more precise the output. 120–700 characters.</p>
+
+  <textarea
+    id="bill-input"
+    class="bill-textarea"
+    placeholder="£180 gas and electric with British Gas, £45 broadband with Sky, £12 Netflix, £8 Spotify, £35 car insurance with Admiral, £22 contents insurance, £15 gym I barely use..."
+    maxlength="700"
+    spellcheck="true"
+    autocorrect="on"
+    autocomplete="off"
+    autocapitalize="sentences"
+    oninput="countChars()"
+  ></textarea>
+
+  <div class="char-row">
+    <span>120 – 700 characters</span>
+    <span id="char-count" class="char-count">0</span>
+  </div>
+
+  <div class="optional-toggle" onclick="toggleOptional()">&#43; Optional context (region, household size)</div>
+  <div id="optional-panel" class="optional-panel">
+    <div class="opt-grid">
+      <div>
+        <div class="opt-label">UK Region</div>
+        <select id="opt-region" class="opt-select">
+          <option value="">Not specified</option>
+          <option value="London">London</option>
+          <option value="South East">South East</option>
+          <option value="South West">South West</option>
+          <option value="Midlands">Midlands</option>
+          <option value="North England">North England</option>
+          <option value="Scotland">Scotland</option>
+          <option value="Wales">Wales</option>
+          <option value="Northern Ireland">Northern Ireland</option>
+        </select>
+      </div>
+      <div>
+        <div class="opt-label">Household</div>
+        <select id="opt-household" class="opt-select">
+          <option value="">Not specified</option>
+          <option value="1 person">1 person</option>
+          <option value="2 people">2 people</option>
+          <option value="3 people">3 people</option>
+          <option value="4+ people">4+ people</option>
+        </select>
+      </div>
+      <div>
+        <div class="opt-label">Own or Rent</div>
+        <select id="opt-tenure" class="opt-select">
+          <option value="">Not specified</option>
+          <option value="Owner">Owner</option>
+          <option value="Renting">Renting</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div id="spell-panel" class="spell-panel">
+    <div class="spell-heading">Some words may need checking — please review before continuing.</div>
+    <div class="spell-btns">
+      <button class="spell-btn" onclick="dismissSpell()">Continue Anyway</button>
+      <button class="spell-btn" onclick="focusInput()">Review Text</button>
+    </div>
+  </div>
+
+  <button id="generate-btn" class="generate-btn" onclick="handleGenerate()" disabled>Analyse My Bills</button>
+  <p class="generate-note">One-time access — £9 — instant generation</p>
+
+  <div id="error-card" class="error-card"></div>
+</section>
+
+<section class="how-section">
+  <hr class="input-rule" />
+  <p class="how-eyebrow">How it works</p>
+  <div class="how-grid">
+    <div>
+      <div class="how-step-num">1</div>
+      <div class="how-step-text">Describe your bills honestly in one paragraph — amounts, providers, anything you pay regularly.</div>
+    </div>
+    <div>
+      <div class="how-step-num">2</div>
+      <div class="how-step-text">1LINE Bill extracts your recurring structure, compares to UK averages and identifies where attention genuinely matters.</div>
+    </div>
+    <div>
+      <div class="how-step-num">3</div>
+      <div class="how-step-text">Receive a structured bill clarity report — what to act on, what to ignore, and your total saving opportunity.</div>
+    </div>
+  </div>
+</section>
+
+<div id="loading-section" class="loading-section">
+  <p id="loading-text" class="loading-text">Detecting recurring services...</p>
+  <div class="loading-bar"></div>
+</div>
+
+<!-- FREE OUTPUT -->
+<section id="free-output" class="free-output">
+  <hr class="section-rule" />
+  <p class="section-eyebrow">Your bill structure</p>
+  <div class="free-grid">
+    <div class="free-card">
+      <div class="free-card-label">Monthly Total</div>
+      <div class="free-card-value" id="free-monthly">—</div>
+    </div>
+    <div class="free-card">
+      <div class="free-card-label">Annual Total</div>
+      <div class="free-card-value" id="free-annual">—</div>
+    </div>
+    <div class="free-card">
+      <div class="free-card-label">Bills Detected</div>
+      <div class="free-card-value" id="free-count">—</div>
+      <div class="free-card-sub" id="free-subs"></div>
+    </div>
+  </div>
+  <div class="free-observation" id="free-observation">—</div>
+
+  <div class="payment-gate" id="payment-gate">
+    <div class="gate-heading">Your full bill clarity report.</div>
+    <div class="gate-sub">Find out exactly what is worth changing, what to ignore, and your total saving opportunity — with no agenda and no affiliate links.</div>
+    <div class="gate-features">
+      <span class="gate-feat">Bill by bill review</span>
+      <span class="gate-feat">Ignore / Review / Act</span>
+      <span class="gate-feat">Loyalty tax estimate</span>
+      <span class="gate-feat">Subscription creep</span>
+      <span class="gate-feat">Lifeload indicator</span>
+      <span class="gate-feat">5-year leakage forecast</span>
+      <span class="gate-feat">Priority action</span>
+      <span class="gate-feat">PDF download</span>
+    </div>
+    <button class="gate-btn" onclick="unlockBill()">Unlock Full Bill Review — £9</button>
+    <p class="gate-price">One-time · Instant download · No account needed</p>
+  </div>
+</section>
+
+<!-- FULL AI OUTPUT -->
+<section id="full-output" class="full-output">
+
+  <hr class="section-rule" />
+  <p class="section-eyebrow">Bill by bill review</p>
+  <div class="analysis-card">
+    <table class="bill-table" id="bill-table">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Your Spend</th>
+          <th>Typical Range</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="bill-table-body"></tbody>
+    </table>
+  </div>
+
+  <hr class="section-rule" />
+  <p class="section-eyebrow">Biggest saving opportunity</p>
+  <div class="analysis-card">
+    <div class="analysis-label">Primary Opportunity</div>
+    <div class="analysis-highlight" id="ai-biggest">—</div>
+  </div>
+
+  <hr class="section-rule" />
+  <p class="section-eyebrow">Worth your time?</p>
+  <div class="analysis-card">
+    <div class="analysis-label">Effort vs Reward</div>
+    <div class="analysis-text" id="ai-worth">—</div>
+  </div>
+
+  <hr class="section-rule" />
+  <p class="section-eyebrow">Subscription creep</p>
+  <div class="analysis-card">
+    <div class="analysis-label">Recurring Lifestyle Spend</div>
+    <div class="analysis-text" id="ai-subscriptions">—</div>
+  </div>
+
+  <hr class="section-rule" />
+  <p class="section-eyebrow">Financial friction</p>
+  <div class="analysis-card">
+    <div class="analysis-label">Structural Complexity</div>
+    <div class="analysis-text" id="ai-friction">—</div>
+  </div>
+
+  <hr class="section-rule" />
+  <p class="section-eyebrow">Lifeload indicator</p>
+  <div class="lifeload-card">
+    <div class="lifeload-label">Recurring Structural Load</div>
+    <div class="lifeload-value" id="ai-lifeload">—</div>
+    <div class="lifeload-desc" id="ai-lifeload-desc">—</div>
+  </div>
+
+  <hr class="section-rule" />
+  <p class="section-eyebrow">Loyalty tax estimate</p>
+  <div class="analysis-card">
+    <div class="analysis-label">Long-Term Customer Penalty</div>
+    <div class="analysis-text" id="ai-loyalty">—</div>
+  </div>
+
+  <hr class="section-rule" />
+  <p class="section-eyebrow">What to keep</p>
+  <div class="analysis-card">
+    <div class="analysis-label">Reasonable Decisions Confirmed</div>
+    <div class="analysis-text" id="ai-keep">—</div>
+  </div>
+
+  <hr class="section-rule" />
+  <p class="section-eyebrow">5-year leakage forecast</p>
+  <div class="analysis-card">
+    <div class="analysis-label">Visible Long-Term Cost</div>
+    <div class="analysis-highlight" id="ai-leakage">—</div>
+  </div>
+
+  <hr class="section-rule" />
+  <p class="section-eyebrow">Total saving opportunity</p>
+  <div class="savings-grid">
+    <div class="saving-card">
+      <div class="saving-label">Conservative</div>
+      <div class="saving-amount" id="save-conservative">—</div>
+      <div class="saving-period">per year</div>
+    </div>
+    <div class="saving-card">
+      <div class="saving-label">Realistic</div>
+      <div class="saving-amount" id="save-realistic">—</div>
+      <div class="saving-period">per year</div>
+    </div>
+    <div class="saving-card">
+      <div class="saving-label">Full Optimisation</div>
+      <div class="saving-amount" id="save-aggressive">—</div>
+      <div class="saving-period">per year</div>
+    </div>
+  </div>
+
+  <hr class="section-rule" />
+  <p class="section-eyebrow">Priority action</p>
+  <div class="priority-card">
+    <div class="priority-label">One thing to do this week</div>
+    <div class="priority-text" id="ai-priority">—</div>
+  </div>
+
+  <hr class="section-rule" />
+  <p class="section-eyebrow">Clarity summary</p>
+  <div class="analysis-card">
+    <div class="analysis-label">Overall Assessment</div>
+    <div class="analysis-highlight" id="ai-summary">—</div>
+  </div>
+
+  <div class="disclaimer">
+    <p>Based on typical UK market pricing and general pricing behaviour as of early 2026. Actual prices and savings vary. Always verify live tariffs and policy terms independently before switching. This is structured bill interpretation, not financial advice.</p>
+  </div>
+
+  <div class="export-row">
+    <button class="export-btn" onclick="exportPDF()">Download PDF</button>
+    <button class="export-btn" onclick="runNewAnalysis()">New Analysis</button>
+  </div>
+
+  <hr class="section-rule" />
+  <p class="section-eyebrow">More from one line</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:32px;">
+    <a href="https://oi-ecosystem.github.io/1line/clarity/" style="display:flex;flex-direction:column;gap:4px;padding:14px;background:var(--white);border:0.5px solid var(--border);border-radius:9px;text-decoration:none;">
+      <span style="font-size:12px;font-weight:500;color:var(--ink);">1LINE Clarity</span>
+      <span style="font-size:11px;color:var(--ink-muted);">Untangle scattered thinking</span>
+      <span style="font-size:11px;color:var(--ink-muted);margin-top:4px;">Try it →</span>
+    </a>
+    <a href="https://oi-ecosystem.github.io/1line/decide/" style="display:flex;flex-direction:column;gap:4px;padding:14px;background:var(--white);border:0.5px solid var(--border);border-radius:9px;text-decoration:none;">
+      <span style="font-size:12px;font-weight:500;color:var(--ink);">1LINE Decide</span>
+      <span style="font-size:11px;color:var(--ink-muted);">When thinking splits in two</span>
+      <span style="font-size:11px;color:var(--ink-muted);margin-top:4px;">Try it →</span>
+    </a>
+    <a href="https://oi-ecosystem.github.io/1line/resolver/" style="display:flex;flex-direction:column;gap:4px;padding:14px;background:var(--white);border:0.5px solid var(--border);border-radius:9px;text-decoration:none;">
+      <span style="font-size:12px;font-weight:500;color:var(--ink);">1LINE Resolver</span>
+      <span style="font-size:11px;color:var(--ink-muted);">Conflict clarity</span>
+      <span style="font-size:11px;color:var(--ink-muted);margin-top:4px;">Try it →</span>
+    </a>
+  </div>
+
+</section>
+
+<footer>
+  <p class="footer-philosophy">One line. One click. Bill clarity.</p>
+  <div class="footer-links">
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/pitch/">1LINE Pitch</a>
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/clarity/">1LINE Clarity</a>
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/decide/">1LINE Decide</a>
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/resolver/">1LINE Resolver</a>
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/gift/">1LINE Gift</a>
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/signal/">1LINE Signal</a>
+  </div>
+  <p class="footer-copy">&copy; 1LINE Bill. A <a href="https://oi-ecosystem.github.io/1line/" style="color:var(--ink-faint);">1LINE</a> financial utility. No commission. No affiliate links. No agenda.</p>
+</footer>
+
+</div>
+
+<script>
+/* ============================================================
+   1LINE BILL ENGINE
+   All var. No const/let. No template literals.
+============================================================ */
+
+var PREMIUM_GATED = true;
+var VERCEL_PROXY  = 'https://rcloop-proxy.vercel.app/api/ai';
+var LS_URL        = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/b195f033-29fc-4e46-9dd4-6fb09ad5d105';
+
+var _lastVal      = '';
+var _spellWarned  = false;
+var _freeData     = null;
+
+/* ── CHAR COUNTER ── */
+function countChars() {
+  var ta  = document.getElementById('bill-input');
+  var cc  = document.getElementById('char-count');
+  var btn = document.getElementById('generate-btn');
+  if (!ta || !cc) return;
+  var len = ta.value.length;
+  cc.textContent = len;
+  cc.className = 'char-count' + (len >= 120 && len <= 700 ? ' valid' : len > 700 ? ' over' : '');
+  if (btn) btn.disabled = !(len >= 120 && len <= 700);
+  _spellWarned = false;
+  document.getElementById('spell-panel').className = 'spell-panel';
+}
+
+/* ── OPTIONAL CONTEXT ── */
+function toggleOptional() {
+  var panel = document.getElementById('optional-panel');
+  panel.className = panel.className.indexOf('open') !== -1 ? 'optional-panel' : 'optional-panel open';
+}
+
+/* ── SPELL ── */
+function dismissSpell() {
+  _spellWarned = true;
+  document.getElementById('spell-panel').className = 'spell-panel';
+  processGenerate();
+}
+function focusInput() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  document.getElementById('bill-input').focus();
+}
+
+/* ── ERROR ── */
+function showError(msg) {
+  var el = document.getElementById('error-card');
+  el.textContent = msg;
+  el.className = 'error-card visible';
+}
+function clearError() {
+  document.getElementById('error-card').className = 'error-card';
+}
+
+/* ── LOADING ── */
+var _loadMsgs = [
+  'Detecting recurring services...',
+  'Analysing pricing structure...',
+  'Identifying loyalty penalties...',
+  'Reviewing opportunity gaps...',
+  'Evaluating recurring burden...',
+  'Generating bill clarity...'
+];
+var _loadIdx = 0;
+var _loadInterval = null;
+function startLoading() {
+  _loadIdx = 0;
+  document.getElementById('loading-text').textContent = _loadMsgs[0];
+  _loadInterval = setInterval(function() {
+    _loadIdx = (_loadIdx + 1) % _loadMsgs.length;
+    document.getElementById('loading-text').textContent = _loadMsgs[_loadIdx];
+  }, 1600);
+  document.getElementById('loading-section').className = 'loading-section visible';
+}
+function stopLoading() {
+  clearInterval(_loadInterval);
+  document.getElementById('loading-section').className = 'loading-section';
+}
+
+/* ── DETERMINISTIC EXTRACTION ── */
+function extractBills(text) {
+  var bills = [];
+  var total = 0;
+  var subscriptionCount = 0;
+
+  /* Patterns to extract £X for category */
+  var patterns = [
+    { re: /£(\d+(?:\.\d+)?)\s*(?:per month|\/month|pm|a month)?\s*(?:gas|electric|electricity|energy|boiler|heating|british gas|octopus|ovo|sse|edf|e\.on|npower|bulb)/i, cat: 'Energy' },
+    { re: /£(\d+(?:\.\d+)?)\s*(?:per month|\/month|pm|a month)?\s*(?:broadband|internet|wifi|wi-fi|sky|bt|virgin|talktalk|plusnet|vodafone broadband|ee broadband)/i, cat: 'Broadband' },
+    { re: /£(\d+(?:\.\d+)?)\s*(?:per month|\/month|pm|a month)?\s*(?:mobile|phone|sim|o2|vodafone|ee|three|giffgaff|smarty)/i, cat: 'Mobile' },
+    { re: /£(\d+(?:\.\d+)?)\s*(?:per month|\/month|pm|a month)?\s*(?:netflix|amazon prime|disney|apple tv|now tv|bbc sport|paramount|hulu|mubi|shudder|crunchyroll)/i, cat: 'Streaming' },
+    { re: /£(\d+(?:\.\d+)?)\s*(?:per month|\/month|pm|a month)?\s*(?:spotify|apple music|amazon music|tidal|deezer|youtube music)/i, cat: 'Music' },
+    { re: /£(\d+(?:\.\d+)?)\s*(?:per month|\/month|pm|a month)?\s*(?:car insurance|motor insurance|admiral|aviva|direct line|churchill|compare|aa insurance)/i, cat: 'Car Insurance' },
+    { re: /£(\d+(?:\.\d+)?)\s*(?:per month|\/month|pm|a month)?\s*(?:home insurance|contents insurance|buildings insurance|home and contents)/i, cat: 'Home Insurance' },
+    { re: /£(\d+(?:\.\d+)?)\s*(?:per month|\/month|pm|a month)?\s*(?:gym|fitness|leisure centre|puregym|david lloyd|virgin active|anytime fitness)/i, cat: 'Gym' },
+    { re: /£(\d+(?:\.\d+)?)\s*(?:per month|\/month|pm|a month)?\s*(?:council tax)/i, cat: 'Council Tax' },
+    { re: /£(\d+(?:\.\d+)?)\s*(?:per month|\/month|pm|a month)?\s*(?:water|thames water|severn trent|united utilities|southern water|welsh water)/i, cat: 'Water' },
+    { re: /£(\d+(?:\.\d+)?)\s*(?:per month|\/month|pm|a month)?\s*(?:mortgage|rent|landlord)/i, cat: 'Mortgage/Rent' },
+  ];
+
+  /* Also try reverse pattern: provider £X */
+  var reversePatterns = [
+    { re: /(?:british gas|octopus|ovo|sse|edf|e\.on|npower|bulb|shell energy)\s*[,\s]+£(\d+(?:\.\d+)?)/i, cat: 'Energy' },
+    { re: /(?:sky|bt|virgin|talktalk|plusnet)\s*[,\s]+£(\d+(?:\.\d+)?)/i, cat: 'Broadband' },
+    { re: /(?:netflix)\s*[,\s]+£(\d+(?:\.\d+)?)/i, cat: 'Netflix' },
+    { re: /(?:spotify)\s*[,\s]+£(\d+(?:\.\d+)?)/i, cat: 'Spotify' },
+    { re: /(?:amazon prime|prime video)\s*[,\s]+£(\d+(?:\.\d+)?)/i, cat: 'Amazon Prime' },
+    { re: /(?:disney\+?|disney plus)\s*[,\s]+£(\d+(?:\.\d+)?)/i, cat: 'Disney+' },
+    { re: /(?:admiral|aviva|direct line|churchill|aa)\s*[,\s]+£(\d+(?:\.\d+)?)/i, cat: 'Insurance' },
+    { re: /(?:gym|puregym|david lloyd|virgin active)\s*[,\s]+£(\d+(?:\.\d+)?)/i, cat: 'Gym' },
+    { re: /(?:o2|vodafone|ee|three|giffgaff|smarty)\s*[,\s]+£(\d+(?:\.\d+)?)/i, cat: 'Mobile' },
+  ];
+
+  var found = {};
+  var allPatterns = patterns.concat(reversePatterns);
+  allPatterns.forEach(function(p) {
+    var m = text.match(p.re);
+    if (m && !found[p.cat]) {
+      var amount = parseFloat(m[1]);
+      found[p.cat] = amount;
+      bills.push({ category: p.cat, amount: amount });
+      total += amount;
+    }
+  });
+
+  /* Generic £X amount extraction for anything missed */
+  var genericRe = /£(\d+(?:\.\d+)?)/g;
+  var gm;
+  var extractedAmounts = [];
+  while ((gm = genericRe.exec(text)) !== null) {
+    extractedAmounts.push(parseFloat(gm[1]));
+  }
+
+  /* If we got very few bills but see many amounts, use total from amounts */
+  if (bills.length < 2 && extractedAmounts.length > bills.length) {
+    var extractedTotal = extractedAmounts.reduce(function(a,b){ return a+b; }, 0);
+    if (extractedTotal > total) total = extractedTotal;
+  }
+
+  /* Count streaming/subscription keywords */
+  var subKeywords = ['netflix','spotify','amazon prime','disney','apple tv','apple one','now tv','youtube premium','audible','kindle','adobe','microsoft 365','office 365','icloud','google one','dropbox'];
+  subKeywords.forEach(function(k) {
+    if (text.toLowerCase().indexOf(k) !== -1) subscriptionCount++;
+  });
+
+  return {
+    bills: bills,
+    monthly_total: Math.round(total * 100) / 100,
+    annual_total: Math.round(total * 12 * 100) / 100,
+    bill_count: bills.length || extractedAmounts.length,
+    subscription_count: subscriptionCount,
+    raw_amounts: extractedAmounts
+  };
+}
+
+/* ── HANDLE GENERATE ── */
+function handleGenerate() {
+  var val = document.getElementById('bill-input').value.trim();
+  if (!val || val.length < 120) { showError('Please describe your bills in at least 120 characters.'); return; }
+  clearError();
+
+  if (!_spellWarned) {
+    document.getElementById('spell-panel').className = 'spell-panel visible';
+    return;
+  }
+  processGenerate();
+}
+
+function processGenerate() {
+  var val = document.getElementById('bill-input').value.trim();
+  _lastVal = val;
+
+  /* Payment gate — bypass if unlocked=true */
+  if (PREMIUM_GATED && window.location.search.indexOf('unlocked=true') === -1) {
+    var region = document.getElementById('opt-region').value;
+    var household = document.getElementById('opt-household').value;
+    var tenure = document.getElementById('opt-tenure').value;
+    sessionStorage.setItem('bill_data', JSON.stringify({ val: val, region: region, household: household, tenure: tenure }));
+    window.location.href = LS_URL;
+    return;
+  }
+
+  runBillAnalysis(val);
+}
+
+function unlockBill() {
+  var val = _lastVal || document.getElementById('bill-input').value.trim();
+  if (PREMIUM_GATED && window.location.search.indexOf('unlocked=true') === -1) {
+    var region = document.getElementById('opt-region').value;
+    var household = document.getElementById('opt-household').value;
+    var tenure = document.getElementById('opt-tenure').value;
+    sessionStorage.setItem('bill_data', JSON.stringify({ val: val, region: region, household: household, tenure: tenure }));
+    window.location.href = LS_URL;
+    return;
+  }
+  runAIBill(val, _freeData);
+}
+
+/* ── RUN ANALYSIS ── */
+function runBillAnalysis(val) {
+  document.getElementById('generate-btn').disabled = true;
+  startLoading();
+
+  var extracted = extractBills(val);
+  _freeData = extracted;
+
+  /* Render free output */
+  document.getElementById('free-monthly').textContent = '£' + extracted.monthly_total.toFixed(0);
+  document.getElementById('free-annual').textContent = '£' + extracted.annual_total.toFixed(0);
+  document.getElementById('free-count').textContent = extracted.bill_count || '?';
+  document.getElementById('free-subs').textContent = extracted.subscription_count > 0 ? extracted.subscription_count + ' subscription' + (extracted.subscription_count > 1 ? 's' : '') + ' detected' : '';
+
+  /* Free observation */
+  var obs = 'Your recurring structure represents approximately £' + extracted.annual_total.toFixed(0) + ' per year.';
+  if (extracted.monthly_total > 400) {
+    obs = 'Your recurring structure appears materially above average in at least one major category. A structured review is worthwhile.';
+  } else if (extracted.monthly_total > 250) {
+    obs = 'Your recurring spend is within a typical range, though several categories may benefit from targeted attention.';
+  } else {
+    obs = 'Your detected recurring spend appears relatively contained. The full review will identify specific optimisation opportunities.';
+  }
+  document.getElementById('free-observation').textContent = obs;
+
+  stopLoading();
+  document.getElementById('free-output').className = 'free-output visible';
+  document.getElementById('free-output').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('generate-btn').disabled = false;
+
+  /* If unlocked, fire AI immediately */
+  if (window.location.search.indexOf('unlocked=true') !== -1) {
+    runAIBill(val, extracted);
+  }
+}
+
+/* ── AI BILL ANALYSIS ── */
+function runAIBill(val, extracted) {
+  document.getElementById('payment-gate').style.display = 'none';
+  startLoading();
+
+  var context = {
+    raw_input: val,
+    extracted: extracted,
+    region: document.getElementById('opt-region').value || 'UK',
+    household: document.getElementById('opt-household').value || 'not specified',
+    tenure: document.getElementById('opt-tenure').value || 'not specified'
+  };
+
+  var system = 'You are a senior personal finance analyst specialising in household bill optimisation for UK consumers. You receive structured bill data extracted from a user description. Your role is to provide honest, specific, non-commercial bill clarity. You have no affiliations, earn no commission, and have no incentive to recommend switching. You should tell users when things are fine as readily as when they should act. Use restrained, intelligent, editorial tone. Never shame users. Never be alarming. Never use financial advice language. Base all typical ranges on UK market averages as of early 2026. Respond ONLY in valid JSON.';
+
+  var prompt = 'Bill data: ' + JSON.stringify(context) + '\n\n'
+    + 'Return ONLY this JSON:\n'
+    + '{\n'
+    + '"billReview": [{"category":"","spend":"","typicalRange":"","status":"Reasonable|Review|Act|Ignore","note":"one sentence specific observation"}],\n'
+    + '"biggestOpportunity": "2-3 sentences on the single highest saving opportunity. Include estimated monthly and annual saving. Be specific.",\n'
+    + '"worthYourTime": "2-3 sentences on whether the effort of switching is justified across the main categories. Be honest — some may not be worth it.",\n'
+    + '"subscriptionCreep": "2-3 sentences on recurring lifestyle subscriptions. Include total monthly and annual. Never shame.",\n'
+    + '"financialFriction": "2 sentences on structural complexity and admin burden of their recurring commitments.",\n'
+    + '"lifeloadRating": "Light|Moderate|Heavy|Burdened",\n'
+    + '"lifeloadDesc": "2 sentences explaining the lifeload rating in calm, non-alarming language.",\n'
+    + '"loyaltyTax": "2-3 sentences estimating loyalty penalty where long-term usage is implied. Include estimated annual loyalty tax in pounds.",\n'
+    + '"whatToKeep": "2-3 sentences explicitly validating the bills that appear reasonable. This is important for trust.",\n'
+    + '"leakageForecast": "One powerful sentence showing the 5-year cost of current recurring spend before inflation.",\n'
+    + '"conservativeSaving": "Annual saving figure if only the most obvious change is made e.g. £240",\n'
+    + '"realisticSaving": "Annual saving figure if 2-3 reasonable actions are taken e.g. £520",\n'
+    + '"aggressiveSaving": "Annual saving figure if all optimisation is pursued e.g. £860",\n'
+    + '"priorityAction": "ONE specific action to take this week. Not a list. One clear directive.",\n'
+    + '"claritySummary": "2-3 sentence synthesis of the overall picture. End calm and structured, not anxious."\n'
+    + '}';
+
+  fetch(VERCEL_PROXY, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ system: system, prompt: prompt })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    var text = data.content && data.content[0] ? data.content[0].text : '';
+    var clean = text.replace(/```json/g,'').replace(/```/g,'').trim();
+    var start = clean.indexOf('{'); var end = clean.lastIndexOf('}');
+    if (start !== -1 && end !== -1) clean = clean.substring(start, end+1);
+    var parsed = JSON.parse(clean);
+    stopLoading();
+    document.getElementById('processing-banner').style.display = 'none';
+    renderAIBill(parsed);
+  })
+  .catch(function() {
+    stopLoading();
+    showError('Analysis failed. Please try again.');
+    document.getElementById('payment-gate').style.display = 'block';
+  });
+}
+
+/* ── RENDER AI OUTPUT ── */
+function renderAIBill(d) {
+  /* Bill table */
+  var tbody = document.getElementById('bill-table-body');
+  tbody.innerHTML = '';
+  if (d.billReview && d.billReview.length) {
+    d.billReview.forEach(function(row) {
+      var statusClass = 'status-' + (row.status || 'ignore').toLowerCase().replace(' ','');
+      if (row.status === 'Act') statusClass = 'status-act';
+      else if (row.status === 'Review') statusClass = 'status-review';
+      else if (row.status === 'Reasonable') statusClass = 'status-reasonable';
+      else statusClass = 'status-ignore';
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + (row.category || '') + '</td>'
+        + '<td>' + (row.spend || '') + '</td>'
+        + '<td style="color:var(--ink-muted)">' + (row.typicalRange || '') + '</td>'
+        + '<td><span class="status-badge ' + statusClass + '">' + (row.status || '') + '</span></td>';
+      tbody.appendChild(tr);
+    });
+  }
+
+  var set = function(id, v) { var el = document.getElementById(id); if (el) el.textContent = v || '—'; };
+  set('ai-biggest', d.biggestOpportunity);
+  set('ai-worth', d.worthYourTime);
+  set('ai-subscriptions', d.subscriptionCreep);
+  set('ai-friction', d.financialFriction);
+  set('ai-lifeload', d.lifeloadRating);
+  set('ai-lifeload-desc', d.lifeloadDesc);
+  set('ai-loyalty', d.loyaltyTax);
+  set('ai-keep', d.whatToKeep);
+  set('ai-leakage', d.leakageForecast);
+  set('save-conservative', d.conservativeSaving || '—');
+  set('save-realistic', d.realisticSaving || '—');
+  set('save-aggressive', d.aggressiveSaving || '—');
+  set('ai-priority', d.priorityAction);
+  set('ai-summary', d.claritySummary);
+
+  document.getElementById('full-output').className = 'full-output visible';
+  document.getElementById('full-output').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ── NEW ANALYSIS ── */
+function runNewAnalysis() {
+  document.getElementById('free-output').className = 'free-output';
+  document.getElementById('full-output').className = 'full-output';
+  document.getElementById('payment-gate').style.display = 'block';
+  document.getElementById('bill-input').value = '';
+  document.getElementById('char-count').textContent = '0';
+  document.getElementById('generate-btn').disabled = true;
+  _lastVal = '';
+  _freeData = null;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ── PDF EXPORT ── */
+function exportPDF() {
+  try {
+    var jsPDF = window.jspdf.jsPDF;
+    var doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    var W = 210; var margin = 20; var y = margin;
+
+    /* Header */
+    doc.setFillColor(26, 26, 24);
+    doc.rect(0, 0, W, 28, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(255, 255, 255);
+    doc.text('1LINE BILL', margin, 12);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(160, 160, 152);
+    doc.text('Bill clarity from one line', margin, 19);
+    doc.setTextColor(100, 140, 90);
+    doc.text('No commission. No affiliate links. No agenda.', W - margin, 19, { align: 'right' });
+    y = 38;
+
+    /* Totals */
+    if (_freeData) {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(22);
+      doc.setTextColor(26, 26, 24);
+      doc.text('£' + (_freeData.monthly_total || 0).toFixed(0) + '/mo', margin, y);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.setTextColor(74, 74, 70);
+      doc.text('£' + (_freeData.annual_total || 0).toFixed(0) + ' per year', margin + 40, y);
+      y += 12;
+      doc.setDrawColor(220, 218, 213);
+      doc.line(margin, y, W - margin, y);
+      y += 8;
+    }
+
+    /* Bill Review */
+    var billRows = document.querySelectorAll('#bill-table-body tr');
+    if (billRows.length) {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8);
+      doc.setTextColor(136, 136, 132);
+      doc.text('BILL BY BILL REVIEW', margin, y);
+      y += 7;
+      billRows.forEach(function(row) {
+        var cells = row.querySelectorAll('td');
+        if (cells.length >= 4) {
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(9);
+          doc.setTextColor(26, 26, 24);
+          doc.text(cells[0].textContent || '', margin, y);
+          doc.text(cells[1].textContent || '', margin + 45, y);
+          doc.setTextColor(136, 136, 132);
+          doc.text(cells[2].textContent || '', margin + 75, y);
+          var status = cells[3].textContent.trim();
+          var statusColor = status === 'Act' ? [155, 34, 38] : status === 'Review' ? [160, 96, 32] : status === 'Reasonable' ? [74, 103, 65] : [136, 136, 132];
+          doc.setTextColor(statusColor[0], statusColor[1], statusColor[2]);
+          doc.text(status, W - margin, y, { align: 'right' });
+          y += 6;
+          if (y > 270) { doc.addPage(); y = margin; }
+        }
+      });
+      doc.setDrawColor(220, 218, 213);
+      doc.line(margin, y, W - margin, y);
+      y += 8;
+    }
+
+    /* AI Sections */
+    var sections = [
+      ['BIGGEST OPPORTUNITY', document.getElementById('ai-biggest').textContent],
+      ['WORTH YOUR TIME', document.getElementById('ai-worth').textContent],
+      ['SUBSCRIPTION CREEP', document.getElementById('ai-subscriptions').textContent],
+      ['LOYALTY TAX', document.getElementById('ai-loyalty').textContent],
+      ['WHAT TO KEEP', document.getElementById('ai-keep').textContent],
+      ['5-YEAR LEAKAGE FORECAST', document.getElementById('ai-leakage').textContent],
+    ];
+    sections.forEach(function(s) {
+      if (s[1] === '—' || !s[1]) return;
+      if (y > 255) { doc.addPage(); y = margin; }
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8);
+      doc.setTextColor(136, 136, 132);
+      doc.text(s[0], margin, y);
+      y += 6;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      doc.setTextColor(74, 74, 70);
+      var lines = doc.splitTextToSize(s[1], W - margin * 2);
+      if (lines.length > 4) lines = lines.slice(0, 4);
+      doc.text(lines, margin, y);
+      y += lines.length * 5 + 7;
+      doc.setDrawColor(220, 218, 213);
+      doc.line(margin, y, W - margin, y);
+      y += 7;
+    });
+
+    /* Savings */
+    if (y > 240) { doc.addPage(); y = margin; }
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8);
+    doc.setTextColor(136, 136, 132);
+    doc.text('TOTAL SAVING OPPORTUNITY', margin, y);
+    y += 8;
+    var savingItems = [
+      ['Conservative', document.getElementById('save-conservative').textContent],
+      ['Realistic', document.getElementById('save-realistic').textContent],
+      ['Full Optimisation', document.getElementById('save-aggressive').textContent],
+    ];
+    savingItems.forEach(function(item, i) {
+      var sx = margin + i * 58;
+      doc.setFillColor(242, 247, 240);
+      doc.rect(sx, y, 52, 18, 'F');
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(74, 103, 65);
+      doc.text(item[0], sx + 4, y + 6);
+      doc.setFontSize(13);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(74, 103, 65);
+      doc.text(item[1], sx + 4, y + 14);
+    });
+    y += 26;
+
+    /* Priority */
+    var priority = document.getElementById('ai-priority').textContent;
+    if (priority && priority !== '—') {
+      doc.setFillColor(242, 247, 240);
+      doc.rect(margin, y, W - margin * 2, 16, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8);
+      doc.setTextColor(74, 103, 65);
+      doc.text('PRIORITY ACTION', margin + 4, y + 6);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      doc.setTextColor(26, 26, 24);
+      var plines = doc.splitTextToSize(priority, W - margin * 2 - 8);
+      doc.text(plines[0] || '', margin + 4, y + 12);
+      y += 22;
+    }
+
+    /* Footer */
+    doc.setDrawColor(220, 218, 213);
+    doc.line(margin, 282, W - margin, 282);
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(7);
+    doc.setTextColor(180, 180, 172);
+    doc.text('Based on typical UK market pricing as of early 2026. Not financial advice. Always verify independently.', margin, 288);
+    doc.text('1LINE Bill — oi-ecosystem.github.io/1line/bill/', margin, 293);
+
+    doc.save('1LINE_Bill_Clarity.pdf');
+  } catch(e) {
+    alert('PDF export failed. Please try again.');
+  }
+}
+
+/* ── RETURN FROM PAYMENT ── */
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.location.search.indexOf('unlocked=true') !== -1) {
+    var stored = sessionStorage.getItem('bill_data');
+    if (stored) {
+      try {
+        var d = JSON.parse(stored);
+        if (d.val) {
+          var ta = document.getElementById('bill-input');
+          if (ta) { ta.value = d.val; countChars(); }
+          if (d.region) document.getElementById('opt-region').value = d.region;
+          if (d.household) document.getElementById('opt-household').value = d.household;
+          if (d.tenure) document.getElementById('opt-tenure').value = d.tenure;
+          _lastVal = d.val;
+          _spellWarned = true;
+          var loadSection = document.getElementById('loading-section');
+          if (loadSection) loadSection.className = 'loading-section visible';
+          runBillAnalysis(d.val);
+        }
+      } catch(e) {}
+    }
+  }
+});
+
+</script>
+
+<!-- GoatCounter Analytics -->
+<script data-goatcounter="https://signal333.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
