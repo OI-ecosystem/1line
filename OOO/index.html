@@ -1,1 +1,1000 @@
+<!-- 1LINE OOO v2.0 | Updated: 19 May 2026 | Universal spellcheck, oninput, links fixed -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1LINE OOO — Out of office messages written instantly from one line</title>
+  <meta name="description" content="Enter one line about your absence. 1LINE OOO generates five polished out-of-office messages — professional, friendly, minimal, executive and warm — instantly." />
+  <meta name="keywords" content="out of office generator, OOO message, out of office email, auto reply generator, email away message, professional out of office" />
+  <meta property="og:title" content="1LINE OOO — Your out of office, written instantly" />
+  <meta property="og:description" content="One line about your absence. Five polished OOO messages. Done." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --cream: #FAF8F5;
+      --white: #FFFFFF;
+      --ink: #1A1A18;
+      --ink-mid: #4A4A46;
+      --ink-muted: #888884;
+      --ink-faint: #C4C4BE;
+      --border: rgba(26,26,24,0.10);
+      --border-mid: rgba(26,26,24,0.18);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --max: 640px;
+      --green: #2D7A5A;
+      --red: #C0392B;
+      --amber: #A0620A;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+    /* ── NAV ── */
+    nav {
+      padding: 28px 0 0;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    .brand {
+      font-family: var(--serif);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    /* ── 1LINE WORDMARK ── */
+    .oneline-mark {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.04em;
+      line-height: 1;
+      text-decoration: none;
+    }
+    .oneline-mark .n {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 1em;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .oneline-mark .l {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 0.5em;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #1A7FE8;
+      position: relative;
+      top: -0.1em;
+    }
+
+    /* ── B-USEFUL BADGE ── */
+    .buseful-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #1A2744;
+      border-radius: 5px;
+      padding: 5px 12px 5px 10px;
+      text-decoration: none;
+      margin-bottom: 16px;
+      transition: opacity 0.2s;
+    }
+    .buseful-badge:hover { opacity: 0.82; }
+    .buseful-badge-text {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      color: #FFFFFF;
+      letter-spacing: 0.02em;
+    }
+    .buseful-badge-text em { font-style: italic; color: #C4A96A; }
+
+    /* ── HERO ── */
+    .hero { padding: 64px 0 48px; border-bottom: 0.5px solid var(--border); }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(30px, 5vw, 42px);
+      font-weight: 300;
+      line-height: 1.18;
+      color: var(--ink);
+      margin-bottom: 18px;
+      letter-spacing: -0.01em;
+    }
+    .hero-sub {
+      font-size: 15px;
+      color: var(--ink-mid);
+      font-weight: 300;
+      max-width: 480px;
+      line-height: 1.65;
+    }
+
+    /* ── INPUT ── */
+    .input-section { padding: 48px 0 0; }
+    .input-prompt {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .input-hint {
+      font-size: 12px;
+      color: var(--ink-muted);
+      margin-bottom: 22px;
+      line-height: 1.6;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 16px 18px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--white);
+      border: 0.5px solid var(--border-mid);
+      border-radius: 10px;
+      resize: none;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    textarea::placeholder { color: var(--ink-faint); }
+    textarea:focus { border-color: var(--ink-mid); }
+
+    .char-counter {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--ink-muted);
+    }
+    .char-count { font-weight: 500; }
+    .char-count.valid { color: var(--green); }
+    .char-count.over  { color: var(--red); }
+
+    /* ── SPELL PANEL ── */
+    .generate-btn {
+      width: 100%;
+      margin-top: 16px;
+      padding: 15px 24px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--ink);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .generate-btn:hover:not(:disabled) { opacity: 0.82; }
+    .generate-btn:active:not(:disabled) { transform: scale(0.99); }
+    .generate-btn:disabled { opacity: 0.28; cursor: default; }
+    .input-provenance {
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--ink-faint);
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      padding: 56px 0 48px;
+      border-top: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
+      margin-top: 56px;
+    }
+    .section-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 32px;
+    }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .step-num {
+      font-family: var(--serif);
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--ink-faint);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .step-text { font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
+
+    /* ── OUTPUT ── */
+    #output-section {
+      display: none;
+      padding: 56px 0;
+      border-top: 0.5px solid var(--border);
+      margin-top: 56px;
+    }
+    #output-section.visible { display: block; }
+
+    .out-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    /* Essence summary */
+    .essence-card {
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 28px;
+    }
+    .essence-line {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink);
+      margin-top: 6px;
+    }
+
+    /* Subject lines */
+    .subjects-card {
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 12px;
+    }
+    .subject-list { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
+    .subject-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      background: var(--cream);
+      border-radius: 7px;
+      border: 0.5px solid var(--border);
+    }
+    .subject-text {
+      font-size: 13px;
+      color: var(--ink);
+      font-weight: 300;
+      flex: 1;
+    }
+    .copy-btn {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      background: none;
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 8px;
+      cursor: pointer;
+      font-family: var(--sans);
+      transition: all 0.15s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .copy-btn:hover { color: var(--ink); border-color: var(--border-mid); }
+    .copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+    /* OOO message cards */
+    .ooo-card {
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 12px;
+    }
+    .ooo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .ooo-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+    .ooo-tone-tag {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--ink-faint);
+      background: var(--cream);
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 8px;
+    }
+    .ooo-body {
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.75;
+      font-weight: 300;
+      white-space: pre-line;
+    }
+    .ooo-copy-row {
+      margin-top: 14px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* Tags row */
+    .tags-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .auto-tag {
+      font-size: 11px;
+      color: var(--ink-mid);
+      background: var(--white);
+      border: 0.5px solid var(--border-mid);
+      border-radius: 20px;
+      padding: 4px 14px;
+    }
+
+    .share-nudge {
+      margin-top: 32px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--ink-muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── FOOTER ── */
+    footer { border-top: 0.5px solid var(--border); padding: 40px 0 48px; margin-top: 56px; }
+    .footer-network-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 14px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+    .footer-link {
+      font-size: 12px;
+      color: var(--ink-muted);
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 20px;
+      padding: 5px 14px;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .footer-link:hover { color: var(--ink); border-color: var(--border-mid); }
+    .footer-copy { font-size: 11px; color: var(--ink-faint); }
+
+    /* ── SPELL PANEL ── */
+    .spell-panel {
+      display: none;
+      margin-top: 14px;
+      background: #FFFBF0;
+      border: 0.5px solid rgba(160,98,10,0.22);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+    .spell-panel.visible { display: block; }
+    .spell-heading {
+      font-size: 11px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 12px;
+    }
+    .spell-corrected {
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.7;
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+    .spell-corrected mark {
+      background: rgba(160,98,10,0.13);
+      color: var(--amber);
+      border-radius: 2px;
+      padding: 0 3px;
+    }
+    .spell-actions { display: flex; gap: 8px; }
+    .spell-btn {
+      padding: 9px 18px;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      border: 0.5px solid;
+    }
+    .spell-btn:hover { opacity: 0.72; }
+    .spell-btn.accept { background: var(--ink); color: var(--white); border-color: var(--ink); }
+    .spell-btn.ignore { background: transparent; color: var(--ink-mid); border-color: var(--border-mid); }
+
+    /* ── CROSS-SELL BLOCK ── */
+    .crosssell-block {
+      margin: 32px 0 12px;
+      padding: 28px 24px;
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+    }
+    .crosssell-heading {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .crosssell-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .crosssell-card {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 14px 16px;
+      background: var(--cream);
+      border: 0.5px solid var(--border);
+      border-radius: 9px;
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .crosssell-card:hover { border-color: var(--border-mid); }
+    .crosssell-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+    .crosssell-desc {
+      font-size: 11px;
+      color: var(--ink-muted);
+      line-height: 1.5;
+      flex: 1;
+    }
+    .crosssell-cta {
+      font-size: 11px;
+      color: var(--ink);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 480px) {
+      .steps { grid-template-columns: 1fr; gap: 20px; }
+      .crosssell-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="brand">1LINE OOO</a>
+    <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" aria-label="Part of 1LINE">
+      <span class="n">1</span><span class="l">LINE</span>
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <a href="https://oi-ecosystem.github.io/b-useful/" target="_blank" rel="noopener" class="buseful-badge">
+      <span class="buseful-badge-text">B-<em>Useful</em></span>
+    </a>
+    <p class="hero-eyebrow">A 1LINE workplace utility</p>
+    <h1>Your out-of-office message, written instantly from one line.</h1>
+    <p class="hero-sub">Tell us why you're away. 1LINE OOO writes five polished out-of-office messages — professional, friendly, minimal, executive and warm — plus subject lines and auto-tags. Done in one line. Free to try.</p>
+  </section>
+
+  <!-- INPUT -->
+  <section class="input-section">
+    <p class="input-prompt">Describe your absence in one line.</p>
+    <p class="input-hint">Include why you're away, how long, when you return, and who to contact for urgent matters. Any of these will do — the more you include, the better the output.</p>
+
+    <textarea
+      id="main-input"
+      maxlength="160"
+      oninput="countChars()"
+      spellcheck="true"
+      autocorrect="on"
+      autocomplete="off"
+      autocapitalize="sentences"
+      placeholder="On holiday for two weeks, back Monday 2 June, for urgent matters contact Sarah at sarah@company.com."
+      aria-label="Describe your absence in one line"
+    ></textarea>
+
+    <div class="char-counter">
+      <span>60 – 160 characters</span>
+      <span class="char-count" id="char-count">0</span>
+    </div>
+
+    <div class="spell-panel" id="spell-panel">
+      <p class="spell-heading">Some words may contain spelling errors.</p>
+      <p class="spell-corrected">Please review the red underlined words before continuing. Your wording affects the precision of your messages.</p>
+      <div class="spell-actions">
+        <button class="spell-btn ignore" onclick="spellReview()">Review Text</button>
+        <button class="spell-btn accept" onclick="spellContinue()">Continue Anyway</button>
+      </div>
+    </div>
+
+    <button class="generate-btn" id="generate-btn" disabled onclick="handleGenerate()">
+      Generate OOO Messages
+    </button>
+    <p class="input-provenance">Nothing is stored. Your absence details stay with you.</p>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <p class="section-eyebrow">How it works</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Enter one line about your absence — reason, duration, return date, contact.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">1LINE OOO extracts duration, contact, tone and context from your line.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Copy the version that fits. Paste it into your email client. Done.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTPUT -->
+  <section id="output-section" aria-live="polite">
+    <p class="section-eyebrow">Your out-of-office messages</p>
+
+    <!-- Essence -->
+    <div class="essence-card">
+      <span class="out-label">Essence</span>
+      <div class="essence-line" id="out-essence"></div>
+    </div>
+
+    <!-- Subject lines -->
+    <div class="subjects-card">
+      <span class="out-label">Subject line suggestions</span>
+      <div class="subject-list" id="out-subjects"></div>
+    </div>
+
+    <!-- Auto tags -->
+    <div class="ooo-card" style="margin-bottom:28px;">
+      <span class="out-label">Auto tags</span>
+      <div class="tags-row" id="out-tags"></div>
+    </div>
+
+    <!-- FREE: Professional -->
+    <div class="ooo-card" id="card-professional">
+      <div class="ooo-header">
+        <span class="ooo-label">Professional</span>
+        
+      </div>
+      <div class="ooo-body" id="out-professional"></div>
+      <div class="ooo-copy-row">
+        <button class="copy-btn" onclick="copyOOO('out-professional', this)">Copy message</button>
+      </div>
+    </div>
+
+    <!-- ALL FIVE VERSIONS — fully free -->
+    <div class="ooo-card" id="card-friendly">
+      <div class="ooo-header">
+        <span class="ooo-label">Friendly</span>
+        
+      </div>
+      <div class="ooo-body" id="out-friendly"></div>
+      <div class="ooo-copy-row">
+        <button class="copy-btn" onclick="copyOOO('out-friendly', this)">Copy message</button>
+      </div>
+    </div>
+
+    <div class="ooo-card" id="card-minimal">
+      <div class="ooo-header">
+        <span class="ooo-label">Minimal</span>
+        
+      </div>
+      <div class="ooo-body" id="out-minimal"></div>
+      <div class="ooo-copy-row">
+        <button class="copy-btn" onclick="copyOOO('out-minimal', this)">Copy message</button>
+      </div>
+    </div>
+
+    <div class="ooo-card" id="card-executive">
+      <div class="ooo-header">
+        <span class="ooo-label">Executive</span>
+        
+      </div>
+      <div class="ooo-body" id="out-executive"></div>
+      <div class="ooo-copy-row">
+        <button class="copy-btn" onclick="copyOOO('out-executive', this)">Copy message</button>
+      </div>
+    </div>
+
+    <div class="ooo-card" id="card-warm">
+      <div class="ooo-header">
+        <span class="ooo-label">Warm Human</span>
+        
+      </div>
+      <div class="ooo-body" id="out-warm"></div>
+      <div class="ooo-copy-row">
+        <button class="copy-btn" onclick="copyOOO('out-warm', this)">Copy message</button>
+      </div>
+    </div>
+
+    <!-- CROSS-SELL -->
+    <div class="crosssell-block">
+      <p class="crosssell-heading">Need more from one line?</p>
+      <div class="crosssell-cards">
+        <a class="crosssell-card" href="#">
+          <span class="crosssell-name">1LINE Bio</span>
+          <span class="crosssell-desc">Compress who you are into every platform bio you need.</span>
+          <span class="crosssell-cta">Try it &rarr;</span>
+        </a>
+        <a class="crosssell-card" href="#">
+          <span class="crosssell-name">1LINE Pitch</span>
+          <span class="crosssell-desc">Your business positioning derived from one honest line.</span>
+          <span class="crosssell-cta">Try it &rarr;</span>
+        </a>
+        <a class="crosssell-card" href="#">
+          <span class="crosssell-name">1LINE Resolver</span>
+          <span class="crosssell-desc">Turn a difficult situation into a calm, structured response.</span>
+          <span class="crosssell-cta">Try it &rarr;</span>
+        </a>
+      </div>
+    </div>
+
+    <p class="share-nudge">Send this page to a colleague who needs it &mdash; they will thank you.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-network-label">Other <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:10px;"><span class="n">1</span><span class="l">LINE</span></a> utilities</div>
+    <div class="footer-links">
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/everecho/">EverEcho — baby identity</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/pitch/">1LINE Pitch — business positioning</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/bio/">1LINE Bio — identity compression</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/resolver/">1LINE Resolver — conflict clarity</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/gift/">1LINE Gift — gift logic</a>
+    </div>
+    <p class="footer-copy">&copy; 1LINE OOO. A <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:11px;"><span class="n">1</span><span class="l">LINE</span></a> workplace utility. Nothing stored. Everything yours.</p>
+  </footer>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     ENGINE
+══════════════════════════════════════════════ -->
+<script>
+
+/* ── STATE ── */
+var _spellWarned    = false;
+var _lastCountedVal = '';
+
+/* ── CHAR COUNTER ── */
+function countChars() {
+  var ta  = document.getElementById('main-input');
+  var cc  = document.getElementById('char-count');
+  var btn = document.getElementById('generate-btn');
+  if (!ta || !cc) return;
+  var len = ta.value.length;
+  cc.textContent = len;
+  cc.className = 'char-count' + (len >= 60 && len <= 160 ? ' valid' : len > 160 ? ' over' : '');
+  if (btn) btn.disabled = !(len >= 60 && len <= 160);
+  if (ta.value !== _lastCountedVal) {
+    _lastCountedVal = ta.value;
+    _spellWarned = false;
+    var p = document.getElementById('spell-panel');
+    if (p) p.className = 'spell-panel';
+  }
+}
+
+/* ── COPY ── */
+function copyOOO(id, btn) {
+  var text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = 'Copied';
+    btn.className = 'copy-btn copied';
+    setTimeout(function() { btn.textContent = 'Copy message'; btn.className = 'copy-btn'; }, 2000);
+  });
+}
+
+/* ── UNIVERSAL SPELL WARNING ── */
+function handleGenerate() {
+  var val = document.getElementById('main-input').value.trim();
+  if (val.length < 60 || val.length > 160) return;
+  if (!_spellWarned) {
+    _spellWarned = true;
+    document.getElementById('spell-panel').className = 'spell-panel visible';
+    var btn = document.getElementById('generate-btn');
+    if (btn) btn.disabled = true;
+    return;
+  }
+  generateOOO(val);
+}
+function spellReview() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  document.getElementById('main-input').focus();
+}
+function spellContinue() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  var val = document.getElementById('main-input').value.trim();
+  generateOOO(val);
+}
+
+// Extract return date — look for day/month patterns or relative terms
+function extractReturn(str) {
+  var lower = str.toLowerCase();
+
+  // Named date patterns: "back 2 June", "return 14 May", "Monday 2 June"
+  var dateMatch = str.match(/\b(\d{1,2})\s+(January|February|March|April|May|June|July|August|September|October|November|December)\b/i);
+  if (dateMatch) return dateMatch[0];
+
+  // "back Monday", "return Tuesday" etc
+  var dayMatch = str.match(/\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\b/i);
+  if (dayMatch) return dayMatch[0];
+
+  // Duration patterns
+  if (/two weeks?|2 weeks?/i.test(str)) return 'in two weeks';
+  if (/one week|1 week/i.test(str)) return 'next week';
+  if (/three weeks?|3 weeks?/i.test(str)) return 'in three weeks';
+  if (/(\d+)\s*days?/i.test(str)) {
+    var m = str.match(/(\d+)\s*days?/i);
+    return 'in ' + m[1] + ' days';
+  }
+  if (/this week/i.test(str)) return 'later this week';
+  if (/next week/i.test(str)) return 'next week';
+  if (/tomorrow/i.test(str)) return 'tomorrow';
+
+  return null; // No return info found
+}
+
+// Extract contact — name and/or email
+function extractContact(str) {
+  // Email
+  var emailMatch = str.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);
+  // Name — word after "contact", "reach", "email", "speak to", "copy"
+  var nameMatch = str.match(/(?:contact|reach|email|speak to|copy|cc|notify)\s+([A-Z][a-z]+)/i);
+  var name = nameMatch ? nameMatch[1] : null;
+  var email = emailMatch ? emailMatch[0] : null;
+  return { name, email };
+}
+
+// Detect absence reason
+function detectReason(str) {
+  var lower = str.toLowerCase();
+  if (/holiday|vacation|leave|annual/i.test(str)) return 'holiday';
+  if (/parental|maternity|paternity|baby/i.test(str)) return 'parental leave';
+  if (/medical|surgery|hospital|health|sick/i.test(str)) return 'medical leave';
+  if (/conference|event|summit|offsite/i.test(str)) return 'conference';
+  if (/travel|trip|abroad/i.test(str)) return 'travel';
+  if (/training|course|study/i.test(str)) return 'training';
+  return 'out of office';
+}
+
+// Build contact phrase
+function contactPhrase(contact, fallback) {
+  if (contact.name && contact.email) return contact.name + ' at ' + contact.email;
+  if (contact.name) return contact.name;
+  if (contact.email) return contact.email;
+  return fallback || 'a colleague';
+}
+
+// Build return phrase
+function returnPhrase(ret) {
+  if (!ret) return 'when I return';
+  // If it's a specific date or day
+  if (/^\d|^Monday|^Tuesday|^Wednesday|^Thursday|^Friday|^Saturday|^Sunday/i.test(ret)) {
+    return 'on ' + ret;
+  }
+  return ret; // "in two weeks", "next week" etc
+}
+
+/* ── ESSENCE ── */
+var ESSENCES = {
+  'holiday':       'Temporary absence with full return confirmed.',
+  'parental leave':'Extended leave for a significant personal moment.',
+  'medical leave': 'Temporary absence for personal wellbeing.',
+  'conference':    'Away for professional engagement, returning shortly.',
+  'travel':        'Out of contact during travel, continuity maintained.',
+  'training':      'Away for professional development, back soon.',
+  'out of office': 'Temporary absence with delegated continuity.',
+};
+
+/* ── SUBJECT LINES ── */
+function buildSubjects(reason, ret, contact, str) {
+  var retStr   = ret ? ' (back ' + ret + ')' : '';
+  var retClean = ret ? ret : '';
+  var hasContact = contact.name || contact.email;
+  var contName   = contact.name || 'a colleague';
+
+  // Reason labels for subject lines
+  var reasonLabels = {
+    'holiday':        'on holiday',
+    'parental leave': 'on parental leave',
+    'medical leave':  'on medical leave',
+    'conference':     'at a conference',
+    'travel':         'travelling',
+    'training':       'at training',
+    'out of office':  'out of office',
+  };
+  var reasonLabel = reasonLabels[reason] || 'out of office';
+
+  // Build three genuinely different subject lines
+  var s1, s2, s3;
+
+  if (ret) {
+    s1 = 'Out of Office — back ' + ret;
+  } else {
+    s1 = 'Out of Office — will respond on return';
+  }
+
+  if (hasContact) {
+    s2 = 'Away' + (ret ? ' until ' + ret : '') + ' — contact ' + contName + ' for urgent matters';
+  } else if (ret) {
+    s2 = 'Returning ' + ret + ' — responses delayed until then';
+  } else {
+    s2 = 'Currently away — responses may be delayed';
+  }
+
+  if (reason !== 'out of office') {
+    s3 = 'I am ' + reasonLabel + retStr + ' — I will be in touch on my return';
+  } else if (ret) {
+    s3 = 'No email access until ' + ret + ' — thank you for your patience';
+  } else {
+    s3 = 'Limited email access — I will reply as soon as possible';
+  }
+
+  return [s1, s2, s3];
+}
+
+/* ── AUTO TAGS ── */
+function buildTags(reason, ret, contact) {
+  var tags = ['Out of Office'];
+  if (ret) tags.push('Return: ' + ret);
+  if (contact.name || contact.email) tags.push('Contact: ' + contactPhrase(contact, ''));
+  tags.push(reason.charAt(0).toUpperCase() + reason.slice(1));
+  return tags;
+}
+
+/* ── OOO MESSAGE BUILDER ── */
+function buildProfessional(reason, ret, contact, str) {
+  var retP    = returnPhrase(ret);
+  var contP   = contactPhrase(contact, 'a member of the team');
+  var retLine = ret ? 'I will return ' + retP + ' and will respond to your message as soon as possible.' : 'I will respond to your message as soon as I return.';
+  var urgLine = (contact.name || contact.email)
+    ? 'For urgent matters, please contact ' + contP + '.'
+    : 'For anything urgent, please reach out to a member of the team who will be happy to help.';
+  var reasonStr = reason === 'out of office' ? 'out of the office' : 'on ' + reason;
+  return 'Thank you for your email.\n\nI am currently ' + reasonStr + ' and have limited access to email. ' + retLine + '\n\n' + urgLine + '\n\nApologies for any inconvenience and thank you for your patience.';
+}
+
+function buildFriendly(reason, ret, contact) {
+  var retP    = returnPhrase(ret);
+  var contP   = contactPhrase(contact, 'the team');
+  var retLine = ret ? 'I\'ll be back ' + retP + ' and will catch up on emails then.' : 'I\'ll be back soon and will catch up on everything then.';
+  return 'Hi there — thanks for getting in touch!\n\nI\'m currently away' + (reason !== 'out of office' ? ' on ' + reason : '') + ' and not checking emails regularly. ' + retLine + '\n\nIf your message is urgent, ' + contP + ' will be able to help in the meantime.\n\nTalk soon!';
+}
+
+function buildMinimal(reason, ret, contact) {
+  var retP  = returnPhrase(ret);
+  var contP = contactPhrase(contact, null);
+  var lines = ['Out of office' + (reason !== 'out of office' ? ' — ' + reason : '') + '.'];
+  if (ret) lines.push('Returning ' + retP + '.');
+  if (contact.name || contact.email) lines.push('Urgent: ' + contP + '.');
+  else lines.push('For urgent matters, please contact the team.');
+  return lines.join('\n');
+}
+
+function buildExecutive(reason, ret, contact) {
+  var retP    = returnPhrase(ret);
+  var contP   = contactPhrase(contact, 'a relevant team member');
+  var retLine = ret ? 'I will be available from ' + retP + '.' : 'I will respond upon my return.';
+  var reasonStr = reason !== 'out of office' ? ' on ' + reason : '';
+  return 'I am currently out of office' + reasonStr + ' and unavailable.\n\n' + retLine + ' All correspondence will be addressed at the earliest opportunity.\n\nFor time-sensitive matters, please direct your enquiry to ' + contP + '.';
+}
+
+function buildWarm(reason, ret, contact) {
+  var retP      = returnPhrase(ret);
+  var contP     = contactPhrase(contact, 'my colleague');
+  var reasonStr = reason === 'holiday' ? 'taking a proper break' : reason !== 'out of office' ? 'away on ' + reason : 'away for a bit';
+  return 'Hey — thanks for your message.\n\nI\'m currently ' + reasonStr + ' and stepping away from email' + (ret ? ' until ' + retP : ' for a little while') + '. I\'ll make sure to reply properly when I\'m back.\n\nIf it genuinely can\'t wait, ' + contP + ' is the right person to reach — they\'ll sort you out.\n\nSpeak soon.';
+}
+
+/* ── MAIN GENERATE ── */
+function generateOOO(val) {
+  if (!val) {
+    var inputEl = document.getElementById('main-input');
+    val = inputEl.value.trim();
+  }
+  if (val.length < 60 || val.length > 160) return;
+
+  var reason  = detectReason(val);
+  var ret     = extractReturn(val);
+  var contact = extractContact(val);
+
+  // Essence
+  document.getElementById('out-essence').textContent = ESSENCES[reason] || ESSENCES['out of office'];
+
+  // Subject lines — store globally so copy buttons can reference by index
+  window._oooSubjects = buildSubjects(reason, ret, contact, val);
+  document.getElementById('out-subjects').innerHTML = window._oooSubjects.map(function(s, i) {
+    return '<div class="subject-item">' +
+      '<span class="subject-text">' + s + '</span>' +
+      '<button class="copy-btn" onclick="copySubject(' + i + ', this)">Copy</button>' +
+      '</div>';
+  }).join('');
+
+  // Auto tags
+  var tags = buildTags(reason, ret, contact);
+  document.getElementById('out-tags').innerHTML = tags.map(function(t) {
+    return '<span class="auto-tag">' + t + '</span>';
+  }).join('');
+
+  // Professional (free)
+  document.getElementById('out-professional').textContent = buildProfessional(reason, ret, contact, val);
+  document.getElementById('out-friendly').textContent   = buildFriendly(reason, ret, contact);
+  document.getElementById('out-minimal').textContent    = buildMinimal(reason, ret, contact);
+  document.getElementById('out-executive').textContent  = buildExecutive(reason, ret, contact);
+  document.getElementById('out-warm').textContent       = buildWarm(reason, ret, contact);
+
+  var section = document.getElementById('output-section');
+  section.className = 'visible';
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function copySubject(idx, btn) {
+  var text = window._oooSubjects ? window._oooSubjects[idx] : '';
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = 'Copied';
+    btn.className = 'copy-btn copied';
+    setTimeout(function() { btn.textContent = 'Copy'; btn.className = 'copy-btn'; }, 2000);
+  });
+}
+
+</script>
+
+<!-- GoatCounter Analytics -->
+<script data-goatcounter="https://signal333.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
