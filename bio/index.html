@@ -1,4 +1,4 @@
-<!-- 1LINE Bio v2.3 | Updated: 20 May 2026 | Lemon Squeezy URL added -->
+<!-- 1LINE Bio v2.4 | Updated: 20 May 2026 | Etsy unlock fix| Lemon Squeezy URL added -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -917,7 +917,7 @@ function runAIBio(val) {
 /* ── PAYMENT ── */
 function unlockBio() {
   var val = _lastVal || document.getElementById('main-input').value.trim();
-  if (PREMIUM_GATED) {
+  if (PREMIUM_GATED && window.location.search.indexOf("unlocked=true") === -1) {
     sessionStorage.setItem('bio_data', JSON.stringify({ val: val }));
     window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/3bba14a0-c1cd-494f-aa72-91c5ce8f1246';
     return;
