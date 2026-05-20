@@ -1,4 +1,4 @@
-<!-- 1LINE Signal v2.4 | Updated: 20 May 2026 17:45 | PDF fixes, verdict in PDF -->
+<!-- 1LINE Signal v2.5 | Updated: 20 May 2026 18:00 | Twelve Data real EOD data -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -633,6 +633,8 @@ footer { border-top: 0.5px solid var(--border); padding: 32px 0 24px; margin-top
 
 var PREMIUM_GATED = true;
 var VERCEL_PROXY  = 'https://rcloop-proxy.vercel.app/api/ai';
+var TWELVE_PROXY  = 'https://rcloop-proxy.vercel.app/api/twelve';
+var TWELVE_PROXY  = 'https://rcloop-proxy.vercel.app/api/twelve';
 var LS_URL        = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/d4436007-63cc-4db1-b577-0cc6f78bb4e9';
 
 var _timeframe    = '3M';
@@ -747,7 +749,7 @@ function runAnalysis(ticker, timeframe, context) {
   renderRecent();
 
   /* Fetch end-of-day chart data directly from Yahoo (browser fetch, no proxy needed) */
-  /* Render TradingView EOD chart — no API needed */
+  /* Render TradingView EOD chart immediately — no API needed */
   var tvIntervalMap = { '1D':'D', '1W':'W', '1M':'M', '3M':'3M', '6M':'6M', '1Y':'12M' };
   var tvInterval = tvIntervalMap[timeframe] || 'D';
   var chartContainer = document.getElementById('price-chart');
@@ -764,8 +766,26 @@ function runAnalysis(ticker, timeframe, context) {
   iframe.setAttribute('frameborder', '0');
   chartContainer.appendChild(iframe);
 
-  /* Fire AI analysis immediately — no data dependency */
-  runAIAnalysis(ticker, timeframe, context, null);
+  /* Fetch real EOD data from Twelve Data, then pass to AI */
+  fetch(TWELVE_PROXY, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ticker: ticker, timeframe: timeframe })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(mkt) {
+    if (mkt.error) {
+      /* Twelve Data failed — fall back to AI-only analysis */
+      runAIAnalysis(ticker, timeframe, context, null);
+      return;
+    }
+    _marketData = mkt;
+    runAIAnalysis(ticker, timeframe, context, mkt);
+  })
+  .catch(function() {
+    /* Network error — fall back to AI-only */
+    runAIAnalysis(ticker, timeframe, context, null);
+  });
 }
 
 
@@ -894,85 +914,96 @@ function renderMomentumCards(d) {
 }
 
 /* ── AI ANALYSIS ── */
-function runAIAnalysis(ticker, timeframe, context, chartData) {
-  /* Build what we know — chart data if available, otherwise ticker + timeframe alone */
-  var hasChart = chartData && chartData.ohlcv && chartData.ohlcv.length > 5;
-  var closes = hasChart ? chartData.ohlcv.map(function(c) { return c.close; }) : [];
+function runAIAnalysis(ticker, timeframe, context, d) {
+  /* d = Twelve Data response (real data) or null (fallback) */
+  var hasData = d && d.currentPrice;
 
-  /* Calculate basic indicators if we have chart data */
-  var ma20 = null, ma50 = null, rsi = null, trend = null, high = null, low = null;
-  if (hasChart && closes.length >= 20) {
-    var slice20 = closes.slice(-20);
-    ma20 = Math.round(slice20.reduce(function(a,b){return a+b;},0)/slice20.length * 100)/100;
-  }
-  if (hasChart && closes.length >= 50) {
-    var slice50 = closes.slice(-50);
-    ma50 = Math.round(slice50.reduce(function(a,b){return a+b;},0)/slice50.length * 100)/100;
-  }
-  if (hasChart && closes.length >= 15) {
-    var gains = 0, losses = 0, period = 14;
-    for (var i = closes.length - period; i < closes.length; i++) {
-      var diff = closes[i] - closes[i-1];
-      if (diff >= 0) gains += diff; else losses += Math.abs(diff);
+  /* Populate snapshot cards with REAL data if available */
+  if (hasData) {
+    var set = function(id, v) { var el = document.getElementById(id); if (el) el.textContent = v || '—'; };
+    document.getElementById('snap-price').textContent = d.currentPrice.toFixed(2);
+    document.getElementById('snap-currency').textContent = d.currency || '';
+    var chgEl = document.getElementById('snap-change');
+    var chgSign = d.dayChange >= 0 ? '+' : '';
+    chgEl.textContent = chgSign + d.dayChange.toFixed(2) + '%';
+    chgEl.className = 'snap-value' + (d.dayChange >= 0 ? ' up' : ' down');
+    if (d.rsi) {
+      document.getElementById('snap-rsi').textContent = d.rsi.toFixed(1);
+      document.getElementById('snap-rsi-state').textContent = d.rsiState || '';
     }
-    var ag = gains/period, al = losses/period;
-    rsi = al === 0 ? 100 : Math.round((100 - 100/(1 + ag/al)) * 100)/100;
-  }
-  if (hasChart && closes.length >= 20) {
-    var rec = chartData.ohlcv.slice(-20);
-    var fh = rec[rec.length-1].high > rec[0].high, fl = rec[rec.length-1].low > rec[0].low;
-    var dh = rec[rec.length-1].high < rec[0].high, dl = rec[rec.length-1].low < rec[0].low;
-    trend = (fh && fl) ? 'uptrend' : (dh && dl) ? 'downtrend' : 'sideways';
-    high = Math.round(Math.max.apply(null, closes) * 100)/100;
-    low  = Math.round(Math.min.apply(null, closes) * 100)/100;
-  }
+    set('snap-trend',  d.trend);
+    set('snap-volume', d.volumeTrend);
+    var maPos = (d.aboveMa50  ? 'Above' : 'Below') + ' 50MA\n'
+              + (d.aboveMa200 ? 'Above' : 'Below') + ' 200MA';
+    set('snap-ma', maPos);
 
-  /* Render snapshot cards with what we have */
-  if (hasChart) {
-    var curr = chartData.currentPrice;
-    var prev = closes[closes.length-2] || closes[closes.length-1];
-    var chg  = chartData.dayChange;
-    var priceEl = document.getElementById('snap-price');
-    priceEl.textContent = curr ? curr.toFixed(2) : '—';
-    document.getElementById('snap-currency').textContent = chartData.currency || '';
-    var changeEl = document.getElementById('snap-change');
-    var sign = chg >= 0 ? '+' : '';
-    changeEl.textContent = sign + chg.toFixed(2) + '%';
-    changeEl.className = 'snap-value' + (chg >= 0 ? ' up' : ' down');
-    if (rsi) {
-      document.getElementById('snap-rsi').textContent = rsi.toFixed(1);
-      document.getElementById('snap-rsi-state').textContent = rsi >= 70 ? 'Overbought' : rsi <= 30 ? 'Oversold' : 'Neutral';
-    }
-    if (trend) {
-      var trendMap = { 'uptrend': 'Uptrend', 'downtrend': 'Downtrend', 'sideways': 'Sideways' };
-      document.getElementById('snap-trend').textContent = trendMap[trend] || trend;
-    }
-    if (ma50) {
-      document.getElementById('mom-ma50').textContent = ma50.toFixed(2);
-      document.getElementById('mom-ma50-sub').textContent = curr > ma50 ? 'Price above 50MA' : 'Price below 50MA';
-    }
+    /* State header */
     var stateHeader = document.getElementById('state-header');
-    var state = trend === 'uptrend' ? 'Constructive Structure' : trend === 'downtrend' ? 'Bearish Pressure' : 'Range Compression Active';
-    if (rsi && rsi >= 70) state = 'Momentum Extended';
-    if (rsi && rsi <= 30) state = 'Oversold Condition';
+    var state = d.trend === 'Uptrend' ? 'Constructive Structure'
+              : d.trend === 'Downtrend' ? 'Bearish Pressure' : 'Range Compression Active';
+    if (d.rsi >= 70) state = 'Momentum Extended';
+    if (d.rsi <= 30) state = 'Oversold Condition';
     stateHeader.textContent = state;
     stateHeader.className = 'state-header visible';
+
+    /* Momentum cards */
+    set('mom-rsi',      d.rsi ? d.rsi.toFixed(1) : '—');
+    set('mom-rsi-div',  d.rsiState || '—');
+    set('mom-vol',      d.volumeTrend || '—');
+    set('mom-vol-sub',  d.volumeTrend === 'Increasing' ? 'Confirming participation'
+                      : d.volumeTrend === 'Decreasing' ? 'Weakening participation' : 'Stable participation');
+    set('mom-ma50',     d.ma50  ? d.ma50.toFixed(2)  : '—');
+    set('mom-ma50-sub', d.aboveMa50  ? 'Price above 50MA'  : 'Price below 50MA');
+    set('mom-ma200',    d.ma200 ? d.ma200.toFixed(2) : '—');
+    set('mom-ma200-sub',d.aboveMa200 ? 'Price above 200MA' : 'Price below 200MA');
+
+    /* S&R table */
+    var tbody = document.getElementById('sr-body');
+    if (tbody) {
+      tbody.innerHTML = '';
+      var srRows = [];
+      if (d.resist1) srRows.push({ price: d.resist1, type: 'resistance' });
+      if (d.resist2 && d.resist2 !== d.resist1) srRows.push({ price: d.resist2, type: 'resistance' });
+      if (d.support1) srRows.push({ price: d.support1, type: 'support' });
+      if (d.support2 && d.support2 !== d.support1) srRows.push({ price: d.support2, type: 'support' });
+      srRows.sort(function(a,b){ return b.price - a.price; });
+      srRows.forEach(function(row) {
+        var pct = ((row.price - d.currentPrice) / d.currentPrice * 100);
+        var pctSign = pct >= 0 ? '+' : '';
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td><span class="sr-price">' + row.price.toFixed(2) + '</span></td>'
+          + '<td><span class="sr-type-' + row.type + '">' + row.type.toUpperCase() + '</span></td>'
+          + '<td><span class="sr-pct ' + (pct <= 0 ? 'neg' : 'pos') + '">' + pctSign + pct.toFixed(1) + '%</span></td>';
+        tbody.appendChild(tr);
+      });
+    }
   }
 
+  /* Build signals object for AI prompt — use real data if available */
   var signals = {
-    ticker: ticker.toUpperCase(),
-    timeframe: timeframe,
-    currentPrice: hasChart ? chartData.currentPrice : null,
-    dayChange: hasChart ? chartData.dayChange : null,
-    trend: trend,
-    rsi: rsi,
-    ma20: ma20,
-    ma50: ma50,
-    periodHigh: high,
-    periodLow: low,
-    aboveMa50: (ma50 && hasChart) ? chartData.currentPrice > ma50 : null,
-    userContext: context || 'End of day structured reading'
+    ticker:       ticker.toUpperCase(),
+    timeframe:    timeframe,
+    currentPrice: hasData ? d.currentPrice    : null,
+    dayChange:    hasData ? d.dayChange        : null,
+    trend:        hasData ? d.trend            : null,
+    rsi:          hasData ? d.rsi              : null,
+    rsiState:     hasData ? d.rsiState         : null,
+    ma20:         hasData ? d.ma20             : null,
+    ma50:         hasData ? d.ma50             : null,
+    ma200:        hasData ? d.ma200            : null,
+    aboveMa50:    hasData ? d.aboveMa50        : null,
+    aboveMa200:   hasData ? d.aboveMa200       : null,
+    volumeTrend:  hasData ? d.volumeTrend      : null,
+    periodHigh:   hasData ? d.periodHigh       : null,
+    periodLow:    hasData ? d.periodLow        : null,
+    support1:     hasData ? d.support1         : null,
+    support2:     hasData ? d.support2         : null,
+    resist1:      hasData ? d.resist1          : null,
+    resist2:      hasData ? d.resist2          : null,
+    dataSource:   hasData ? 'live EOD data'    : 'AI knowledge only',
+    userContext:  context || 'End of day structured reading'
   };
+
 
   var system = 'You are a senior technical analyst providing structured end-of-day market interpretation. '
     + 'You have deep knowledge of price structure, classical chart patterns, volume behaviour, and key technical levels for all major stocks, ETFs, indices and crypto. '
