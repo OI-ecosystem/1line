@@ -1,4 +1,4 @@
-<!-- 1LINE AI-M v2.1 | Updated: 20 May 2026 | runAIAIM added, LS URL, banner, scroll -->
+<!-- 1LINE AI-M v2.2 | Updated: 20 May 2026 | Etsy unlock fix| runAIAIM added, LS URL, banner, scroll -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -483,7 +483,7 @@ function spellContinue() {
 /* ── PAYMENT ── */
 function unlockAIM() {
   var val = _lastVal || document.getElementById('main-input').value.trim();
-  if (PREMIUM_GATED) {
+  if (PREMIUM_GATED && window.location.search.indexOf("unlocked=true") === -1) {
     sessionStorage.setItem('aim_data', JSON.stringify({ val: val }));
     window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/94cb3096-04b0-4129-bce0-3a5e8916bd99';
     return;
