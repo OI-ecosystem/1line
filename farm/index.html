@@ -1,1 +1,1306 @@
+<!-- 1LINE Farm v1.3 | Updated: 23 May 2026 11:30 | market_regime + next_scan_eta -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>1LINE Farm — One line. Farm with conviction.</title>
+  <meta name="description" content="Enter one line about your farming goal. Get a live intelligence snapshot from Hunter Intelligence — scored, ranked, timed.">
+  <style>
+    :root {
+      --bg:       #0D0F12;
+      --surface:  #131619;
+      --panel:    #181C20;
+      --border:   #1E2329;
+      --border2:  #252B33;
+      --text:     #E2E8F0;
+      --muted:    #64748B;
+      --dim:      #4A5568;
+      --green:    #10B981;
+      --green-dim:#064E3B;
+      --amber:    #F59E0B;
+      --amber-dim:#78350F;
+      --red:      #EF4444;
+      --red-dim:  #7F1D1D;
+      --gold:     #C4A96A;
+      --navy:     #1A2744;
+      --accent:   #3B82F6;
+      --cream:    #F5F0E8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
 
+    /* ── LIVE BAR ── */
+    .live-bar {
+      background: #0A1A12;
+      border-bottom: 1px solid #1A3A24;
+      padding: 8px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 12px;
+      color: var(--green);
+      letter-spacing: 0.04em;
+      flex-wrap: wrap;
+    }
+    .live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+      animation: pulse-dot 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse-dot {
+      0%,100% { opacity: 1; } 50% { opacity: 0.4; }
+    }
+    .live-sep { color: var(--border2); }
+    .live-stat { color: var(--muted); }
+    .live-stat span { color: var(--text); font-weight: 600; }
+    .live-urgent { color: var(--amber); }
+    .live-urgent span { font-weight: 600; }
+
+    /* ── HEADER ── */
+    .header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .logo-row { display: flex; align-items: center; gap: 12px; }
+    .logo-1line {
+      font-family: Georgia, serif;
+      font-size: 16px;
+      font-style: italic;
+      color: var(--text);
+      letter-spacing: 0.12em;
+      text-decoration: none;
+    }
+    .logo-1line span { color: var(--gold); }
+    .logo-sep { color: var(--border2); font-size: 14px; }
+    .logo-farm {
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      color: var(--green);
+      text-transform: uppercase;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .sentinel-pill {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      border: 1px solid var(--border2);
+      border-radius: 4px;
+      padding: 4px 10px;
+    }
+    .powered-by {
+      font-size: 11px;
+      color: var(--dim);
+      letter-spacing: 0.06em;
+    }
+    .powered-by span { color: var(--green); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 40px 24px 32px;
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(26px, 4vw, 40px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .hero-sub {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-family: Georgia, serif;
+      font-style: italic;
+      max-width: 520px;
+      margin: 0 auto 32px;
+    }
+
+
+    /* ── NETWORK ACTIVITY ── */
+    .network-bar {
+      max-width: 680px;
+      margin: 0 auto 16px;
+      padding: 0 24px;
+    }
+    .network-inner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .network-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    .network-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .network-dot.green { background: var(--green); box-shadow: 0 0 4px var(--green); }
+    .network-dot.amber { background: var(--amber); box-shadow: 0 0 4px var(--amber); }
+    .network-dot.red   { background: var(--red);   box-shadow: 0 0 4px var(--red);   }
+    /* ── INPUT FORM ── */
+    .form-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px 40px;
+    }
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+    }
+    .form-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .farm-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      padding: 12px 14px;
+      color: var(--text);
+      font-size: 14px;
+      font-family: Georgia, serif;
+      font-style: italic;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 16px;
+      resize: vertical;
+      min-height: 70px;
+    }
+    .farm-input::placeholder { color: var(--dim); font-style: italic; }
+    .farm-input:focus { border-color: var(--green); }
+
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .filter-label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      width: 100%;
+      margin-bottom: 4px;
+    }
+    .filter-btn {
+      background: var(--bg);
+      border: 1px solid var(--border2);
+      border-radius: 4px;
+      padding: 6px 12px;
+      color: var(--muted);
+      font-size: 11px;
+      font-family: monospace;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-btn.active {
+      background: var(--green-dim);
+      border-color: var(--green);
+      color: var(--green);
+    }
+    .filter-btn:hover:not(.active) {
+      border-color: var(--dim);
+      color: var(--text);
+    }
+
+    .scan-btn {
+      width: 100%;
+      background: var(--green);
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      padding: 13px;
+      font-size: 13px;
+      font-family: monospace;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-weight: 700;
+      transition: opacity 0.2s;
+    }
+    .scan-btn:hover { opacity: 0.88; }
+    .scan-btn:disabled { opacity: 0.35; cursor: default; }
+
+    .form-note {
+      text-align: center;
+      font-size: 11px;
+      color: var(--dim);
+      margin-top: 10px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── LOADING ── */
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 48px 24px;
+    }
+    .loading.visible { display: block; }
+    .loading-terminal {
+      font-size: 12px;
+      color: var(--green);
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .loading-sub {
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .scan-dots span {
+      display: inline-block;
+      animation: blink 1.2s ease-in-out infinite;
+      color: var(--green);
+    }
+    .scan-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .scan-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes blink { 0%,80%,100%{opacity:0.2} 40%{opacity:1} }
+
+    /* ── OUTPUT ── */
+    .output {
+      display: none;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 64px;
+    }
+    .output.visible { display: block; }
+
+    /* Top conviction card */
+    .conviction-card {
+      background: linear-gradient(135deg, #0A1A0F 0%, #0D1A14 100%);
+      border: 1px solid #1A4A2A;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .conviction-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--green), transparent);
+    }
+    .conviction-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .conviction-name {
+      font-family: Georgia, serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .conviction-chain {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .conviction-metrics {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .conv-metric { }
+    .conv-metric-label {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 2px;
+    }
+    .conv-metric-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--green);
+      line-height: 1;
+    }
+    .conv-metric-sub {
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .conviction-action {
+      background: rgba(16,185,129,0.08);
+      border: 1px solid rgba(16,185,129,0.2);
+      border-radius: 6px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 10px;
+      font-family: Georgia, serif;
+      font-style: italic;
+    }
+    .conviction-timing {
+      font-size: 11px;
+      color: var(--amber);
+      letter-spacing: 0.06em;
+    }
+
+    /* AI Briefing */
+    .ai-briefing {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .briefing-text {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.75;
+      font-family: Georgia, serif;
+    }
+    .briefing-loading {
+      font-size: 13px;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* Rankings table */
+    .rankings-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .rankings-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .rankings-title {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .rankings-badge {
+      font-size: 10px;
+      color: var(--green);
+      letter-spacing: 0.06em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    thead th {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dim);
+      padding: 8px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-weight: 400;
+    }
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.12s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(255,255,255,0.02); }
+    tbody td {
+      padding: 9px 14px;
+      font-size: 12px;
+      vertical-align: middle;
+    }
+    .rank-num { color: var(--dim); width: 28px; }
+    .protocol-name { color: var(--text); font-weight: 500; }
+    .protocol-urgent { color: var(--amber); font-size: 10px; letter-spacing: 0.06em; }
+    .chain-tag {
+      font-size: 10px;
+      color: var(--muted);
+      background: var(--bg);
+      border-radius: 3px;
+      padding: 2px 6px;
+      border: 1px solid var(--border2);
+    }
+    .score-val {
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .score-high { color: var(--green); }
+    .score-mod  { color: var(--amber); }
+    .score-low  { color: var(--dim); }
+    .conv-badge {
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      padding: 2px 7px;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+    .conv-high { background: var(--green-dim); color: var(--green); }
+    .conv-mod  { background: var(--amber-dim); color: var(--amber); }
+    .conv-supp { background: #1A1A2E; color: var(--dim); }
+    .signal-tag {
+      font-size: 10px;
+      color: var(--amber);
+      letter-spacing: 0.04em;
+    }
+    .snap-prob {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Locked modules */
+    .locked-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .locked-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .locked-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(13,15,18,0.7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      backdrop-filter: blur(2px);
+    }
+    .locked-icon { font-size: 18px; opacity: 0.6; }
+    .locked-label {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .locked-sentinel {
+      font-size: 9px;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+    }
+    .locked-title {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      filter: blur(0.5px);
+    }
+    .locked-preview {
+      filter: blur(3px);
+      pointer-events: none;
+      user-select: none;
+    }
+    .locked-bar {
+      height: 6px;
+      background: var(--border2);
+      border-radius: 3px;
+      margin-bottom: 6px;
+    }
+    .locked-bar.w80 { width: 80%; }
+    .locked-bar.w60 { width: 60%; }
+    .locked-bar.w45 { width: 45%; }
+
+    /* Sentinel CTA */
+    .sentinel-cta {
+      background: linear-gradient(135deg, #0A1020 0%, #0D1530 100%);
+      border: 1px solid #1A2A50;
+      border-radius: 8px;
+      padding: 28px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .sentinel-cta-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .sentinel-cta h3 {
+      font-family: Georgia, serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .sentinel-cta p {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 20px;
+      line-height: 1.6;
+      font-family: Georgia, serif;
+      font-style: italic;
+    }
+    .sentinel-btn {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      border-radius: 6px;
+      padding: 12px 28px;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: monospace;
+      transition: opacity 0.2s;
+    }
+    .sentinel-btn:hover { opacity: 0.88; text-decoration: none; }
+    .sentinel-price {
+      font-size: 11px;
+      color: var(--dim);
+      margin-top: 10px;
+    }
+
+    /* New scan button */
+    .new-scan-btn {
+      display: block;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto 32px;
+      background: transparent;
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      padding: 11px;
+      color: var(--muted);
+      font-size: 12px;
+      font-family: monospace;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .new-scan-btn:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    /* Disclaimer */
+    .disclaimer {
+      font-size: 11px;
+      color: var(--dim);
+      text-align: center;
+      line-height: 1.6;
+      padding: 0 24px 24px;
+      max-width: 600px;
+      margin: 0 auto;
+      font-family: Georgia, serif;
+      font-style: italic;
+    }
+
+    /* B-Useful badge */
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 24px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .buseful-badge {
+      display: inline-flex;
+      align-items: center;
+      background: var(--navy);
+      border-radius: 5px;
+      padding: 5px 10px;
+      text-decoration: none;
+    }
+    .buseful-badge-text {
+      font-size: 12px;
+      color: #fff;
+      letter-spacing: 0.05em;
+      font-family: Georgia, serif;
+    }
+    .buseful-badge-text em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .footer-links a {
+      font-size: 11px;
+      color: var(--dim);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: var(--green); }
+
+    .cross-sell {
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .cross-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .cross-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .cross-link {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 7px 14px;
+      font-size: 11px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: all 0.15s;
+      letter-spacing: 0.04em;
+    }
+    .cross-link:hover {
+      border-color: var(--green);
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      .conviction-metrics { gap: 14px; }
+      .locked-grid { grid-template-columns: repeat(2, 1fr); }
+      thead th:nth-child(4),
+      tbody td:nth-child(4) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LIVE STATUS BAR -->
+<div class="live-bar">
+  <div class="live-dot"></div>
+  <span>Live</span>
+  <span class="live-sep">·</span>
+  <span class="live-stat"><span>18</span>/20 above threshold</span>
+  <span class="live-sep">·</span>
+  <span class="live-urgent"><span>4</span> urgent</span>
+  <span class="live-sep">·</span>
+  <span class="live-stat">Snapshot generated <span>2026-05-23 02:34 UTC</span></span>
+  <span class="live-sep">·</span>
+  <span class="live-stat" style="color:var(--green);">✓ AI briefing ready</span>
+  <span class="live-sep">·</span>
+  <span class="live-stat">Regime: <span id="market-regime" style="color:var(--amber);">Aggressive</span></span>
+  <span class="live-sep">·</span>
+  <span class="live-stat">Next scan: <span id="next-scan-eta">—</span></span>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo-row">
+    <a href="https://oi-ecosystem.github.io/1line/" class="logo-1line">1<span>LINE</span></a>
+    <span class="logo-sep">/</span>
+    <span class="logo-farm">Farm</span>
+  </div>
+  <div class="header-right">
+    <span class="sentinel-pill">Sentinel v2.0 snapshot</span>
+    <span class="powered-by">powered by <span>Hunter Intelligence</span></span>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">Current intelligence · Live snapshot · Latest scan</p>
+  <h1>One line.<br>Farm with conviction.</h1>
+  <p class="hero-sub">Tell us your farming goal. The Hunter Intelligence scoring engine returns your highest-conviction opportunity, a live protocol ranking, and a personalised AI briefing. Not hype. Operational intelligence.</p>
+</div>
+
+<!-- FORM -->
+<!-- NETWORK ACTIVITY -->
+<div class="network-bar">
+  <div class="network-inner">
+    <div class="network-item"><div class="network-dot green"></div>Network activity elevated</div>
+    <div class="network-item"><div class="network-dot amber"></div>Snapshot activity increasing</div>
+    <div class="network-item"><div class="network-dot green"></div>High conviction window</div>
+    <div class="network-item" style="margin-left:auto;"><div class="network-dot green"></div><span style="color:var(--green);">Scan ready</span></div>
+  </div>
+</div>
+
+<div class="form-wrap" id="form-wrap">
+  <div class="form-card">
+    <label class="form-label" for="farm-input">Your farming goal</label>
+    <textarea
+      id="farm-input"
+      class="farm-input"
+      placeholder="e.g. Best low-gas opportunity right now · I have $500, 30 mins/day, low risk · What should I farm this week on Ethereum?"
+      spellcheck="true"
+      autocorrect="on"
+      maxlength="400"
+    ></textarea>
+
+    <span class="filter-label">Gas sensitivity</span>
+    <div class="filter-row" id="gas-filters">
+      <button class="filter-btn active" data-gas="any">Any gas</button>
+      <button class="filter-btn" data-gas="low">Low gas only</button>
+      <button class="filter-btn" data-gas="ultra">Ultra low (Solana/L2)</button>
+    </div>
+
+    <span class="filter-label">Chain preference</span>
+    <div class="filter-row" id="chain-filters">
+      <button class="filter-btn active" data-chain="any">All chains</button>
+      <button class="filter-btn" data-chain="eth">Ethereum</button>
+      <button class="filter-btn" data-chain="l2">L2s</button>
+      <button class="filter-btn" data-chain="sol">Solana</button>
+    </div>
+
+    <button class="scan-btn" id="scan-btn" onclick="handleScan()">
+      ⟳ Run Intelligence Scan
+    </button>
+    <p class="form-note">One-time access — £9 — instant snapshot</p>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div class="loading" id="loading">
+  <div class="loading-terminal">SCANNING HUNTER INTELLIGENCE DATABASE<span class="scan-dots"><span>.</span><span>.</span><span>.</span></span></div>
+  <div class="loading-sub">Filtering 20 protocols · Matching your parameters · Generating briefing</div>
+</div>
+
+<!-- OUTPUT -->
+<div class="output" id="output">
+
+  <!-- TOP CONVICTION -->
+  <div class="conviction-card" id="top-conviction">
+    <div class="conviction-eyebrow">↑ Highest conviction match for your goal</div>
+    <div class="conviction-name" id="top-name">—</div>
+    <div class="conviction-chain" id="top-chain">—</div>
+    <div class="conviction-metrics">
+      <div class="conv-metric">
+        <div class="conv-metric-label">Score</div>
+        <div class="conv-metric-value" id="top-score">—</div>
+        <div class="conv-metric-sub">/100</div>
+      </div>
+      <div class="conv-metric">
+        <div class="conv-metric-label">Snapshot probability</div>
+        <div class="conv-metric-value" id="top-snap">—</div>
+        <div class="conv-metric-sub">%</div>
+      </div>
+      <div class="conv-metric">
+        <div class="conv-metric-label">Signal</div>
+        <div class="conv-metric-value" style="font-size:14px;padding-top:4px;" id="top-signal">—</div>
+      </div>
+    </div>
+    <div class="conviction-action" id="top-note">—</div>
+    <div class="conviction-timing" id="top-timing"></div>
+    <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.05);font-size:12px;color:var(--muted);font-family:Georgia,serif;font-style:italic;line-height:1.6;" id="market-conditions">
+      Current farming conditions favour infrastructure and early ecosystem positioning over mature liquidity protocols. Snapshot timing remains strongest in Ethereum-adjacent testnet ecosystems this window.
+    </div>
+  </div>
+
+  <!-- AI BRIEFING -->
+  <div class="ai-briefing">
+    <div class="section-label">AI Intelligence Briefing</div>
+    <div class="briefing-text briefing-loading" id="briefing-text">Generating personalised briefing…</div>
+  </div>
+
+  <!-- TOP 5 TABLE + LOCKED REST -->
+  <div class="rankings-section">
+    <div class="rankings-header">
+      <span class="rankings-title">Current Intelligence Snapshot — Top 5</span>
+      <span class="rankings-badge" id="scan-timestamp">Snapshot 02:34 UTC</span>
+    </div>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Protocol</th>
+            <th>Chain</th>
+            <th>Score</th>
+            <th>Conviction</th>
+            <th>Snap %</th>
+            <th>Signal</th>
+          </tr>
+        </thead>
+        <tbody id="rankings-body"></tbody>
+      </table>
+    </div>
+    <!-- LOCKED ROWS 6-20 -->
+    <div style="position:relative;">
+      <table style="filter:blur(3px);pointer-events:none;user-select:none;opacity:0.4;">
+        <tbody>
+          <tr><td class="rank-num">6</td><td><div class="protocol-name">████████</div></td><td><span class="chain-tag">████████</span></td><td><span class="score-val score-mod">██</span></td><td><span class="conv-badge conv-mod">████████</span></td><td class="snap-prob">██%</td><td class="signal-tag">—</td></tr>
+          <tr><td class="rank-num">7</td><td><div class="protocol-name">██████████</div></td><td><span class="chain-tag">████</span></td><td><span class="score-val score-mod">██</span></td><td><span class="conv-badge conv-mod">████████</span></td><td class="snap-prob">██%</td><td class="signal-tag">⚡ ███████</td></tr>
+          <tr><td class="rank-num">8</td><td><div class="protocol-name">███████████</div></td><td><span class="chain-tag">████████</span></td><td><span class="score-val score-mod">██</span></td><td><span class="conv-badge conv-mod">████████</span></td><td class="snap-prob">██%</td><td class="signal-tag">—</td></tr>
+          <tr><td class="rank-num">9</td><td><div class="protocol-name">████████</div></td><td><span class="chain-tag">████████</span></td><td><span class="score-val score-mod">██</span></td><td><span class="conv-badge conv-mod">████████</span></td><td class="snap-prob">██%</td><td class="signal-tag">—</td></tr>
+          <tr><td class="rank-num">10</td><td><div class="protocol-name">█████████</div></td><td><span class="chain-tag">████</span></td><td><span class="score-val score-mod">██</span></td><td><span class="conv-badge conv-mod">████████</span></td><td class="snap-prob">██%</td><td class="signal-tag">—</td></tr>
+        </tbody>
+      </table>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:rgba(13,15,18,0.6);backdrop-filter:blur(1px);">
+        <div style="font-size:18px;">🔒</div>
+        <div style="font-size:11px;letter-spacing:0.12em;color:var(--dim);text-transform:uppercase;">Rankings 6–20 locked</div>
+        <div style="font-size:11px;color:var(--gold);letter-spacing:0.08em;">Full access in Sentinel</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOCKED MODULES -->
+  <div class="section-label" style="padding:0 0 10px;">Sentinel Premium Modules</div>
+  <div class="locked-grid">
+    <div class="locked-card">
+      <div class="locked-title">Whale Tracker</div>
+      <div class="locked-preview">
+        <div class="locked-bar w80"></div>
+        <div class="locked-bar w60"></div>
+        <div class="locked-bar w45"></div>
+      </div>
+      <div class="locked-overlay">
+        <div class="locked-icon">🔒</div>
+        <div class="locked-label">Locked</div>
+        <div class="locked-sentinel">Available in Sentinel</div>
+      </div>
+    </div>
+    <div class="locked-card">
+      <div class="locked-title">Correlation Matrix</div>
+      <div class="locked-preview">
+        <div class="locked-bar w60"></div>
+        <div class="locked-bar w80"></div>
+        <div class="locked-bar w45"></div>
+      </div>
+      <div class="locked-overlay">
+        <div class="locked-icon">🔒</div>
+        <div class="locked-label">Locked</div>
+        <div class="locked-sentinel">Available in Sentinel</div>
+      </div>
+    </div>
+    <div class="locked-card">
+      <div class="locked-title">Historical Timing</div>
+      <div class="locked-preview">
+        <div class="locked-bar w45"></div>
+        <div class="locked-bar w80"></div>
+        <div class="locked-bar w60"></div>
+      </div>
+      <div class="locked-overlay">
+        <div class="locked-icon">🔒</div>
+        <div class="locked-label">Locked</div>
+        <div class="locked-sentinel">Available in Sentinel</div>
+      </div>
+    </div>
+    <div class="locked-card">
+      <div class="locked-title">Portfolio Optimizer</div>
+      <div class="locked-preview">
+        <div class="locked-bar w80"></div>
+        <div class="locked-bar w45"></div>
+        <div class="locked-bar w60"></div>
+      </div>
+      <div class="locked-overlay">
+        <div class="locked-icon">🔒</div>
+        <div class="locked-label">Locked</div>
+        <div class="locked-sentinel">Available in Sentinel</div>
+      </div>
+    </div>
+    <div class="locked-card">
+      <div class="locked-title">Live Alerts</div>
+      <div class="locked-preview">
+        <div class="locked-bar w60"></div>
+        <div class="locked-bar w45"></div>
+        <div class="locked-bar w80"></div>
+      </div>
+      <div class="locked-overlay">
+        <div class="locked-icon">🔒</div>
+        <div class="locked-label">Locked</div>
+        <div class="locked-sentinel">Available in Sentinel</div>
+      </div>
+    </div>
+    <div class="locked-card">
+      <div class="locked-title">Unlimited Scans</div>
+      <div class="locked-preview">
+        <div class="locked-bar w45"></div>
+        <div class="locked-bar w60"></div>
+        <div class="locked-bar w80"></div>
+      </div>
+      <div class="locked-overlay">
+        <div class="locked-icon">🔒</div>
+        <div class="locked-label">Locked</div>
+        <div class="locked-sentinel">Available in Sentinel</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SENTINEL CTA -->
+  <div class="sentinel-cta">
+    <div class="sentinel-cta-eyebrow">Hunter Intelligence · Sentinel v2.0</div>
+    <h3>Continuous farming intelligence.</h3>
+    <p>This snapshot updates weekly. Sentinel monitors 20 protocols continuously — live TVL feeds, whale movement, snapshot alerts, portfolio optimisation. For serious farmers.</p>
+    <a href="https://github.com/oi-ecosystem/sentinel" target="_blank" rel="noopener" class="sentinel-btn">
+      Explore Sentinel →
+    </a>
+    <div class="sentinel-price">From £29/month · Cancel anytime</div>
+  </div>
+
+  <!-- NEW SCAN -->
+  <button class="new-scan-btn" onclick="resetScan()">↺ New Scan</button>
+
+</div><!-- /output -->
+
+<!-- DISCLAIMER -->
+<div class="disclaimer" id="disclaimer" style="display:none;">
+  Intelligence only. No custody, no wallets, no keys. Scores reflect Hunter Intelligence analysis updated weekly — not real-time. Not financial advice. Airdrop outcomes are not guaranteed. Always conduct your own research.
+</div>
+
+<!-- CROSS-SELL -->
+<div class="cross-sell">
+  <p class="cross-label">Other 1LINE systems</p>
+  <div class="cross-links">
+    <a class="cross-link" href="https://oi-ecosystem.github.io/1line/signal/">1LINE Signal</a>
+    <a class="cross-link" href="https://oi-ecosystem.github.io/1line/gift/">1LINE Gift</a>
+    <a class="cross-link" href="https://oi-ecosystem.github.io/1line/bill/">1LINE Bill</a>
+    <a class="cross-link" href="https://oi-ecosystem.github.io/1line/everecho/">EverEcho</a>
+    <a class="cross-link" href="https://oi-ecosystem.github.io/1line/pitch/">1LINE Pitch</a>
+    <a class="cross-link" href="https://oi-ecosystem.github.io/1line/">All utilities</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer-row">
+  <a href="https://oi-ecosystem.github.io/b-useful/" target="_blank" rel="noopener" class="buseful-badge">
+    <span class="buseful-badge-text">B-<em>Useful</em></span>
+  </a>
+  <div class="footer-links">
+    <a href="https://oi-ecosystem.github.io/1line/">1LINE</a>
+    <a href="https://github.com/oi-ecosystem/sentinel">Hunter Intelligence</a>
+    <span style="font-size:11px;color:var(--dim);">© 2026</span>
+  </div>
+</div>
+
+<script>
+// ── FLAGS ──────────────────────────────────────────────────────────────────
+var DEV_MODE      = false;
+var PREMIUM_GATED = true;
+var VERCEL_PROXY  = 'https://rcloop-proxy.vercel.app/api/ai';
+var LS_URL        = 'https://your-lemon-squeezy-link.com';
+
+// ── HUNTER INTELLIGENCE — fetched live from Vercel endpoint ───────────────
+var SNAPSHOT_URL = 'https://rcloop-proxy.vercel.app/api/farm-snapshot';
+var PROTOCOLS    = [];   // populated on page load
+var SNAPSHOT_TS  = '';
+
+// Fallback data — used if fetch fails (last known good scores)
+var FALLBACK_PROTOCOLS = [
+  { rank:1, name:'Miden',      chain:'Ethereum ZK', score:78, conviction:'HIGH',     snapshotProb:82, urgent:true,  deadline:'Snapshot closing', gasUnits:120000, chainKey:'eth', note:'ZK rollup. a16z + Coinbase. Interact NOW — snapshot closing.' },
+  { rank:2, name:'MegaETH',    chain:'MegaETH',     score:75, conviction:'HIGH',     snapshotProb:91, urgent:true,  deadline:'Daily check-in',   gasUnits:60000,  chainKey:'l2',  note:'Real-time EVM. $107M raised. Daily check-in required.' },
+  { rank:3, name:'Monad',      chain:'Monad',       score:72, conviction:'HIGH',     snapshotProb:88, urgent:false, deadline:null,               gasUnits:80000,  chainKey:'l2',  note:'$244M raised. Testnet live. Faucet daily.' },
+  { rank:4, name:'Base L2',    chain:'Ethereum L2', score:67, conviction:'MODERATE', snapshotProb:74, urgent:false, deadline:null,               gasUnits:65000,  chainKey:'l2',  note:'Coinbase moat. Token rumoured 2026.' },
+  { rank:5, name:'Polymarket', chain:'Polygon',     score:65, conviction:'MODERATE', snapshotProb:68, urgent:false, deadline:null,               gasUnits:55000,  chainKey:'polygon', note:'Token confirmed. Make real predictions.' }
+];
+
+// ── STATE ──────────────────────────────────────────────────────────────────
+var _selectedGas   = 'any';
+var _selectedChain = 'any';
+
+// ── FILTER BUTTONS ─────────────────────────────────────────────────────────
+document.querySelectorAll('#gas-filters .filter-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('#gas-filters .filter-btn').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+    _selectedGas = this.getAttribute('data-gas');
+  });
+});
+document.querySelectorAll('#chain-filters .filter-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('#chain-filters .filter-btn').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+    _selectedChain = this.getAttribute('data-chain');
+  });
+});
+
+// ── LOAD SNAPSHOT ON PAGE INIT ─────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  loadSnapshot(function() {
+    /* After snapshot loaded, check if returning from LS */
+    if (window.location.search.indexOf('unlocked=true') !== -1) {
+      var stored = sessionStorage.getItem('farm_data');
+      if (stored) {
+        try {
+          var d = JSON.parse(stored);
+          document.getElementById('farm-input').value = d.goal || '';
+          _selectedGas   = d.gas   || 'any';
+          _selectedChain = d.chain || 'any';
+          fireScan(d.goal, d.gas, d.chain);
+        } catch(e) { /* ignore */ }
+      }
+    }
+  });
+});
+
+function loadSnapshot(callback) {
+  fetch(SNAPSHOT_URL)
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (data.protocols && data.protocols.length) {
+      PROTOCOLS   = data.protocols;
+      SNAPSHOT_TS = data.generated_at || '';
+      /* Update live bar timestamp */
+      var tsEl = document.querySelector('.live-stat span:last-child');
+      if (tsEl && SNAPSHOT_TS) tsEl.textContent = SNAPSHOT_TS;
+      /* Update above-threshold count */
+      if (data.summary) {
+        var stats = document.querySelectorAll('.live-stat span');
+        /* stats[0] = above threshold, live-urgent span = urgent */
+        var urgEl = document.querySelector('.live-urgent span');
+        if (urgEl && data.summary.urgent !== undefined) urgEl.textContent = data.summary.urgent;
+      }
+    } else {
+      /* No snapshot yet — use fallback */
+      PROTOCOLS   = FALLBACK_PROTOCOLS;
+      SNAPSHOT_TS = 'Pending first scan';
+    }
+    /* Update market regime display */
+    if (data.market_regime) {
+      var regimeEl = document.getElementById('market-regime');
+      if (regimeEl) {
+        regimeEl.textContent = data.market_regime;
+        regimeEl.style.color = data.market_regime === 'Aggressive' ? 'var(--green)' : 'var(--amber)';
+      }
+    }
+    /* Update next scan ETA */
+    if (data.next_scan_eta) {
+      var etaEl = document.getElementById('next-scan-eta');
+      if (etaEl) etaEl.textContent = data.next_scan_eta;
+    }
+    if (callback) callback();
+  })
+  .catch(function() {
+    /* Network error — use fallback silently */
+    PROTOCOLS   = FALLBACK_PROTOCOLS;
+    SNAPSHOT_TS = 'Offline — using latest cached snapshot';
+    if (callback) callback();
+  });
+}
+
+// ── MAIN HANDLER ───────────────────────────────────────────────────────────
+function handleScan() {
+  var goal = document.getElementById('farm-input').value.trim();
+  if (!goal) {
+    document.getElementById('farm-input').style.borderColor = 'var(--red)';
+    setTimeout(function(){ document.getElementById('farm-input').style.borderColor = ''; }, 1500);
+    return;
+  }
+  if (PREMIUM_GATED) {
+    sessionStorage.setItem('farm_data', JSON.stringify({ goal: goal, gas: _selectedGas, chain: _selectedChain }));
+    window.location.href = LS_URL;
+    return;
+  }
+  fireScan(goal, _selectedGas, _selectedChain);
+}
+
+function fireScan(goal, gas, chain) {
+  document.getElementById('form-wrap').style.display = 'none';
+  document.getElementById('loading').classList.add('visible');
+  document.getElementById('output').classList.remove('visible');
+  document.getElementById('disclaimer').style.display = 'none';
+
+  /* Filter protocols */
+  var filtered = PROTOCOLS.filter(function(p) {
+    if (gas === 'low'   && p.gasUnits > 80000)  return false;
+    if (gas === 'ultra' && p.gasUnits > 35000)  return false;
+    if (chain === 'eth' && p.chainKey !== 'eth') return false;
+    if (chain === 'l2'  && p.chainKey !== 'l2')  return false;
+    if (chain === 'sol' && p.chainKey !== 'sol') return false;
+    return true;
+  });
+
+  if (!filtered.length) filtered = PROTOCOLS.slice(0, 10);
+
+  /* Sort by score */
+  var sorted = filtered.slice().sort(function(a,b){ return b.score - a.score; });
+  var top = sorted[0];
+
+  /* Render top conviction */
+  document.getElementById('top-name').textContent   = top.name;
+  document.getElementById('top-chain').textContent  = top.chain;
+  document.getElementById('top-score').textContent  = top.score;
+  document.getElementById('top-snap').textContent   = top.snapshotProb;
+  document.getElementById('top-signal').textContent = top.conviction;
+  document.getElementById('top-note').textContent   = top.note;
+  if (top.urgent && top.deadline) {
+    document.getElementById('top-timing').textContent = '⚡ ' + top.deadline;
+  } else {
+    document.getElementById('top-timing').textContent = '';
+  }
+
+  /* Render top 5 only — rest locked to drive Sentinel */
+  var tbody = document.getElementById('rankings-body');
+  tbody.innerHTML = '';
+  var displayRanks = sorted.slice(0, 5);
+  /* Always ensure rank #1 is visible regardless of filter */
+  var hasTop = displayRanks.some(function(p){ return p.rank === top.rank; });
+  if (!hasTop) displayRanks = [top].concat(sorted.slice(0, 4));
+  displayRanks.forEach(function(p) {
+    var scoreClass = p.score >= 70 ? 'score-high' : p.score >= 55 ? 'score-mod' : 'score-low';
+    var convClass  = p.conviction === 'HIGH' ? 'conv-high' : p.conviction === 'SUPPRESS' ? 'conv-supp' : 'conv-mod';
+    var isTop      = p.rank === top.rank;
+    var tr = document.createElement('tr');
+    if (isTop) tr.style.background = 'rgba(16,185,129,0.05)';
+    tr.innerHTML = '<td class="rank-num">' + p.rank + '</td>'
+      + '<td><div class="protocol-name">' + p.name + (isTop ? ' ↑' : '') + '</div>'
+      + (p.urgent ? '<div class="protocol-urgent">⚡ ' + (p.deadline || 'Urgent') + '</div>' : '')
+      + '</td>'
+      + '<td><span class="chain-tag">' + p.chain + '</span></td>'
+      + '<td><span class="score-val ' + scoreClass + '">' + p.score + '</span></td>'
+      + '<td><span class="conv-badge ' + convClass + '">' + p.conviction + '</span></td>'
+      + '<td class="snap-prob">' + p.snapshotProb + '%</td>'
+      + '<td class="signal-tag">' + (p.deadline ? '⚡ ' + p.deadline : '—') + '</td>';
+    tbody.appendChild(tr);
+  });
+
+  /* Set scan timestamp */
+  var tsEl = document.getElementById('scan-timestamp');
+  if (tsEl) tsEl.textContent = 'Snapshot ' + (SNAPSHOT_TS || '—');
+
+  /* Fire AI briefing */
+  var system = 'You are a senior crypto farming intelligence analyst for Hunter Intelligence. '
+    + 'You write short, precise, conviction-based briefings for serious farmers. '
+    + 'No hype. No promises. No "this could 100x". '
+    + 'Restrained, operational, intelligent tone. '
+    + 'Two short paragraphs maximum. Plain text, no markdown, no bullet points.';
+
+  var topSummary = top.name + ' (Score: ' + top.score + '/100, Snapshot prob: ' + top.snapshotProb + '%, Chain: ' + top.chain + '). ' + top.note;
+
+  var prompt = 'Farming goal: "' + goal + '"\n\n'
+    + 'Gas filter: ' + gas + '\n'
+    + 'Chain filter: ' + chain + '\n\n'
+    + 'Top conviction result: ' + topSummary + '\n\n'
+    + 'Other top protocols this week: '
+    + sorted.slice(1, 4).map(function(p){ return p.name + ' (' + p.score + ')'; }).join(', ') + '\n\n'
+    + 'Write a short intelligence briefing (2 paragraphs maximum) that:\n'
+    + '1. Explains why this protocol matches their specific goal right now\n'
+    + '2. Gives one clear timing or action note\n'
+    + 'Do not repeat the note verbatim. Add insight, context, and conviction rationale.';
+
+  fetch(VERCEL_PROXY, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ system: system, prompt: prompt })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    var text = data.content && data.content[0] ? data.content[0].text : '';
+    document.getElementById('loading').classList.remove('visible');
+    document.getElementById('output').classList.add('visible');
+    document.getElementById('disclaimer').style.display = 'block';
+    if (text) {
+      var el = document.getElementById('briefing-text');
+      el.classList.remove('briefing-loading');
+      el.textContent = text;
+    }
+  })
+  .catch(function() {
+    document.getElementById('loading').classList.remove('visible');
+    document.getElementById('output').classList.add('visible');
+    document.getElementById('disclaimer').style.display = 'block';
+    document.getElementById('briefing-text').textContent = 'Briefing unavailable. Intelligence snapshot above is accurate.';
+  });
+}
+
+function resetScan() {
+  document.getElementById('output').classList.remove('visible');
+  document.getElementById('disclaimer').style.display = 'none';
+  document.getElementById('form-wrap').style.display = 'block';
+  document.getElementById('scan-btn').disabled = false;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+<!-- GoatCounter Analytics -->
+<script data-goatcounter="https://signal333.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
