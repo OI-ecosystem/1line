@@ -1,1 +1,1196 @@
+<!-- 1LINE Coach v2.0 | Updated: 23 May 2026 20:00 | Correct 1LINE brand, 5 reflection questions -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>1LINE Coach — Structured life-direction clarity from your own language.</title>
+  <meta name="description" content="When your life stops feeling aligned. A premium AI-powered life direction and clarity system." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --cream: #FAF8F5;
+      --white: #FFFFFF;
+      --ink: #1A1A18;
+      --ink-mid: #4A4A46;
+      --ink-muted: #888884;
+      --ink-faint: #C4C4BE;
+      --border: rgba(26,26,24,0.10);
+      --border-mid: rgba(26,26,24,0.18);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --max: 640px;
+      --gold: #C4A96A;
+      --forest: #2D4A3E;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+    /* NAV */
+    nav { padding: 28px 0 0; display: flex; align-items: baseline; justify-content: space-between; }
+    .brand {
+      font-family: var(--serif);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .oneline-mark {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.04em;
+      line-height: 1;
+      text-decoration: none;
+    }
+    .oneline-mark .n {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 1em;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .oneline-mark .l {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 0.5em;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #1A7FE8;
+      position: relative;
+      top: -0.1em;
+    }
+
+    /* B-USEFUL BADGE */
+    .buseful-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #1A2744;
+      border-radius: 5px;
+      padding: 5px 12px 5px 10px;
+      text-decoration: none;
+      margin-bottom: 16px;
+      transition: opacity 0.2s;
+    }
+    .buseful-badge:hover { opacity: 0.82; }
+    .buseful-badge-text {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      color: #FFFFFF;
+      letter-spacing: 0.02em;
+    }
+    .buseful-badge-text em { font-style: italic; color: #C4A96A; }
+
+    /* HERO */
+    .hero { padding: 64px 0 48px; border-bottom: 0.5px solid var(--border); }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 7vw, 52px);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+    .hero h1 em { font-style: italic; }
+    .hero-sub {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 8px;
+    }
+    .hero-note {
+      font-size: 12px;
+      font-style: italic;
+      color: var(--ink-muted);
+    }
+
+    /* INPUT SECTION */
+    .input-section { padding: 48px 0; }
+    .section-label {
+      font-family: var(--serif);
+      font-size: clamp(20px, 4vw, 26px);
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .section-sublabel {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink-muted);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    /* Progress */
+    .progress-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .progress-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--ink-faint);
+      transition: background 0.3s;
+    }
+    .progress-dot.active { background: var(--ink); }
+    .progress-dot.done { background: var(--ink-mid); }
+    .progress-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--ink-muted);
+      margin-bottom: 24px;
+    }
+
+    /* Steps */
+    .step { display: none; }
+    .step.active { display: block; animation: fadeIn 0.5s ease forwards; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .transition-msg {
+      display: none;
+      padding: 24px 0 32px;
+      animation: fadeIn 0.6s ease forwards;
+    }
+    .transition-msg.visible { display: block; }
+    .transition-text {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-style: italic;
+      color: var(--ink-muted);
+      line-height: 1.7;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 130px;
+      padding: 14px 16px;
+      border: 0.5px solid var(--border-mid);
+      border-radius: 8px;
+      background: var(--white);
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.7;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 8px;
+    }
+    textarea::placeholder { color: var(--ink-faint); font-style: italic; }
+    textarea:focus { border-color: var(--ink-mid); }
+
+    .char-hint {
+      font-size: 11px;
+      color: var(--ink-faint);
+      text-align: right;
+      margin-bottom: 16px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 15px 24px;
+      background: var(--ink);
+      color: var(--cream);
+      border: none;
+      border-radius: 8px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-primary:disabled { opacity: 0.3; cursor: default; }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--ink-faint);
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: var(--ink-muted); }
+
+    .generate-note {
+      text-align: center;
+      font-size: 11px;
+      color: var(--ink-faint);
+      margin-top: 8px;
+    }
+
+    /* GATE */
+    #gate-card {
+      display: none;
+      background: var(--ink);
+      border-radius: 16px;
+      padding: 36px 32px;
+      text-align: center;
+      margin: 8px 0;
+    }
+    #gate-card.visible { display: block; animation: fadeIn 0.5s ease forwards; }
+    .gate-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 12px;
+    }
+    .gate-title {
+      font-family: var(--serif);
+      font-size: clamp(20px,4vw,26px);
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+    .gate-sub {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      max-width: 400px;
+      margin: 0 auto 24px;
+      line-height: 1.7;
+    }
+    .btn-unlock {
+      background: #fff;
+      color: var(--ink);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-unlock:hover { opacity: 0.88; }
+    .gate-note {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      margin-top: 12px;
+    }
+
+    /* LOADING */
+    #loading {
+      display: none;
+      text-align: center;
+      padding: 64px 0;
+    }
+    #loading.visible { display: block; animation: fadeIn 0.5s ease forwards; }
+    .loading-text {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 20px;
+      color: var(--ink-muted);
+      margin-bottom: 24px;
+    }
+    .loading-bar {
+      width: 160px;
+      height: 1px;
+      background: var(--border-mid);
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .loading-bar::after {
+      content: '';
+      position: absolute;
+      left: -100%; top: 0;
+      width: 100%; height: 100%;
+      background: var(--ink);
+      animation: loadslide 1.8s ease-in-out infinite;
+    }
+    @keyframes loadslide {
+      0%   { left: -100%; }
+      50%  { left: 100%; }
+      100% { left: 100%; }
+    }
+
+    /* OUTPUT */
+    #output { display: none; padding-top: 48px; }
+    #output.visible { display: block; animation: fadeIn 0.8s ease forwards; }
+
+    .out-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    /* State card */
+    .state-card {
+      background: var(--ink);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .state-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 10px;
+    }
+    .state-name {
+      font-family: var(--serif);
+      font-size: clamp(28px,5vw,40px);
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    .state-metrics {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .state-metric-label {
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 3px;
+    }
+    .state-metric-val {
+      font-family: var(--serif);
+      font-size: 20px;
+      color: var(--cream);
+    }
+    .state-metric-sub { font-size: 10px; color: rgba(255,255,255,0.35); }
+
+    /* Voice sig */
+    .voice-card {
+      background: var(--white);
+      border: 0.5px solid var(--border-mid);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .voice-words {
+      font-family: var(--serif);
+      font-size: clamp(17px,3vw,22px);
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    /* Momentum */
+    .momentum-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--white);
+      border: 0.5px solid var(--border-mid);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-bottom: 32px;
+    }
+    .momentum-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--ink-mid);
+      flex-shrink: 0;
+    }
+    .momentum-label-sm {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 2px;
+    }
+    .momentum-val {
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--ink);
+    }
+
+    /* Output sections */
+    .out-block {
+      padding: 28px 0;
+      border-top: 0.5px solid var(--border);
+    }
+    .out-heading {
+      font-family: var(--serif);
+      font-size: clamp(18px,3vw,22px);
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .out-body {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.8;
+    }
+
+    /* Pressure */
+    .pressure-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px,1fr));
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .pressure-item {
+      background: var(--white);
+      border: 0.5px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+    }
+    .pressure-name {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
+    .pressure-bar-wrap { height: 2px; background: var(--border-mid); border-radius: 2px; margin-bottom: 4px; }
+    .pressure-bar { height: 100%; border-radius: 2px; background: var(--ink); transition: width 1s ease; }
+    .pressure-level { font-size: 10px; color: var(--ink-faint); }
+
+    /* Language signals */
+    .signal-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .signal-tag {
+      font-size: 12px;
+      color: var(--ink-muted);
+      background: var(--white);
+      border: 0.5px solid var(--border-mid);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-style: italic;
+      font-family: var(--serif);
+    }
+
+    /* Loop severity */
+    .loop-badge {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      border: 0.5px solid var(--border-mid);
+      color: var(--ink-muted);
+      background: var(--white);
+    }
+
+    /* Futures */
+    .futures-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+    .future-card { border-radius: 8px; padding: 18px; }
+    .future-unchanged { background: #F5F3F0; border: 0.5px solid var(--border-mid); }
+    .future-aligned   { background: #F0F5F2; border: 0.5px solid rgba(45,74,62,0.2); }
+    .future-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 6px; }
+    .future-text { font-size: 13px; font-weight: 300; color: var(--ink-mid); line-height: 1.7; font-style: italic; font-family: var(--serif); }
+
+    /* Phase */
+    .phase-card {
+      background: var(--ink);
+      border-radius: 12px;
+      padding: 36px;
+      text-align: center;
+      margin: 14px 0;
+    }
+    .phase-eyebrow { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 12px; }
+    .phase-name {
+      font-family: var(--serif);
+      font-size: clamp(40px,8vw,64px);
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: var(--cream);
+      line-height: 1;
+    }
+
+    /* One question */
+    .question-wrap {
+      text-align: center;
+      padding: 40px 0;
+      border-top: 0.5px solid var(--border);
+      margin-top: 16px;
+    }
+    .question-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 16px; }
+    .question-text {
+      font-family: var(--serif);
+      font-size: clamp(18px,3vw,24px);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.5;
+      max-width: 480px;
+      margin: 0 auto 14px;
+    }
+    .return-note { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.06em; }
+
+    /* Disclaimer */
+    .disclaimer {
+      font-size: 12px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink-faint);
+      line-height: 1.7;
+      text-align: center;
+      padding: 24px 0 8px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* Action row */
+    .action-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 24px 0; }
+    .btn-secondary {
+      padding: 11px 22px;
+      background: transparent;
+      border: 0.5px solid var(--border-mid);
+      border-radius: 8px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-secondary:hover { border-color: var(--ink); color: var(--ink); }
+    .btn-secondary.primary { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+    .btn-secondary.primary:hover { opacity: 0.85; }
+
+    /* Footer */
+    footer { border-top: 0.5px solid var(--border); padding: 40px 0 48px; margin-top: 56px; }
+    .footer-network-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 14px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+    .footer-link {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--ink-muted);
+      text-decoration: none;
+      border: 0.5px solid var(--border);
+      border-radius: 20px;
+      padding: 5px 14px;
+      transition: all 0.15s;
+    }
+    .footer-link:hover { color: var(--ink); border-color: var(--border-mid); }
+    .footer-copy { font-size: 11px; color: var(--ink-faint); }
+
+    @media (max-width: 600px) {
+      .futures-grid { grid-template-columns: 1fr; }
+      .state-metrics { gap: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <nav>
+    <a href="https://oi-ecosystem.github.io/1line/" class="oneline-mark">
+      <span class="n">1</span><span class="l">LINE</span>
+    </a>
+    <span class="brand">Coach</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <a href="https://oi-ecosystem.github.io/b-useful/" target="_blank" rel="noopener" class="buseful-badge">
+      <span class="buseful-badge-text">B-<em>Useful</em></span>
+    </a>
+    <p class="hero-eyebrow">A 1LINE life-direction utility</p>
+    <h1>When your life stops<br>feeling <em>aligned.</em></h1>
+    <p class="hero-sub">Structured life-direction clarity from your own language. Not therapy. Not advice. A precise AI-powered reflection that analyses your emotional patterns, recurring loops, and hidden direction signals.</p>
+    <p class="hero-note">Not financial advice — structured life-direction interpretation.</p>
+  </section>
+
+  <!-- INPUT FLOW -->
+  <section class="input-section" id="flow-wrap">
+
+    <div class="transition-msg" id="transition-msg">
+      <p class="transition-text" id="transition-text"></p>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="step active" id="step-1">
+      <div class="progress-row">
+        <div class="progress-dot active"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+      </div>
+      <p class="progress-label">Reflection 1 of 5</p>
+      <p class="section-label">What has been quietly weighing on you lately?</p>
+      <p class="section-sublabel">Take your time. There are no wrong answers here.</p>
+      <textarea id="input-1" placeholder="Write freely. The more honest you are, the more precise the output." spellcheck="true" autocorrect="on"></textarea>
+      <p class="char-hint" id="count-1">0 characters — 30 minimum</p>
+      <button class="btn-primary" id="next-1" onclick="nextStep(1)" disabled>Continue →</button>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step" id="step-2">
+      <div class="progress-row">
+        <div class="progress-dot done"></div>
+        <div class="progress-dot active"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+      </div>
+      <p class="progress-label">Reflection 2 of 5</p>
+      <p class="section-label">What thought or pattern do you keep returning to?</p>
+      <p class="section-sublabel">The thing that resurfaces even when you try to move past it.</p>
+      <textarea id="input-2" placeholder="Recurring thoughts, unresolved patterns, things left unsaid..." spellcheck="true" autocorrect="on"></textarea>
+      <p class="char-hint" id="count-2">0 characters — 30 minimum</p>
+      <button class="btn-primary" id="next-2" onclick="nextStep(2)" disabled>Continue →</button>
+      <span class="back-link" onclick="goBack(2)">← Back</span>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step" id="step-3">
+      <div class="progress-row">
+        <div class="progress-dot done"></div>
+        <div class="progress-dot done"></div>
+        <div class="progress-dot active"></div>
+        <div class="progress-dot"></div>
+        <div class="progress-dot"></div>
+      </div>
+      <p class="progress-label">Reflection 3 of 5</p>
+      <p class="section-label">What would feel like relief right now?</p>
+      <p class="section-sublabel">Not what you think you should want. What would genuinely release the pressure.</p>
+      <textarea id="input-3" placeholder="Relief might look like a decision, a change, a conversation, a permission..." spellcheck="true" autocorrect="on"></textarea>
+      <p class="char-hint" id="count-3">0 characters — 30 minimum</p>
+      <button class="btn-primary" id="next-3" onclick="nextStep(3)" disabled>Continue →</button>
+      <span class="back-link" onclick="goBack(3)">← Back</span>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step" id="step-4">
+      <div class="progress-row">
+        <div class="progress-dot done"></div>
+        <div class="progress-dot done"></div>
+        <div class="progress-dot done"></div>
+        <div class="progress-dot active"></div>
+        <div class="progress-dot"></div>
+      </div>
+      <p class="progress-label">Reflection 4 of 5</p>
+      <p class="section-label">What are you afraid might happen if nothing changes?</p>
+      <p class="section-sublabel">This is the most important question. Answer it honestly.</p>
+      <textarea id="input-4" placeholder="Fear, regret, time passing, opportunities closing..." spellcheck="true" autocorrect="on"></textarea>
+      <p class="char-hint" id="count-4">0 characters — 30 minimum</p>
+      <button class="btn-primary" id="next-4" onclick="nextStep(4)" disabled>Continue →</button>
+      <span class="back-link" onclick="goBack(4)">← Back</span>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="step" id="step-5">
+      <div class="progress-row">
+        <div class="progress-dot done"></div>
+        <div class="progress-dot done"></div>
+        <div class="progress-dot done"></div>
+        <div class="progress-dot done"></div>
+        <div class="progress-dot active"></div>
+      </div>
+      <p class="progress-label">Reflection 5 of 5</p>
+      <p class="section-label">What part of yourself feels underused?</p>
+      <p class="section-sublabel">What ability goes unexpressed. What ambition stays quiet.</p>
+      <textarea id="input-5" placeholder="What would you do if you stopped negotiating against yourself?" spellcheck="true" autocorrect="on"></textarea>
+      <p class="char-hint" id="count-5">0 characters — 30 minimum</p>
+      <button class="btn-primary" id="next-5" onclick="handleComplete()" disabled>Generate My Reflection →</button>
+      <p class="generate-note">One-time access — £39 — instant generation</p>
+      <span class="back-link" onclick="goBack(5)">← Back</span>
+    </div>
+
+    <!-- Gate -->
+    <div id="gate-card">
+      <p class="gate-eyebrow">1LINE Coach</p>
+      <h2 class="gate-title">Your reflection is ready<br>to be generated.</h2>
+      <p class="gate-sub">A structured life-direction report built entirely from your own language. Precise. Personal. Yours to keep.</p>
+      <button class="btn-unlock" onclick="handleUnlock()">Unlock Reflection — £39</button>
+      <p class="gate-note">One-time · Instant delivery · Downloadable PDF</p>
+    </div>
+
+  </section>
+
+  <!-- Loading -->
+  <div id="loading">
+    <p class="loading-text">Reading your language carefully…</p>
+    <div class="loading-bar"></div>
+  </div>
+
+  <!-- OUTPUT -->
+  <section id="output">
+
+    <div class="state-card">
+      <p class="state-eyebrow">Current State Profile</p>
+      <p class="state-name" id="out-state">—</p>
+      <div class="state-metrics">
+        <div>
+          <p class="state-metric-label">Alignment</p>
+          <p class="state-metric-val"><span id="out-alignment">—</span>%</p>
+        </div>
+        <div>
+          <p class="state-metric-label">Direction Confidence</p>
+          <p class="state-metric-val"><span id="out-direction">—</span>%</p>
+        </div>
+        <div>
+          <p class="state-metric-label">Internal Conflict</p>
+          <p class="state-metric-val" id="out-conflict">—</p>
+        </div>
+        <div>
+          <p class="state-metric-label">Energy State</p>
+          <p class="state-metric-val" id="out-energy">—</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="voice-card">
+      <span class="out-eyebrow">Your Voice Signature</span>
+      <p class="voice-words" id="out-voice">—</p>
+    </div>
+
+    <div class="momentum-row">
+      <div class="momentum-dot"></div>
+      <div>
+        <p class="momentum-label-sm">Momentum State</p>
+        <p class="momentum-val" id="out-momentum">—</p>
+      </div>
+      <div style="margin-left:auto;">
+        <p class="momentum-label-sm">Emotional Weather</p>
+        <p class="momentum-val" id="out-weather">—</p>
+      </div>
+    </div>
+
+    <div class="out-block">
+      <span class="out-eyebrow">Pressure Map</span>
+      <p class="out-heading">Where the tension is concentrated</p>
+      <div class="pressure-grid" id="pressure-grid"></div>
+    </div>
+
+    <div class="out-block">
+      <span class="out-eyebrow">Language Analysis</span>
+      <p class="out-heading">What your words reveal</p>
+      <p class="out-body" id="out-language">—</p>
+      <div class="signal-tags" id="signal-tags"></div>
+    </div>
+
+    <div class="out-block">
+      <span class="out-eyebrow">Life Loop Detection</span>
+      <p class="out-heading">The pattern you keep repeating</p>
+      <div id="out-loop-badge"></div>
+      <p class="out-body" id="out-loop">—</p>
+    </div>
+
+    <div class="out-block">
+      <span class="out-eyebrow">The Two Trajectories</span>
+      <p class="out-heading">Structured scenarios</p>
+      <div class="futures-grid">
+        <div class="future-card future-unchanged">
+          <p class="future-label">If nothing changes</p>
+          <p class="future-text" id="out-future-unchanged">—</p>
+        </div>
+        <div class="future-card future-aligned">
+          <p class="future-label">If you move toward alignment</p>
+          <p class="future-text" id="out-future-aligned">—</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="out-block">
+      <span class="out-eyebrow">Hidden Strengths</span>
+      <p class="out-heading">What your language also reveals</p>
+      <p class="out-body" id="out-strengths">—</p>
+    </div>
+
+    <div class="out-block">
+      <span class="out-eyebrow">Directional Synthesis</span>
+      <p class="out-heading">What you actually want</p>
+      <p class="out-body" id="out-want">—</p>
+    </div>
+
+    <div class="out-block">
+      <span class="out-eyebrow">Next Phase Requirement</span>
+      <p class="out-heading">What this phase of life is asking of you</p>
+      <div class="phase-card">
+        <p class="phase-eyebrow">Next Phase</p>
+        <p class="phase-name" id="out-phase">—</p>
+      </div>
+      <p class="out-body" style="margin-top:14px;" id="out-phase-desc">—</p>
+    </div>
+
+    <div class="out-block">
+      <span class="out-eyebrow">The Cost of Staying the Same</span>
+      <p class="out-heading">What continuation means</p>
+      <p class="out-body" id="out-cost">—</p>
+    </div>
+
+    <div class="question-wrap">
+      <p class="question-label">The One Question</p>
+      <p class="question-text" id="out-question">—</p>
+      <p class="return-note">Return in 90 days to see what has changed.</p>
+    </div>
+
+    <p class="disclaimer">This is structured reflection, not therapy or diagnosis. If you are struggling deeply, please speak to someone who can truly support you.</p>
+
+    <div class="action-row">
+      <button class="btn-secondary primary" onclick="downloadPDF()">Download PDF Report</button>
+      <button class="btn-secondary" onclick="resetFlow()">New Reflection</button>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-network-label">Other <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:10px;"><span class="n">1</span><span class="l">LINE</span></a> utilities</div>
+    <div class="footer-links">
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/signal/">1LINE Signal — market clarity</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/bill/">1LINE Bill — bill clarity</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/gift/">1LINE Gift — gift logic</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/everecho/">EverEcho — baby identity</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/decide/">1LINE Decide — decision clarity</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/">All utilities</a>
+    </div>
+    <p class="footer-copy">&copy; 1LINE Coach. A <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:11px;"><span class="n">1</span><span class="l">LINE</span></a> life-direction utility. Structured reflection. Not therapy.</p>
+  </footer>
+
+</div><!-- /page -->
+
+<script>
+var DEV_MODE      = false;
+var PREMIUM_GATED = true;
+var VERCEL_PROXY  = 'https://rcloop-proxy.vercel.app/api/ai';
+var LS_URL        = 'https://your-lemon-squeezy-link.com';
+
+var _reportData = null;
+var _reportDate = '';
+
+var TRANSITIONS = [
+  'Pressure often becomes visible when language slows down.',
+  'What repeats is rarely accidental.',
+  'Relief is a direction, not a destination.',
+  'Fear is information. It points toward what matters.',
+];
+
+[1,2,3,4,5].forEach(function(n) {
+  var ta  = document.getElementById('input-' + n);
+  var ct  = document.getElementById('count-' + n);
+  var btn = document.getElementById('next-' + n);
+  ta.addEventListener('input', function() {
+    var len = ta.value.trim().length;
+    ct.textContent = len + ' characters — 30 minimum';
+    btn.disabled = len < 30;
+  });
+});
+
+function nextStep(from) {
+  if (document.getElementById('input-' + from).value.trim().length < 30) return;
+  document.getElementById('step-' + from).classList.remove('active');
+  var tm = document.getElementById('transition-msg');
+  var tt = document.getElementById('transition-text');
+  tt.textContent = TRANSITIONS[from - 1];
+  tm.classList.add('visible');
+  setTimeout(function() {
+    tm.classList.remove('visible');
+    setTimeout(function() {
+      document.getElementById('step-' + (from + 1)).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 300);
+  }, 2200);
+}
+
+function goBack(step) {
+  document.getElementById('step-' + step).classList.remove('active');
+  document.getElementById('step-' + (step - 1)).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function handleComplete() {
+  if (document.getElementById('input-5').value.trim().length < 30) return;
+  document.getElementById('step-5').classList.remove('active');
+  if (PREMIUM_GATED) {
+    document.getElementById('gate-card').classList.add('visible');
+    return;
+  }
+  fireAnalysis();
+}
+
+function handleUnlock() {
+  sessionStorage.setItem('coach_data', JSON.stringify({
+    q1: document.getElementById('input-1').value.trim(),
+    q2: document.getElementById('input-2').value.trim(),
+    q3: document.getElementById('input-3').value.trim(),
+    q4: document.getElementById('input-4').value.trim(),
+    q5: document.getElementById('input-5').value.trim(),
+  }));
+  window.location.href = LS_URL;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.location.search.indexOf('unlocked=true') !== -1) {
+    var stored = sessionStorage.getItem('coach_data');
+    if (stored) {
+      try {
+        var d = JSON.parse(stored);
+        document.getElementById('input-1').value = d.q1 || '';
+        document.getElementById('input-2').value = d.q2 || '';
+        document.getElementById('input-3').value = d.q3 || '';
+        document.getElementById('input-4').value = d.q4 || '';
+        document.getElementById('input-5').value = d.q5 || '';
+        document.getElementById('flow-wrap').style.display = 'none';
+        fireAnalysis();
+      } catch(e) {}
+    }
+  }
+});
+
+function fireAnalysis() {
+  document.getElementById('flow-wrap').style.display = 'none';
+  document.getElementById('loading').classList.add('visible');
+  document.getElementById('output').classList.remove('visible');
+
+  var q1 = document.getElementById('input-1').value.trim();
+  var q2 = document.getElementById('input-2').value.trim();
+  var q3 = document.getElementById('input-3').value.trim();
+  var q4 = document.getElementById('input-4').value.trim();
+  var q5 = document.getElementById('input-5').value.trim();
+  _reportDate = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+
+  var system = 'You are 1LINE Coach — a structured life-direction clarity system. '
+    + 'You analyse the emotional content, language patterns and psychological signals in a person\'s own writing. '
+    + 'You are NOT a therapist, life coach, or advice-giver. '
+    + 'You are an observer — restrained, intelligent, psychologically literate, grounded. '
+    + 'Your tone is calm, precise, editorial. Never motivational. Never fluffy. Never spiritual. '
+    + 'You find quiet accuracy. That is the entire value. '
+    + 'Respond ONLY in valid JSON with no markdown fences.';
+
+  var prompt = 'Analyse these five reflections and return ONLY this JSON:\n\n'
+    + 'REFLECTION 1 — What has been quietly weighing on you lately?\n"' + q1 + '"\n\n'
+    + 'REFLECTION 2 — What thought or pattern do you keep returning to?\n"' + q2 + '"\n\n'
+    + 'REFLECTION 3 — What would feel like relief right now?\n"' + q3 + '"\n\n'
+    + 'REFLECTION 4 — What are you afraid might happen if nothing changes?\n"' + q4 + '"\n\n'
+    + 'REFLECTION 5 — What part of yourself feels underused?\n"' + q5 + '"\n\n'
+    + '{\n'
+    + '"weatherState":"One of: Heavy Pressure/Transitional/Quiet Expansion/Fractured/Direction Shift/Low Visibility/Internal Storm/Early Clarity/Overcast",\n'
+    + '"currentState":"One of: Maintenance Mode/Identity Rebuild/Burnout Spiral/Suppressed Expansion/Direction Drift/Stability Conflict/Emotional Exhaustion/Quiet Ambition/Deferred Life State",\n'
+    + '"alignmentScore":"number 15-75",\n'
+    + '"directionConfidence":"number 20-80",\n'
+    + '"internalConflict":"Low/Moderate/High/Very High",\n'
+    + '"energyState":"Depleted/Low/Stable/Rebuilding/Emerging",\n'
+    + '"voiceSignature":"4 words separated by dots e.g. Restrained. Loyal. Exhausted. Searching.",\n'
+    + '"momentumState":"Frozen/Drifting/Circling/Rebuilding/Gathering Energy/Moving/Expanding",\n'
+    + '"pressureAreas":[{"area":"Career","intensity":0-100,"level":"Low/Moderate/High/Critical"},{"area":"Identity","intensity":0-100,"level":"Low/Moderate/High/Critical"},{"area":"Relationships","intensity":0-100,"level":"Low/Moderate/High/Critical"},{"area":"Time","intensity":0-100,"level":"Low/Moderate/High/Critical"},{"area":"Energy","intensity":0-100,"level":"Low/Moderate/High/Critical"},{"area":"Purpose","intensity":0-100,"level":"Low/Moderate/High/Critical"}],\n'
+    + '"languageAnalysis":"2-3 sentences on what their language reveals. Specific and observational.",\n'
+    + '"languageSignals":["3-5 short phrases detected"],\n'
+    + '"loopName":"One short name for recurring pattern",\n'
+    + '"loopSeverity":"Low/Moderate/Chronic/Embedded",\n'
+    + '"loopAnalysis":"2-3 sentences describing the pattern.",\n'
+    + '"futureUnchanged":"2-3 sentences if nothing changes. Grounded not dramatic.",\n'
+    + '"futureAligned":"2-3 sentences if they move toward alignment. Realistic not inspirational.",\n'
+    + '"hiddenStrengths":"2-3 sentences identifying genuine strengths.",\n'
+    + '"whatYouWant":"1-2 sentences. True directional synthesis. Specific.",\n'
+    + '"nextPhase":"One word: REBUILD/MOVE/RESET/SIMPLIFY/COMMIT/RECOVER/BEGIN/EXPAND",\n'
+    + '"nextPhaseDesc":"2-3 sentences explaining what this phase requires.",\n'
+    + '"costOfStaying":"2-3 sentences on the long-term cost of continued misalignment.",\n'
+    + '"oneQuestion":"One penetrating question specific to their situation."\n'
+    + '}';
+
+  fetch(VERCEL_PROXY, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ system: system, prompt: prompt })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    var text = data.content && data.content[0] ? data.content[0].text : '';
+    var clean = text.replace(/```json/g,'').replace(/```/g,'').trim();
+    var s = clean.indexOf('{'), e = clean.lastIndexOf('}');
+    if (s !== -1 && e !== -1) clean = clean.substring(s, e+1);
+    _reportData = JSON.parse(clean);
+    renderOutput(_reportData);
+  })
+  .catch(function() {
+    document.getElementById('loading').classList.remove('visible');
+    document.getElementById('flow-wrap').style.display = 'block';
+    document.getElementById('gate-card').classList.add('visible');
+  });
+}
+
+function renderOutput(p) {
+  var set = function(id, v) { var el = document.getElementById(id); if (el && v !== undefined) el.textContent = v; };
+
+  set('out-state', p.currentState);
+  set('out-alignment', p.alignmentScore);
+  set('out-direction', p.directionConfidence);
+  set('out-conflict', p.internalConflict);
+  set('out-energy', p.energyState);
+  set('out-voice', p.voiceSignature);
+  set('out-momentum', p.momentumState);
+  set('out-weather', p.weatherState);
+  set('out-language', p.languageAnalysis);
+  set('out-loop', p.loopAnalysis);
+  set('out-future-unchanged', p.futureUnchanged);
+  set('out-future-aligned', p.futureAligned);
+  set('out-strengths', p.hiddenStrengths);
+  set('out-want', p.whatYouWant);
+  set('out-phase', p.nextPhase);
+  set('out-phase-desc', p.nextPhaseDesc);
+  set('out-cost', p.costOfStaying);
+  set('out-question', p.oneQuestion);
+
+  document.getElementById('out-loop-badge').innerHTML = '<span class="loop-badge">' + (p.loopSeverity || '') + ' — ' + (p.loopName || '') + '</span>';
+
+  var pg = document.getElementById('pressure-grid');
+  pg.innerHTML = '';
+  if (p.pressureAreas && Array.isArray(p.pressureAreas)) {
+    p.pressureAreas.forEach(function(area) {
+      var div = document.createElement('div');
+      div.className = 'pressure-item';
+      div.innerHTML = '<div class="pressure-name">' + area.area + '</div>'
+        + '<div class="pressure-bar-wrap"><div class="pressure-bar" style="width:0%" data-w="' + (area.intensity || 50) + '%"></div></div>'
+        + '<div class="pressure-level">' + (area.level || '') + '</div>';
+      pg.appendChild(div);
+    });
+    setTimeout(function() {
+      document.querySelectorAll('.pressure-bar').forEach(function(b) { b.style.width = b.getAttribute('data-w'); });
+    }, 400);
+  }
+
+  var st = document.getElementById('signal-tags');
+  st.innerHTML = '';
+  if (p.languageSignals && Array.isArray(p.languageSignals)) {
+    p.languageSignals.forEach(function(sig) {
+      var span = document.createElement('span');
+      span.className = 'signal-tag';
+      span.textContent = sig;
+      st.appendChild(span);
+    });
+  }
+
+  document.getElementById('loading').classList.remove('visible');
+  document.getElementById('output').classList.add('visible');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function downloadPDF() {
+  if (!_reportData) return;
+  var p = _reportData;
+  var { jsPDF } = window.jspdf;
+  var doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+  var W = 210, mg = 24, y = 0, H = 297;
+
+  function np() { doc.addPage(); y = mg; }
+  function chk(n) { if (y + n > H - mg) np(); }
+  function sf(style, size, r, g, b) {
+    doc.setFont('times', style || 'normal');
+    doc.setFontSize(size || 11);
+    doc.setTextColor(r !== undefined ? r : 26, g !== undefined ? g : 26, b !== undefined ? b : 24);
+  }
+
+  // Cover
+  doc.setFillColor(26,26,24);
+  doc.rect(0,0,W,H,'F');
+  sf('italic',11,196,169,106); doc.text('1LINE COACH',W/2,56,{align:'center'});
+  sf('italic',30,247,244,241); var hl = doc.splitTextToSize('Life Direction Clarity Report',W-mg*3); doc.text(hl,W/2,84,{align:'center'});
+  sf('normal',11,136,130,124); doc.text(_reportDate,W/2,120,{align:'center'});
+  sf('italic',14,196,169,106); doc.text(p.nextPhase || '',W/2,140,{align:'center'});
+  sf('italic',9,100,96,92);
+  doc.text('Structured reflection, not therapy or diagnosis.',W/2,H-28,{align:'center'});
+  doc.text('If you are struggling deeply, please speak to someone who can truly support you.',W/2,H-22,{align:'center'});
+
+  np();
+
+  var secs = [
+    {label:'CURRENT STATE', body: p.currentState + '\n\nAlignment: ' + p.alignmentScore + '%  ·  Direction Confidence: ' + p.directionConfidence + '%  ·  Conflict: ' + p.internalConflict + '  ·  Energy: ' + p.energyState},
+    {label:'YOUR VOICE SIGNATURE', body: p.voiceSignature},
+    {label:'MOMENTUM STATE  ·  EMOTIONAL WEATHER', body: p.momentumState + '  ·  ' + p.weatherState},
+    {label:'LANGUAGE ANALYSIS', body: p.languageAnalysis},
+    {label:'LIFE LOOP — ' + (p.loopName||'') + ' [' + (p.loopSeverity||'') + ']', body: p.loopAnalysis},
+    {label:'IF NOTHING CHANGES', body: p.futureUnchanged},
+    {label:'IF YOU MOVE TOWARD ALIGNMENT', body: p.futureAligned},
+    {label:'HIDDEN STRENGTHS', body: p.hiddenStrengths},
+    {label:'WHAT YOU ACTUALLY WANT', body: p.whatYouWant},
+    {label:'NEXT PHASE', body: (p.nextPhase||'') + '\n\n' + (p.nextPhaseDesc||'')},
+    {label:'THE COST OF STAYING THE SAME', body: p.costOfStaying},
+  ];
+
+  secs.forEach(function(sec) {
+    chk(24);
+    sf('normal',8,196,169,106); doc.text(sec.label||'',mg,y); y+=6;
+    sf('italic',11,74,74,70);
+    var lines = doc.splitTextToSize(sec.body||'',W-mg*2);
+    chk(lines.length*5+8);
+    doc.text(lines,mg,y); y+=lines.length*5+12;
+    doc.setDrawColor(196,196,190); doc.line(mg,y,W-mg,y); y+=10;
+  });
+
+  // Final page
+  np();
+  doc.setFillColor(26,26,24); doc.rect(0,0,W,H,'F');
+  sf('normal',8,196,169,106); doc.text('THE ONE QUESTION',W/2,70,{align:'center'});
+  sf('italic',16,247,244,241);
+  var oq = doc.splitTextToSize('"'+(p.oneQuestion||'')+'"',W-mg*3);
+  doc.text(oq,W/2,88,{align:'center'});
+  doc.setDrawColor(60,60,58); doc.line(mg+20,120,W-mg-20,120);
+  sf('italic',10,100,96,92);
+  doc.text('Return in 90 days to see what has changed.',W/2,H-36,{align:'center'});
+  doc.text('1LINE Coach  ·  '+_reportDate,W/2,H-28,{align:'center'});
+
+  doc.save('1LINE-Coach-' + _reportDate.replace(/ /g,'-') + '.pdf');
+}
+
+function resetFlow() {
+  [1,2,3,4,5].forEach(function(n) {
+    document.getElementById('input-'+n).value='';
+    document.getElementById('count-'+n).textContent='0 characters — 30 minimum';
+    document.getElementById('next-'+n).disabled=true;
+  });
+  document.getElementById('output').classList.remove('visible');
+  document.getElementById('gate-card').classList.remove('visible');
+  document.getElementById('step-1').classList.add('active');
+  document.getElementById('flow-wrap').style.display='block';
+  _reportData=null;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+
+<script data-goatcounter="https://signal333.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
