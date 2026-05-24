@@ -1,4 +1,4 @@
-<!-- 1LINE Coach v2.0 | Updated: 23 May 2026 20:00 | Correct 1LINE brand, 5 reflection questions -->
+<!-- 1LINE Coach v2.4 | Updated: 24 May 2026 | Gift pattern payment flow -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -945,8 +945,16 @@ function goBack(step) {
 function handleComplete() {
   if (document.getElementById('input-5').value.trim().length < 30) return;
   document.getElementById('step-5').classList.remove('active');
-  if (PREMIUM_GATED) {
-    document.getElementById('gate-card').classList.add('visible');
+  if (PREMIUM_GATED && window.location.search.indexOf('unlocked=true') === -1) {
+    /* Save data and redirect to LS */
+    sessionStorage.setItem('coach_data', JSON.stringify({
+      q1: document.getElementById('input-1').value.trim(),
+      q2: document.getElementById('input-2').value.trim(),
+      q3: document.getElementById('input-3').value.trim(),
+      q4: document.getElementById('input-4').value.trim(),
+      q5: document.getElementById('input-5').value.trim(),
+    }));
+    window.location.href = LS_URL;
     return;
   }
   fireAnalysis();
@@ -969,13 +977,18 @@ document.addEventListener('DOMContentLoaded', function() {
     if (stored) {
       try {
         var d = JSON.parse(stored);
-        document.getElementById('input-1').value = d.q1 || '';
-        document.getElementById('input-2').value = d.q2 || '';
-        document.getElementById('input-3').value = d.q3 || '';
-        document.getElementById('input-4').value = d.q4 || '';
-        document.getElementById('input-5').value = d.q5 || '';
-        document.getElementById('flow-wrap').style.display = 'none';
-        fireAnalysis();
+        if (d.q1) {
+          /* Restore all inputs */
+          document.getElementById('input-1').value = d.q1 || '';
+          document.getElementById('input-2').value = d.q2 || '';
+          document.getElementById('input-3').value = d.q3 || '';
+          document.getElementById('input-4').value = d.q4 || '';
+          document.getElementById('input-5').value = d.q5 || '';
+          /* Hide flow, hide gate, fire AI */
+          document.getElementById('flow-wrap').style.display = 'none';
+          document.getElementById('gate-card').classList.remove('visible');
+          fireAnalysis();
+        }
       } catch(e) {}
     }
   }
