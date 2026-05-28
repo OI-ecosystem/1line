@@ -1,4 +1,4 @@
-<!-- 1LINE Resolver v3.8 | Updated: 28 May 2026 17:45 | Overlay, clean reveal, gate bypass fix -->
+<!-- 1LINE Resolver v3.9 | Updated: 28 May 2026 18:00 | PDF link fix - unlocked form fires AI directly -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -785,7 +785,12 @@ function handleGenerate() {
     return;
   }
   _lastVal = val;
-  generateResolver(val);
+  /* If unlocked, fire AI directly — skip free output */
+  if (!PREMIUM_GATED) {
+    runAIResolver(val);
+  } else {
+    generateResolver(val);
+  }
 }
 function spellReview() {
   document.getElementById('spell-panel').className = 'spell-panel';
@@ -799,7 +804,12 @@ function spellContinue() {
   if (btn) btn.disabled = false;
   var val = document.getElementById('main-input').value.trim();
   _lastVal = val;
-  generateResolver(val);
+  /* If unlocked, fire AI directly */
+  if (!PREMIUM_GATED) {
+    runAIResolver(val);
+  } else {
+    generateResolver(val);
+  }
 }
 
 /* ── COPY ── */
@@ -843,12 +853,18 @@ document.addEventListener('DOMContentLoaded', function() {
     } catch(e) {}
   }
 
-  /* Empty sessionStorage — show unlocked notice, hide gate */
-  var notice = document.createElement('p');
-  notice.style.cssText = 'font-size:12px;color:#2D7A5A;background:rgba(45,122,90,0.08);border:0.5px solid rgba(45,122,90,0.25);border-radius:7px;padding:10px 14px;margin-bottom:16px;text-align:center;letter-spacing:0.04em;';
-  notice.textContent = 'Access unlocked — describe your situation and generate your reframes.';
-  var inputSec = document.querySelector('.input-section');
-  if (inputSec) inputSec.insertBefore(notice, inputSec.firstChild);
+  /* Empty sessionStorage — show clean unlocked form */
+  var hero = document.querySelector('section.hero');
+  var howSec = document.querySelector('section.how-section');
+  if (hero) hero.style.display = 'none';
+  if (howSec) howSec.style.display = 'none';
+  var inputSec = document.querySelector('section.input-section');
+  if (inputSec) {
+    var heading = document.createElement('div');
+    heading.style.cssText = 'margin-bottom:24px;';
+    heading.innerHTML = '<p style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#2D7A5A;background:rgba(45,122,90,0.08);border:0.5px solid rgba(45,122,90,0.25);border-radius:7px;padding:10px 14px;text-align:center;margin-bottom:20px;">Access unlocked — describe your situation and generate your reframes.</p>';
+    inputSec.insertBefore(heading, inputSec.firstChild);
+  }
 });
 
 /* ── DETERMINISTIC HELPERS ── */
