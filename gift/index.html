@@ -1,4 +1,4 @@
-<!-- 1LINE Gift v2.7 | Updated: 20 May 2026 | Etsy unlock fix| Return handler fixed - rebuilds free output first like resume -->
+<!-- 1LINE Gift v2.8 | Updated: 28 May 2026 | Full overlay transition, clean reveal, intelligence loading -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -511,9 +511,111 @@
       .selector-row { gap: 6px; }
       .sel-btn { font-size: 11px; padding: 8px 12px; }
     }
-  </style>
+  
+    /* ── FULL SCREEN INTELLIGENCE OVERLAY ─────────────────────── */
+    #intelligence-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,9,0.96);
+      z-index: 9999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+    #intelligence-overlay.active { display: flex; }
+    .overlay-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(196,169,106,0.7);
+      font-family: var(--sans);
+    }
+    .overlay-title {
+      font-family: var(--serif);
+      font-size: clamp(22px, 4vw, 32px);
+      font-style: italic;
+      font-weight: 300;
+      color: #FAF8F5;
+      text-align: center;
+      max-width: 480px;
+      line-height: 1.4;
+    }
+    .overlay-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      margin-top: 8px;
+    }
+    .overlay-step {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: rgba(250,248,245,0.35);
+      font-family: var(--sans);
+      transition: color 0.4s, opacity 0.4s;
+      opacity: 0.4;
+    }
+    .overlay-step.active {
+      color: rgba(196,169,106,0.9);
+      opacity: 1;
+    }
+    .overlay-step.done {
+      color: rgba(250,248,245,0.55);
+      opacity: 0.55;
+    }
+    .overlay-bar {
+      width: 120px;
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin-top: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+    .overlay-bar::after {
+      content: '';
+      position: absolute;
+      left: -100%; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(196,169,106,0.7);
+      animation: overlayslide 1.6s ease-in-out infinite;
+    }
+    @keyframes overlayslide {
+      0%   { left: -100%; }
+      50%  { left: 100%; }
+      100% { left: 100%; }
+    }
+    /* ── RESULT REVEAL ANIMATION ──────────────────────────────── */
+    #output-section {
+      animation: none;
+    }
+    #output-section.reveal-animate {
+      animation: resultReveal 0.7s ease forwards;
+    }
+    @keyframes resultReveal {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    </style>
 </head>
 <body>
+<!-- INTELLIGENCE OVERLAY -->
+<div id="intelligence-overlay">
+  <p class="overlay-eyebrow">1LINE Gift</p>
+  <p class="overlay-title" id="overlay-title">Mapping recipient personality…</p>
+  <div class="overlay-steps">
+    <p class="overlay-step" id="ostep-1">Mapping recipient personality…</p>
+    <p class="overlay-step" id="ostep-2">Evaluating emotional fit…</p>
+    <p class="overlay-step" id="ostep-3">Identifying symbolic resonance…</p>
+    <p class="overlay-step" id="ostep-4">Ranking meaningful gift directions…</p>
+    <p class="overlay-step" id="ostep-5">Generating gift logic…</p>
+  </div>
+  <div class="overlay-bar"></div>
+</div>
+
+
 
 <div class="page">
 
@@ -1229,12 +1331,21 @@ var REASONING = {
 };
 
 /* -- MAIN GENERATE -- */
-function generateGift(val) {
+function generateGift(val, skipOverlay) {
   if (!val) val = document.getElementById('main-input').value.trim();
   /* Store for AI unlock */
   _lastVal    = val;
   _lastRel    = _relationship;
   _lastBudget = _budget;
+  /* Show overlay unless called from DOMContentLoaded return */
+  if (!skipOverlay) {
+    showOverlay(function() { _doGenerateGift(val); });
+    return;
+  }
+  _doGenerateGift(val);
+}
+
+function _doGenerateGift(val) {
   var traits = detectPersonality(val);
   if (traits.length === 0) traits = ['sensory', 'experiential'];
 
@@ -1270,8 +1381,10 @@ function generateGift(val) {
   document.getElementById('out-imprint-meta').textContent = 'This gift profile was derived from the description entered on ' + today + '.';
 
   var section = document.getElementById('output-section');
-  section.className = 'visible';
-  section.scrollIntoView({ behavior:'smooth', block:'start' });
+  section.className = 'visible reveal-animate';
+  setTimeout(function() {
+    section.scrollIntoView({ behavior:'smooth', block:'start' });
+  }, 100);
 }
 
 
@@ -1682,7 +1795,7 @@ document.addEventListener('DOMContentLoaded', function() {
             b.className = b.dataset.val === _lastBudget ? 'sel-btn selected' : 'sel-btn';
           });
           /* Rebuild free output first, then fire AI */
-          generateGift(d.val);
+          generateGift(d.val, true);
           runAIGift(d.val, _lastRel, _lastBudget);
         }
       } catch(e) {}
@@ -1690,11 +1803,97 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
+
+/* ── INTELLIGENCE OVERLAY ──────────────────────────────────────── */
+var _overlaySteps = [
+  'Mapping recipient personality…',
+  'Evaluating emotional fit…',
+  'Identifying symbolic resonance…',
+  'Ranking meaningful gift directions…',
+  'Generating gift logic…'
+];
+var _overlayTimer = null;
+
+function showOverlay(onComplete) {
+  var overlay = document.getElementById('intelligence-overlay');
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  var steps = document.querySelectorAll('.overlay-step');
+  var i = 0;
+  steps.forEach(function(s) { s.className = 'overlay-step'; });
+  function nextStep() {
+    if (i < steps.length) {
+      steps[i].classList.add('active');
+      document.getElementById('overlay-title').textContent = _overlaySteps[i];
+      if (i > 0) steps[i-1].classList.remove('active');
+      if (i > 0) steps[i-1].classList.add('done');
+      i++;
+      _overlayTimer = setTimeout(nextStep, 500);
+    } else {
+      _overlayTimer = setTimeout(function() {
+        hideOverlay();
+        if (onComplete) onComplete();
+      }, 300);
+    }
+  }
+  nextStep();
+}
+
+function hideOverlay() {
+  var overlay = document.getElementById('intelligence-overlay');
+  overlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+
 </script>
 
 <!-- GoatCounter Analytics -->
 <script data-goatcounter="https://signal333.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+        async src="//gc.zgo.at/count.js">
+/* ── INTELLIGENCE OVERLAY ──────────────────────────────────────── */
+var _overlaySteps = [
+  'Mapping recipient personality…',
+  'Evaluating emotional fit…',
+  'Identifying symbolic resonance…',
+  'Ranking meaningful gift directions…',
+  'Generating gift logic…'
+];
+var _overlayTimer = null;
+
+function showOverlay(onComplete) {
+  var overlay = document.getElementById('intelligence-overlay');
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  var steps = document.querySelectorAll('.overlay-step');
+  var i = 0;
+  steps.forEach(function(s) { s.className = 'overlay-step'; });
+  function nextStep() {
+    if (i < steps.length) {
+      steps[i].classList.add('active');
+      document.getElementById('overlay-title').textContent = _overlaySteps[i];
+      if (i > 0) steps[i-1].classList.remove('active');
+      if (i > 0) steps[i-1].classList.add('done');
+      i++;
+      _overlayTimer = setTimeout(nextStep, 500);
+    } else {
+      _overlayTimer = setTimeout(function() {
+        hideOverlay();
+        if (onComplete) onComplete();
+      }, 300);
+    }
+  }
+  nextStep();
+}
+
+function hideOverlay() {
+  var overlay = document.getElementById('intelligence-overlay');
+  overlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+
+</script>
 
 </body>
 </html>
