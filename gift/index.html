@@ -1,4 +1,4 @@
-<!-- 1LINE Gift v2.8 | Updated: 28 May 2026 | Full overlay transition, clean reveal, intelligence loading -->
+<!-- 1LINE Gift v2.9 | Updated: 28 May 2026 | Overlay on AI only, clean scroll reveal, gate bypass fix -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1337,11 +1337,7 @@ function generateGift(val, skipOverlay) {
   _lastVal    = val;
   _lastRel    = _relationship;
   _lastBudget = _budget;
-  /* Show overlay unless called from DOMContentLoaded return */
-  if (!skipOverlay) {
-    showOverlay(function() { _doGenerateGift(val); });
-    return;
-  }
+  /* Free generate always runs immediately — overlay is for AI call only */
   _doGenerateGift(val);
 }
 
@@ -1427,21 +1423,40 @@ function unlockAI() {
 }
 
 function runAIGift(val, rel, budget) {
-  // Show the section
+  /* Show overlay first. When complete: scroll to top, hide input chrome, reveal AI section */
+  showOverlay(function() {
+    /* Scroll to very top */
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    /* Hide hero + input + how-it-works so only AI results are visible */
+    var hero = document.querySelector('section.hero');
+    var inputSec = document.querySelector('section.input-section');
+    var howSec   = document.querySelector('section.how-section');
+    if (hero)     hero.style.display     = 'none';
+    if (inputSec) inputSec.style.display = 'none';
+    if (howSec)   howSec.style.display   = 'none';
+    /* Ensure output-section is visible (it may already be) */
+    var outSec = document.getElementById('output-section');
+    if (outSec) outSec.className = 'visible';
+    /* Hide premium gate, show AI section */
+    var gate = document.getElementById('premium-gate');
+    if (gate) gate.style.display = 'none';
+    _doRunAI(val, rel, budget);
+  });
+}
+
+function _doRunAI(val, rel, budget) {
+  /* Show the AI premium section */
   var section = document.getElementById('ai-premium-section');
   section.className = 'ai-premium-section visible';
 
-  // Hide dev banner if not in dev mode
+  /* Hide dev banner if not in dev mode */
   var banner = document.getElementById('dev-banner');
   if (banner) banner.style.display = DEV_MODE ? 'block' : 'none';
 
-  // Hide results, show loader
+  /* Hide results, show loader */
   document.getElementById('ai-loading').style.display = 'block';
   document.getElementById('ai-narrative-card').className = 'ai-result-card';
   document.getElementById('ai-ideas-card').className = 'ai-result-card';
-
-  // Scroll to it
-  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   var loadingMsgs = [
     'Reading their personality signals...',
@@ -1458,7 +1473,6 @@ function runAIGift(val, rel, budget) {
   }, 800);
 
   if (DEV_MODE) {
-    // Simulate network delay then return mock response
     setTimeout(function() {
       clearInterval(msgInterval);
       var mockResponse = getMockResponse(val, rel, budget);
@@ -1772,35 +1786,61 @@ function callAnthropicAPI(val, rel, budget, onSuccess, onError) {
 
 /* -- Return from Lemon Squeezy payment -- */
 document.addEventListener('DOMContentLoaded', function() {
-  if (window.location.search.indexOf('unlocked=true') !== -1) {
-    var stored = sessionStorage.getItem('gift_data');
-    if (stored) {
-      try {
-        var d = JSON.parse(stored);
-        if (d.val) {
-          /* Restore state */
-          _lastVal      = d.val;
-          _lastRel      = d.rel || 'partner';
-          _lastBudget   = d.bud || 'mid';
-          _relationship = _lastRel;
-          _budget       = _lastBudget;
-          /* Populate textarea */
-          var ta = document.getElementById('main-input');
-          if (ta) { ta.value = d.val; }
-          /* Restore selector buttons */
-          document.querySelectorAll('#relationship-row .sel-btn').forEach(function(b) {
-            b.className = b.dataset.val === _lastRel ? 'sel-btn selected' : 'sel-btn';
-          });
-          document.querySelectorAll('#budget-row .sel-btn').forEach(function(b) {
-            b.className = b.dataset.val === _lastBudget ? 'sel-btn selected' : 'sel-btn';
-          });
-          /* Rebuild free output first, then fire AI */
-          generateGift(d.val, true);
-          runAIGift(d.val, _lastRel, _lastBudget);
-        }
-      } catch(e) {}
-    }
+  if (window.location.search.indexOf('unlocked=true') === -1) return;
+
+  /* ?unlocked=true is present — always bypass the gate */
+  _aiUnlocked = true;
+
+  var stored = sessionStorage.getItem('gift_data');
+  if (stored) {
+    try {
+      var d = JSON.parse(stored);
+      if (d && d.val) {
+        /* Have stored data — restore state and fire AI directly */
+        _lastVal      = d.val;
+        _lastRel      = d.rel || 'partner';
+        _lastBudget   = d.bud || 'mid';
+        _relationship = _lastRel;
+        _budget       = _lastBudget;
+        var ta = document.getElementById('main-input');
+        if (ta) ta.value = d.val;
+        document.querySelectorAll('#relationship-row .sel-btn').forEach(function(b) {
+          b.className = b.dataset.val === _lastRel ? 'sel-btn selected' : 'sel-btn';
+        });
+        document.querySelectorAll('#budget-row .sel-btn').forEach(function(b) {
+          b.className = b.dataset.val === _lastBudget ? 'sel-btn selected' : 'sel-btn';
+        });
+        /* Fire free output first (silent), then AI */
+        _lastVal = d.val; _lastRel = _lastRel; _lastBudget = _lastBudget;
+        runAIGift(d.val, _lastRel, _lastBudget);
+        return;
+      }
+    } catch(e) {}
   }
+
+  /* sessionStorage empty (tab closed / new device) — hide gate, show form ready to use */
+  var gate = document.getElementById('premium-gate');
+  if (gate) gate.style.display = 'none';
+  /* Swap unlock button label to reflect unlocked state */
+  var unlockBtn = document.querySelector('.unlock-btn');
+  if (unlockBtn) {
+    unlockBtn.textContent = 'Generate my gift ideas';
+    unlockBtn.onclick = function() {
+      var val = document.getElementById('main-input').value.trim();
+      if (!val || val.length < 80) {
+        document.getElementById('main-input').focus();
+        return;
+      }
+      _lastVal = val; _lastRel = _relationship; _lastBudget = _budget;
+      runAIGift(val, _relationship, _budget);
+    };
+  }
+  /* Show a small unlocked notice above the input */
+  var notice = document.createElement('p');
+  notice.style.cssText = 'font-size:12px;color:#2D7A5A;background:rgba(45,122,90,0.08);border:0.5px solid rgba(45,122,90,0.25);border-radius:7px;padding:10px 14px;margin-bottom:16px;text-align:center;letter-spacing:0.04em;';
+  notice.textContent = 'Access unlocked — describe the person and generate your gift ideas.';
+  var inputSec = document.querySelector('.input-section');
+  if (inputSec) inputSec.insertBefore(notice, inputSec.firstChild);
 });
 
 
@@ -1850,50 +1890,7 @@ function hideOverlay() {
 
 <!-- GoatCounter Analytics -->
 <script data-goatcounter="https://signal333.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js">
-/* ── INTELLIGENCE OVERLAY ──────────────────────────────────────── */
-var _overlaySteps = [
-  'Mapping recipient personality…',
-  'Evaluating emotional fit…',
-  'Identifying symbolic resonance…',
-  'Ranking meaningful gift directions…',
-  'Generating gift logic…'
-];
-var _overlayTimer = null;
-
-function showOverlay(onComplete) {
-  var overlay = document.getElementById('intelligence-overlay');
-  overlay.classList.add('active');
-  document.body.style.overflow = 'hidden';
-  var steps = document.querySelectorAll('.overlay-step');
-  var i = 0;
-  steps.forEach(function(s) { s.className = 'overlay-step'; });
-  function nextStep() {
-    if (i < steps.length) {
-      steps[i].classList.add('active');
-      document.getElementById('overlay-title').textContent = _overlaySteps[i];
-      if (i > 0) steps[i-1].classList.remove('active');
-      if (i > 0) steps[i-1].classList.add('done');
-      i++;
-      _overlayTimer = setTimeout(nextStep, 500);
-    } else {
-      _overlayTimer = setTimeout(function() {
-        hideOverlay();
-        if (onComplete) onComplete();
-      }, 300);
-    }
-  }
-  nextStep();
-}
-
-function hideOverlay() {
-  var overlay = document.getElementById('intelligence-overlay');
-  overlay.classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-
-</script>
+        async src="//gc.zgo.at/count.js"></script>
 
 </body>
 </html>
