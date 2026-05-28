@@ -1,4 +1,4 @@
-<!-- 1LINE Resolver v4.0 | Updated: 28 May 2026 18:15 | Input screen restored, unlocked notice only -->
+<!-- 1LINE Resolver v4.1 | Updated: 28 May 2026 18:45 | URL check on generate for reliable unlocked state -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -785,8 +785,8 @@ function handleGenerate() {
     return;
   }
   _lastVal = val;
-  /* If unlocked, fire AI directly — skip free output */
-  if (!PREMIUM_GATED) {
+  var isUnlocked = !PREMIUM_GATED || window.location.search.indexOf('unlocked=true') !== -1;
+  if (isUnlocked) {
     runAIResolver(val);
   } else {
     generateResolver(val);
@@ -804,8 +804,8 @@ function spellContinue() {
   if (btn) btn.disabled = false;
   var val = document.getElementById('main-input').value.trim();
   _lastVal = val;
-  /* If unlocked, fire AI directly */
-  if (!PREMIUM_GATED) {
+  var isUnlocked = !PREMIUM_GATED || window.location.search.indexOf('unlocked=true') !== -1;
+  if (isUnlocked) {
     runAIResolver(val);
   } else {
     generateResolver(val);
