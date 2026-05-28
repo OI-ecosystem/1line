@@ -972,7 +972,13 @@ function handleUnlock() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  /* localStorage persistence — store unlock so returning buyers get back in */
   if (window.location.search.indexOf('unlocked=true') !== -1) {
+    localStorage.setItem('rcloop_coach_unlocked', 'true');
+  }
+  var isUnlocked = window.location.search.indexOf('unlocked=true') !== -1 ||
+                   localStorage.getItem('rcloop_coach_unlocked') === 'true';
+  if (isUnlocked) {
     var stored = sessionStorage.getItem('coach_data');
     if (stored) {
       try {
