@@ -1434,10 +1434,16 @@ function runAIGift(val, rel, budget) {
     if (hero)     hero.style.display     = 'none';
     if (inputSec) inputSec.style.display = 'none';
     if (howSec)   howSec.style.display   = 'none';
-    /* Ensure output-section is visible (it may already be) */
+    /* Show output-section but hide the free-output cards, example and gate */
     var outSec = document.getElementById('output-section');
     if (outSec) outSec.className = 'visible';
-    /* Hide premium gate, show AI section */
+    var toHide = ['out-profile', 'out-direction', 'out-budget', 'example-toggle-btn', 'example-panel', 'premium-gate'];
+    /* Hide the free-output out-cards (profile, direction, budget) by their parent */
+    var outCards = outSec ? outSec.querySelectorAll('.out-card, .example-section') : [];
+    outCards.forEach(function(el) { el.style.display = 'none'; });
+    /* Also hide the section eyebrow and gate */
+    var eyebrow = outSec ? outSec.querySelector('.section-eyebrow') : null;
+    if (eyebrow) eyebrow.style.display = 'none';
     var gate = document.getElementById('premium-gate');
     if (gate) gate.style.display = 'none';
     _doRunAI(val, rel, budget);
