@@ -1,4 +1,4 @@
-<!-- 1LINE Farm v1.7 | Updated: 28 May 2026 17:00 | Char counter, 4-line textarea, dominance fixes -->
+<!-- 1LINE Farm v1.8 | Updated: 28 May 2026 17:15 | Hide hero+network bar on result, restore on reset -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1370,6 +1370,8 @@ function fireScan(goal, gas, chain) {
     document.getElementById('output').classList.add('visible');
     document.getElementById('disclaimer').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.querySelector('.hero').style.display = 'none';
+    document.querySelector('.network-bar').style.display = 'none';
     if (text) {
       var el = document.getElementById('briefing-text');
       el.classList.remove('briefing-loading');
@@ -1381,6 +1383,8 @@ function fireScan(goal, gas, chain) {
     document.getElementById('output').classList.add('visible');
     document.getElementById('disclaimer').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.querySelector('.hero').style.display = 'none';
+    document.querySelector('.network-bar').style.display = 'none';
     document.getElementById('briefing-text').textContent = 'Briefing unavailable. Intelligence snapshot above is accurate.';
   });
 }
@@ -1390,6 +1394,8 @@ function resetScan() {
   document.getElementById('disclaimer').style.display = 'none';
   document.getElementById('form-wrap').style.display = 'block';
   document.getElementById('scan-btn').disabled = false;
+  document.querySelector('.hero').style.display = '';
+  document.querySelector('.network-bar').style.display = '';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
