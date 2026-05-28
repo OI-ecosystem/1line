@@ -1,4 +1,4 @@
-<!-- 1LINE Resolver v3.9 | Updated: 28 May 2026 18:00 | PDF link fix - unlocked form fires AI directly -->
+<!-- 1LINE Resolver v4.0 | Updated: 28 May 2026 18:15 | Input screen restored, unlocked notice only -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -853,18 +853,12 @@ document.addEventListener('DOMContentLoaded', function() {
     } catch(e) {}
   }
 
-  /* Empty sessionStorage — show clean unlocked form */
-  var hero = document.querySelector('section.hero');
-  var howSec = document.querySelector('section.how-section');
-  if (hero) hero.style.display = 'none';
-  if (howSec) howSec.style.display = 'none';
+  /* Empty sessionStorage — just show unlocked notice, leave page exactly as-is */
+  var notice = document.createElement('p');
+  notice.style.cssText = 'font-size:12px;color:#2D7A5A;background:rgba(45,122,90,0.08);border:0.5px solid rgba(45,122,90,0.25);border-radius:7px;padding:10px 14px;margin-bottom:16px;text-align:center;letter-spacing:0.04em;';
+  notice.textContent = 'Access unlocked — describe your situation and generate your reframes.';
   var inputSec = document.querySelector('section.input-section');
-  if (inputSec) {
-    var heading = document.createElement('div');
-    heading.style.cssText = 'margin-bottom:24px;';
-    heading.innerHTML = '<p style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#2D7A5A;background:rgba(45,122,90,0.08);border:0.5px solid rgba(45,122,90,0.25);border-radius:7px;padding:10px 14px;text-align:center;margin-bottom:20px;">Access unlocked — describe your situation and generate your reframes.</p>';
-    inputSec.insertBefore(heading, inputSec.firstChild);
-  }
+  if (inputSec) inputSec.insertBefore(notice, inputSec.firstChild);
 });
 
 /* ── DETERMINISTIC HELPERS ── */
