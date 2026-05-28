@@ -1,4 +1,4 @@
-<!-- 1LINE Gift v2.9 | Updated: 28 May 2026 | Overlay on AI only, clean scroll reveal, gate bypass fix -->
+<!-- 1LINE Gift v3.0 | Updated: 28 May 2026 15:45 | Skeleton cards hidden, imprint populated, GoatCounter fixed -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1423,27 +1423,28 @@ function unlockAI() {
 }
 
 function runAIGift(val, rel, budget) {
-  /* Show overlay first. When complete: scroll to top, hide input chrome, reveal AI section */
+  /* Run free engine silently first — populates imprint card */
+  _lastVal = val; _lastRel = rel; _lastBudget = budget;
+  _relationship = rel; _budget = budget;
+  _doGenerateGift(val);
+  /* Now show overlay. When complete: hide everything except AI section + imprint + crosssell */
   showOverlay(function() {
-    /* Scroll to very top */
     window.scrollTo({ top: 0, behavior: 'auto' });
-    /* Hide hero + input + how-it-works so only AI results are visible */
+    /* Hide hero, input, how-it-works */
     var hero = document.querySelector('section.hero');
     var inputSec = document.querySelector('section.input-section');
     var howSec   = document.querySelector('section.how-section');
     if (hero)     hero.style.display     = 'none';
     if (inputSec) inputSec.style.display = 'none';
     if (howSec)   howSec.style.display   = 'none';
-    /* Show output-section but hide the free-output cards, example and gate */
+    /* Show output-section */
     var outSec = document.getElementById('output-section');
     if (outSec) outSec.className = 'visible';
-    var toHide = ['out-profile', 'out-direction', 'out-budget', 'example-toggle-btn', 'example-panel', 'premium-gate'];
-    /* Hide the free-output out-cards (profile, direction, budget) by their parent */
-    var outCards = outSec ? outSec.querySelectorAll('.out-card, .example-section') : [];
-    outCards.forEach(function(el) { el.style.display = 'none'; });
-    /* Also hide the section eyebrow and gate */
+    /* Hide: eyebrow, free output cards, example section, gate */
     var eyebrow = outSec ? outSec.querySelector('.section-eyebrow') : null;
     if (eyebrow) eyebrow.style.display = 'none';
+    var outCards = outSec ? outSec.querySelectorAll('.profile-block, .out-card:not(.imprint-card), .example-section') : [];
+    outCards.forEach(function(el) { el.style.display = 'none'; });
     var gate = document.getElementById('premium-gate');
     if (gate) gate.style.display = 'none';
     _doRunAI(val, rel, budget);
