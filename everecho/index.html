@@ -1,4 +1,4 @@
-<!-- 1LINE EverEcho v1.10 | Updated: 20 May 2026 | Etsy unlock fix| Bulletproof PDF layout -->
+<!-- 1LINE EverEcho v1.11 | Updated: 28 May 2026 19:00 | Overlay, clean reveal, stale-lock fix, PDF flow fix -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -557,9 +557,33 @@
       .steps { grid-template-columns: 1fr; gap: 20px; }
       .output-row { grid-template-columns: 1fr; }
     }
+    /* ── INTELLIGENCE OVERLAY ── */
+    #intelligence-overlay { display:none; position:fixed; inset:0; background:rgba(10,10,9,0.97); z-index:9999; flex-direction:column; align-items:center; justify-content:center; gap:20px; }
+    #intelligence-overlay.active { display:flex; }
+    .overlay-eyebrow { font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(196,169,106,0.7); font-family:var(--sans); }
+    .overlay-title { font-family:var(--serif); font-size:clamp(22px,4vw,32px); font-style:italic; font-weight:300; color:#FAF8F5; text-align:center; max-width:480px; line-height:1.4; }
+    .overlay-steps { display:flex; flex-direction:column; gap:10px; align-items:center; margin-top:8px; }
+    .overlay-step { font-size:12px; letter-spacing:0.08em; color:rgba(250,248,245,0.35); font-family:var(--sans); transition:color 0.4s,opacity 0.4s; opacity:0.4; }
+    .overlay-step.active { color:rgba(196,169,106,0.9); opacity:1; }
+    .overlay-step.done { color:rgba(250,248,245,0.55); opacity:0.55; }
+    .overlay-bar { width:120px; height:1px; background:rgba(255,255,255,0.1); margin-top:8px; position:relative; overflow:hidden; }
+    .overlay-bar::after { content:''; position:absolute; left:-100%; top:0; width:100%; height:100%; background:rgba(196,169,106,0.7); animation:overlayslide 1.6s ease-in-out infinite; }
+    @keyframes overlayslide { 0%{left:-100%} 50%{left:100%} 100%{left:100%} }
   </style>
 </head>
 <body>
+
+<div id="intelligence-overlay">
+  <p class="overlay-eyebrow">EverEcho</p>
+  <p class="overlay-title" id="overlay-title">Deriving symbolic patterns…</p>
+  <div class="overlay-steps">
+    <p class="overlay-step">Deriving symbolic patterns…</p>
+    <p class="overlay-step">Mapping phonetic harmony…</p>
+    <p class="overlay-step">Building preserved identity imprint…</p>
+    <p class="overlay-step">Generating symbolic identity card…</p>
+  </div>
+  <div class="overlay-bar"></div>
+</div>
 
 <div class="page">
 
@@ -720,6 +744,9 @@
         <button class="pdf-share-btn" onclick="copyShareLink()">Copy share link</button>
         <button class="pdf-share-btn" onclick="window.print()">Print</button>
       </div>
+      <div style="text-align:center;margin-top:16px;">
+        <button onclick="resetEverEcho()" style="background:none;border:0.5px solid var(--border-mid);border-radius:8px;padding:10px 20px;font-family:var(--sans);font-size:12px;color:var(--ink-muted);cursor:pointer;letter-spacing:0.06em;">Generate another identity</button>
+      </div>
     </div>
 
     <!-- Cross-sell -->
@@ -816,7 +843,12 @@ function handleGenerate() {
     if (btn) btn.disabled = true;
     return;
   }
+  var isUnlocked = !PREMIUM_GATED_EE || window.location.search.indexOf('unlocked=true') !== -1;
   generateIdentity(val);
+  if (isUnlocked) {
+    /* Small delay to let generateIdentity populate _eeState */
+    setTimeout(function() { unlockPreservation(); }, 100);
+  }
 }
 function spellReview() {
   document.getElementById('spell-panel').className = 'spell-panel';
@@ -829,7 +861,11 @@ function spellContinue() {
   var btn = document.getElementById('generate-btn');
   if (btn) btn.disabled = false;
   var val = document.getElementById('main-input').value.trim();
+  var isUnlocked = !PREMIUM_GATED_EE || window.location.search.indexOf('unlocked=true') !== -1;
   generateIdentity(val);
+  if (isUnlocked) {
+    setTimeout(function() { unlockPreservation(); }, 100);
+  }
 }
 
 /* HELPERS */
@@ -1052,9 +1088,39 @@ function generateIdentity(val) {
   if (ready) ready.style.display = 'none';
 }
 
+/* ── INTELLIGENCE OVERLAY ── */
+var _overlaySteps = ['Deriving symbolic patterns…','Mapping phonetic harmony…','Building preserved identity imprint…','Generating symbolic identity card…'];
+var _overlayTimer = null;
+
+function showOverlay(onComplete) {
+  var overlay = document.getElementById('intelligence-overlay');
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  var steps = document.querySelectorAll('.overlay-step');
+  var i = 0;
+  steps.forEach(function(s) { s.className = 'overlay-step'; });
+  function nextStep() {
+    if (i < steps.length) {
+      steps[i].classList.add('active');
+      document.getElementById('overlay-title').textContent = _overlaySteps[i];
+      if (i > 0) { steps[i-1].classList.remove('active'); steps[i-1].classList.add('done'); }
+      i++;
+      _overlayTimer = setTimeout(nextStep, 500);
+    } else {
+      _overlayTimer = setTimeout(function() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        if (onComplete) onComplete();
+      }, 300);
+    }
+  }
+  nextStep();
+}
+
 /* PREMIUM PDF */
 function unlockPreservation() {
-  if (PREMIUM_GATED_EE && window.location.search.indexOf("unlocked=true") === -1) {
+  var isUnlocked = !PREMIUM_GATED_EE || window.location.search.indexOf('unlocked=true') !== -1;
+  if (!isUnlocked) {
     sessionStorage.setItem('everecho_data', JSON.stringify({
       val:     _eeState.val     || '',
       gender:  selectedGender   || 'unknown',
@@ -1067,15 +1133,30 @@ function unlockPreservation() {
     window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/2772d5ca-5fb7-48b4-a922-7e44f66aa9d7';
     return;
   }
-  runAIPreservation();
+  /* Show overlay then run AI */
+  showOverlay(function() {
+    /* Hide hero, input, how-it-works */
+    var hero = document.querySelector('section.hero');
+    var inputSec = document.querySelector('section.input-section');
+    var howSec = document.querySelector('section.how-section');
+    if (hero) hero.style.display = 'none';
+    if (inputSec) inputSec.style.display = 'none';
+    if (howSec) howSec.style.display = 'none';
+    /* Show output section */
+    var outSec = document.getElementById('output-section');
+    if (outSec) outSec.style.display = 'block';
+    /* Hide preservation gate */
+    var gate = document.getElementById('preservation-gate');
+    if (gate) gate.style.display = 'none';
+    /* Show loading */
+    var loading = document.getElementById('pdf-loading');
+    if (loading) loading.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    _doRunAIPreservation();
+  });
 }
 
-function runAIPreservation() {
-  var gate    = document.getElementById('preservation-gate');
-  var loading = document.getElementById('pdf-loading');
-  if (gate)    gate.style.display    = 'none';
-  if (loading) loading.style.display = 'block';
-
+function _doRunAIPreservation() {
   var s = _eeState;
   var system = 'You are a symbolic identity writer for a premium baby naming product. You receive a parental description and the name already generated. Write an enhanced symbolic meaning (2 emotionally resonant sentences, specific to the description) and a name rationale (1 sentence explaining why this name fits). Respond ONLY in valid JSON, no markdown, no preamble.';
   var prompt = 'Parental description: "' + s.val + '"'
@@ -1106,35 +1187,44 @@ function runAIPreservation() {
 
 /* Return from Lemon Squeezy payment */
 document.addEventListener('DOMContentLoaded', function() {
-  if (window.location.search.indexOf('unlocked=true') !== -1) {
-    var stored = sessionStorage.getItem('everecho_data');
-    if (stored) {
-      try {
-        var d = JSON.parse(stored);
-        if (d.val) {
-          selectedGender = d.gender || 'unknown';
-          _eeState = { val: d.val, names: d.names, nums: d.nums, colour: d.colour, meaning: d.meaning, imprint: d.imprint };
-          /* Restore free output visually */
-          var nameEl = document.getElementById('out-name-primary');
-          if (nameEl && d.names && d.names[0]) nameEl.textContent = d.names[0];
-          var numsEl = document.getElementById('out-numbers');
-          if (numsEl && d.nums) numsEl.textContent = d.nums.join(' · ');
-          var meanEl = document.getElementById('out-meaning');
-          if (meanEl) meanEl.textContent = d.meaning;
-          var swatchEl = document.getElementById('out-swatch');
-          if (swatchEl && d.colour) swatchEl.style.background = d.colour.hex;
-          var colNameEl = document.getElementById('out-colour-name');
-          if (colNameEl && d.colour) colNameEl.textContent = d.colour.name;
-          var imprintEl = document.getElementById('out-imprint-text');
-          if (imprintEl) imprintEl.textContent = d.imprint;
-          var section = document.getElementById('output-section');
-          if (section) section.style.display = 'block';
-          /* Fire AI enhancement then PDF */
-          runAIPreservation();
-        }
-      } catch(e) {}
-    }
+  if (window.location.search.indexOf('unlocked=true') === -1) return;
+
+  /* Always bypass gate */
+  PREMIUM_GATED_EE = false;
+
+  var stored = sessionStorage.getItem('everecho_data');
+  if (stored) {
+    try {
+      var d = JSON.parse(stored);
+      if (d && d.val) {
+        selectedGender = d.gender || 'unknown';
+        _eeState = { val: d.val, names: d.names, nums: d.nums, colour: d.colour, meaning: d.meaning, imprint: d.imprint };
+        /* Restore free output visually */
+        var nameEl = document.getElementById('out-name-primary');
+        if (nameEl && d.names && d.names[0]) nameEl.textContent = d.names[0];
+        var numsEl = document.getElementById('out-numbers');
+        if (numsEl && d.nums) numsEl.textContent = d.nums.join(' · ');
+        var meanEl = document.getElementById('out-meaning');
+        if (meanEl) meanEl.textContent = d.meaning;
+        var swatchEl = document.getElementById('out-swatch');
+        if (swatchEl && d.colour) swatchEl.style.background = d.colour.hex;
+        var colNameEl = document.getElementById('out-colour-name');
+        if (colNameEl && d.colour) colNameEl.textContent = d.colour.name;
+        var imprintEl = document.getElementById('out-imprint-text');
+        if (imprintEl) imprintEl.textContent = d.imprint;
+        /* Fire overlay + AI */
+        unlockPreservation();
+        return;
+      }
+    } catch(e) {}
   }
+
+  /* Empty sessionStorage — show notice only, page unchanged */
+  var notice = document.createElement('p');
+  notice.style.cssText = 'font-size:12px;color:#2D7A5A;background:rgba(45,122,90,0.08);border:0.5px solid rgba(45,122,90,0.25);border-radius:7px;padding:10px 14px;margin-bottom:16px;text-align:center;letter-spacing:0.04em;';
+  notice.textContent = 'Access unlocked — describe your hopes for your child and generate their identity.';
+  var inputSec = document.querySelector('section.input-section');
+  if (inputSec) inputSec.insertBefore(notice, inputSec.firstChild);
 });
 
 function runPreservation() {
@@ -1378,6 +1468,28 @@ function copyShareLink() {
   navigator.clipboard.writeText(window.location.href).then(function() {
     alert('Link copied.');
   });
+}
+
+function resetEverEcho() {
+  /* Restore input screen exactly as it was */
+  var hero = document.querySelector('section.hero');
+  var inputSec = document.querySelector('section.input-section');
+  var howSec = document.querySelector('section.how-section');
+  if (hero) hero.style.display = '';
+  if (inputSec) inputSec.style.display = '';
+  if (howSec) howSec.style.display = '';
+  /* Hide output */
+  var outSec = document.getElementById('output-section');
+  if (outSec) outSec.style.display = 'none';
+  /* Reset input */
+  var ta = document.getElementById('main-input');
+  if (ta) { ta.value = ''; }
+  var cc = document.getElementById('char-count');
+  if (cc) cc.textContent = '0';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = true;
+  _spellWarned = false;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
 
