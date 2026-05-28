@@ -1,4 +1,4 @@
-<!-- 1LINE Farm v1.5 | Updated: 26 May 2026 | Hunter Intelligence and Sentinel real URLs -->
+<!-- 1LINE Farm v1.7 | Updated: 28 May 2026 17:00 | Char counter, 4-line textarea, dominance fixes -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -214,9 +214,9 @@
       font-style: italic;
       outline: none;
       transition: border-color 0.2s;
-      margin-bottom: 16px;
+      margin-bottom: 0;
       resize: vertical;
-      min-height: 70px;
+      min-height: 110px;
     }
     .farm-input::placeholder { color: var(--dim); font-style: italic; }
     .farm-input:focus { border-color: var(--green); }
@@ -312,18 +312,19 @@
     /* ── OUTPUT ── */
     .output {
       display: none;
-      max-width: 900px;
+      max-width: 960px;
       margin: 0 auto;
       padding: 0 24px 64px;
     }
-    .output.visible { display: block; }
+    .output.visible { display: block; animation: outputReveal 0.6s ease forwards; }
+    @keyframes outputReveal { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
 
     /* Top conviction card */
     .conviction-card {
       background: linear-gradient(135deg, #0A1A0F 0%, #0D1A14 100%);
-      border: 1px solid #1A4A2A;
+      border: 1px solid #1E5A32;
       border-radius: 8px;
-      padding: 24px;
+      padding: 36px 32px;
       margin-bottom: 20px;
       position: relative;
       overflow: hidden;
@@ -332,44 +333,48 @@
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--green), transparent);
+      height: 3px;
+      background: linear-gradient(90deg, var(--green), rgba(16,185,129,0.2));
     }
     .conviction-eyebrow {
       font-size: 10px;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.25em;
       color: var(--green);
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 14px;
     }
     .conviction-name {
       font-family: Georgia, serif;
-      font-size: 28px;
+      font-size: clamp(36px, 5vw, 52px);
       font-weight: 400;
       color: var(--text);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
+      line-height: 1.1;
     }
     .conviction-chain {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--muted);
-      margin-bottom: 16px;
+      margin-bottom: 24px;
+      letter-spacing: 0.06em;
     }
     .conviction-metrics {
       display: flex;
-      gap: 20px;
+      gap: 40px;
       flex-wrap: wrap;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
     .conv-metric { }
     .conv-metric-label {
       font-size: 9px;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--dim);
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
     .conv-metric-value {
-      font-size: 22px;
+      font-size: 36px;
       font-weight: 700;
       color: var(--green);
       line-height: 1;
@@ -377,39 +382,40 @@
     .conv-metric-sub {
       font-size: 11px;
       color: var(--muted);
+      margin-top: 2px;
     }
     .conviction-action {
       background: rgba(16,185,129,0.08);
-      border: 1px solid rgba(16,185,129,0.2);
+      border: 1px solid rgba(16,185,129,0.25);
       border-radius: 6px;
-      padding: 12px 14px;
-      font-size: 13px;
+      padding: 14px 18px;
+      font-size: 14px;
       color: var(--text);
-      line-height: 1.5;
-      margin-bottom: 10px;
+      line-height: 1.6;
+      margin-bottom: 12px;
       font-family: Georgia, serif;
       font-style: italic;
     }
     .conviction-timing {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--amber);
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
     }
 
     /* AI Briefing */
     .ai-briefing {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border2);
       border-radius: 8px;
-      padding: 20px;
+      padding: 28px;
       margin-bottom: 20px;
     }
     .section-label {
       font-size: 10px;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -421,9 +427,9 @@
       background: var(--border);
     }
     .briefing-text {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text);
-      line-height: 1.75;
+      line-height: 1.85;
       font-family: Georgia, serif;
     }
     .briefing-loading {
@@ -759,6 +765,12 @@
       thead th:nth-child(4),
       tbody td:nth-child(4) { display: none; }
     }
+  /* ── INTELLIGENCE OVERLAY ── */
+  #intelligence-overlay.active { display: flex !important; }
+  .overlay-step { font-size:12px; letter-spacing:0.08em; color:rgba(250,248,245,0.3); font-family:monospace; transition:color 0.4s,opacity 0.4s; opacity:0.4; }
+  .overlay-step.active { color:rgba(16,185,129,0.9); opacity:1; }
+  .overlay-step.done   { color:rgba(250,248,245,0.5); opacity:0.5; }
+  @keyframes overlayslide { 0%{left:-100%} 50%{left:100%} 100%{left:100%} }
   </style>
 </head>
 <body>
@@ -779,6 +791,22 @@
   <span class="live-stat">Regime: <span id="market-regime" style="color:var(--amber);">Aggressive</span></span>
   <span class="live-sep">·</span>
   <span class="live-stat">Next scan: <span id="next-scan-eta">—</span></span>
+</div>
+
+<!-- INTELLIGENCE OVERLAY -->
+<div id="intelligence-overlay" style="display:none;position:fixed;inset:0;background:rgba(5,7,10,0.97);z-index:9999;flex-direction:column;align-items:center;justify-content:center;gap:20px;">
+  <p style="font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(16,185,129,0.7);font-family:monospace;">Hunter Intelligence</p>
+  <p id="overlay-title" style="font-family:Georgia,serif;font-size:clamp(20px,4vw,30px);font-style:italic;font-weight:300;color:#FAF8F5;text-align:center;max-width:480px;line-height:1.4;">Parsing current protocol activity…</p>
+  <div style="display:flex;flex-direction:column;gap:10px;align-items:center;margin-top:8px;" id="overlay-steps">
+    <p class="overlay-step">Parsing current protocol activity…</p>
+    <p class="overlay-step">Mapping liquidity migration…</p>
+    <p class="overlay-step">Ranking current asymmetries…</p>
+    <p class="overlay-step">Building conviction snapshot…</p>
+    <p class="overlay-step">Generating farming briefing…</p>
+  </div>
+  <div style="width:120px;height:1px;background:rgba(255,255,255,0.08);margin-top:8px;position:relative;overflow:hidden;">
+    <div style="position:absolute;left:-100%;top:0;width:100%;height:100%;background:rgba(16,185,129,0.7);animation:overlayslide 1.6s ease-in-out infinite;"></div>
+  </div>
 </div>
 
 <!-- HEADER -->
@@ -822,8 +850,12 @@
       spellcheck="true"
       autocorrect="on"
       maxlength="400"
+      oninput="updateFarmCount()"
     ></textarea>
-
+    <div style="display:flex;justify-content:space-between;margin-top:6px;margin-bottom:16px;font-size:11px;color:var(--dim);font-family:monospace;letter-spacing:0.04em;">
+      <span>Describe your farming goal clearly for best results</span>
+      <span id="farm-char-count">0 / 400</span>
+    </div>
     <span class="filter-label">Gas sensitivity</span>
     <div class="filter-row" id="gas-filters">
       <button class="filter-btn active" data-gas="any">Any gas</button>
@@ -840,9 +872,9 @@
     </div>
 
     <button class="scan-btn" id="scan-btn" onclick="handleScan()">
-      ⟳ Run Intelligence Scan
+      Generate Hunter Snapshot
     </button>
-    <p class="form-note">One-time access — £9 — instant snapshot</p>
+    <p class="form-note">One-time access — £19 — instant snapshot</p>
   </div>
 </div>
 
@@ -1087,6 +1119,16 @@ var FALLBACK_PROTOCOLS = [
 var _selectedGas   = 'any';
 var _selectedChain = 'any';
 
+// ── CHAR COUNTER ───────────────────────────────────────────────────────────
+function updateFarmCount() {
+  var ta  = document.getElementById('farm-input');
+  var el  = document.getElementById('farm-char-count');
+  if (!ta || !el) return;
+  var len = ta.value.length;
+  el.textContent = len + ' / 400';
+  el.style.color = len > 360 ? 'var(--amber)' : 'var(--dim)';
+}
+
 // ── FILTER BUTTONS ─────────────────────────────────────────────────────────
 document.querySelectorAll('#gas-filters .filter-btn').forEach(function(btn) {
   btn.addEventListener('click', function() {
@@ -1106,19 +1148,32 @@ document.querySelectorAll('#chain-filters .filter-btn').forEach(function(btn) {
 // ── LOAD SNAPSHOT ON PAGE INIT ─────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
   loadSnapshot(function() {
-    /* After snapshot loaded, check if returning from LS */
-    if (window.location.search.indexOf('unlocked=true') !== -1) {
-      var stored = sessionStorage.getItem('farm_data');
-      if (stored) {
-        try {
-          var d = JSON.parse(stored);
+    if (window.location.search.indexOf('unlocked=true') === -1) return;
+
+    /* ?unlocked=true — always bypass gate */
+    PREMIUM_GATED = false;
+
+    var stored = sessionStorage.getItem('farm_data');
+    if (stored) {
+      try {
+        var d = JSON.parse(stored);
+        if (d && d.goal) {
           document.getElementById('farm-input').value = d.goal || '';
           _selectedGas   = d.gas   || 'any';
           _selectedChain = d.chain || 'any';
-          fireScan(d.goal, d.gas, d.chain);
-        } catch(e) { /* ignore */ }
-      }
+          /* Show overlay then fire scan */
+          showOverlay(function() { fireScan(d.goal, d.gas, d.chain); });
+          return;
+        }
+      } catch(e) {}
     }
+
+    /* Empty sessionStorage — show unlocked form with notice */
+    var notice = document.createElement('p');
+    notice.style.cssText = 'font-size:11px;color:var(--green);background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:6px;padding:10px 14px;margin-bottom:12px;text-align:center;letter-spacing:0.06em;font-family:monospace;';
+    notice.textContent = 'ACCESS UNLOCKED — Enter your farming goal and generate your snapshot.';
+    var formCard = document.querySelector('.form-card');
+    if (formCard) formCard.insertBefore(notice, formCard.firstChild);
   });
 });
 
@@ -1167,6 +1222,41 @@ function loadSnapshot(callback) {
   });
 }
 
+// ── INTELLIGENCE OVERLAY ───────────────────────────────────────────────────
+var _overlaySteps = [
+  'Parsing current protocol activity…',
+  'Mapping liquidity migration…',
+  'Ranking current asymmetries…',
+  'Building conviction snapshot…',
+  'Generating farming briefing…'
+];
+var _overlayTimer = null;
+
+function showOverlay(onComplete) {
+  var overlay = document.getElementById('intelligence-overlay');
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  var steps = document.querySelectorAll('.overlay-step');
+  var i = 0;
+  steps.forEach(function(s) { s.className = 'overlay-step'; });
+  function nextStep() {
+    if (i < steps.length) {
+      steps[i].classList.add('active');
+      document.getElementById('overlay-title').textContent = _overlaySteps[i];
+      if (i > 0) { steps[i-1].classList.remove('active'); steps[i-1].classList.add('done'); }
+      i++;
+      _overlayTimer = setTimeout(nextStep, 500);
+    } else {
+      _overlayTimer = setTimeout(function() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        if (onComplete) onComplete();
+      }, 300);
+    }
+  }
+  nextStep();
+}
+
 // ── MAIN HANDLER ───────────────────────────────────────────────────────────
 function handleScan() {
   var goal = document.getElementById('farm-input').value.trim();
@@ -1180,7 +1270,8 @@ function handleScan() {
     window.location.href = LS_URL;
     return;
   }
-  fireScan(goal, _selectedGas, _selectedChain);
+  /* Show overlay, then fire scan */
+  showOverlay(function() { fireScan(goal, _selectedGas, _selectedChain); });
 }
 
 function fireScan(goal, gas, chain) {
@@ -1278,6 +1369,7 @@ function fireScan(goal, gas, chain) {
     document.getElementById('loading').classList.remove('visible');
     document.getElementById('output').classList.add('visible');
     document.getElementById('disclaimer').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     if (text) {
       var el = document.getElementById('briefing-text');
       el.classList.remove('briefing-loading');
@@ -1288,6 +1380,7 @@ function fireScan(goal, gas, chain) {
     document.getElementById('loading').classList.remove('visible');
     document.getElementById('output').classList.add('visible');
     document.getElementById('disclaimer').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     document.getElementById('briefing-text').textContent = 'Briefing unavailable. Intelligence snapshot above is accurate.';
   });
 }
