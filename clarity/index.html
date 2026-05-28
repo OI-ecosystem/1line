@@ -1,4 +1,4 @@
-<!-- 1LINE Clarity v1.4 | Updated: 20 May 2026 | Etsy unlock fix| Lemon Squeezy URL added -->
+<!-- 1LINE Clarity v1.5 | Updated: 28 May 2026 20:15 | Overlay, clean reveal, PDF flow fix, gate bypass -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,11 +92,35 @@ footer{border-top:0.5px solid var(--border);padding:40px 0 48px;margin-top:56px}
 .footer-copy{font-size:11px;color:var(--ink-faint)}
 .footer-network-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:14px}
 @media(max-width:480px){.steps{grid-template-columns:1fr;gap:20px}}
+    /* ── INTELLIGENCE OVERLAY ── */
+    #intelligence-overlay { display:none; position:fixed; inset:0; background:rgba(10,10,9,0.96); z-index:9999; flex-direction:column; align-items:center; justify-content:center; gap:20px; }
+    #intelligence-overlay.active { display:flex; }
+    .overlay-eyebrow { font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(196,169,106,0.7); font-family:var(--sans); }
+    .overlay-title { font-family:var(--serif); font-size:clamp(22px,4vw,32px); font-style:italic; font-weight:300; color:#FAF8F5; text-align:center; max-width:480px; line-height:1.4; }
+    .overlay-steps { display:flex; flex-direction:column; gap:10px; align-items:center; margin-top:8px; }
+    .overlay-step { font-size:12px; letter-spacing:0.08em; color:rgba(250,248,245,0.35); font-family:var(--sans); transition:color 0.4s,opacity 0.4s; opacity:0.4; }
+    .overlay-step.active { color:rgba(196,169,106,0.9); opacity:1; }
+    .overlay-step.done { color:rgba(250,248,245,0.55); opacity:0.55; }
+    .overlay-bar { width:120px; height:1px; background:rgba(255,255,255,0.1); margin-top:8px; position:relative; overflow:hidden; }
+    .overlay-bar::after { content:''; position:absolute; left:-100%; top:0; width:100%; height:100%; background:rgba(196,169,106,0.7); animation:overlayslide 1.6s ease-in-out infinite; }
+    @keyframes overlayslide { 0%{left:-100%} 50%{left:100%} 100%{left:100%} }
 </style>
 </head>
 <body>
 <div id="processing-banner" style="display:none;position:fixed;top:0;left:0;width:100%;background:#1a1a18;color:#f5f3ee;text-align:center;padding:14px 20px;font-size:14px;letter-spacing:0.04em;z-index:9999;">Structuring your clarity — please wait a moment...</div>
 <script>if(window.location.search.indexOf('unlocked=true')!==-1){document.getElementById('processing-banner').style.display='block';}</script>
+<div id="intelligence-overlay">
+  <p class="overlay-eyebrow">1LINE Clarity</p>
+  <p class="overlay-title" id="overlay-title">Untangling competing signals…</p>
+  <div class="overlay-steps">
+    <p class="overlay-step">Untangling competing signals…</p>
+    <p class="overlay-step">Identifying recurring tensions…</p>
+    <p class="overlay-step">Structuring your core issue…</p>
+    <p class="overlay-step">Building your clarity breakdown…</p>
+  </div>
+  <div class="overlay-bar"></div>
+</div>
+
 <div class="page">
 
 <nav>
@@ -271,7 +295,8 @@ function handleGenerate() {
     return;
   }
   _lastVal = val;
-  generateClarity(val);
+  var isUnlocked = !PREMIUM_GATED || window.location.search.indexOf('unlocked=true') !== -1;
+  if (isUnlocked) { runAIClarity(val); } else { generateClarity(val); }
 }
 function spellReview() {
   document.getElementById('spell-panel').className = 'spell-panel';
@@ -285,7 +310,8 @@ function spellContinue() {
   if (btn) btn.disabled = false;
   var val = document.getElementById('main-input').value.trim();
   _lastVal = val;
-  generateClarity(val);
+  var isUnlocked = !PREMIUM_GATED || window.location.search.indexOf('unlocked=true') !== -1;
+  if (isUnlocked) { runAIClarity(val); } else { generateClarity(val); }
 }
 
 /* ── DETECTION ENGINE ── */
@@ -363,7 +389,8 @@ function generateClarity(val) {
 /* ── PAYMENT ── */
 function unlockClarity() {
   var val = _lastVal || document.getElementById('main-input').value.trim();
-  if (PREMIUM_GATED && window.location.search.indexOf("unlocked=true") === -1) {
+  var isUnlocked = !PREMIUM_GATED || window.location.search.indexOf('unlocked=true') !== -1;
+  if (!isUnlocked) {
     sessionStorage.setItem('clarity_data', JSON.stringify({ val: val }));
     window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/26411f01-d24c-419a-b36e-cca79f210abf';
     return;
@@ -371,14 +398,57 @@ function unlockClarity() {
   runAIClarity(val);
 }
 
+/* ── INTELLIGENCE OVERLAY ── */
+var _overlayTimer = null;
+var _claritySteps = ['Untangling competing signals…','Identifying recurring tensions…','Structuring your core issue…','Building your clarity breakdown…'];
+
+function showOverlay(onComplete) {
+  var overlay = document.getElementById('intelligence-overlay');
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  var steps = document.querySelectorAll('.overlay-step');
+  var i = 0;
+  steps.forEach(function(s) { s.className = 'overlay-step'; });
+  function nextStep() {
+    if (i < steps.length) {
+      steps[i].classList.add('active');
+      document.getElementById('overlay-title').textContent = _claritySteps[i];
+      if (i > 0) { steps[i-1].classList.remove('active'); steps[i-1].classList.add('done'); }
+      i++;
+      _overlayTimer = setTimeout(nextStep, 500);
+    } else {
+      _overlayTimer = setTimeout(function() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        if (onComplete) onComplete();
+      }, 300);
+    }
+  }
+  nextStep();
+}
+
 /* ── AI ── */
 function runAIClarity(val) {
-  document.getElementById('clarity-gate').style.display = 'none';
-  document.getElementById('ai-output').style.display = 'block';
-  document.getElementById('ai-loading').style.display = 'block';
-  document.getElementById('ai-results').style.display = 'none';
+  showOverlay(function() {
+    var hero = document.querySelector('section.hero');
+    var inputSec = document.querySelector('section.input-section');
+    var howSec = document.querySelector('section.how-section');
+    var outSec = document.getElementById('output-section');
+    if (hero) hero.style.display = 'none';
+    if (inputSec) inputSec.style.display = 'none';
+    if (howSec) howSec.style.display = 'none';
+    if (outSec) outSec.style.display = 'none';
+    document.getElementById('clarity-gate').style.display = 'none';
+    document.getElementById('ai-output').style.display = 'block';
+    document.getElementById('ai-loading').style.display = 'block';
+    document.getElementById('ai-results').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    _doRunAIClarity(val);
+  });
+}
 
-  var msgs = ['Reading your thinking...','Identifying core tensions...','Mapping what you want...','Finding the contradiction...','Structuring your clarity...'];
+function _doRunAIClarity(val) {
+  var msgs = ['Untangling competing signals...','Identifying recurring tensions...','Structuring your core issue...','Building your clarity breakdown...'];
   var mi = 0; var lel = document.getElementById('ai-loading-text');
   var intv = setInterval(function() { mi=(mi+1)%msgs.length; if(lel) lel.textContent=msgs[mi]; }, 1200);
 
@@ -404,45 +474,43 @@ function runAIClarity(val) {
     clearInterval(intv);
     document.getElementById('ai-loading').style.display = 'none';
     alert('Something went wrong. Please try again.');
-    document.getElementById('clarity-gate').style.display = 'block';
   });
 }
 
 function renderAIClarity(d) {
-  var banner = document.getElementById('processing-banner');
-  if (banner) banner.style.display = 'none';
   document.getElementById('ai-loading').style.display = 'none';
   document.getElementById('ai-results').style.display = 'block';
-  document.getElementById('ai-happening').textContent    = d.happening || '';
-  document.getElementById('ai-want').textContent         = d.want || '';
-  document.getElementById('ai-blocking').textContent     = d.blocking || '';
-  document.getElementById('ai-reframe').textContent      = d.reframe || '';
+  document.getElementById('ai-happening').textContent     = d.happening || '';
+  document.getElementById('ai-want').textContent          = d.want || '';
+  document.getElementById('ai-blocking').textContent      = d.blocking || '';
+  document.getElementById('ai-reframe').textContent       = d.reframe || '';
   document.getElementById('ai-contradiction').textContent = d.contradiction || '';
-  document.getElementById('ai-priority').textContent     = d.priority || '';
-  document.getElementById('ai-output').scrollIntoView({ behavior:'smooth', block:'start' });
+  document.getElementById('ai-priority').textContent      = d.priority || '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 /* ── RETURN FROM PAYMENT ── */
 document.addEventListener('DOMContentLoaded', function() {
-  if (window.location.search.indexOf('unlocked=true') !== -1) {
-    var stored = sessionStorage.getItem('clarity_data');
-    if (stored) {
-      try {
-        var d = JSON.parse(stored);
-        if (d.val) {
-          var ta = document.getElementById('main-input');
-          if (ta) { ta.value = d.val; countChars(); }
-          _lastVal = d.val;
-          var aiSection = document.getElementById('ai-output');
-          var aiLoading = document.getElementById('ai-loading');
-          if (aiSection) { aiSection.style.display = 'block'; aiSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-          if (aiLoading) aiLoading.style.display = 'block';
-          generateClarity(d.val);
-          runAIClarity(d.val);
-        }
-      } catch(e) {}
-    }
+  if (window.location.search.indexOf('unlocked=true') === -1) return;
+  PREMIUM_GATED = false;
+  var stored = sessionStorage.getItem('clarity_data');
+  if (stored) {
+    try {
+      var d = JSON.parse(stored);
+      if (d && d.val) {
+        var ta = document.getElementById('main-input');
+        if (ta) { ta.value = d.val; countChars(); }
+        _lastVal = d.val;
+        runAIClarity(d.val);
+        return;
+      }
+    } catch(e) {}
   }
+  var notice = document.createElement('p');
+  notice.style.cssText = 'font-size:12px;color:#2D7A5A;background:rgba(45,122,90,0.08);border:0.5px solid rgba(45,122,90,0.25);border-radius:7px;padding:10px 14px;margin-bottom:16px;text-align:center;letter-spacing:0.04em;';
+  notice.textContent = 'Access unlocked — write out what is on your mind and find your clarity.';
+  var inputSec = document.querySelector('section.input-section');
+  if (inputSec) inputSec.insertBefore(notice, inputSec.firstChild);
 });
 
 </script>
