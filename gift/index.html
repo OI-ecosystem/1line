@@ -1,4 +1,4 @@
-<!-- 1LINE Gift v3.0 | Updated: 28 May 2026 15:45 | Skeleton cards hidden, imprint populated, GoatCounter fixed -->
+<!-- 1LINE Gift v3.1 | Updated: 28 May 2026 16:00 | output-section hidden on AI path, skeleton cards gone -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1423,30 +1423,28 @@ function unlockAI() {
 }
 
 function runAIGift(val, rel, budget) {
-  /* Run free engine silently first — populates imprint card */
+  /* Silently run free engine just to populate imprint card data */
   _lastVal = val; _lastRel = rel; _lastBudget = budget;
   _relationship = rel; _budget = budget;
   _doGenerateGift(val);
-  /* Now show overlay. When complete: hide everything except AI section + imprint + crosssell */
+  /* Immediately hide output-section again — we only wanted the imprint populated */
+  var outSec = document.getElementById('output-section');
+  if (outSec) outSec.style.display = 'none';
+
+  /* Show overlay. When complete: clean reveal of AI section only */
   showOverlay(function() {
     window.scrollTo({ top: 0, behavior: 'auto' });
     /* Hide hero, input, how-it-works */
-    var hero = document.querySelector('section.hero');
+    var hero     = document.querySelector('section.hero');
     var inputSec = document.querySelector('section.input-section');
     var howSec   = document.querySelector('section.how-section');
     if (hero)     hero.style.display     = 'none';
     if (inputSec) inputSec.style.display = 'none';
     if (howSec)   howSec.style.display   = 'none';
-    /* Show output-section */
-    var outSec = document.getElementById('output-section');
-    if (outSec) outSec.className = 'visible';
-    /* Hide: eyebrow, free output cards, example section, gate */
-    var eyebrow = outSec ? outSec.querySelector('.section-eyebrow') : null;
-    if (eyebrow) eyebrow.style.display = 'none';
-    var outCards = outSec ? outSec.querySelectorAll('.profile-block, .out-card:not(.imprint-card), .example-section') : [];
-    outCards.forEach(function(el) { el.style.display = 'none'; });
-    var gate = document.getElementById('premium-gate');
-    if (gate) gate.style.display = 'none';
+    /* Show output-section but ONLY imprint + crosssell + ai-premium — hide everything else */
+    if (outSec) outSec.style.display = 'block';
+    var toHide = outSec ? outSec.querySelectorAll('.section-eyebrow, .profile-block, .out-card, .example-section, #premium-gate, .share-nudge') : [];
+    toHide.forEach(function(el) { el.style.display = 'none'; });
     _doRunAI(val, rel, budget);
   });
 }
