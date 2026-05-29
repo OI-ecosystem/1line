@@ -1,4 +1,4 @@
-<!-- 1LINE Coach v3.1 | Updated: 29 May 2026 10:55 | fix dismissCardsNotice - removed stray closing script tag causing function to be undefined -->
+<!-- 1LINE Coach v3.2 | Updated: 29 May 2026 11:15 | fix localStorage bypass - payment gate now checks rcloop_coach_unlocked flag -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -945,7 +945,7 @@ function goBack(step) {
 function handleComplete() {
   if (document.getElementById('input-5').value.trim().length < 30) return;
   document.getElementById('step-5').classList.remove('active');
-  if (PREMIUM_GATED && window.location.search.indexOf('unlocked=true') === -1) {
+  if (PREMIUM_GATED && window.location.search.indexOf('unlocked=true') === -1 && localStorage.getItem('rcloop_coach_unlocked') !== 'true') {
     /* Save data and redirect to LS */
     sessionStorage.setItem('coach_data', JSON.stringify({
       q1: document.getElementById('input-1').value.trim(),
