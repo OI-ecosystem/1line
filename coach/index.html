@@ -1,4 +1,4 @@
-<!-- 1LINE Coach v2.4 | Updated: 24 May 2026 | Gift pattern payment flow -->
+<!-- 1LINE Coach v3 | Updated: 29 May 2026 10:30 | fix dismiss button - moved overlay inside body, replaced inset with explicit positioning -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -1227,7 +1227,7 @@ function dismissCardsNotice() {
 <script data-goatcounter="https://signal333.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
 <!-- Cards notice overlay — shown once after payment -->
-<div id="cards-notice" style="display:none;position:fixed;inset:0;background:rgba(14,14,12,0.92);z-index:9999;align-items:center;justify-content:center;padding:2rem">
+<div id="cards-notice" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(14,14,12,0.92);z-index:9999;align-items:center;justify-content:center;padding:2rem">
   <div style="background:#f7f6f2;border-radius:12px;padding:2.5rem 2rem;max-width:420px;width:100%;text-align:center">
     <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#a07c2e;margin-bottom:1rem">Before you begin</div>
     <h2 style="font-family:'DM Serif Display',serif;font-size:1.4rem;color:#1a1a14;margin-bottom:0.6rem;line-height:1.2">Download your five<br>reflection cards</h2>
