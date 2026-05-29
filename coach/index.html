@@ -1,4 +1,4 @@
-<!-- 1LINE Coach v3 | Updated: 29 May 2026 10:30 | fix dismiss button - moved overlay inside body, replaced inset with explicit positioning -->
+<!-- 1LINE Coach v3.1 | Updated: 29 May 2026 10:55 | fix dismissCardsNotice - removed stray closing script tag causing function to be undefined -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -1215,8 +1215,7 @@ function resetFlow() {
 }
 </script>
 
-
-/* Cards notice dismiss */
+<script>
 function dismissCardsNotice() {
   localStorage.setItem('rcloop_coach_cards_noticed', 'true');
   var notice = document.getElementById('cards-notice');
