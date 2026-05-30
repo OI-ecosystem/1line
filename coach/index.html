@@ -1,4 +1,4 @@
-<!-- 1LINE Coach v3.2 | Updated: 29 May 2026 11:15 | fix localStorage bypass - payment gate now checks rcloop_coach_unlocked flag -->
+<!-- 1LINE Coach v7.1 | Updated: 30 May 2026 | removed overlay, removed prices from buttons -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -640,6 +640,30 @@
     <h1>When your life stops<br>feeling <em>aligned.</em></h1>
     <p class="hero-sub">Structured life-direction clarity from your own language. Not therapy. Not advice. A precise AI-powered reflection that analyses your emotional patterns, recurring loops, and hidden direction signals.</p>
     <p class="hero-note">Not financial advice — structured life-direction interpretation.</p>
+    <!-- CARDS DOWNLOAD BANNER — dismissable, shows until downloaded or dismissed -->
+    <div id="cards-banner-coach" style="background:#f9f4e8;border:1px solid #c4a84a;border-radius:8px;padding:14px 18px;margin-top:16px;display:none;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div>
+        <strong style="font-size:0.85rem;color:#1a1a14">Reflection comes first.</strong>
+        <div style="font-size:0.78rem;color:#4a4a42;margin-top:3px">Download and complete your five reflection cards before you begin.</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="https://oi-ecosystem.github.io/1line/coach/Coach_Reflection_Cards.pdf" target="_blank" onclick="dismissCoachBanner()" style="background:#1a1a14;color:#fff;font-size:0.78rem;font-weight:600;padding:8px 16px;border-radius:6px;text-decoration:none;white-space:nowrap">↓ Download cards</a>
+        <button onclick="dismissCoachBanner()" style="background:none;border:1px solid rgba(0,0,0,0.2);color:#4a4a42;font-size:0.75rem;padding:8px 14px;border-radius:6px;cursor:pointer;font-family:inherit;white-space:nowrap">I already have my cards →</button>
+      </div>
+    </div>
+    <script>
+    (function() {
+      if (!localStorage.getItem('rcloop_coach_cards_downloaded')) {
+        var b = document.getElementById('cards-banner-coach');
+        if (b) b.style.display = 'flex';
+      }
+    })();
+    function dismissCoachBanner() {
+      localStorage.setItem('rcloop_coach_cards_downloaded', 'true');
+      var b = document.getElementById('cards-banner-coach');
+      if (b) b.style.display = 'none';
+    }
+    </script>
   </section>
 
   <!-- INPUT FLOW -->
@@ -735,7 +759,7 @@
       <textarea id="input-5" placeholder="What would you do if you stopped negotiating against yourself?" spellcheck="true" autocorrect="on"></textarea>
       <p class="char-hint" id="count-5">0 characters — 30 minimum</p>
       <button class="btn-primary" id="next-5" onclick="handleComplete()" disabled>Generate My Reflection →</button>
-      <p class="generate-note">One-time access — £39 — instant generation</p>
+      <p class="generate-note">One-time access — instant generation</p>
       <span class="back-link" onclick="goBack(5)">← Back</span>
     </div>
 
@@ -744,7 +768,7 @@
       <p class="gate-eyebrow">1LINE Coach</p>
       <h2 class="gate-title">Your reflection is ready<br>to be generated.</h2>
       <p class="gate-sub">A structured life-direction report built entirely from your own language. Precise. Personal. Yours to keep.</p>
-      <button class="btn-unlock" onclick="handleUnlock()">Unlock Reflection — £39</button>
+      <button class="btn-unlock" onclick="handleUnlock()">Unlock Reflection</button>
       <p class="gate-note">One-time · Instant delivery · Downloadable PDF</p>
     </div>
 
@@ -945,7 +969,7 @@ function goBack(step) {
 function handleComplete() {
   if (document.getElementById('input-5').value.trim().length < 30) return;
   document.getElementById('step-5').classList.remove('active');
-  if (PREMIUM_GATED && window.location.search.indexOf('unlocked=true') === -1 && localStorage.getItem('rcloop_coach_unlocked') !== 'true') {
+  if (PREMIUM_GATED && window.location.search.indexOf('unlocked=true') === -1) {
     /* Save data and redirect to LS */
     sessionStorage.setItem('coach_data', JSON.stringify({
       q1: document.getElementById('input-1').value.trim(),
@@ -979,11 +1003,6 @@ document.addEventListener('DOMContentLoaded', function() {
   var isUnlocked = window.location.search.indexOf('unlocked=true') !== -1 ||
                    localStorage.getItem('rcloop_coach_unlocked') === 'true';
   if (isUnlocked) {
-    /* Cards notice — show once only */
-    if (!localStorage.getItem('rcloop_coach_cards_noticed')) {
-      var notice = document.getElementById('cards-notice');
-      if (notice) notice.style.display = 'flex';
-    }
     var stored = sessionStorage.getItem('coach_data');
     if (stored) {
       try {
@@ -1215,26 +1234,10 @@ function resetFlow() {
 }
 </script>
 
-<script>
-function dismissCardsNotice() {
-  localStorage.setItem('rcloop_coach_cards_noticed', 'true');
-  var notice = document.getElementById('cards-notice');
-  if (notice) notice.style.display = 'none';
-}
+
 </script>
 
 <script data-goatcounter="https://signal333.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-
-<!-- Cards notice overlay — shown once after payment -->
-<div id="cards-notice" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(14,14,12,0.92);z-index:9999;align-items:center;justify-content:center;padding:2rem">
-  <div style="background:#f7f6f2;border-radius:12px;padding:2.5rem 2rem;max-width:420px;width:100%;text-align:center">
-    <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#a07c2e;margin-bottom:1rem">Before you begin</div>
-    <h2 style="font-family:'DM Serif Display',serif;font-size:1.4rem;color:#1a1a14;margin-bottom:0.6rem;line-height:1.2">Download your five<br>reflection cards</h2>
-    <p style="font-size:0.84rem;color:#4a4a42;font-weight:300;line-height:1.6;margin-bottom:1.5rem">Print the cards and work through each one honestly. Take as many days as you need. Return here when you are ready.</p>
-    <a href="https://oi-ecosystem.github.io/1line/coach/Coach_Reflection_Cards.pdf" target="_blank" style="display:block;background:#1a1a14;color:#fff;font-size:0.85rem;font-weight:500;padding:0.75rem 1.5rem;border-radius:6px;text-decoration:none;margin-bottom:0.75rem">↓ Download reflection cards</a>
-    <button onclick="dismissCardsNotice()" style="background:none;border:1px solid rgba(0,0,0,0.2);color:#4a4a42;font-size:0.82rem;padding:0.65rem 1.5rem;border-radius:6px;cursor:pointer;width:100%;font-family:inherit">I have my cards — continue →</button>
-  </div>
-</div>
 
 </body>
 
