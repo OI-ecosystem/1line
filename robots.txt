@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://oi-ecosystem.github.io/1line/sitemap.xml
