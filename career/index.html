@@ -1,1 +1,786 @@
+<!-- 1LINE Career v1.3 | Updated: 28 Jun 2026 | RC Loop prices updated to £49 and £99 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>1LINE Career — Career clarity from one sentence.</title>
+<meta name="description" content="Describe where you are and where you want to be in one sentence. 1LINE Career diagnoses your career direction, positioning, skills gap and CV readiness — instantly.">
+<meta name="keywords" content="career clarity, career change, CV advice, career diagnosis, career direction, resume help, career positioning">
+<meta property="og:title" content="1LINE Career — Career clarity from one sentence.">
+<meta property="og:description" content="One sentence about your career. Instant diagnosis of your direction, positioning, skills gap and next steps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FAF8F5;--white:#FFFFFF;--ink:#1A1A18;--ink-mid:#4A4A46;--ink-muted:#888884;--ink-faint:#C4C4BE;
+  --border:rgba(26,26,24,0.10);--border-mid:rgba(26,26,24,0.18);
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+  --max:640px;--green:#2D7A5A;--red:#C0392B;--amber:#A0620A;--blue:#1A7FE8;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased}
+.page{max-width:var(--max);margin:0 auto;padding:0 24px}
+nav{padding:28px 0 0;display:flex;align-items:baseline;justify-content:space-between}
+.brand{font-family:var(--serif);font-size:13px;font-weight:400;letter-spacing:0.28em;text-transform:uppercase;color:var(--ink);text-decoration:none}
+.oneline-mark{display:inline-flex;align-items:baseline;gap:0.04em;line-height:1;text-decoration:none}
+.oneline-mark .n{font-family:var(--sans);font-weight:500;font-size:1em;color:var(--ink);letter-spacing:-0.02em}
+.oneline-mark .l{font-family:var(--sans);font-weight:500;font-size:0.5em;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);position:relative;top:-0.1em}
+.buseful-badge{display:inline-flex;align-items:center;background:#1A2744;border-radius:5px;padding:5px 12px 5px 10px;text-decoration:none;margin-bottom:16px;transition:opacity 0.2s}
+.buseful-badge:hover{opacity:0.82}
+.buseful-badge-text{font-family:var(--sans);font-size:11px;font-weight:500;color:#fff;letter-spacing:0.02em}
+.buseful-badge-text em{font-style:italic;color:#C4A96A}
+.hero{padding:64px 0 48px;border-bottom:0.5px solid var(--border)}
+.hero-eyebrow{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:20px}
+.hero h1{font-family:var(--serif);font-size:clamp(30px,5vw,44px);font-weight:300;line-height:1.15;color:var(--ink);margin-bottom:18px;letter-spacing:-0.01em}
+.hero-sub{font-size:15px;color:var(--ink-mid);font-weight:300;max-width:480px;line-height:1.65}
+.input-section{padding:48px 0 0}
+.input-prompt{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--ink);margin-bottom:6px}
+.input-hint{font-size:12px;color:var(--ink-muted);margin-bottom:10px;line-height:1.6}
+.example-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.example-pill{font-size:11px;color:var(--ink-mid);background:var(--white);border:0.5px solid var(--border-mid);border-radius:20px;padding:4px 12px;cursor:pointer;transition:all 0.15s}
+.example-pill:hover{border-color:var(--ink-mid);color:var(--ink)}
+textarea{width:100%;min-height:80px;padding:16px 18px;font-family:var(--sans);font-size:14px;font-weight:300;line-height:1.65;color:var(--ink);background:var(--white);border:0.5px solid var(--border-mid);border-radius:10px;resize:none;outline:none;transition:border-color 0.2s;-webkit-appearance:none}
+textarea::placeholder{color:var(--ink-faint)}
+textarea:focus{border-color:var(--ink-mid)}
+.char-counter{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:11px;color:var(--ink-muted)}
+.char-count{font-weight:500;transition:color 0.2s}
+.char-count.valid{color:var(--green)}
+.char-count.over{color:var(--red)}
+.spell-panel{display:none;margin-top:14px;background:#FFFBF0;border:0.5px solid rgba(160,98,10,0.22);border-radius:10px;padding:18px 20px}
+.spell-panel.visible{display:block}
+.spell-heading{font-size:11px;letter-spacing:0.10em;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+.spell-corrected{font-size:13px;color:var(--ink-mid);line-height:1.65;margin-bottom:14px;font-weight:300}
+.spell-actions{display:flex;gap:8px}
+.spell-btn{padding:9px 18px;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;border-radius:7px;cursor:pointer;transition:opacity 0.15s;border:0.5px solid}
+.spell-btn:hover{opacity:0.72}
+.spell-btn.accept{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.spell-btn.ignore{background:transparent;color:var(--ink-mid);border-color:var(--border-mid)}
+.generate-btn{width:100%;margin-top:16px;padding:15px 24px;font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--white);background:var(--ink);border:none;border-radius:10px;cursor:pointer;transition:opacity 0.2s}
+.generate-btn:hover:not(:disabled){opacity:0.82}
+.generate-btn:disabled{opacity:0.28;cursor:default}
+.input-provenance{margin-top:12px;font-size:11px;color:var(--ink-faint);text-align:center}
+.how-section{padding:56px 0 48px;border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);margin-top:56px}
+.section-eyebrow{font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:32px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.step-num{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--ink-faint);line-height:1;margin-bottom:10px;display:block}
+.step-text{font-size:13px;color:var(--ink-mid);line-height:1.6}
+#output-section{display:none;padding:56px 0 0}
+#output-section.visible{display:block}
+.out-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:10px;display:block}
+.out-card{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:20px;margin-bottom:12px}
+.stars-row{display:flex;gap:4px;margin-top:8px}
+.star{font-size:18px}
+.star.filled{color:var(--ink)}
+.star.empty{color:var(--ink-faint)}
+.diagnosis-label{font-size:14px;font-weight:300;color:var(--ink-mid);margin-top:8px;line-height:1.6;font-style:italic}
+.diagnosis-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.diagnosis-item{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:16px}
+.diagnosis-item-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:8px}
+.confidence-bar{width:100%;height:6px;background:var(--border);border-radius:3px;margin:10px 0 6px;overflow:hidden}
+.confidence-fill{height:100%;background:var(--ink);border-radius:3px;transition:width 1s ease}
+.readiness-badge{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;padding:6px 14px;border-radius:20px;margin-top:8px}
+.readiness-green{background:#E8F5F0;color:var(--green);border:0.5px solid rgba(45,122,90,0.2)}
+.readiness-amber{background:#FFF8E8;color:var(--amber);border:0.5px solid rgba(160,98,10,0.2)}
+.readiness-red{background:#FDF2F2;color:var(--red);border:0.5px solid rgba(192,57,43,0.18)}
+.skills-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.skill-tag{font-size:12px;color:var(--ink-mid);background:var(--cream);border:0.5px solid var(--border-mid);border-radius:16px;padding:4px 12px}
+.headline-verdict{font-family:var(--serif);font-size:clamp(18px,3vw,22px);font-weight:300;color:var(--ink);line-height:1.4;border-left:2px solid var(--ink);padding-left:16px;margin:16px 0}
+.keywords-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.keyword-old{font-size:12px;color:var(--red);text-decoration:line-through;padding:3px 10px;border-radius:12px;background:#FDF2F2;border:0.5px solid rgba(192,57,43,0.15)}
+.keyword-new{font-size:12px;color:var(--green);padding:3px 10px;border-radius:12px;background:#E8F5F0;border:0.5px solid rgba(45,122,90,0.2)}
+.gate-section{background:var(--ink);border-radius:16px;padding:36px 32px;text-align:center;margin:32px 0;display:none}
+.gate-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:12px;display:block}
+.gate-hed{font-family:var(--serif);font-size:clamp(20px,4vw,28px);font-weight:300;color:#fff;line-height:1.3;margin-bottom:8px}
+.gate-sub{font-size:13px;font-weight:300;color:rgba(255,255,255,0.55);max-width:420px;margin:0 auto 24px;line-height:1.7}
+.unlock-btn{background:#fff;color:var(--ink);border:none;padding:14px 32px;border-radius:8px;font-family:var(--sans);font-size:15px;font-weight:500;cursor:pointer;transition:opacity 0.2s}
+.unlock-btn:hover{opacity:0.88}
+.gate-small{font-size:11px;color:rgba(255,255,255,0.3);margin-top:12px}
+#ai-output{display:none;padding-top:40px;border-top:0.5px solid var(--border);margin-top:8px}
+#ai-loading{text-align:center;padding:40px 0}
+.loading-text{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ink-muted)}
+#ai-results{display:none}
+.ai-card{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:20px;margin-bottom:10px}
+.ai-card-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:10px;display:block}
+.ai-card-text{font-size:14px;font-weight:300;color:var(--ink);line-height:1.75}
+.next-step-card{border:0.5px solid var(--border);border-radius:12px;padding:20px;margin-bottom:10px;background:var(--white)}
+.next-step-num{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:4px}
+.next-step-title{font-size:16px;font-weight:500;color:var(--ink);margin-bottom:4px}
+.next-step-price{font-size:12px;color:var(--ink-muted);margin-bottom:8px}
+.next-step-rationale{font-size:13px;font-weight:300;color:var(--ink-mid);line-height:1.65;font-style:italic;border-left:2px solid var(--border-mid);padding-left:12px;margin-bottom:14px}
+.next-step-btn{display:inline-block;padding:10px 24px;background:var(--ink);color:var(--white);border:none;border-radius:8px;font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:0.10em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:opacity 0.2s}
+.next-step-btn:hover{opacity:0.82}
+.signal-placeholder{background:#F5F5FF;border:0.5px solid rgba(100,80,200,0.15);border-radius:10px;padding:14px 16px;margin-top:10px;font-size:12px;color:#5546B0;font-style:italic}
+.share-nudge{margin-top:32px;text-align:center;font-size:12px;color:var(--ink-muted);letter-spacing:0.06em}
+footer{border-top:0.5px solid var(--border);padding:40px 0 48px;margin-top:56px}
+.footer-network-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:14px}
+.footer-links{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.footer-link{font-size:12px;color:var(--ink-muted);background:var(--white);border:0.5px solid var(--border);border-radius:20px;padding:5px 14px;text-decoration:none;transition:border-color 0.2s,color 0.2s}
+.footer-link:hover{color:var(--ink);border-color:var(--border-mid)}
+.footer-copy{font-size:11px;color:var(--ink-faint)}
+@media(max-width:480px){.steps{grid-template-columns:1fr;gap:20px}.diagnosis-grid{grid-template-columns:1fr}}
+  #intelligence-overlay{display:none;position:fixed;inset:0;background:rgba(8,8,6,0.97);z-index:9999;flex-direction:column;align-items:center;justify-content:center;gap:16px;}
+  #intelligence-overlay.active{display:flex;}
+  .ov-eyebrow{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(184,151,90,0.6);}
+  .ov-title{font-family:var(--serif);font-size:clamp(20px,3.5vw,28px);font-style:italic;font-weight:300;color:#FAF8F5;text-align:center;max-width:440px;line-height:1.4;}
+  .ov-steps{display:flex;flex-direction:column;gap:8px;align-items:center;margin-top:6px;}
+  .ov-step{font-size:12px;letter-spacing:0.06em;color:rgba(250,248,245,0.25);transition:color 0.4s;opacity:0.3;}
+  .ov-step.active{color:rgba(184,151,90,0.9);opacity:1;}
+  .ov-step.done{color:rgba(250,248,245,0.45);opacity:0.45;}
+  .ov-bar{width:100px;height:1px;background:rgba(255,255,255,0.08);margin-top:10px;position:relative;overflow:hidden;}
+  .ov-bar::after{content:"";position:absolute;left:-100%;top:0;width:100%;height:100%;background:rgba(184,151,90,0.6);animation:ovslide 1.8s ease-in-out infinite;}
+  @keyframes ovslide{0%{left:-100%}50%{left:100%}100%{left:100%}}
+</style>
+</head>
+<body>
 
+<div id="intelligence-overlay">
+  <p class="ov-eyebrow">1LINE Career</p>
+  <p class="ov-title" id="ov-title">Reading your career situation...</p>
+  <div class="ov-steps">
+    <p class="ov-step" id="ovs-1">Reading your career situation...</p>
+    <p class="ov-step" id="ovs-2">Diagnosing transition type...</p>
+    <p class="ov-step" id="ovs-3">Identifying hidden strengths...</p>
+    <p class="ov-step" id="ovs-4">Building recruiter perspective...</p>
+    <p class="ov-step" id="ovs-5">Generating your career intelligence...</p>
+  </div>
+  <div class="ov-bar"></div>
+</div>
+
+<div class="page">
+
+<nav>
+  <a href="https://oi-ecosystem.github.io/1line" class="brand">1LINE Career</a>
+  <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" aria-label="1LINE">
+    <span class="n">1</span><span class="l">LINE</span>
+  </a>
+</nav>
+
+<section class="hero">
+  <a href="https://oi-ecosystem.github.io/b-useful/" target="_blank" rel="noopener" class="buseful-badge">
+    <span class="buseful-badge-text">B-<em>Useful</em></span>
+  </a>
+  <p class="hero-eyebrow">A 1LINE career utility</p>
+  <h1>Career clarity from<br>one sentence.</h1>
+  <p class="hero-sub">Describe where you are and where you want to be. 1LINE Career diagnoses your direction, positioning, skills gap and CV readiness — and tells you exactly what to do next.</p>
+</section>
+
+<section class="input-section">
+  <p class="input-prompt">Describe your career situation in one sentence.</p>
+  <p class="input-hint">Include where you are now and where you want to be. The more honest, the more precise the diagnosis.</p>
+
+  <div class="example-pills">
+    <span class="example-pill" onclick="setExample(this)">I am an accountant who wants to move into cybersecurity.</span>
+    <span class="example-pill" onclick="setExample(this)">I have been made redundant and do not know what to do next.</span>
+    <span class="example-pill" onclick="setExample(this)">I am a project manager who wants to become an independent consultant.</span>
+  </div>
+
+  <textarea
+    id="main-input"
+    maxlength="300"
+    oninput="countChars()"
+    spellcheck="true"
+    autocorrect="on"
+    autocomplete="off"
+    autocapitalize="sentences"
+    placeholder="I want to move from retail management into a digital marketing role at a tech company."
+  ></textarea>
+
+  <div class="char-counter">
+    <span>60 – 300 characters</span>
+    <span class="char-count" id="char-count">0</span>
+  </div>
+
+  <div class="spell-panel" id="spell-panel">
+    <p class="spell-heading">Some words may contain spelling errors.</p>
+    <p class="spell-corrected">Please review the red underlined words before continuing. Your wording affects the precision of the career diagnosis.</p>
+    <div class="spell-actions">
+      <button class="spell-btn ignore" onclick="spellReview()">Review Text</button>
+      <button class="spell-btn accept" onclick="spellContinue()">Continue Anyway</button>
+    </div>
+  </div>
+
+  <button class="generate-btn" id="generate-btn" disabled onclick="handleGenerate()">Diagnose My Career</button>
+  <p class="input-provenance">Everything derived from the exact words you enter. Nothing stored.</p>
+</section>
+
+<section class="how-section">
+  <p class="section-eyebrow">How it works</p>
+  <div class="steps">
+    <div class="step"><span class="step-num">1</span><p class="step-text">Describe where you are now and where you want to be — in one honest sentence.</p></div>
+    <div class="step"><span class="step-num">2</span><p class="step-text">1LINE Career diagnoses your direction, narrative, skills gap, CV readiness and confidence score.</p></div>
+    <div class="step"><span class="step-num">3</span><p class="step-text">Receive your diagnosis — and with unlock, a full career intelligence report with a recommended next step.</p></div>
+  </div>
+</section>
+
+<section id="output-section">
+  <p class="section-eyebrow">Your career diagnosis</p>
+
+  <div class="headline-verdict" id="out-verdict"></div>
+
+  <div class="diagnosis-grid">
+    <div class="diagnosis-item">
+      <div class="diagnosis-item-label">Career direction</div>
+      <div class="stars-row" id="stars-direction"></div>
+      <div class="diagnosis-label" id="label-direction"></div>
+    </div>
+    <div class="diagnosis-item">
+      <div class="diagnosis-item-label">Career narrative</div>
+      <div class="stars-row" id="stars-narrative"></div>
+      <div class="diagnosis-label" id="label-narrative"></div>
+    </div>
+    <div class="diagnosis-item">
+      <div class="diagnosis-item-label">Transferable skills</div>
+      <div class="stars-row" id="stars-skills"></div>
+      <div class="diagnosis-label" id="label-skills"></div>
+    </div>
+    <div class="diagnosis-item">
+      <div class="diagnosis-item-label">CV positioning</div>
+      <div class="stars-row" id="stars-cv"></div>
+      <div class="diagnosis-label" id="label-cv"></div>
+    </div>
+  </div>
+
+  <div class="out-card">
+    <span class="out-label">Biggest obstacle</span>
+    <div class="diagnosis-label" id="out-obstacle" style="font-style:normal;font-size:15px;color:var(--ink);font-weight:400;"></div>
+  </div>
+
+  <div class="out-card">
+    <span class="out-label">Direction confidence</span>
+    <div class="confidence-bar"><div class="confidence-fill" id="confidence-fill" style="width:0%"></div></div>
+    <div style="font-size:13px;font-weight:500;color:var(--ink);" id="confidence-pct"></div>
+    <div class="diagnosis-label" id="confidence-label"></div>
+  </div>
+
+  <div class="out-card">
+    <span class="out-label">CV readiness</span>
+    <div id="readiness-badge"></div>
+    <div class="diagnosis-label" id="readiness-label"></div>
+  </div>
+
+  <div class="out-card">
+    <span class="out-label">Transferable strengths detected</span>
+    <div class="skills-row" id="out-skills"></div>
+  </div>
+
+  <div class="out-card">
+    <span class="out-label">Suggested career keywords</span>
+    <div class="keywords-row" id="out-keywords"></div>
+  </div>
+</section>
+
+<div class="gate-section" id="career-gate">
+  <span class="gate-label">Unlock your full career intelligence</span>
+  <h2 class="gate-hed">The complete diagnosis.<br>Your exact next step.</h2>
+  <p class="gate-sub">Full career intelligence report — narrative analysis, missing evidence, recruiter's first impression, hidden strengths, three immediate actions and your recommended next product — determined by your diagnosis, not by us.</p>
+  <button class="unlock-btn" onclick="unlockCareer()">Unlock Full Career Report — £15</button>
+  <p class="gate-small">One-time · Instant · Nothing stored</p>
+</div>
+
+<section id="ai-output">
+  <div id="ai-loading" style="display:none;"></div>
+  <div id="ai-results">
+    <p class="section-eyebrow">Your full career intelligence</p>
+
+    <div class="ai-card">
+      <span class="ai-card-label">Career narrative</span>
+      <div class="ai-card-text" id="ai-narrative"></div>
+    </div>
+
+    <div class="ai-card">
+      <span class="ai-card-label">Recruiter's first impression</span>
+      <div class="ai-card-text" id="ai-recruiter"></div>
+    </div>
+
+    <div class="ai-card">
+      <span class="ai-card-label">Biggest hidden strength</span>
+      <div class="ai-card-text" id="ai-strength"></div>
+    </div>
+
+    <div class="ai-card">
+      <span class="ai-card-label">Missing evidence</span>
+      <div class="ai-card-text" id="ai-missing"></div>
+    </div>
+
+    <div class="ai-card">
+      <span class="ai-card-label">Three immediate actions</span>
+      <div id="ai-actions"></div>
+    </div>
+
+    <div class="ai-card" style="background:#FFFBF0;border-color:rgba(160,98,10,0.2);">
+      <span class="ai-card-label" style="color:var(--amber);">The one thing that will change everything</span>
+      <div class="ai-card-text" id="ai-one-thing" style="font-family:var(--serif);font-size:18px;font-weight:300;line-height:1.5;"></div>
+    </div>
+
+    <!-- SIGNAL INTELLIGENCE PLACEHOLDER -->
+    <div class="signal-placeholder" id="signal-block"></div>
+
+    <!-- RECOMMENDED NEXT STEPS -->
+    <div style="margin-top:32px;">
+      <p class="section-eyebrow">Your recommended next step</p>
+      <div id="ai-next-steps"></div>
+    </div>
+
+    <p class="share-nudge">Screenshot your career report to save it.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-network-label">Other <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:10px;"><span class="n">1</span><span class="l">LINE</span></a> utilities</div>
+  <div class="footer-links">
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/pitch/">1LINE Pitch — business positioning</a>
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/resolver/">1LINE Resolver — conflict clarity</a>
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/clarity/">1LINE Clarity — thinking clarity</a>
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/decide/">1LINE Decide — decision clarity</a>
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/bio/">1LINE Bio — identity compression</a>
+  </div>
+  <p class="footer-copy">&copy; 1LINE Career. A <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:11px;"><span class="n">1</span><span class="l">LINE</span></a> career utility. Everything derived from your exact words.</p>
+</footer>
+
+</div>
+
+<script>
+
+/* ── FLAGS ── */
+var PREMIUM_GATED   = true;
+var _spellWarned    = false;
+var _lastCountedVal = '';
+var _lastVal        = '';
+
+/* ── EXAMPLE PILLS ── */
+function setExample(el) {
+  var ta = document.getElementById('main-input');
+  ta.value = el.textContent.trim();
+  countChars();
+  ta.focus();
+}
+
+/* ── CHAR COUNTER ── */
+function countChars() {
+  var ta  = document.getElementById('main-input');
+  var cc  = document.getElementById('char-count');
+  var btn = document.getElementById('generate-btn');
+  if (!ta || !cc) return;
+  var len = ta.value.length;
+  cc.textContent = len;
+  cc.className = 'char-count' + (len >= 60 && len <= 300 ? ' valid' : len > 300 ? ' over' : '');
+  if (btn) btn.disabled = !(len >= 60 && len <= 300);
+  if (ta.value !== _lastCountedVal) {
+    _lastCountedVal = ta.value;
+    _spellWarned = false;
+    var p = document.getElementById('spell-panel');
+    if (p) p.className = 'spell-panel';
+  }
+}
+
+/* ── UNIVERSAL SPELL WARNING ── */
+function handleGenerate() {
+  var val = document.getElementById('main-input').value.trim();
+  if (val.length < 60 || val.length > 300) return;
+  if (!_spellWarned) {
+    _spellWarned = true;
+    document.getElementById('spell-panel').className = 'spell-panel visible';
+    var btn = document.getElementById('generate-btn');
+    if (btn) btn.disabled = true;
+    return;
+  }
+  _lastVal = val;
+  generateCareer(val);
+}
+function spellReview() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  document.getElementById('main-input').focus();
+}
+function spellContinue() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  var val = document.getElementById('main-input').value.trim();
+  _lastVal = val;
+  generateCareer(val);
+}
+
+/* ── HELPERS ── */
+function renderStars(containerId, score) {
+  var el = document.getElementById(containerId);
+  var html = '';
+  for (var i = 1; i <= 5; i++) {
+    html += '<span class="star ' + (i <= score ? 'filled' : 'empty') + '">&#9733;</span>';
+  }
+  el.innerHTML = html;
+}
+
+function charSum(str) {
+  return str.split('').reduce(function(a,c) {
+    var v = c.toLowerCase().charCodeAt(0);
+    return a + (v >= 97 && v <= 122 ? v - 96 : 0);
+  }, 0);
+}
+
+/* ── CAREER DETECTION ENGINE ── */
+
+var TRANSITION_MAP = [
+  { from:'account', to:'cyber',     type:'major', dirScore:4, narScore:1, skillScore:2, cvScore:1, confidence:72 },
+  { from:'retail',  to:'digital',   type:'major', dirScore:3, narScore:1, skillScore:3, cvScore:1, confidence:65 },
+  { from:'retail',  to:'market',    type:'major', dirScore:3, narScore:1, skillScore:3, cvScore:1, confidence:65 },
+  { from:'project', to:'consult',   type:'natural',dirScore:5, narScore:2, skillScore:4, cvScore:2, confidence:85 },
+  { from:'manage',  to:'direct',    type:'natural',dirScore:4, narScore:3, skillScore:4, cvScore:3, confidence:80 },
+  { from:'redund',  to:'',          type:'unclear',dirScore:1, narScore:1, skillScore:3, cvScore:2, confidence:30 },
+  { from:'teacher', to:'train',     type:'natural',dirScore:4, narScore:3, skillScore:4, cvScore:2, confidence:82 },
+  { from:'nurse',   to:'health',    type:'natural',dirScore:4, narScore:3, skillScore:4, cvScore:3, confidence:80 },
+  { from:'finance', to:'data',      type:'natural',dirScore:4, narScore:2, skillScore:3, cvScore:2, confidence:75 },
+  { from:'engineer','to':'product', type:'natural',dirScore:4, narScore:2, skillScore:4, cvScore:2, confidence:78 },
+];
+
+var SKILL_SIGNALS = {
+  'manager':    ['Team leadership','Stakeholder management','Budget ownership','Process improvement','Performance management'],
+  'account':    ['Financial analysis','Data accuracy','Client management','Reporting','Compliance'],
+  'project':    ['Project planning','Risk management','Stakeholder management','Budget control','Cross-functional leadership'],
+  'retail':     ['Customer management','Team leadership','Sales performance','Inventory management','Operational efficiency'],
+  'teacher':    ['Communication','Curriculum design','Stakeholder management','Performance assessment','Public speaking'],
+  'nurse':      ['Patient care','Clinical assessment','Crisis management','Documentation','Team coordination'],
+  'engineer':   ['Technical problem solving','Systems thinking','Documentation','Process optimisation','Analytical reasoning'],
+  'finance':    ['Financial modelling','Data analysis','Risk assessment','Stakeholder reporting','Regulatory compliance'],
+  'sales':      ['Client relationship management','Negotiation','Pipeline management','Revenue growth','Presentation skills'],
+  'marketing':  ['Campaign management','Data analysis','Audience targeting','Content strategy','Brand positioning'],
+  'consult':    ['Stakeholder management','Problem diagnosis','Presentation skills','Commercial awareness','Independent working'],
+  'design':     ['Creative direction','User empathy','Visual communication','Iterative refinement','Stakeholder feedback'],
+};
+
+var KEYWORD_UPGRADES = {
+  'manager':   { old:'Manager',    news:['Programme Manager','Operations Lead','Business Transformation Lead'] },
+  'account':   { old:'Accountant', news:['Financial Analyst','Risk and Compliance Specialist','Data Finance Lead'] },
+  'project':   { old:'Project Manager', news:['Programme Director','Delivery Lead','Transformation Manager'] },
+  'retail':    { old:'Retail Manager', news:['Operations Manager','Customer Experience Lead','Commercial Manager'] },
+  'teacher':   { old:'Teacher',    news:['Learning and Development Specialist','Training Consultant','Instructional Designer'] },
+  'sales':     { old:'Sales',      news:['Business Development Manager','Revenue Growth Specialist','Commercial Lead'] },
+  'marketing': { old:'Marketing',  news:['Growth Marketing Manager','Digital Strategy Lead','Brand Positioning Specialist'] },
+};
+
+var OBSTACLES = {
+  'major':   'Your experience is not the problem. Your positioning is — and that is fixable.',
+  'natural': 'The transition is natural but your CV probably does not tell that story yet.',
+  'unclear': 'Your direction is not yet clear. Clarifying the destination is the most important first step.',
+};
+
+var VERDICTS = {
+  'major':   'Your direction is clear. Your positioning is not.',
+  'natural': 'The move makes sense. Your story needs to lead with that.',
+  'unclear': 'You are not lost. You are between stories — and that is a solvable problem.',
+};
+
+function detectTransition(str) {
+  var lower = str.toLowerCase();
+  var match = null;
+  for (var i = 0; i < TRANSITION_MAP.length; i++) {
+    var t = TRANSITION_MAP[i];
+    var fromMatch = t.from === '' || lower.indexOf(t.from) !== -1;
+    var toMatch   = t.to === ''   || lower.indexOf(t.to)   !== -1;
+    if (fromMatch && toMatch) { match = t; break; }
+  }
+  if (!match) {
+    var seed = charSum(str) % 3;
+    var types = ['major','natural','unclear'];
+    var type = types[seed];
+    match = { type: type, dirScore: type==='unclear'?1:3, narScore:2, skillScore:3, cvScore:2, confidence: 55 + (charSum(str) % 25) };
+  }
+  return match;
+}
+
+function detectSkills(str) {
+  var lower = str.toLowerCase();
+  var found = [];
+  var keys = Object.keys(SKILL_SIGNALS);
+  for (var i = 0; i < keys.length; i++) {
+    if (lower.indexOf(keys[i]) !== -1) {
+      found = found.concat(SKILL_SIGNALS[keys[i]]);
+    }
+  }
+  if (found.length === 0) {
+    found = ['Stakeholder management','Communication','Problem solving','Analytical thinking','Operational delivery'];
+  }
+  var unique = [];
+  for (var j = 0; j < found.length; j++) {
+    if (unique.indexOf(found[j]) === -1) unique.push(found[j]);
+  }
+  return unique.slice(0, 5);
+}
+
+function detectKeywords(str) {
+  var lower = str.toLowerCase();
+  var keys = Object.keys(KEYWORD_UPGRADES);
+  for (var i = 0; i < keys.length; i++) {
+    if (lower.indexOf(keys[i]) !== -1) {
+      return KEYWORD_UPGRADES[keys[i]];
+    }
+  }
+  return { old: 'Generic title', news: ['Senior Specialist','Lead Consultant','Strategic Advisor'] };
+}
+
+function getReadiness(transition) {
+  if (transition.cvScore >= 3) return { label:'Ready', css:'readiness-green', dot:'●', text:'Your CV could be submitted now, though targeted optimisation would improve results.' };
+  if (transition.cvScore === 2) return { label:'Needs restructuring', css:'readiness-amber', dot:'●', text:'Your CV needs repositioning for this transition. The content is there — the story is not.' };
+  return { label:'Complete rewrite recommended', css:'readiness-red', dot:'●', text:'Your current CV will likely not be read as a career change CV. A full rewrite is the right starting point.' };
+}
+
+function getRecommendation(transition) {
+  if (transition.type === 'unclear') {
+    return { primary: null, verdict: 'Start with career clarity before a CV rewrite. The direction determines everything else.' };
+  }
+  if (transition.cvScore <= 2 && transition.narScore <= 2) {
+    return {
+      primary: 'quickstart',
+      verdict: 'Your direction is clear. The narrative and positioning are not — and that is what Resume QuickStart solves.'
+    };
+  }
+  if (transition.type === 'major') {
+    return {
+      primary: 'pro',
+      verdict: 'A major career transition needs a CV that is built around the new direction — not just updated. Resume Pro is the right tool.'
+    };
+  }
+  return {
+    primary: 'quickstart',
+    verdict: 'Your experience supports this move. Resume QuickStart will build the narrative that connects the two.'
+  };
+}
+
+/* ── MAIN GENERATE ── */
+function generateCareer(val) {
+  _lastVal = val;
+  var transition = detectTransition(val);
+  var skills     = detectSkills(val);
+  var keywords   = detectKeywords(val);
+  var readiness  = getReadiness(transition);
+
+  /* Stars */
+  renderStars('stars-direction', transition.dirScore);
+  renderStars('stars-narrative', transition.narScore);
+  renderStars('stars-skills',    transition.skillScore);
+  renderStars('stars-cv',        transition.cvScore);
+
+  /* Labels */
+  var dirLabels = ['Direction is unclear.','Direction beginning to form.','Direction present but incomplete.','Direction is clear, route is not.','Very clear direction.'];
+  var narLabels = ['No narrative yet.','Narrative is weak.','Narrative is forming.','Narrative is there, not sharp enough.','Narrative is strong.'];
+  var skillLabels = ['Skills not yet clear.','Some transferable skills.','Solid transferable skills.','Strong transferable skills.','Exceptional skills to build on.'];
+  var cvLabels = ['CV will not work for this move.','CV needs full repositioning.','CV needs targeted restructuring.','CV is mostly there.','CV is well positioned.'];
+
+  document.getElementById('label-direction').textContent = dirLabels[Math.min(transition.dirScore-1, 4)];
+  document.getElementById('label-narrative').textContent  = narLabels[Math.min(transition.narScore-1, 4)];
+  document.getElementById('label-skills').textContent     = skillLabels[Math.min(transition.skillScore-1, 4)];
+  document.getElementById('label-cv').textContent         = cvLabels[Math.min(transition.cvScore-1, 4)];
+
+  /* Verdict */
+  document.getElementById('out-verdict').textContent = VERDICTS[transition.type];
+
+  /* Obstacle */
+  document.getElementById('out-obstacle').textContent = OBSTACLES[transition.type];
+
+  /* Confidence */
+  document.getElementById('confidence-fill').style.width = transition.confidence + '%';
+  document.getElementById('confidence-pct').textContent  = transition.confidence + '%';
+  var confText = transition.confidence >= 75 ? 'You appear to know where you want to go. Your execution is what needs work.'
+    : transition.confidence >= 50 ? 'You have a direction but it needs sharpening before you act on it.'
+    : 'Your direction needs clarifying before your CV or applications will land.';
+  document.getElementById('confidence-label').textContent = confText;
+
+  /* Readiness */
+  document.getElementById('readiness-badge').innerHTML = '<span class="readiness-badge ' + readiness.css + '">' + readiness.dot + ' ' + readiness.label + '</span>';
+  document.getElementById('readiness-label').textContent = readiness.text;
+
+  /* Skills */
+  document.getElementById('out-skills').innerHTML = skills.map(function(s) {
+    return '<span class="skill-tag">' + s + '</span>';
+  }).join('');
+
+  /* Keywords */
+  var kw = keywords;
+  var kwHtml = '<span class="keyword-old">' + kw.old + '</span> &rarr; ';
+  kwHtml += kw.news.map(function(n) { return '<span class="keyword-new">' + n + '</span>'; }).join(' ');
+  document.getElementById('out-keywords').innerHTML = kwHtml;
+
+  /* Show */
+  var section = document.getElementById('output-section');
+  section.className = 'visible';
+  document.getElementById('career-gate').style.display = 'block';
+  section.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+/* ── PAYMENT ── */
+function unlockCareer() {
+  if (PREMIUM_GATED) {
+    sessionStorage.setItem('career_data', JSON.stringify({ val: _lastVal }));
+    window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/5c9e5a9c-558c-4c0b-a0ea-b43c93e2dc8d';
+    return;
+  }
+  runAICareer(_lastVal);
+}
+
+/* ── AI ── */
+var _OV_MSGS = [
+  'Reading your career situation...',
+  'Diagnosing transition type...',
+  'Identifying hidden strengths...',
+  'Building recruiter perspective...',
+  'Generating your career intelligence...'
+];
+
+function runAICareer(val) {
+  document.getElementById('career-gate').style.display = 'none';
+  document.getElementById('ai-results').style.display = 'none';
+
+  var transition = detectTransition(val);
+  var rec        = getRecommendation(transition);
+
+  showOverlay(function() {
+    document.getElementById('ai-output').style.display = 'block';
+
+  var system = 'You are an expert career strategist and CV specialist. You receive a one-sentence career aspiration and produce a deeply specific, actionable career intelligence report. Be honest, direct and specific — never generic. You are not a motivational coach. You are a diagnostician. Respond ONLY in valid JSON, no markdown, no preamble.';
+
+  var prompt = 'Career situation: "' + val + '"\n\nReturn ONLY:\n{\n  "narrative": "The career story this person needs to tell. 2-3 sentences. What should recruiters immediately understand?",\n  "recruiter": "What a recruiter would assume if they saw this person\'s CV today, before any changes. 2 honest sentences.",\n  "strength": "The biggest hidden strength this person likely has but probably does not describe that way. 1-2 sentences.",\n  "missing": "The most important missing evidence recruiters will look for. 2 sentences.",\n  "actions": ["Action 1 — specific and immediate", "Action 2 — specific and immediate", "Action 3 — specific and immediate"],\n  "oneThing": "The single most important thing that will change their career trajectory. One powerful sentence."\n}';
+
+    fetch('https://rcloop-proxy.vercel.app/api/ai', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ system: system, prompt: prompt })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var text = data.content && data.content[0] ? data.content[0].text : '';
+      var clean = text.replace(/```json/g,'').replace(/```/g,'').trim();
+      var start = clean.indexOf('{'); var end = clean.lastIndexOf('}');
+      if (start !== -1 && end !== -1) clean = clean.substring(start, end+1);
+      var d = JSON.parse(clean);
+      renderAICareer(d, rec);
+    })
+    .catch(function() {
+      hideOverlay();
+      alert('Something went wrong. Please try again.');
+      document.getElementById('career-gate').style.display = 'block';
+    });
+  }); /* end showOverlay callback */
+}
+
+function renderAICareer(d, rec) {
+  document.getElementById('ai-results').style.display = 'block';
+
+  document.getElementById('ai-narrative').textContent = d.narrative || '';
+  document.getElementById('ai-recruiter').textContent = d.recruiter || '';
+  document.getElementById('ai-strength').textContent  = d.strength  || '';
+  document.getElementById('ai-missing').textContent   = d.missing   || '';
+  document.getElementById('ai-one-thing').textContent = d.oneThing  || '';
+
+  var actHtml = '';
+  (d.actions || []).forEach(function(a, i) {
+    actHtml += '<div style="display:flex;gap:10px;margin-bottom:8px;">'
+      + '<span style="font-size:12px;font-weight:500;color:var(--ink-muted);min-width:18px;">' + (i+1) + '</span>'
+      + '<span style="font-size:14px;font-weight:300;color:var(--ink-mid);line-height:1.6;">' + a + '</span>'
+      + '</div>';
+  });
+  document.getElementById('ai-actions').innerHTML = actHtml;
+
+  /* Signal Intelligence placeholder */
+  document.getElementById('signal-block').innerHTML = '&#9889; Signal Intelligence — once live, this report will include current hiring demand signals for your target field.';
+
+  /* Recommended next steps — deterministic based on diagnosis */
+  var nextHtml = '';
+  if (rec.verdict) {
+    nextHtml += '<div style="font-size:14px;font-style:italic;color:var(--ink-mid);border-left:2px solid var(--border-mid);padding-left:14px;margin-bottom:20px;line-height:1.65;">' + rec.verdict + '</div>';
+  }
+
+  if (rec.primary === 'quickstart' || rec.primary === 'pro') {
+    nextHtml += '<div class="next-step-card">'
+      + '<div class="next-step-num">Next step 1</div>'
+      + '<div class="next-step-title">RC Loop Resume QuickStart</div>'
+      + '<div class="next-step-price">£49</div>'
+      + '<div class="next-step-rationale">Build the correct career narrative before you rewrite your CV. Without the right story, the best-formatted CV will not land.</div>'
+      + '<a class="next-step-btn" href="https://oi-ecosystem.github.io/rcloop/" target="_blank" rel="noopener">Start Resume QuickStart</a>'
+      + '</div>';
+  }
+
+  if (rec.primary === 'pro') {
+    nextHtml += '<div class="next-step-card" style="margin-top:10px;">'
+      + '<div class="next-step-num">Next step 2</div>'
+      + '<div class="next-step-title">RC Loop Resume Pro</div>'
+      + '<div class="next-step-price">£99</div>'
+      + '<div class="next-step-rationale">Generate an ATS-ready CV built around your new career positioning — not just an updated version of the old one.</div>'
+      + '<a class="next-step-btn" href="https://oi-ecosystem.github.io/rcloop/" target="_blank" rel="noopener">Explore Resume Pro</a>'
+      + '</div>';
+  }
+
+  if (rec.primary === null) {
+    nextHtml += '<div class="next-step-card">'
+      + '<div class="next-step-num">Where to start</div>'
+      + '<div class="next-step-title">1LINE Clarity</div>'
+      + '<div class="next-step-price">Free to start</div>'
+      + '<div class="next-step-rationale">Before a CV rewrite, use 1LINE Clarity to structure your thinking and identify the clearest direction forward.</div>'
+      + '<a class="next-step-btn" href="https://oi-ecosystem.github.io/1line/clarity/" target="_blank" rel="noopener">Try 1LINE Clarity</a>'
+      + '</div>';
+  }
+
+  document.getElementById('ai-next-steps').innerHTML = nextHtml;
+  document.getElementById('ai-output').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+/* ── RETURN FROM PAYMENT ── */
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.location.search.indexOf('unlocked=true') !== -1) {
+    var stored = sessionStorage.getItem('career_data');
+    if (stored) {
+      try {
+        var d = JSON.parse(stored);
+        if (d.val) {
+          var ta = document.getElementById('main-input');
+          if (ta) { ta.value = d.val; countChars(); }
+          _lastVal = d.val;
+          generateCareer(d.val);
+          runAICareer(d.val);
+        }
+      } catch(e) {}
+    }
+  }
+});
+
+
+/* ── INTELLIGENCE OVERLAY ── */
+function showOverlay(onComplete) {
+  var overlay = document.getElementById('intelligence-overlay');
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  var steps = document.querySelectorAll('.ov-step');
+  steps.forEach(function(s) { s.className = 'ov-step'; });
+  var i = 0;
+  function next() {
+    if (i < steps.length) {
+      steps[i].classList.add('active');
+      document.getElementById('ov-title').textContent = _OV_MSGS[i];
+      if (i > 0) { steps[i-1].classList.remove('active'); steps[i-1].classList.add('done'); }
+      i++;
+      setTimeout(next, 520);
+    } else {
+      setTimeout(function() { hideOverlay(); if (onComplete) onComplete(); }, 300);
+    }
+  }
+  next();
+}
+function hideOverlay() {
+  var overlay = document.getElementById('intelligence-overlay');
+  overlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+</script>
+
+<!-- GoatCounter Analytics -->
+<script data-goatcounter="https://signal333.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
