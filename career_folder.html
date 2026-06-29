@@ -1,0 +1,582 @@
+<!-- 1LINE Career Overview v1.0 | Updated: 29 Jun 2026 | Built from Gift folder template -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1LINE Career — Career clarity from one sentence.</title>
+<meta name="description" content="Describe where you are and where you want to be in one sentence. 1LINE Career diagnoses your direction, positioning, skills gap and CV readiness instantly.">
+<meta property="og:title" content="1LINE Career — Career clarity from one sentence.">
+<meta property="og:description" content="One sentence. Instant career diagnosis. Direction, positioning, skills gap and CV readiness.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://oi-ecosystem.github.io/1line/career_folder.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F7F5F0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F5F0;
+    --bg-card: #FFFFFF;
+    --ink: #1A1916;
+    --ink-2: #4A4840;
+    --ink-3: #8A877E;
+    --rule: rgba(26,25,22,0.10);
+    --accent: #2A2623;
+    --accent-warm: #C4855A;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --max: 1120px;
+    --r: 6px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* BACK LINK */
+  .topbar {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 1.6rem 2rem 0;
+  }
+  .back-link {
+    font-size: 0.82rem;
+    color: var(--ink-3);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s, gap 0.2s;
+  }
+  .back-link:hover { color: var(--ink); gap: 0.6rem; }
+
+  /* BUSEFUL BADGE */
+  .buseful-badge {
+    display: inline-flex;
+    align-items: center;
+    background: #1A2744;
+    border-radius: 5px;
+    padding: 6px 14px 6px 12px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .buseful-badge:hover { opacity: 0.82; }
+  .buseful-badge-text {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #FFFFFF;
+    letter-spacing: 0.02em;
+  }
+  .buseful-badge-text em { font-style: italic; color: #C4A96A; }
+
+  section { padding: 4.5rem 2rem; }
+  .container { max-width: 760px; margin: 0 auto; }
+  .container-wide { max-width: var(--max); margin: 0 auto; }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 1.2rem;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 3rem 2rem 4rem;
+    text-align: center;
+  }
+  .hero-inner { max-width: 720px; margin: 0 auto; }
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 1.4rem;
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 1.2rem;
+  }
+  .hero-title .accent { color: #1A7FE8; }
+  .hero-oneline {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+    color: var(--ink-2);
+    line-height: 1.4;
+    max-width: 540px;
+    margin: 0 auto 2.4rem;
+  }
+  .hero-cta-wrap { margin-top: 0.5rem; }
+
+  /* BUTTONS */
+  .btn-run {
+    background: var(--ink);
+    color: #F7F5F0;
+    border: none;
+    padding: 1rem 2.4rem;
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    border-radius: var(--r);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-run:hover { background: #2e2b28; transform: translateY(-1px); }
+  .btn-run .arrow { transition: transform 0.2s; }
+  .btn-run:hover .arrow { transform: translateX(3px); }
+
+  /* WHAT IT DOES */
+  .does { background: var(--bg); border-top: 1px solid var(--rule); }
+  .does-headline {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.4rem;
+  }
+  .does-body {
+    color: var(--ink-2);
+    font-weight: 300;
+    font-size: 1.08rem;
+    line-height: 1.78;
+  }
+  .does-body p + p { margin-top: 1.1rem; }
+
+  /* EXAMPLE INPUT */
+  .example-in { background: white; border-top: 1px solid var(--rule); }
+  .input-card {
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent-warm);
+    border-radius: var(--r);
+    padding: 1.8rem 2rem;
+    margin-top: 0.4rem;
+  }
+  .input-card-quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.3rem, 2.8vw, 1.7rem);
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  /* EXAMPLE OUTPUTS — adaptive 1/2/3 layout, natural image ratios preserved */
+  .example-out { background: var(--bg); border-top: 1px solid var(--rule); }
+  .shots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1.4rem;
+    margin-top: 0.4rem;
+  }
+  /* Each shot takes an equal share; max-width keeps a single shot from over-stretching */
+  .shot {
+    flex: 1 1 280px;
+    max-width: 380px;
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+  }
+  /* 1 screenshot = centred & a touch larger; 2 = side-by-side; 3 = three-column (flex handles all) */
+  .shots[data-count="1"] .shot { max-width: 440px; }
+  .shot img { width: 100%; height: auto; display: block; cursor: zoom-in; }
+  .shots-note {
+    font-size: 0.82rem;
+    color: var(--ink-3);
+    font-weight: 300;
+    margin-top: 1.4rem;
+    text-align: center;
+  }
+
+  /* LIGHTBOX — minimal click-to-inspect, reusable across all product pages */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem;
+    background: rgba(20,19,17,0.82);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.22s ease;
+  }
+  .lightbox.open { display: flex; opacity: 1; }
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 88vh;
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 20px 70px rgba(0,0,0,0.5);
+    cursor: default;
+  }
+  .lightbox-close {
+    position: fixed;
+    top: 1.4rem;
+    right: 1.6rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(247,245,240,0.35);
+    background: rgba(20,19,17,0.4);
+    color: #F7F5F0;
+    font-family: var(--sans);
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .lightbox-close:hover { background: rgba(247,245,240,0.12); border-color: rgba(247,245,240,0.6); }
+
+  /* WHAT YOU RECEIVE */
+  .receive { background: white; border-top: 1px solid var(--rule); }
+  .receive-list {
+    list-style: none;
+    margin-top: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.95rem;
+  }
+  .receive-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--ink-2);
+    line-height: 1.6;
+  }
+  .receive-list .tick {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: rgba(26,127,232,0.1);
+    color: #1A7FE8;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem;
+    margin-top: 0.25rem;
+  }
+
+  /* FREE TEASER */
+  .teaser { background: var(--bg); border-top: 1px solid var(--rule); }
+  .teaser-card {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 2rem 2.2rem;
+    margin-top: 0.4rem;
+  }
+  .teaser-card p {
+    color: var(--ink-2);
+    font-weight: 300;
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+  .teaser-card p + p { margin-top: 0.9rem; }
+  .teaser-flow {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.6rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .flow-step {
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--ink-2);
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 2rem;
+    padding: 0.45rem 1rem;
+  }
+  .flow-arrow { color: var(--ink-3); font-size: 0.9rem; }
+
+  /* FINAL CTA */
+  .final { background: var(--ink); border-top: 1px solid var(--rule); text-align: center; padding: 6rem 2rem; }
+  .final-headline {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    color: white;
+    margin-bottom: 1rem;
+  }
+  .final-sub {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(247,245,240,0.6);
+    max-width: 420px;
+    margin: 0 auto 2.4rem;
+    line-height: 1.7;
+  }
+  .btn-run-light {
+    background: #F7F5F0;
+    color: var(--ink);
+    border: none;
+    padding: 1rem 2.6rem;
+    font-family: var(--sans);
+    font-size: 1.05rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    border-radius: var(--r);
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-run-light:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(0,0,0,0.25); }
+  .btn-run-light .arrow { transition: transform 0.2s; }
+  .btn-run-light:hover .arrow { transform: translateX(3px); }
+
+  /* FOOTER */
+  footer {
+    background: white;
+    border-top: 1px solid var(--rule);
+    padding: 2.6rem 2rem;
+  }
+  .footer-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+  }
+  .footer-logo {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .footer-copy { font-size: 0.78rem; color: var(--ink-3); font-weight: 300; }
+
+  /* SUBTLE PAGE GRAIN */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    z-index: 0;
+  }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow { animation: fadeUp 0.6s ease both; }
+  .hero-title   { animation: fadeUp 0.7s 0.1s ease both; }
+  .hero-oneline { animation: fadeUp 0.7s 0.2s ease both; }
+  .hero-cta-wrap { animation: fadeUp 0.7s 0.3s ease both; }
+
+  @media (max-width: 768px) {
+    section { padding: 3.5rem 1.25rem; }
+    .topbar { padding: 1.25rem 1.25rem 0; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+    .teaser-card, .input-card { padding: 1.5rem 1.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a href="https://oi-ecosystem.github.io/1line/" class="back-link">&larr; All 1LINE'ers</a>
+</div>
+
+<!-- 1 + 2 — HERO: NAME + ONE-LINE EXPLANATION -->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">1LINE Utility</p>
+    <h1 class="hero-title">1<span class="accent">LINE</span> Career</h1>
+    <p class="hero-oneline">Describe where you are and where you want to be. One sentence returns your full career diagnosis.</p>
+    <div class="hero-cta-wrap">
+      <a href="https://oi-ecosystem.github.io/1line/career/" class="btn-run">Run Career <span class="arrow">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- 3 — WHAT IT DOES -->
+<section class="does">
+  <div class="container reveal">
+    <p class="section-label">What it does</p>
+    <h2 class="does-headline">Career clarity from one honest sentence.</h2>
+    <div class="does-body">
+      <p>Most career advice is generic. Most career tools ask you to fill in twenty fields before giving you anything back. 1LINE Career is different. Describe where you are and where you want to be in one sentence — the system reads the signals and returns a diagnostic in seconds.</p>
+      <p>Direction confidence. CV readiness. Transferable strengths. Biggest obstacle. Recommended keywords. All extracted from one honest line. If you want to go deeper, unlock the full AI report for a complete career narrative and immediate action plan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 — EXAMPLE INPUT -->
+<section class="example-in">
+  <div class="container reveal">
+    <p class="section-label">Example input</p>
+    <div class="input-card">
+      <p class="input-card-quote">&ldquo;I am a secondary school teacher looking to move into corporate training.&rdquo;</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6 — WHAT YOU RECEIVE -->
+<section class="receive">
+  <div class="container reveal">
+    <p class="section-label">What you receive</p>
+    <ul class="receive-list">
+      <li><span class="tick">&#10003;</span> Headline career verdict — direction confidence rating</li>
+      <li><span class="tick">&#10003;</span> CV readiness badge — green, amber or red with rationale</li>
+      <li><span class="tick">&#10003;</span> Transferable strengths detected from your background</li>
+      <li><span class="tick">&#10003;</span> Biggest obstacle identified — specific to your transition type</li>
+      <li><span class="tick">&#10003;</span> Suggested career keywords — old title upgraded to new alternatives</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 7 — FREE TEASER EXPLANATION -->
+<section class="teaser">
+  <div class="container reveal">
+    <p class="section-label">Try it first</p>
+    <div class="teaser-card">
+      <p>You don't have to commit blind. Enter your career situation and 1LINE Career returns a free diagnostic — direction confidence, CV readiness and your biggest obstacle, instantly.</p>
+      <p>If it resonates, unlock the full AI report for £15. Career narrative, recruiter perspective, hidden strengths, missing evidence and three immediate actions. The free output sets the expectation; the decision is entirely yours.</p>
+      <div class="teaser-flow">
+        <span class="flow-step">Describe your career situation</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-step">See a free career diagnosis</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-step">Unlock the full AI report for £15</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 — FINAL CTA -->
+<section class="final">
+  <div class="container reveal">
+    <h2 class="final-headline">One sentence. Your full career diagnosis.</h2>
+    <p class="final-sub">Free to start. No CV required. No signup.</p>
+    <a href="https://oi-ecosystem.github.io/1line/career/" class="btn-run-light">Run Career <span class="arrow">&rarr;</span></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div style="display:flex; flex-direction:column; gap:0.35rem;">
+      <a class="footer-logo" href="https://oi-ecosystem.github.io/1line/">1LINE</a>
+      <p class="footer-copy">&copy; 2026 1LINE Career. Everything derived from your exact words.</p>
+    </div>
+    <a href="https://oi-ecosystem.github.io/b-useful/" target="_blank" rel="noopener" class="buseful-badge" aria-label="Part of the B-Useful brand">
+      <span class="buseful-badge-text">B-<em>Useful</em></span>
+    </a>
+  </div>
+</footer>
+
+<!-- LIGHTBOX (reusable across all product pages) -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<!-- Intersection Observer for reveal animations -->
+<script>
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+</script>
+
+<!-- Lightbox: click any .lb-trigger image to inspect. Close via outside-click, ESC, or button. -->
+<script>
+(function() {
+  var lb      = document.getElementById('lightbox');
+  var lbImg   = document.getElementById('lightboxImg');
+  var lbClose = document.getElementById('lightboxClose');
+
+  function open(src, alt) {
+    lbImg.setAttribute('src', src);
+    lbImg.setAttribute('alt', alt || '');
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    lbImg.setAttribute('src', '');
+  }
+
+  var triggers = document.querySelectorAll('.lb-trigger');
+  triggers.forEach(function(img) {
+    img.addEventListener('click', function() { open(img.getAttribute('src'), img.getAttribute('alt')); });
+    img.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img.getAttribute('src'), img.getAttribute('alt')); }
+    });
+  });
+
+  lbClose.addEventListener('click', close);
+  lb.addEventListener('click', function(e) { if (e.target === lb) close(); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && lb.classList.contains('open')) close(); });
+})();
+</script>
+
+<!-- GoatCounter Analytics -->
+<script data-goatcounter="https://signal333.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
