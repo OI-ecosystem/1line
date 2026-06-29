@@ -1,4 +1,4 @@
-<!-- 1LINE Career v1.3 | Updated: 28 Jun 2026 | RC Loop prices updated to £49 and £99 -->
+<!-- 1LINE Career v1.4 | Updated: 29 Jun 2026 | View switching — input hides on free output, free output hides on AI results -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -607,11 +607,12 @@ function generateCareer(val) {
   kwHtml += kw.news.map(function(n) { return '<span class="keyword-new">' + n + '</span>'; }).join(' ');
   document.getElementById('out-keywords').innerHTML = kwHtml;
 
-  /* Show */
+  /* Show free output — hide input */
+  document.querySelector('.input-section').style.display = 'none';
   var section = document.getElementById('output-section');
   section.className = 'visible';
   document.getElementById('career-gate').style.display = 'block';
-  section.scrollIntoView({ behavior:'smooth', block:'start' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 /* ── PAYMENT ── */
@@ -670,7 +671,12 @@ function runAICareer(val) {
 }
 
 function renderAICareer(d, rec) {
+  /* Hide free output and gate — show only AI results */
+  document.getElementById('output-section').style.display = 'none';
+  document.getElementById('career-gate').style.display = 'none';
+  document.getElementById('ai-output').style.display = 'block';
   document.getElementById('ai-results').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 
   document.getElementById('ai-narrative').textContent = d.narrative || '';
   document.getElementById('ai-recruiter').textContent = d.recruiter || '';
@@ -727,7 +733,7 @@ function renderAICareer(d, rec) {
   }
 
   document.getElementById('ai-next-steps').innerHTML = nextHtml;
-  document.getElementById('ai-output').scrollIntoView({ behavior:'smooth', block:'start' });
+  /* view switched to top in renderAICareer */
 }
 
 /* ── RETURN FROM PAYMENT ── */
