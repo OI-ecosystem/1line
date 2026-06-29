@@ -1,4 +1,4 @@
-<!-- 1LINE Career v1.4 | Updated: 29 Jun 2026 | View switching — input hides on free output, free output hides on AI results -->
+<!-- 1LINE Career v1.5 | Updated: 29 Jun 2026 | View switching + overlay stays until results ready -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -161,7 +161,7 @@ footer{border-top:0.5px solid var(--border);padding:40px 0 48px;margin-top:56px}
   </a>
 </nav>
 
-<section class="hero">
+<section class="hero" id="hero-section">
   <a href="https://oi-ecosystem.github.io/b-useful/" target="_blank" rel="noopener" class="buseful-badge">
     <span class="buseful-badge-text">B-<em>Useful</em></span>
   </a>
@@ -209,7 +209,7 @@ footer{border-top:0.5px solid var(--border);padding:40px 0 48px;margin-top:56px}
   <p class="input-provenance">Everything derived from the exact words you enter. Nothing stored.</p>
 </section>
 
-<section class="how-section">
+<section class="how-section" id="how-section">
   <p class="section-eyebrow">How it works</p>
   <div class="steps">
     <div class="step"><span class="step-num">1</span><p class="step-text">Describe where you are now and where you want to be — in one honest sentence.</p></div>
@@ -607,8 +607,10 @@ function generateCareer(val) {
   kwHtml += kw.news.map(function(n) { return '<span class="keyword-new">' + n + '</span>'; }).join(' ');
   document.getElementById('out-keywords').innerHTML = kwHtml;
 
-  /* Show free output — hide input */
+  /* Show free output — hide input views */
+  document.getElementById('hero-section').style.display = 'none';
   document.querySelector('.input-section').style.display = 'none';
+  document.getElementById('how-section').style.display = 'none';
   var section = document.getElementById('output-section');
   section.className = 'visible';
   document.getElementById('career-gate').style.display = 'block';
@@ -671,12 +673,14 @@ function runAICareer(val) {
 }
 
 function renderAICareer(d, rec) {
-  /* Hide free output and gate — show only AI results */
+  /* Hide all input / free output views */
+  document.getElementById('hero-section').style.display = 'none';
+  document.querySelector('.input-section').style.display = 'none';
+  document.getElementById('how-section').style.display = 'none';
   document.getElementById('output-section').style.display = 'none';
   document.getElementById('career-gate').style.display = 'none';
   document.getElementById('ai-output').style.display = 'block';
   document.getElementById('ai-results').style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 
   document.getElementById('ai-narrative').textContent = d.narrative || '';
   document.getElementById('ai-recruiter').textContent = d.recruiter || '';
@@ -733,7 +737,9 @@ function renderAICareer(d, rec) {
   }
 
   document.getElementById('ai-next-steps').innerHTML = nextHtml;
-  /* view switched to top in renderAICareer */
+  /* Overlay dismisses here — after all DOM content is written */
+  hideOverlay();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 /* ── RETURN FROM PAYMENT ── */
@@ -772,7 +778,9 @@ function showOverlay(onComplete) {
       i++;
       setTimeout(next, 520);
     } else {
-      setTimeout(function() { hideOverlay(); if (onComplete) onComplete(); }, 300);
+      /* Keep overlay active — update message while API call runs */
+      document.getElementById('ov-title').textContent = 'Building your career intelligence…';
+      if (onComplete) onComplete();
     }
   }
   next();
