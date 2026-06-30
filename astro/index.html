@@ -1,4 +1,4 @@
-<!-- 1LINE Astro v3.6 | Updated: 29 Jun 2026 | Synthesis-driven system prompt, Pattern That Repeats, Three Questions, elegant Translation bridge -->
+<!-- 1LINE Astro v3.7 | Updated: 29 Jun 2026 | Fixed Compass premium-output not displaying after payment - view switching bug -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -1031,7 +1031,16 @@ function fireAI(tier){
   loadDiv.id='ai-loader';
   loadDiv.style.cssText='text-align:center;padding:40px 0;font-family:var(--serif);font-style:italic;color:var(--ink-muted);font-size:18px;border-top:0.5px solid var(--border);';
   loadDiv.textContent=tier==='forecast'?'Generating your annual forecast...':tier==='compatibility'?'Generating compatibility report...':tier==='compass_career'?'Reading your symbolic work signature...':tier==='compass_lifestory'?'Tracing the thread through your story...':tier==='compass_askastro'?'Consulting your chart...':'Generating your full report...';
-  document.getElementById('free-output').appendChild(loadDiv);
+  if(tier==='compass_career'||tier==='compass_lifestory'||tier==='compass_askastro'){
+    /* Compass tiers use discrete view switching - show loading view explicitly */
+    document.getElementById('view-compass').classList.remove('active');
+    document.getElementById('view-results').classList.remove('active');
+    var loadView=document.getElementById('compass-loading');
+    loadView.classList.add('active');
+    loadView.appendChild(loadDiv);
+  }else{
+    document.getElementById('free-output').appendChild(loadDiv);
+  }
   var d=_calc;
   var base='BIRTH DATA: Date: '+d.day+'/'+d.month+'/'+d.year+' Zodiac: '+d.zod.sign+' ('+d.elem+') Life Path: '+d.lp+' - '+d.lpData.name+' Personal Year: '+d.py+' - '+d.pyTheme+' Archetype: '+d.arch+' Age: '+d.age+(d.exp?' Expression Number: '+d.exp:'')+(d.rising?' Rising Sign: '+d.rising:'')+(d.name?' Name: '+d.name:'')+(d.challenge?' Current situation: '+d.challenge:'');
   var system='You are a premium astrology and numerology intelligence analyst for 1LINE Astro. Synthesise astrology and numerology into grounded, intelligent, psychologically precise profiles. Tone is analytical and observational - never vague, never generic, never mystical. Every insight must feel specific to this persons exact numbers. Respond ONLY in valid JSON. No markdown fences.';
@@ -1183,6 +1192,13 @@ function renderOutput(tier,p){
   html+='<div class="action-row"><button class="btn-sec primary" onclick="downloadPDF()">Download PDF Report</button><button class="btn-sec" onclick="resetAstro()">New Profile</button></div>';
   out.innerHTML=html;
   out.classList.add('visible');
+  if(tier==='compass_career'||tier==='compass_lifestory'||tier==='compass_askastro'){
+    /* Compass tiers use discrete view switching - must explicitly show premium-output */
+    document.getElementById('view-compass').classList.remove('active');
+    document.getElementById('view-results').classList.remove('active');
+    document.getElementById('compass-loading').classList.remove('active');
+    out.style.display='block';
+  }
   setTimeout(function(){out.scrollIntoView({behavior:'smooth',block:'start'});},100);
 }
 
