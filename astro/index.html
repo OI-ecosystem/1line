@@ -1,4 +1,4 @@
-<!-- 1LINE Astro v2.8 | Updated: 06 Jun 2026 | Profile price updated to £15 | Four-tier platform: Profile £15, Insight £29, Compatibility £49, Annual Forecast £99 -->
+<!-- 1LINE Astro v3.6 | Updated: 29 Jun 2026 | Synthesis-driven system prompt, Pattern That Repeats, Three Questions, elegant Translation bridge -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -122,6 +122,17 @@
     .ic-arch { font-family: var(--serif); font-size: clamp(26px,5vw,38px); font-weight: 300; color: var(--gold); letter-spacing: 0.06em; }
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
     .col-card { background: var(--white); border: 0.5px solid var(--border-mid); border-radius: 10px; padding: 16px; }
+    .gap-table { margin-top: 16px; border: 0.5px solid var(--border-mid); border-radius: 10px; overflow: hidden; }
+    .gap-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-bottom: 0.5px solid var(--border-mid); }
+    .gap-row:last-child { border-bottom: none; }
+    .gap-row span { padding: 10px 14px; font-size: 13px; line-height: 1.5; }
+    .gap-row span:first-child { border-right: 0.5px solid var(--border-mid); color: var(--gold); }
+    .gap-row.gap-head span { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(184,151,90,0.7); background: rgba(184,151,90,0.06); padding: 8px 14px; }
+    .align-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .align-label { font-size: 12px; color: var(--ink-mid); width: 150px; flex-shrink: 0; }
+    .align-track { flex: 1; height: 6px; background: rgba(184,151,90,0.12); border-radius: 3px; overflow: hidden; }
+    .align-fill { height: 100%; background: var(--gold); border-radius: 3px; }
+    .align-pct { font-size: 12px; color: var(--gold); width: 36px; text-align: right; flex-shrink: 0; }
     .col-label { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 6px; }
     .col-body { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
     .compat-compare { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: center; margin: 16px 0; }
@@ -149,10 +160,149 @@
     .footer-link { font-size: 12px; color: var(--ink-muted); text-decoration: none; border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 14px; transition: all 0.15s; }
     .footer-link:hover { color: var(--ink); border-color: var(--border-mid); }
     .footer-copy { font-size: 11px; color: var(--ink-faint); }
+    /* VIEW SWITCHING — each stage is a discrete view */
+    .view { display: none; }
+    .view.active { display: block; animation: fadeUp 0.6s ease forwards; }
+    /* COMPASS VIEW */
+    #view-compass { padding: 48px 0; border-top: 0.5px solid var(--border); }
+    .compass-view-back { font-size: 11px; color: var(--ink-muted); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 32px; transition: color 0.15s; letter-spacing: 0.04em; }
+    .compass-view-back:hover { color: var(--ink); }
+    .compass-view-profile-strip { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 0.5px solid var(--border); }
+    .cvps-item { display: flex; flex-direction: column; gap: 2px; }
+    .cvps-label { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); }
+    .cvps-val { font-family: var(--serif); font-size: 14px; font-weight: 300; color: var(--ink); }
+    /* COMPASS RESULTS VIEW */
+    #view-results { padding: 48px 0; border-top: 0.5px solid var(--border); }
+    .results-view-back { font-size: 11px; color: var(--ink-muted); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 32px; transition: color 0.15s; letter-spacing: 0.04em; }
+    .results-view-back:hover { color: var(--ink); }
+    .results-eyebrow { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .results-heading { font-family: var(--serif); font-size: clamp(22px,4vw,30px); font-weight: 300; color: var(--ink); margin-bottom: 6px; line-height: 1.2; }
+    .results-situation { font-size: 13px; font-style: italic; color: var(--ink-muted); margin-bottom: 32px; padding: 14px 18px; border-left: 2px solid var(--border-mid); background: var(--white); border-radius: 0 8px 8px 0; line-height: 1.7; }
+    .results-primary-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 12px; }
+    .results-primary-card { background: var(--ink); border-radius: 12px; padding: 28px 26px; margin-bottom: 12px; }
+    .results-primary-name { font-family: var(--serif); font-size: clamp(20px,4vw,26px); font-weight: 300; color: var(--cream); margin-bottom: 4px; }
+    .results-primary-score { font-size: 11px; letter-spacing: 0.1em; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
+    .results-primary-desc { font-size: 13px; font-weight: 300; color: rgba(250,248,245,0.65); line-height: 1.7; margin-bottom: 16px; }
+    .results-primary-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 22px; }
+    .results-tag { font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: rgba(184,151,90,0.8); border: 0.5px solid rgba(184,151,90,0.25); border-radius: 20px; padding: 3px 10px; }
+    .results-price { font-family: var(--serif); font-size: 24px; color: var(--gold); margin-bottom: 14px; }
+    .results-price span { font-size: 13px; color: rgba(250,248,245,0.4); font-family: var(--sans); font-weight: 300; }
+    .results-buy-btn { width: 100%; padding: 13px; background: var(--gold); color: var(--white); border: none; border-radius: 8px; font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; }
+    .results-buy-btn:hover { opacity: 0.82; }
+    .results-buy-btn.coming-soon { background: transparent; border: 0.5px solid rgba(184,151,90,0.3); color: rgba(250,248,245,0.4); cursor: default; }
+    .results-also-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 12px; margin-top: 24px; }
+    .results-also-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 32px; }
+    .results-also-card { border: 0.5px solid var(--border-mid); border-radius: 10px; padding: 16px; background: var(--white); }
+    .results-also-name { font-family: var(--serif); font-size: 15px; font-weight: 300; color: var(--ink); margin-bottom: 3px; }
+    .results-also-score { font-size: 11px; color: var(--gold); margin-bottom: 6px; }
+    .results-also-price { font-size: 12px; color: var(--ink-muted); margin-bottom: 10px; }
+    .results-also-btn { width: 100%; padding: 9px; background: transparent; border: 0.5px solid var(--border-mid); border-radius: 6px; font-family: var(--sans); font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-mid); cursor: pointer; transition: all 0.15s; }
+    .results-also-btn:hover { border-color: var(--ink); color: var(--ink); }
+    .results-also-btn.coming-soon { color: var(--ink-faint); border-color: var(--border); cursor: default; }
+    .results-trad-divider { display: flex; align-items: center; gap: 14px; margin: 32px 0 24px; }
+    .results-trad-line { flex: 1; height: 0.5px; background: var(--border); }
+    .results-trad-label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-faint); white-space: nowrap; }
+    /* COMPASS LOADING STATE */
+    #compass-loading { display: none; padding: 48px 0; border-top: 0.5px solid var(--border); text-align: center; }
+    #compass-loading.active { display: block; animation: fadeUp 0.4s ease forwards; }
+    .cload-icon { width: 32px; height: 32px; margin: 0 auto 20px; opacity: 0.3; animation: spin 3s linear infinite; }
+    @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    .cload-title { font-family: var(--serif); font-size: 20px; font-weight: 300; color: var(--ink); margin-bottom: 8px; }
+    .cload-sub { font-size: 13px; color: var(--ink-muted); }
+    /* NO-MATCH VIEW */
+    .results-nomatch { padding: 24px; background: var(--white); border: 0.5px solid var(--border-mid); border-radius: 12px; margin-bottom: 24px; }
+    .results-nomatch-title { font-family: var(--serif); font-size: 18px; font-weight: 300; color: var(--ink); margin-bottom: 6px; }
+    .results-nomatch-sub { font-size: 13px; color: var(--ink-muted); line-height: 1.7; margin-bottom: 16px; }
+    .results-cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 32px; }
+    .results-cat-card { border: 0.5px solid var(--border); border-radius: 10px; padding: 14px 16px; background: var(--white); }
+    .results-cat-name { font-family: var(--serif); font-size: 14px; font-weight: 300; color: var(--ink); margin-bottom: 2px; }
+    .results-cat-price { font-size: 12px; color: var(--ink-muted); margin-bottom: 8px; }
+    .results-cat-btn { width: 100%; padding: 8px; background: var(--ink); color: var(--cream); border: none; border-radius: 6px; font-family: var(--sans); font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; }
+    .results-cat-btn:hover { opacity: 0.82; }
+    .results-cat-btn.coming-soon { background: transparent; border: 0.5px solid var(--border-mid); color: var(--ink-faint); cursor: default; }
+
+    /* COMPASS SECTION — now only used for its CSS, view replaced by view-compass */
+    #compass-section { display: none; margin-top: 48px; }
+    #compass-section.visible { display: block; animation: fadeUp 0.7s ease forwards; }
+    
+    #compass-section { display: none; margin-top: 48px; }
+    #compass-section.visible { display: block; animation: fadeUp 0.7s ease forwards; }
+    .compass-stage-divider { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
+    .compass-stage-line { flex: 1; height: 0.5px; background: var(--border); }
+    .compass-stage-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-faint); white-space: nowrap; }
+    .compass-block { border: 0.5px solid var(--border-mid); border-radius: 14px; padding: 36px 32px 32px; background: var(--white); }
+    .compass-icon { width: 28px; height: 28px; margin-bottom: 20px; opacity: 0.35; }
+    .compass-heading { font-family: var(--serif); font-size: clamp(24px,5vw,34px); font-weight: 300; color: var(--ink); margin-bottom: 12px; line-height: 1.2; letter-spacing: -0.01em; }
+    .compass-sub { font-size: 14px; font-weight: 300; color: var(--ink-mid); margin-bottom: 10px; line-height: 1.75; max-width: 480px; }
+    .compass-topics { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 24px; margin-top: 16px; }
+    .compass-topic { font-size: 11px; font-weight: 400; color: var(--ink-muted); border: 0.5px solid var(--border); border-radius: 20px; padding: 4px 13px; letter-spacing: 0.03em; }
+    .compass-textarea { width: 100%; padding: 16px 18px; border: 0.5px solid var(--border-mid); border-radius: 10px; background: var(--cream); font-family: var(--serif); font-size: 15px; font-weight: 300; color: var(--ink); outline: none; transition: border-color 0.2s; resize: vertical; min-height: 160px; margin-bottom: 16px; line-height: 1.75; }
+    .compass-textarea:focus { border-color: var(--ink-mid); background: var(--white); }
+    .compass-textarea::placeholder { color: var(--ink-faint); font-style: italic; }
+    .compass-btn { padding: 13px 32px; background: var(--ink); border: none; border-radius: 8px; font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--white); cursor: pointer; transition: opacity 0.2s; }
+    .compass-btn:hover { opacity: 0.82; }
+    #compass-result { display: none; margin-top: 28px; }
+    #compass-result.visible { display: block; animation: fadeUp 0.5s ease forwards; }
+    .compass-rec-label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 12px; }
+    .compass-rec-primary { background: var(--ink); border-radius: 12px; padding: 22px 24px; margin-bottom: 10px; }
+    .compass-rec-primary-name { font-family: var(--serif); font-size: clamp(16px,3vw,20px); font-weight: 300; color: var(--cream); margin-bottom: 4px; }
+    .compass-rec-primary-score { font-size: 11px; letter-spacing: 0.1em; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; }
+    .compass-rec-primary-desc { font-size: 13px; font-weight: 300; color: rgba(250,248,245,0.6); line-height: 1.65; margin-bottom: 14px; }
+    .compass-rec-primary-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+    .compass-rec-tag { font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: rgba(184,151,90,0.75); border: 0.5px solid rgba(184,151,90,0.25); border-radius: 20px; padding: 3px 10px; }
+    .compass-rec-price { font-family: var(--serif); font-size: 22px; color: var(--gold); margin-bottom: 12px; }
+    .compass-rec-price span { font-size: 13px; color: rgba(250,248,245,0.4); font-family: var(--sans); font-weight: 300; }
+    .compass-rec-btn { width: 100%; padding: 12px; background: var(--gold); color: var(--white); border: none; border-radius: 8px; font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; }
+    .compass-rec-btn:hover { opacity: 0.82; }
+    .compass-rec-btn.coming-soon { background: transparent; border: 0.5px solid rgba(184,151,90,0.3); color: rgba(250,248,245,0.4); cursor: default; }
+    .compass-also-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+    .compass-also-card { border: 0.5px solid var(--border-mid); border-radius: 10px; padding: 14px 16px; background: var(--white); }
+    .compass-also-name { font-family: var(--serif); font-size: 15px; font-weight: 300; color: var(--ink); margin-bottom: 2px; }
+    .compass-also-score { font-size: 11px; color: var(--gold); margin-bottom: 6px; }
+    .compass-also-price { font-size: 12px; color: var(--ink-muted); margin-bottom: 10px; }
+    .compass-also-btn { width: 100%; padding: 8px; background: transparent; border: 0.5px solid var(--border-mid); border-radius: 6px; font-family: var(--sans); font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-mid); cursor: pointer; transition: all 0.15s; }
+    .compass-also-btn:hover { border-color: var(--ink); color: var(--ink); }
+    .compass-also-btn.coming-soon { color: var(--ink-faint); border-color: var(--border); cursor: default; }
+    .compass-explore-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 14px; }
+    .compass-catalogue-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .compass-cat-card { border: 0.5px solid var(--border); border-radius: 10px; padding: 14px 16px; background: var(--white); }
+    .compass-cat-name { font-family: var(--serif); font-size: 14px; font-weight: 300; color: var(--ink); margin-bottom: 2px; }
+    .compass-cat-price { font-size: 12px; color: var(--ink-muted); margin-bottom: 8px; }
+    .compass-cat-btn { width: 100%; padding: 8px; background: var(--ink); color: var(--cream); border: none; border-radius: 6px; font-family: var(--sans); font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; }
+    .compass-cat-btn:hover { opacity: 0.82; }
+    .compass-cat-btn.coming-soon { background: transparent; border: 0.5px solid var(--border-mid); color: var(--ink-faint); cursor: default; }
+    .compass-divider { border: none; border-top: 0.5px solid var(--border); margin: 28px 0; }
+    /* PROFILE COMPLETE MOMENT */
+    #profile-complete { display: none; margin-top: 8px; margin-bottom: 0; }
+    #profile-complete.visible { display: block; animation: fadeUp 0.6s 0.3s ease both; }
+    .pc-moment { border: 0.5px solid var(--border); border-radius: 12px; padding: 24px 26px; background: var(--white); display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .pc-moment-left { flex: 1; min-width: 200px; }
+    .pc-moment-eyebrow { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .pc-moment-title { font-family: var(--serif); font-size: 18px; font-weight: 300; color: var(--ink); margin-bottom: 4px; }
+    .pc-moment-sub { font-size: 12px; font-weight: 300; color: var(--ink-muted); line-height: 1.6; }
+    .pc-moment-btn { padding: 11px 24px; background: var(--ink); color: var(--white); border: none; border-radius: 8px; font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; white-space: nowrap; }
+    .pc-moment-btn:hover { opacity: 0.82; }
+    /* SECONDARY ASTRO SECTION — shown after compass result */
+    #secondary-astro { display: none; margin-top: 32px; }
+    #secondary-astro.visible { display: block; animation: fadeUp 0.6s ease forwards; }
+    .secondary-astro-label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 16px; text-align: center; }
+    /* SPELLCHECK MODAL */
+    #spell-modal { display: none; position: fixed; inset: 0; z-index: 9998; background: rgba(26,26,24,0.55); align-items: center; justify-content: center; padding: 24px; }
+    #spell-modal.active { display: flex; }
+    .spell-modal-box { background: var(--white); border-radius: 12px; padding: 28px 26px; max-width: 400px; width: 100%; box-shadow: 0 8px 40px rgba(0,0,0,0.18); }
+    .spell-modal-heading { font-family: var(--serif); font-size: 18px; font-weight: 300; color: var(--ink); margin-bottom: 10px; }
+    .spell-modal-body { font-size: 13px; font-weight: 300; color: var(--ink-mid); line-height: 1.7; margin-bottom: 22px; }
+    .spell-modal-btns { display: flex; gap: 10px; }
+    .spell-modal-btn { flex: 1; padding: 11px; border-radius: 8px; font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; border: none; }
+    .spell-modal-btn.review { background: transparent; border: 0.5px solid var(--border-mid); color: var(--ink-mid); }
+    .spell-modal-btn.review:hover { border-color: var(--ink); color: var(--ink); }
+    .spell-modal-btn.continue { background: var(--ink); color: var(--white); }
+    .spell-modal-btn.continue:hover { opacity: 0.82; }
     @media (max-width: 540px) {
       .profile-grid, .tier-grid, .two-col, .compat-compare { grid-template-columns: 1fr; }
       .month-grid { grid-template-columns: repeat(2,1fr); }
       .date-row { grid-template-columns: 1fr 1fr; }
+      .compass-also-grid, .compass-catalogue-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -279,7 +429,19 @@
       <p class="signal-text" id="out-signal">--</p>
     </div>
 
-    <div id="tier-select">
+    <!-- PROFILE COMPLETE MOMENT — sits inside free-output, triggers view transition -->
+    <div id="profile-complete">
+      <div class="pc-moment">
+        <div class="pc-moment-left">
+          <p class="pc-moment-eyebrow">Profile complete</p>
+          <p class="pc-moment-title">You now have your symbolic profile.</p>
+          <p class="pc-moment-sub">Life Path &middot; Zodiac &middot; Element &middot; Archetype &middot; Current Signal.<br>Ready to explore what this means for your current situation?</p>
+        </div>
+        <button class="pc-moment-btn" onclick="showCompassView()">Continue to Compass</button>
+      </div>
+    </div>
+
+    <div id="tier-select" style="display:none;">
       <p class="tier-heading">Choose your report depth</p>
       <p class="tier-sub">Each tier builds on the one before. Select what you need.</p>
       <p id="lp-nudge" style="font-size:12px;font-style:italic;color:var(--gold);margin-bottom:16px;font-family:var(--serif);text-align:center;"></p>
@@ -342,6 +504,154 @@
     </div>
   </section>
 
+  <!-- VIEW: COMPASS — Stage 2 input view -->
+  <div id="view-compass" class="view page">
+    <span class="compass-view-back" onclick="showProfileView()">&larr; Back to profile</span>
+    <div class="compass-view-profile-strip" id="compass-profile-strip">
+      <!-- populated by showCompassView() -->
+    </div>
+    <div class="compass-stage-divider">
+      <div class="compass-stage-line"></div>
+      <span class="compass-stage-label">Stage 2 &mdash; Compass</span>
+      <div class="compass-stage-line"></div>
+    </div>
+    <svg class="compass-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:28px;height:28px;margin-bottom:20px;opacity:0.3;">
+      <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1"/>
+      <circle cx="14" cy="14" r="2" fill="currentColor"/>
+      <line x1="14" y1="1" x2="14" y2="6" stroke="currentColor" stroke-width="1"/>
+      <line x1="14" y1="22" x2="14" y2="27" stroke="currentColor" stroke-width="1"/>
+      <line x1="1" y1="14" x2="6" y2="14" stroke="currentColor" stroke-width="1"/>
+      <line x1="22" y1="14" x2="27" y2="14" stroke="currentColor" stroke-width="1"/>
+      <polygon points="14,4 16,12 14,11 12,12" fill="currentColor" opacity="0.6"/>
+    </svg>
+    <h2 class="compass-heading">Where are you heading?</h2>
+    <p class="compass-sub">Your profile explains who you are. Compass explores what you are dealing with right now. Describe your situation and Compass will identify the most relevant path for deeper exploration.</p>
+    <div class="compass-topics">
+      <span class="compass-topic">Career</span>
+      <span class="compass-topic">Business</span>
+      <span class="compass-topic">Relationships</span>
+      <span class="compass-topic">Family</span>
+      <span class="compass-topic">Leadership</span>
+      <span class="compass-topic">Important decisions</span>
+      <span class="compass-topic">Life direction</span>
+    </div>
+    <textarea class="compass-textarea" id="compass-input" spellcheck="true" autocorrect="on" autocomplete="on" autocapitalize="sentences" placeholder="I'm considering leaving my current role to build a business. Part of me feels ready. Part of me worries about stability. I'm trying to understand whether my hesitation is caution or fear." rows="8"></textarea>
+    <button class="compass-btn" onclick="runCompass()">Run Compass Analysis</button>
+    <p style="font-size:11px;color:var(--ink-faint);margin-top:12px;text-align:center;">Or skip Compass and explore Astro reports directly below.</p>
+    <div style="margin-top:20px;">
+      <p style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:14px;">Explore Astro reports</p>
+      <div class="tier-grid" id="compass-view-tiers">
+        <div class="tier-card">
+          <p class="tier-name">Astro Profile</p>
+          <p class="tier-price">&pound;15 <span>one-time</span></p>
+          <ul class="tier-features">
+            <li>Full numerological profile</li>
+            <li>Zodiac and element analysis</li>
+            <li>Personal year interpretation</li>
+            <li>Downloadable identity card PDF</li>
+          </ul>
+          <button class="tier-btn" onclick="selectTier('profile')">Get Astro Profile</button>
+        </div>
+        <div class="tier-card featured">
+          <p class="tier-name">Astro Insight</p>
+          <p class="tier-price">&pound;29 <span>one-time</span></p>
+          <ul class="tier-features">
+            <li>Everything in Profile</li>
+            <li>Identity and decision profile</li>
+            <li>Relationship profile</li>
+            <li>Career and wealth profile</li>
+            <li>Hidden strength and shadow pattern</li>
+            <li>Premium multi-page PDF report</li>
+          </ul>
+          <button class="tier-btn" onclick="selectTier('insight')">Get Astro Insight</button>
+        </div>
+        <div class="tier-card">
+          <p class="tier-name">Astro Compatibility</p>
+          <p class="tier-price">&pound;49 <span>one-time</span></p>
+          <ul class="tier-features">
+            <li>Two-person symbolic comparison</li>
+            <li>Relationship strengths and friction</li>
+            <li>Communication patterns</li>
+            <li>Compatibility PDF report</li>
+          </ul>
+          <button class="tier-btn" onclick="selectTier('compatibility')">Get Compatibility</button>
+        </div>
+        <div class="tier-card" style="border-color:var(--ink);position:relative;">
+          <p style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:2px 10px;border-radius:20px;font-family:var(--sans);white-space:nowrap;">Most Comprehensive</p>
+          <p class="tier-name">Annual Forecast</p>
+          <p class="tier-price">&pound;99 <span>one-time</span></p>
+          <ul class="tier-features">
+            <li>Month-by-month forecast</li>
+            <li>Best growth window</li>
+            <li>Year theme and personal motto</li>
+            <li>Annual companion PDF</li>
+          </ul>
+          <button class="tier-btn" onclick="selectTier('forecast')">Get Annual Forecast</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW: COMPASS LOADING -->
+  <div id="compass-loading" class="page">
+    <div style="padding:80px 0;text-align:center;">
+      <svg class="cload-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1"/>
+        <circle cx="14" cy="14" r="2" fill="currentColor"/>
+        <line x1="14" y1="1" x2="14" y2="6" stroke="currentColor" stroke-width="1"/>
+        <line x1="14" y1="22" x2="14" y2="27" stroke="currentColor" stroke-width="1"/>
+        <line x1="1" y1="14" x2="6" y2="14" stroke="currentColor" stroke-width="1"/>
+        <line x1="22" y1="14" x2="27" y2="14" stroke="currentColor" stroke-width="1"/>
+        <polygon points="14,4 16,12 14,11 12,12" fill="currentColor" opacity="0.6"/>
+      </svg>
+      <p class="cload-title">Analysing your situation</p>
+      <p class="cload-sub">Mapping your profile against your context...</p>
+    </div>
+  </div>
+
+  <!-- VIEW: COMPASS RESULTS -->
+  <div id="view-results" class="view page">
+    <span class="results-view-back" onclick="showCompassView()">&larr; Refine your situation</span>
+    <p class="results-eyebrow">Compass Analysis</p>
+    <h2 class="results-heading">Your recommended path</h2>
+    <div class="results-situation" id="results-situation-text"></div>
+    <div id="results-content">
+      <!-- populated by renderResults() -->
+    </div>
+    <div class="results-trad-divider">
+      <div class="results-trad-line"></div>
+      <span class="results-trad-label">Explore traditional Astro reports</span>
+      <div class="results-trad-line"></div>
+    </div>
+    <div class="tier-grid" id="results-trad-grid">
+      <div class="tier-card">
+        <p class="tier-name">Astro Profile</p>
+        <p class="tier-price">&pound;15 <span>one-time</span></p>
+        <ul class="tier-features"><li>Full numerological profile</li><li>Zodiac and element analysis</li><li>Downloadable identity card PDF</li></ul>
+        <button class="tier-btn" onclick="selectTier('profile')">Get Astro Profile</button>
+      </div>
+      <div class="tier-card featured">
+        <p class="tier-name">Astro Insight</p>
+        <p class="tier-price">&pound;29 <span>one-time</span></p>
+        <ul class="tier-features"><li>Everything in Profile</li><li>Identity and decision profile</li><li>Career and wealth profile</li><li>Premium multi-page PDF</li></ul>
+        <button class="tier-btn" onclick="selectTier('insight')">Get Astro Insight</button>
+      </div>
+      <div class="tier-card">
+        <p class="tier-name">Astro Compatibility</p>
+        <p class="tier-price">&pound;49 <span>one-time</span></p>
+        <ul class="tier-features"><li>Two-person symbolic comparison</li><li>Relationship strengths and friction</li><li>Compatibility PDF report</li></ul>
+        <button class="tier-btn" onclick="selectTier('compatibility')">Get Compatibility</button>
+      </div>
+      <div class="tier-card" style="border-color:var(--ink);position:relative;">
+        <p style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:2px 10px;border-radius:20px;font-family:var(--sans);white-space:nowrap;">Most Comprehensive</p>
+        <p class="tier-name">Annual Forecast</p>
+        <p class="tier-price">&pound;99 <span>one-time</span></p>
+        <ul class="tier-features"><li>Month-by-month forecast</li><li>Best growth window</li><li>Annual companion PDF</li></ul>
+        <button class="tier-btn" onclick="selectTier('forecast')">Get Annual Forecast</button>
+      </div>
+    </div>
+  </div>
+
   <section id="compat-input" style="display:none; padding:32px 0; border-top:0.5px solid var(--border);">
     <p class="tier-heading">Second person's details</p>
     <p class="input-sub" style="margin-bottom:20px;">Enter their birth information for the compatibility reading.</p>
@@ -384,6 +694,18 @@
 
   <section id="premium-output"></section>
 
+  <!-- SPELLCHECK MODAL -->
+  <div id="spell-modal" role="dialog" aria-modal="true" aria-labelledby="spell-modal-heading">
+    <div class="spell-modal-box">
+      <p class="spell-modal-heading" id="spell-modal-heading">Check your wording</p>
+      <p class="spell-modal-body">Some words may contain spelling errors.<br>Please review the red underlined words before continuing.<br>Your wording affects response precision.</p>
+      <div class="spell-modal-btns">
+        <button class="spell-modal-btn review" onclick="closeSpellModal()">Review Text</button>
+        <button class="spell-modal-btn continue" onclick="continueAfterSpell()">Continue Anyway</button>
+      </div>
+    </div>
+  </div>
+
   <footer>
     <div class="footer-network-label">Other 1LINE utilities</div>
     <div class="footer-links">
@@ -404,7 +726,7 @@ var LS_PROFILE='https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/a
 var LS_INSIGHT='https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/fe89503f-b84c-41ae-8a4a-a1acbca49790';
 var LS_COMPAT='https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/b20aad9e-0b4e-46fd-967a-b35d2f1e4bbf';
 var LS_FORECAST='https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/0d6ecc13-0298-43f2-b970-eb03f0633605';
-var _calc=null,_calc2=null,_tier='',_reportDate='',_reportData=null;
+var _calc=null,_calc2=null,_tier='',_reportDate='',_reportData=null,_compassInput='';
 
 function checkInputs(){
   var day=parseInt(document.getElementById('dob-day').value);
@@ -559,11 +881,87 @@ function doFreeGenerate(day,month,year,name,chal,time,skipScroll){
   document.getElementById('out-signal').textContent=sigs[d.lp%3];
   document.getElementById('input-section').style.display='none';
   var fo=document.getElementById('free-output');
+  fo.style.display='block';
   fo.classList.add('visible');
-  document.getElementById('tier-select').classList.add('visible');
+  document.getElementById('profile-complete').classList.add('visible');
+  /* Hide all other views */
+  ['view-compass','view-results'].forEach(function(id){
+    document.getElementById(id).classList.remove('active');
+  });
+  document.getElementById('compass-loading').classList.remove('active');
   var nudgeEl=document.getElementById('lp-nudge');
   if(nudgeEl&&LP_NUDGE[d.lp])nudgeEl.textContent=LP_NUDGE[d.lp];
-  if(!skipScroll)setTimeout(function(){fo.scrollIntoView({behavior:'smooth',block:'start'});},100);
+}
+
+/* ---- VIEW SWITCHING ---- */
+function showView(id){
+  /* Hide all views and pages */
+  var hero = document.querySelector('.hero');
+  var inputSection = document.getElementById('input-section');
+  var freeOutput = document.getElementById('free-output');
+  var compatInput = document.getElementById('compat-input');
+  var premiumOutput = document.getElementById('premium-output');
+  var loading = document.getElementById('compass-loading');
+  var viewCompass = document.getElementById('view-compass');
+  var viewResults = document.getElementById('view-results');
+
+  /* Hide everything first */
+  [hero, inputSection, freeOutput, compatInput, premiumOutput].forEach(function(el){ if(el) el.style.display='none'; });
+  loading.classList.remove('active');
+  viewCompass.classList.remove('active');
+  viewResults.classList.remove('active');
+
+  /* Show requested view */
+  if(id==='profile'){
+    if(hero) hero.style.display='';
+    if(inputSection) inputSection.style.display='';
+    if(freeOutput) freeOutput.style.display='block';
+  } else if(id==='compass'){
+    viewCompass.classList.add('active');
+  } else if(id==='loading'){
+    loading.classList.add('active');
+  } else if(id==='results'){
+    viewResults.classList.add('active');
+  } else if(id==='compat'){
+    if(compatInput) compatInput.style.display='block';
+  } else if(id==='premium'){
+    if(premiumOutput) premiumOutput.style.display='block';
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showProfileView(){
+  var hero = document.querySelector('.hero');
+  var inputSection = document.getElementById('input-section');
+  var freeOutput = document.getElementById('free-output');
+  var compatInput = document.getElementById('compat-input');
+  var premiumOutput = document.getElementById('premium-output');
+  var loading = document.getElementById('compass-loading');
+  var viewCompass = document.getElementById('view-compass');
+  var viewResults = document.getElementById('view-results');
+  [loading, viewCompass, viewResults].forEach(function(el){ el.classList.remove('active'); });
+  if(compatInput) compatInput.style.display='none';
+  if(premiumOutput) premiumOutput.style.display='none';
+  if(hero) hero.style.display='';
+  if(inputSection) inputSection.style.display='none';
+  if(freeOutput){ freeOutput.style.display='block'; }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showCompassView(){
+  sc_spellChecked = false;
+  /* Populate profile strip */
+  if(_calc){
+    var strip = document.getElementById('compass-profile-strip');
+    if(strip){
+      strip.innerHTML =
+        '<div class="cvps-item"><span class="cvps-label">Life Path</span><span class="cvps-val">' + _calc.lp + ' ' + (_calc.lp===11?'The Illuminator':_calc.lp===22?'The Architect of Change':_calc.lp===33?'The Healer':'') + '</span></div>' +
+        '<div class="cvps-item"><span class="cvps-label">Zodiac</span><span class="cvps-val">' + _calc.zod.sign + '</span></div>' +
+        '<div class="cvps-item"><span class="cvps-label">Element</span><span class="cvps-val">' + _calc.elem + '</span></div>' +
+        '<div class="cvps-item"><span class="cvps-label">Personal Year</span><span class="cvps-val">' + _calc.py + '</span></div>';
+    }
+  }
+  showView('compass');
 }
 
 function selectTier(tier){
@@ -618,6 +1016,7 @@ document.addEventListener('DOMContentLoaded',function(){
           _reportDate=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
           doFreeGenerate(s.day,s.month,s.year,s.name||'',s.challenge||'',s.time||'',true);
           if(s.day2&&s.month2&&s.year2){_calc2=calcProfile(s.day2,s.month2,s.year2,s.name2||'','','');_calc2.relType=s.relType||'partner';}
+          if(s.compassInput)_compassInput=s.compassInput;
           fireAI(_tier);
         }
       }catch(e){}
@@ -631,11 +1030,14 @@ function fireAI(tier){
   var loadDiv=document.createElement('div');
   loadDiv.id='ai-loader';
   loadDiv.style.cssText='text-align:center;padding:40px 0;font-family:var(--serif);font-style:italic;color:var(--ink-muted);font-size:18px;border-top:0.5px solid var(--border);';
-  loadDiv.textContent=tier==='forecast'?'Generating your annual forecast...':tier==='compatibility'?'Generating compatibility report...':'Generating your full report...';
+  loadDiv.textContent=tier==='forecast'?'Generating your annual forecast...':tier==='compatibility'?'Generating compatibility report...':tier==='compass_career'?'Reading your symbolic work signature...':tier==='compass_lifestory'?'Tracing the thread through your story...':tier==='compass_askastro'?'Consulting your chart...':'Generating your full report...';
   document.getElementById('free-output').appendChild(loadDiv);
   var d=_calc;
   var base='BIRTH DATA: Date: '+d.day+'/'+d.month+'/'+d.year+' Zodiac: '+d.zod.sign+' ('+d.elem+') Life Path: '+d.lp+' - '+d.lpData.name+' Personal Year: '+d.py+' - '+d.pyTheme+' Archetype: '+d.arch+' Age: '+d.age+(d.exp?' Expression Number: '+d.exp:'')+(d.rising?' Rising Sign: '+d.rising:'')+(d.name?' Name: '+d.name:'')+(d.challenge?' Current situation: '+d.challenge:'');
   var system='You are a premium astrology and numerology intelligence analyst for 1LINE Astro. Synthesise astrology and numerology into grounded, intelligent, psychologically precise profiles. Tone is analytical and observational - never vague, never generic, never mystical. Every insight must feel specific to this persons exact numbers. Respond ONLY in valid JSON. No markdown fences.';
+  if(tier==='compass_career'||tier==='compass_lifestory'||tier==='compass_askastro'){
+    system='You are an experienced astrologer reading a full symbolic profile - not an AI listing observations. Your skill is SYNTHESIS, not description. Never state isolated traits like "you are independent, you value freedom, you like building." Instead, weave the Life Path, element, archetype, personal year and their own words into a single connected interpretation. Explicitly name the thread BETWEEN the symbolic signals before stating what it means. Example of the standard required - "Across your Life Path, element and current cycle, one pattern repeats more than any other: every significant period of growth has come when you stopped maintaining someone elses structure and started building your own. That is why your current situation feels unusually uncomfortable - you are trying to solve todays problem inside a pattern your profile has already outgrown." That is synthesis. A list of separate traits is not acceptable and will be rejected. Every section must connect at least two symbolic signals (e.g. Life Path AND current cycle, or archetype AND element) into one interpretation, then explain why that combination produces the specific effect being described. Tone is grounded, perceptive, conversational - like sitting opposite a skilled reader, not reading a generated report. Respond ONLY in valid JSON. No markdown fences.';
+  }
   var prompt='';
   if(tier==='profile'){
     prompt=base+' Generate Astro Profile. Return ONLY: {"signatureStatement":"One powerful sentence specific to their numbers.","identityTags":["3 short tags"],"identityProfile":"3 sentences who they are.","currentCycle":"2 sentences on Personal Year meaning right now.","keyStrength":"1-2 sentences on primary natural strength.","guidingQuestion":"One penetrating question."}';
@@ -644,8 +1046,12 @@ function fireAI(tier){
   }else if(tier==='compatibility'){
     var d2=_calc2;
     prompt='PERSON 1: '+base+' PERSON 2: Date: '+d2.day+'/'+d2.month+'/'+d2.year+' Zodiac: '+d2.zod.sign+' ('+d2.elem+') Life Path: '+d2.lp+' - '+d2.lpData.name+' Archetype: '+d2.arch+(d2.name?' Name: '+d2.name:'')+' Relationship: '+(d2.relType||'partner')+' Generate compatibility report. Return ONLY: {"compatibilityScore":"1-100","compatibilitySummary":"2 sentences.","strengths":"2-3 relationship strengths.","frictionPoints":"2-3 friction points.","communicationStyle":"2-3 sentences.","growthPotential":"2-3 sentences.","whatPerson1Needs":"1-2 sentences.","whatPerson2Needs":"1-2 sentences.","guidingQuestion":"One question for both."}';
-  }else{
-    var fy=d.currentYear;
+  }else if(tier==='compass_career'){
+    prompt=base+' Current situation described by user: "'+_compassInput+'". You are reading this persons symbolic working pattern - not giving generic career advice. Stay astrology and numerology led throughout. Use the situation text only to locate which part of their symbolic pattern is currently active. CRITICAL: every field below must connect at least two symbolic signals together into one interpretation (e.g. "across your Life Path and current Personal Year, one pattern repeats..."), then explain the effect. Never list isolated traits. Return ONLY: {"patternThatRepeats":["5 short recurring themes across Life Path, element, archetype and personal year - e.g. Independence, Teaching, Systems, Long-term thinking, Quiet leadership"],"workSignature":"2-3 sentences. Connect at least two symbolic signals into a single interpretation of HOW they naturally create value - not WHAT job they do. Must read as synthesis, not description. Style: \\"Across your Life Path and element, one pattern repeats: you do not optimise existing systems, you build new ones - and that pattern intensifies during a Personal Year like this one.\\"","cannotFake":"2-3 sentences connecting symbolic signals to distinguish work they can perform vs work that energises them.","frictionPoint":"2-3 sentences naming the recurring wall their symbolic profile keeps placing in front of them, explicitly connected to their current situation - framed as a lesson their pattern keeps trying to teach, not a weakness. Must explain WHY their current discomfort makes sense given the pattern.","quietDirection":"2-3 sentences, synthesis of archetype and life path pointing toward where their trajectory leads regardless of titles held.","nextThreeYears":"2-3 sentences on trajectory if this symbolic pattern continues - not prediction, direction. Connect current cycle to the pattern.","worldPerception":"2-3 sentences: astrology describes their natural pattern but employers only see CV/LinkedIn/interview answers. Name the likely gap between symbolic pattern and how their current career story probably reads to an outsider.","gapAnalysis":[{"symbolic":"short phrase","professional":"short phrase describing likely current presentation"},{"symbolic":"short phrase","professional":"short phrase"},{"symbolic":"short phrase","professional":"short phrase"}],"alignmentPotential":"number 70-99","alignmentPositioning":"number 35-65","alignmentStory":"number 30-60","translation":"2-3 sentences, elegant tone. Must include the idea that their symbolic profile already tells a coherent story but their CV does not, and that astrology reveals the pattern while professional documents introduce that pattern to other people - when those two stories finally agree opportunities become easier to recognise.","recommendedProduct":"one of: resume-quickstart, resume-pro, career, clarity","recommendedReason":"One short elegant phrase, e.g. Translate your symbolic strengths into recruiter language.","threeQuestions":["3 reflective questions to carry with them, not actions - questions they will remember. Example style: Which part of your current work actually feels like you? Where are you succeeding through effort instead of alignment? What would you build if you already trusted your natural pattern?"],"compassSentence":"One unforgettable sentence capturing their core symbolic truth, the thing they would screenshot. Style: \\"You are not looking for security. You are looking for meaningful responsibility.\\""}';
+  }else if(tier==='compass_lifestory'){
+    prompt=base+' Journey described by user: "'+_compassInput+'". Read this through their symbolic profile as a connected narrative, like a skilled biographer using astrology and numerology as the interpretive lens. Find the thread connecting what they have written - do not invent events they did not mention. CRITICAL: every field must connect symbolic signals together into synthesis, not list separate traits. Return ONLY: {"patternThatRepeats":["5 recurring themes across their full symbolic profile"],"chapterOne":"2-3 sentences synthesising the early pattern - connect their numbers with what they wrote, not as two separate facts but as one interpretation of the foundation.","hiddenPattern":"2-3 sentences on the repeating cycle nobody around them likely notices - explicitly connect two symbolic signals to explain WHY this cycle keeps recurring across different chapters of what they described.","turningPoint":"2-3 sentences on the turning point based specifically on what they wrote, synthesised through their symbolic profile - explain why their profile made this moment significant.","lifeLesson":"2-3 sentences, synthesis of profile and journey, on the lesson their pattern keeps returning them to - framed as a life lesson, never as a weakness.","becoming":"2-3 sentences, a beautiful forward-looking statement on who they are becoming if the current thread continues, connecting at least two symbolic signals.","shadowPath":"1-2 sentences on what tends to happen if this pattern is ignored or resisted.","growthPath":"1-2 sentences on what becomes possible if this pattern is followed and trusted.","threeQuestions":["3 reflective questions to carry with them, not actions - the kind that stay with someone"],"lifeSentence":"One unforgettable paragraph - their life story compressed into something they would keep forever."}';
+  }else if(tier==='compass_askastro'){
+    prompt=base+' Question asked: "'+_compassInput+'". Answer as a skilled astrologer sitting opposite this person, reading their chart in direct response to their exact question - not a generic FAQ answer. Connect at least two symbolic signals together to form one interpretation rather than listing separate facts. Return ONLY: {"chartSays":"2-3 sentences, synthesis of at least two symbolic signals specifically in relation to this question.","whyNow":"2 sentences connecting their personal year cycle to why this situation has appeared at this point.","beingAsked":"2 sentences on what they are symbolically being asked to learn, synthesised from the pattern, not stated as an isolated fact.","ifResist":"1-2 sentences on what tends to happen if this lesson is resisted.","smallestStep":"1 sentence - the smallest concrete next step.","returnNote":"A short closing line inviting them to return to this answer in 30 days and notice what has shifted."}';
     prompt=base+' Generate annual forecast for '+fy+'. Return ONLY: {"yearTheme":"One sentence.","bestGrowthWindow":"Which months and why.","biggestChallenge":"Which period and how to navigate.","personalMotto":"Short motto for the year.","months":['+MONTHS.map(function(m){return '{"month":"'+m+'","theme":"Short theme","opportunity":"One opportunity","risk":"One risk","focus":"One focus"}'}).join(',')+'],"yearQuestion":"One powerful question for the year."}';
   }
   fetch(VERCEL_PROXY,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:system,prompt:prompt})})
@@ -665,6 +1071,24 @@ function fireAI(tier){
 }
 
 function block(ey,hd,body){return '<div class="prem-block"><span class="prem-eyebrow">'+ey+'</span><p class="prem-heading">'+hd+'</p><p class="prem-body">'+(body||'')+'</p></div>';}
+function symbolFreqBlock(syms){
+  if(!syms||!Array.isArray(syms)||syms.length===0)return '';
+  var html='<div class="prem-block" style="border-top:none;padding-top:40px;"><span class="prem-eyebrow">The Pattern That Repeats</span><p class="prem-heading">These themes appeared repeatedly across your symbolic profile</p><div class="ic-tags">';
+  syms.forEach(function(s){html+='<span class="ic-tag">'+s+'</span>';});
+  html+='</div><p class="prem-body" style="margin-top:10px;font-size:13px;font-style:italic;">When the same themes emerge across multiple symbolic systems - Life Path, element, archetype and current cycle - they deserve special attention. This report is built around those recurring signals.</p></div>';
+  return html;
+}
+function threeQuestionsBlock(qs){
+  if(!qs||!Array.isArray(qs)||qs.length===0)return '';
+  var html='<div class="prem-block"><span class="prem-eyebrow">Three Questions To Carry With You</span><p class="prem-heading">Not actions. Questions.</p><ol style="margin:8px 0 0 0;padding-left:18px;">';
+  qs.forEach(function(q){html+='<li style="font-family:var(--serif);font-style:italic;font-size:14px;color:var(--cream);line-height:1.7;margin-bottom:8px;">'+q+'</li>';});
+  html+='</ol></div>';
+  return html;
+}
+function alignBar(label,pct){
+  pct=parseInt(pct,10)||0;
+  return '<div class="align-row"><span class="align-label">'+label+'</span><div class="align-track"><div class="align-fill" style="width:'+pct+'%;"></div></div><span class="align-pct">'+pct+'%</span></div>';
+}
 
 function renderOutput(tier,p){
   var l=document.getElementById('ai-loader');if(l)l.remove();
@@ -698,6 +1122,53 @@ function renderOutput(tier,p){
     html+=block('Communication','How you naturally communicate together',p.communicationStyle);
     html+=block('Growth Potential','What you can build together',p.growthPotential);
     html+='<div class="prem-block"><span class="prem-eyebrow">What Each Person Needs</span><p class="prem-heading">Individual requirements in this relationship</p><div class="two-col"><div class="col-card"><p class="col-label">'+(d.name||'Person 1')+' needs</p><p class="col-body">'+(p.whatPerson1Needs||'')+'</p></div><div class="col-card"><p class="col-label">'+(d2.name||'Person 2')+' needs</p><p class="col-body">'+(p.whatPerson2Needs||'')+'</p></div></div></div>';
+  }else if(tier==='compass_career'){
+    html+=symbolFreqBlock(p.patternThatRepeats);
+    html+='<div class="prem-block" style="border-top:none;padding-top:24px;"><span class="prem-eyebrow">Astro Career Compass</span><p class="prem-heading">Your Work Signature</p><p class="prem-body">'+(p.workSignature||'')+'</p></div>';
+    html+=block('The Work You Cannot Fake','What energises you versus what you can merely perform',p.cannotFake);
+    html+=block('The Friction You Keep Meeting','The lesson your symbolic profile keeps placing in front of you',p.frictionPoint);
+    html+=block('The Career You Are Quietly Growing Towards','Regardless of titles held, where your trajectory points',p.quietDirection);
+    html+=block('The Next Three Years','Trajectory, not prediction',p.nextThreeYears);
+    html+='<div class="prem-block"><span class="prem-eyebrow">How The World Currently Sees You</span><p class="prem-heading">The translation gap</p><p class="prem-body">'+(p.worldPerception||'')+'</p>';
+    if(p.gapAnalysis&&Array.isArray(p.gapAnalysis)){
+      html+='<div class="gap-table"><div class="gap-row gap-head"><span>Symbolic Pattern</span><span>Professional Signal</span></div>';
+      p.gapAnalysis.forEach(function(g){html+='<div class="gap-row"><span>'+(g.symbolic||'')+'</span><span>'+(g.professional||'')+'</span></div>';});
+      html+='</div></div>';
+    }
+    if(p.alignmentPotential){
+      html+='<div class="prem-block"><span class="prem-eyebrow">Symbolic Alignment</span><p class="prem-heading">Where the gap actually sits</p>';
+      html+=alignBar('Natural Potential',p.alignmentPotential);
+      html+=alignBar('Professional Positioning',p.alignmentPositioning);
+      html+=alignBar('Story Alignment',p.alignmentStory);
+      html+='<p class="prem-body" style="margin-top:10px;">Your symbolic potential is not the issue. Your professional presentation is.</p></div>';
+    }
+    html+='<div class="prem-block"><span class="prem-eyebrow">Translation</span><p class="prem-body" style="font-style:italic;">'+(p.translation||'')+'</p></div>';
+    if(p.recommendedProduct){
+      var pmap={'resume-quickstart':{name:'RC Loop Resume QuickStart',price:'£49',url:'https://oi-ecosystem.github.io/rcloop/resume-quickstart/'},'resume-pro':{name:'RC Loop Resume Pro',price:'£99',url:'https://oi-ecosystem.github.io/rcloop/resume-pro/'},'career':{name:'1LINE Career',price:'£15',url:'https://oi-ecosystem.github.io/1line/career/'},'clarity':{name:'1LINE Clarity',price:'£9',url:'https://oi-ecosystem.github.io/1line/clarity/'}};
+      var rec=pmap[p.recommendedProduct]||pmap['career'];
+      html+='<div class="next-step-card" style="margin-top:8px;"><p class="next-step-num">Recommended Next Step</p><p class="next-step-title">'+rec.name+'</p><p class="next-step-price">'+rec.price+'</p><p class="next-step-rationale">'+(p.recommendedReason||'')+'</p><a class="next-step-btn" href="'+rec.url+'" target="_blank" rel="noopener">Start '+rec.name+'</a></div>';
+    }
+    html+=threeQuestionsBlock(p.threeQuestions);
+    if(p.compassSentence){html+='<div class="question-wrap"><p class="q-label">Your Compass Sentence</p><p class="q-text">'+p.compassSentence+'</p><p class="q-note">Sit with this. Return to it.</p></div>';}
+  }else if(tier==='compass_lifestory'){
+    html+=symbolFreqBlock(p.patternThatRepeats);
+    html+='<div class="prem-block" style="border-top:none;padding-top:24px;"><span class="prem-eyebrow">Life Story</span><p class="prem-heading">Chapter One</p><p class="prem-body">'+(p.chapterOne||'')+'</p></div>';
+    html+=block('The Pattern Nobody Notices','The cycle that keeps repeating',p.hiddenPattern);
+    html+=block('The Turning Point','Based on what you shared',p.turningPoint);
+    html+=block('The Lesson That Keeps Returning','Not a weakness - a life lesson',p.lifeLesson);
+    html+=block('Who You Are Becoming','',p.becoming);
+    html+='<div class="prem-block"><span class="prem-eyebrow">Two Paths</span><div class="two-col"><div class="col-card"><p class="col-label">If You Ignore This</p><p class="col-body">'+(p.shadowPath||'')+'</p></div><div class="col-card"><p class="col-label">If You Follow This</p><p class="col-body">'+(p.growthPath||'')+'</p></div></div></div>';
+    html+=threeQuestionsBlock(p.threeQuestions);
+    if(p.lifeSentence){html+='<div class="question-wrap"><p class="q-label">Your Life Sentence</p><p class="q-text">'+p.lifeSentence+'</p><p class="q-note">Something to keep.</p></div>';}
+  }else if(tier==='compass_askastro'){
+    html+='<div class="prem-block" style="border-top:none;padding-top:24px;"><span class="prem-eyebrow">Ask Astro</span><p class="prem-heading">Your question</p><p class="prem-body" style="font-style:italic;">"'+_compassInput+'"</p></div>';
+    html+=block('What Your Chart Says','',p.chartSays);
+    html+=block('Why This Has Appeared Now','',p.whyNow);
+    html+=block('What You Are Being Asked To Learn','',p.beingAsked);
+    html+=block('If You Resist It','',p.ifResist);
+    html+='<div class="prem-block"><span class="prem-eyebrow">The Smallest Next Step</span><p class="prem-body">'+(p.smallestStep||'')+'</p></div>';
+    html+=threeQuestionsBlock(p.threeQuestions);
+    if(p.returnNote){html+='<div class="question-wrap"><p class="q-label">Return To This</p><p class="q-text" style="font-size:16px;">'+p.returnNote+'</p></div>';}
   }else if(tier==='forecast'){
     html+='<div class="prem-block" style="border-top:none;padding-top:40px;"><span class="prem-eyebrow">Annual Forecast '+d.currentYear+'</span><p class="prem-heading">'+(p.yearTheme||'')+'</p><div class="two-col" style="margin-bottom:16px;"><div class="col-card"><p class="col-label">Best Growth Window</p><p class="col-body">'+(p.bestGrowthWindow||'')+'</p></div><div class="col-card"><p class="col-label">Biggest Challenge</p><p class="col-body">'+(p.biggestChallenge||'')+'</p></div></div><div class="identity-card"><p style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(184,151,90,0.5);margin-bottom:8px;">Your '+d.currentYear+' Motto</p><p class="ic-stmt" style="font-size:clamp(16px,2.8vw,20px);color:var(--cream);">'+(p.personalMotto||'')+'</p></div></div>';
     if(p.months&&Array.isArray(p.months)){
@@ -746,8 +1217,8 @@ function downloadPDF(){
   doc.text('Symbolic intelligence. Not fortune-telling.',W/2,H-28,{align:'center'});
   doc.text('1LINE Astro - oi-ecosystem.github.io/1line',W/2,H-20,{align:'center'});
   np();
-  var fields=['identityProfile','decisionProfile','relationshipProfile','careerProfile','wealthProfile','currentCycle','keyStrength','hiddenStrength','shadowPattern','cycleAnalysis','strengths','frictionPoints','communicationStyle','growthPotential','yearTheme','bestGrowthWindow','biggestChallenge','personalMotto'];
-  var labels={'identityProfile':'IDENTITY PROFILE','decisionProfile':'DECISION PROFILE','relationshipProfile':'RELATIONSHIP PROFILE','careerProfile':'CAREER PROFILE','wealthProfile':'WEALTH PROFILE','currentCycle':'CURRENT CYCLE','keyStrength':'KEY STRENGTH','hiddenStrength':'HIDDEN STRENGTH','shadowPattern':'SHADOW PATTERN','cycleAnalysis':'CURRENT CYCLE ANALYSIS','strengths':'RELATIONSHIP STRENGTHS','frictionPoints':'FRICTION POINTS','communicationStyle':'COMMUNICATION','growthPotential':'GROWTH POTENTIAL','yearTheme':'YEAR THEME','bestGrowthWindow':'BEST GROWTH WINDOW','biggestChallenge':'BIGGEST CHALLENGE','personalMotto':'YOUR MOTTO'};
+  var fields=['identityProfile','decisionProfile','relationshipProfile','careerProfile','wealthProfile','currentCycle','keyStrength','hiddenStrength','shadowPattern','cycleAnalysis','strengths','frictionPoints','communicationStyle','growthPotential','yearTheme','bestGrowthWindow','biggestChallenge','personalMotto','workSignature','cannotFake','frictionPoint','quietDirection','nextThreeYears','worldPerception','translation','compassSentence','chapterOne','hiddenPattern','turningPoint','lifeLesson','becoming','shadowPath','growthPath','lifeSentence','chartSays','whyNow','beingAsked','ifResist','smallestStep'];
+  var labels={'identityProfile':'IDENTITY PROFILE','decisionProfile':'DECISION PROFILE','relationshipProfile':'RELATIONSHIP PROFILE','careerProfile':'CAREER PROFILE','wealthProfile':'WEALTH PROFILE','currentCycle':'CURRENT CYCLE','keyStrength':'KEY STRENGTH','hiddenStrength':'HIDDEN STRENGTH','shadowPattern':'SHADOW PATTERN','cycleAnalysis':'CURRENT CYCLE ANALYSIS','strengths':'RELATIONSHIP STRENGTHS','frictionPoints':'FRICTION POINTS','communicationStyle':'COMMUNICATION','growthPotential':'GROWTH POTENTIAL','yearTheme':'YEAR THEME','bestGrowthWindow':'BEST GROWTH WINDOW','biggestChallenge':'BIGGEST CHALLENGE','personalMotto':'YOUR MOTTO','workSignature':'YOUR WORK SIGNATURE','cannotFake':'THE WORK YOU CANNOT FAKE','frictionPoint':'THE FRICTION YOU KEEP MEETING','quietDirection':'WHERE YOU ARE QUIETLY GROWING TOWARDS','nextThreeYears':'THE NEXT THREE YEARS','worldPerception':'HOW THE WORLD CURRENTLY SEES YOU','translation':'TRANSLATION','compassSentence':'YOUR COMPASS SENTENCE','chapterOne':'CHAPTER ONE','hiddenPattern':'THE PATTERN NOBODY NOTICES','turningPoint':'THE TURNING POINT','lifeLesson':'THE LESSON THAT KEEPS RETURNING','becoming':'WHO YOU ARE BECOMING','shadowPath':'IF YOU IGNORE THIS','growthPath':'IF YOU FOLLOW THIS','lifeSentence':'YOUR LIFE SENTENCE','chartSays':'WHAT YOUR CHART SAYS','whyNow':'WHY THIS HAS APPEARED NOW','beingAsked':'WHAT YOU ARE BEING ASKED TO LEARN','ifResist':'IF YOU RESIST IT','smallestStep':'THE SMALLEST NEXT STEP'};
   fields.forEach(function(f){if(p[f])wrBlock(labels[f]||f.toUpperCase(),p[f]);});
   if(p.months&&Array.isArray(p.months)){
     chk(20);sf('normal',8,184,151,90);doc.text('MONTH BY MONTH FORECAST',mg,y);y+=5;
@@ -771,6 +1242,275 @@ function downloadPDF(){
   doc.save('1LINE-Astro-'+(d.name||d.zod.sign).replace(/\s/g,'-')+'-'+_reportDate.replace(/ /g,'-')+'.pdf');
 }
 
+/* COMPASS ENGINE - Deterministic keyword scoring and routing. No AI. No cost. */
+
+var COMPASS_LENSES = [
+  {
+    id: 'career',
+    name: 'Career Compass',
+    price: 49,
+    lsUrl: 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/f368e695-7b23-43ae-9d63-1b2212ccc85b',
+    comingSoon: false,
+    description: 'Work style, motivation drivers, growth patterns, blind spots and professional reflection.',
+    tags: ['Work Style', 'Growth', 'Blind Spots'],
+    keywords: ['work','career','job','promotion','manager','profession','employment','office','workplace','salary','redundant','redundancy','fired','hired','interview','colleague','boss','business','company','industry','role','title','profession']
+  },
+  {
+    id: 'founder',
+    name: 'Founder Compass',
+    price: 49,
+    lsUrl: '',
+    comingSoon: true,
+    description: 'Founder archetype, leadership style, delegation patterns, vision vs execution and founder blind spots.',
+    tags: ['Leadership', 'Vision', 'Risk'],
+    keywords: ['founder','startup','start-up','entrepreneur','launch','venture','investor','funding','pitch','equity','product','saas','app','build','scale','bootstrapped','co-founder','cofounder','shareholder','company']
+  },
+  {
+    id: 'relationship',
+    name: 'Relationship Compass',
+    price: 49,
+    lsUrl: '',
+    comingSoon: true,
+    description: 'Communication style, emotional needs, attachment patterns, friction areas and growth opportunities.',
+    tags: ['Connection', 'Communication', 'Emotional Needs'],
+    keywords: ['relationship','marriage','partner','spouse','boyfriend','girlfriend','husband','wife','dating','love','romance','ex','divorce','separation','break up','breakup','together','trust','jealous','commitment']
+  },
+  {
+    id: 'child',
+    name: 'Child Compass',
+    price: 49,
+    lsUrl: '',
+    comingSoon: true,
+    description: 'Learning style, structure vs freedom, emotional needs and a parent reflection framework.',
+    tags: ['Learning', 'Parenting', 'Development'],
+    keywords: ['child','daughter','son','kid','parenting','school','education','teenager','toddler','baby','parent','mother','father','mum','dad','homework','behaviour','learning','discipline']
+  },
+  {
+    id: 'decision',
+    name: 'Decision Compass',
+    price: 29,
+    lsUrl: '',
+    comingSoon: true,
+    description: 'Decision framework, risk profile, pattern analysis and review of your current decision.',
+    tags: ['Clarity', 'Risk', 'Patterns'],
+    keywords: ['decision','decide','choice','crossroads','stuck','unsure','uncertain','dilemma','options','choose','choosing','torn','direction','path','move','leave','stay','quit','accept','decline']
+  },
+  {
+    id: 'leadership',
+    name: 'Leadership Compass',
+    price: 49,
+    lsUrl: '',
+    comingSoon: true,
+    description: 'Influence style, team dynamics, leadership tendencies and blind spots.',
+    tags: ['Influence', 'Team', 'Authority'],
+    keywords: ['leadership','lead','influence','team','management','manager','authority','power','delegate','inspire','vision','culture','people','staff','hire','fire','performance','meeting']
+  },
+  {
+    id: 'family',
+    name: 'Family Compass',
+    price: 49,
+    lsUrl: '',
+    comingSoon: true,
+    description: 'Family dynamics, communication patterns, strength areas and friction areas.',
+    tags: ['Family', 'Dynamics', 'Communication'],
+    keywords: ['family','parent','sibling','brother','sister','mother','father','mum','dad','household','home','relatives','in-laws','estranged','conflict','reunion','inheritance','boundaries']
+  },
+  {
+    id: 'partnership',
+    name: 'Business Partnership Compass',
+    price: 49,
+    lsUrl: '',
+    comingSoon: true,
+    description: 'Compatibility, communication, execution style, shared strengths and blind spots.',
+    tags: ['Partnership', 'Compatibility', 'Execution'],
+    keywords: ['cofounder','co-founder','business partner','shareholder','partnership','joint venture','collaboration','founding team','investor','board']
+  },
+  {
+    id: 'lifestory',
+    name: 'Life Story',
+    price: 49,
+    lsUrl: 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/76746d6a-a7a8-48f4-9209-6b63b1819072',
+    comingSoon: false,
+    description: 'Early themes, turning points, recurring patterns, emerging direction and a reflection narrative.',
+    tags: ['Purpose', 'Meaning', 'Direction'],
+    keywords: ['purpose','meaning','identity','reflect','journey','story','life','legacy','contribution','significance','direction','calling','why','pattern','theme','turning point','chapter','phase']
+  },
+  {
+    id: 'askastro',
+    name: 'Ask Astro',
+    price: 9,
+    lsUrl: 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/fba99d17-c765-4dc6-a937-ce8145799b18',
+    comingSoon: false,
+    description: 'One question. Focused symbolic reflection using your existing profile.',
+    tags: ['One Question', 'Reflection', 'Personalised'],
+    keywords: []
+  }
+];
+
+/* Future expansion hooks - architecture only, not yet built */
+var COMPASS_FUTURE = [
+  { id: 'team-dynamics',       name: 'Team Dynamics',          note: 'Multi-person team analysis. Corporate.' },
+  { id: 'executive-profile',   name: 'Executive Profile',      note: 'Corporate version of Founder Compass.' },
+  { id: 'monthly-companion',   name: 'Monthly Companion',       note: 'Recurring monthly subscription.' },
+  { id: 'quarterly-companion', name: 'Quarterly Companion',     note: 'Quarterly review system.' },
+  { id: 'founder-forecast',    name: 'Founder Forecast',        note: 'Business-focused annual forecast.' },
+  { id: 'couple-forecast',     name: 'Couple Forecast',         note: 'Shared forecast for relationships.' },
+  { id: 'family-forecast',     name: 'Family Forecast',         note: 'Family unit annual forecast.' },
+  { id: 'leadership-forecast', name: 'Leadership Forecast',     note: 'Leadership-focused annual forecast.' },
+  { id: 'membership',          name: 'Astro Membership',        note: 'Monthly reports + archive vault.' }
+];
+
+var COMPASS_THRESHOLD = 75;
+
+/* SPELLCHECK — universal pattern */
+var sc_spellChecked = false;
+
+function closeSpellModal() {
+  document.getElementById('spell-modal').classList.remove('active');
+}
+
+function continueAfterSpell() {
+  closeSpellModal();
+  sc_spellChecked = true;
+  runCompass();
+}
+
+function runCompass() {
+  var text = document.getElementById('compass-input').value.trim();
+  if (!text) {
+    renderResults([], '');
+    return;
+  }
+  /* Show spellcheck modal on first click */
+  if (!sc_spellChecked) {
+    sc_spellChecked = false;
+    document.getElementById('spell-modal').classList.add('active');
+    return;
+  }
+  /* Reset for next use */
+  sc_spellChecked = false;
+  showView('loading');
+  setTimeout(function(){ runCompassAnalysis(text); }, 900);
+}
+
+function runCompassAnalysis(text) {
+  var lower = text.toLowerCase();
+  var scores = [];
+  COMPASS_LENSES.forEach(function(lens) {
+    if (!lens.keywords || lens.keywords.length === 0) return;
+    var score = 0;
+    var matched = 0;
+    lens.keywords.forEach(function(kw) {
+      if (lower.indexOf(kw) !== -1) {
+        matched++;
+        score += kw.length > 6 ? 2 : 1; 
+      }
+    });
+    if (matched > 0) {
+      var pct = Math.min(99, Math.round(60 + (score / lens.keywords.length) * 260));
+      scores.push({ lens: lens, score: pct });
+    }
+  });
+  scores.sort(function(a, b) { return b.score - a.score; });
+  renderResults(scores, text);
+}
+
+function renderResults(scores, situationText) {
+  var sitEl = document.getElementById('results-situation-text');
+  if(sitEl) sitEl.textContent = situationText || '';
+  var container = document.getElementById('results-content');
+  var html = '';
+  if (!scores || scores.length === 0 || scores[0].score < COMPASS_THRESHOLD) {
+    html += '<div class="results-nomatch"><p class="results-nomatch-title">No dominant theme detected.</p>';
+    html += '<p class="results-nomatch-sub">Compass could not identify a single strong match. Explore the full catalogue below or use the traditional Astro reports.</p></div>';
+    html += '<div class="results-cat-grid">';
+    COMPASS_LENSES.forEach(function(lens) {
+      html += '<div class="results-cat-card"><p class="results-cat-name">' + lens.name + '</p>';
+      html += '<p class="results-cat-price">&pound;' + lens.price + ' one-time</p>';
+      if (lens.comingSoon || !lens.lsUrl) {
+        html += '<button class="results-cat-btn coming-soon">Coming Soon</button>';
+      } else {
+        html += '<button class="results-cat-btn" onclick="compassPurchase(\'' + lens.id + '\')">Unlock</button>';
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+  } else {
+    var primary = scores[0];
+    var also = scores.slice(1, 3);
+    html += '<p class="results-primary-label">Recommended for you</p>';
+    html += '<div class="results-primary-card">';
+    html += '<p class="results-primary-name">' + primary.lens.name + '</p>';
+    html += '<p class="results-primary-score">' + primary.score + '% match based on your situation</p>';
+    html += '<p class="results-primary-desc">' + primary.lens.description + '</p>';
+    html += '<div class="results-primary-tags">';
+    primary.lens.tags.forEach(function(t) { html += '<span class="results-tag">' + t + '</span>'; });
+    html += '</div>';
+    html += '<p class="results-price">&pound;' + primary.lens.price + ' <span>one-time</span></p>';
+    if (primary.lens.comingSoon || !primary.lens.lsUrl) {
+      html += '<button class="results-buy-btn coming-soon">Coming Soon</button>';
+    } else {
+      html += '<button class="results-buy-btn" onclick="compassPurchase(\'' + primary.lens.id + '\')">Unlock ' + primary.lens.name + '</button>';
+    }
+    html += '</div>';
+    if (also.length > 0) {
+      html += '<p class="results-also-label">Also relevant</p>';
+      html += '<div class="results-also-grid">';
+      also.forEach(function(a) {
+        html += '<div class="results-also-card"><p class="results-also-name">' + a.lens.name + '</p>';
+        html += '<p class="results-also-score">' + a.score + '% match</p>';
+        html += '<p class="results-also-price">&pound;' + a.lens.price + ' one-time</p>';
+        if (a.lens.comingSoon || !a.lens.lsUrl) {
+          html += '<button class="results-also-btn coming-soon">Coming Soon</button>';
+        } else {
+          html += '<button class="results-also-btn" onclick="compassPurchase(\'' + a.lens.id + '\')">Unlock</button>';
+        }
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+  }
+  container.innerHTML = html;
+  showView('results');
+}
+
+function compassPurchase(lensId) {
+  
+  
+  var lens = null;
+  for (var i = 0; i < COMPASS_LENSES.length; i++) {
+    if (COMPASS_LENSES[i].id === lensId) { lens = COMPASS_LENSES[i]; break; }
+  }
+  if (!lens || !lens.lsUrl) return;
+  var save = {
+    tier: 'compass_' + lensId,
+    day: _calc.day, month: _calc.month, year: _calc.year,
+    name: _calc.name, challenge: _calc.challenge, time: _calc.time,
+    compassInput: document.getElementById('compass-input').value.trim()
+  };
+  sessionStorage.setItem('astro_data', JSON.stringify(save));
+  window.location.href = lens.lsUrl;
+}
+
+function showSecondaryAstro(){
+  /* Render the traditional Astro product grid as secondary section */
+  var grid = document.getElementById('secondary-tier-grid');
+  if (!grid) return;
+  /* Clone tier cards from tier-select into secondary grid */
+  var tierSelect = document.getElementById('tier-select');
+  var tierGrid = tierSelect ? tierSelect.querySelector('.tier-grid') : null;
+  if (tierGrid) {
+    grid.innerHTML = tierGrid.innerHTML;
+    /* Update button onclick handlers to use selectTier */
+    var btns = grid.querySelectorAll('button[onclick]');
+    btns.forEach(function(btn) {
+      var oc = btn.getAttribute('onclick');
+      btn.setAttribute('onclick', oc);
+    });
+  }
+  document.getElementById('secondary-astro').classList.add('visible');
+}
+
 function resetAstro(){
   _calc=null;_calc2=null;_tier='';_reportData=null;
   ['dob-day','dob-year','full-name','current-challenge','dob2-day','dob2-year','name2'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
@@ -778,9 +1518,15 @@ function resetAstro(){
   if(document.getElementById('dob2-month'))document.getElementById('dob2-month').value='';
   document.getElementById('dob-time').value='';
   document.getElementById('free-output').className='';
+  document.getElementById('free-output').style.display='none';
   document.getElementById('premium-output').innerHTML='';
   document.getElementById('premium-output').classList.remove('visible');
-  document.getElementById('tier-select').classList.remove('visible');
+  document.getElementById('profile-complete').classList.remove('visible');
+  ['view-compass','view-results'].forEach(function(id){ document.getElementById(id).classList.remove('active'); });
+  document.getElementById('compass-loading').classList.remove('active');
+  if(document.getElementById('compass-input')) document.getElementById('compass-input').value='';
+  if(document.getElementById('results-content')) document.getElementById('results-content').innerHTML='';
+  /* compass-input reset handled above */
   document.getElementById('compat-input').style.display='none';
   document.getElementById('input-section').style.display='block';
   document.getElementById('generate-btn').disabled=true;
