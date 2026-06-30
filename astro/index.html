@@ -1,4 +1,4 @@
-<!-- 1LINE Astro v3.9 | Updated: 29 Jun 2026 | Compass loading view now shows rotating premium stage messages, never appears frozen, error handling fixed for Compass tiers -->
+<!-- 1LINE Astro v4.0 | Updated: 29 Jun 2026 | Ask Astro repositioned as recurring companion - appears at end of every premium report with question capture modal, never a competing hero tile -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -289,6 +289,8 @@
     /* SPELLCHECK MODAL */
     #spell-modal { display: none; position: fixed; inset: 0; z-index: 9998; background: rgba(26,26,24,0.55); align-items: center; justify-content: center; padding: 24px; }
     #spell-modal.active { display: flex; }
+    #ask-astro-modal { display: none; position: fixed; inset: 0; z-index: 9998; background: rgba(26,26,24,0.55); align-items: center; justify-content: center; padding: 24px; }
+    #ask-astro-modal.active { display: flex; }
     .spell-modal-box { background: var(--white); border-radius: 12px; padding: 28px 26px; max-width: 400px; width: 100%; box-shadow: 0 8px 40px rgba(0,0,0,0.18); }
     .spell-modal-heading { font-family: var(--serif); font-size: 18px; font-weight: 300; color: var(--ink); margin-bottom: 10px; }
     .spell-modal-body { font-size: 13px; font-weight: 300; color: var(--ink-mid); line-height: 1.7; margin-bottom: 22px; }
@@ -702,6 +704,18 @@
       <div class="spell-modal-btns">
         <button class="spell-modal-btn review" onclick="closeSpellModal()">Review Text</button>
         <button class="spell-modal-btn continue" onclick="continueAfterSpell()">Continue Anyway</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="ask-astro-modal" role="dialog" aria-modal="true" aria-labelledby="ask-astro-modal-heading">
+    <div class="spell-modal-box">
+      <p class="spell-modal-heading" id="ask-astro-modal-heading">Ask one question</p>
+      <p class="spell-modal-body">Your existing profile already holds the context. What is the one thing you would like a direct reading on?</p>
+      <textarea id="ask-astro-question" class="compass-textarea" spellcheck="true" autocorrect="on" autocomplete="on" autocapitalize="sentences" placeholder="Should I change career? Why does this keep repeating? Am I on the right path?" rows="4" style="margin-bottom:16px;"></textarea>
+      <div class="spell-modal-btns">
+        <button class="spell-modal-btn review" onclick="closeAskAstroModal()">Cancel</button>
+        <button class="spell-modal-btn continue" onclick="confirmAskAstro()">Continue &mdash; &pound;9</button>
       </div>
     </div>
   </div>
@@ -1228,6 +1242,19 @@ function renderOutput(tier,p){
   }
   var q=p.guidingQuestion||p.yearQuestion||'';
   if(q){html+='<div class="question-wrap"><p class="q-label">Your Guiding Question</p><p class="q-text">'+q+'</p><p class="q-note">Sit with this. Return to it.</p></div>';}
+  if(tier!=='compass_askastro'){
+    var askLens=null;
+    for(var ai=0;ai<COMPASS_LENSES.length;ai++){if(COMPASS_LENSES[ai].id==='askastro'){askLens=COMPASS_LENSES[ai];break;}}
+    if(askLens&&askLens.lsUrl){
+      html+='<div class="prem-block" style="border-top:0.5px solid var(--border);margin-top:32px;padding-top:32px;text-align:center;">';
+      html+='<span class="prem-eyebrow">Your Story Continues</span>';
+      html+='<p class="prem-heading" style="margin-bottom:6px;">Sometimes the next step is simply one question</p>';
+      html+='<p class="prem-body" style="max-width:480px;margin:0 auto 18px;">This report explains the patterns. Ask Astro lets you explore one specific question against your existing profile - a quiet companion you can return to whenever something specific comes up.</p>';
+      html+='<div class="ic-tags" style="justify-content:center;margin-bottom:18px;"><span class="ic-tag">Should I change career?</span><span class="ic-tag">Why does this keep repeating?</span><span class="ic-tag">Am I on the right path?</span></div>';
+      html+='<a class="btn-sec primary" style="display:inline-block;text-decoration:none;cursor:pointer;" onclick="askAstroFromReport(event)" href="#">Ask Astro &mdash; \u00a39</a>';
+      html+='</div>';
+    }
+  }
   html+='<p class="disclaimer">Symbolic intelligence derived from established astrological and numerological systems. For reflection and self-understanding. Not predictive or prescriptive.</p>';
   html+='<div class="action-row"><button class="btn-sec primary" onclick="downloadPDF()">Download PDF Report</button><button class="btn-sec" onclick="resetAstro()">New Profile</button></div>';
   out.innerHTML=html;
@@ -1555,6 +1582,30 @@ function compassPurchase(lensId) {
   };
   sessionStorage.setItem('astro_data', JSON.stringify(save));
   window.location.href = lens.lsUrl;
+}
+
+function askAstroFromReport(evt){
+  if(evt)evt.preventDefault();
+  document.getElementById('ask-astro-question').value='';
+  document.getElementById('ask-astro-modal').classList.add('active');
+}
+function closeAskAstroModal(){
+  document.getElementById('ask-astro-modal').classList.remove('active');
+}
+function confirmAskAstro(){
+  var question=document.getElementById('ask-astro-question').value.trim();
+  if(!question)return;
+  var askLens=null;
+  for(var i=0;i<COMPASS_LENSES.length;i++){if(COMPASS_LENSES[i].id==='askastro'){askLens=COMPASS_LENSES[i];break;}}
+  if(!askLens||!askLens.lsUrl||!_calc)return;
+  var save={
+    tier:'compass_askastro',
+    day:_calc.day, month:_calc.month, year:_calc.year,
+    name:_calc.name, challenge:_calc.challenge, time:_calc.time,
+    compassInput:question
+  };
+  sessionStorage.setItem('astro_data', JSON.stringify(save));
+  window.location.href=askLens.lsUrl;
 }
 
 function showSecondaryAstro(){
