@@ -1,4 +1,4 @@
-<!-- 1LINE Astro v3.7 | Updated: 29 Jun 2026 | Fixed Compass premium-output not displaying after payment - view switching bug -->
+<!-- 1LINE Astro v3.9 | Updated: 29 Jun 2026 | Compass loading view now shows rotating premium stage messages, never appears frozen, error handling fixed for Compass tiers -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -1032,12 +1032,44 @@ function fireAI(tier){
   loadDiv.style.cssText='text-align:center;padding:40px 0;font-family:var(--serif);font-style:italic;color:var(--ink-muted);font-size:18px;border-top:0.5px solid var(--border);';
   loadDiv.textContent=tier==='forecast'?'Generating your annual forecast...':tier==='compatibility'?'Generating compatibility report...':tier==='compass_career'?'Reading your symbolic work signature...':tier==='compass_lifestory'?'Tracing the thread through your story...':tier==='compass_askastro'?'Consulting your chart...':'Generating your full report...';
   if(tier==='compass_career'||tier==='compass_lifestory'||tier==='compass_askastro'){
-    /* Compass tiers use discrete view switching - show loading view explicitly */
+    /* Compass tiers use discrete view switching - hide everything else, show loading view explicitly */
+    var heroEl=document.querySelector('.hero');
+    if(heroEl)heroEl.style.display='none';
+    var inputSec=document.getElementById('input-section');
+    if(inputSec)inputSec.style.display='none';
+    var freeOut=document.getElementById('free-output');
+    if(freeOut)freeOut.style.display='none';
     document.getElementById('view-compass').classList.remove('active');
     document.getElementById('view-results').classList.remove('active');
     var loadView=document.getElementById('compass-loading');
     loadView.classList.add('active');
-    loadView.appendChild(loadDiv);
+    window.scrollTo({top:0,behavior:'smooth'});
+    /* Drive the existing loading view title/sub through rotating premium stage messages */
+    var stageMsgs=tier==='compass_career'?[
+      ['Reading your symbolic profile','Cross-referencing Life Path, element and current cycle...'],
+      ['Locating your working pattern','Connecting your numbers to how you naturally create value...'],
+      ['Identifying the translation gap','Comparing your symbolic pattern to how the world sees you...'],
+      ['Finalising your report','Almost ready...']
+    ]:tier==='compass_lifestory'?[
+      ['Reading the thread through your story','Tracing patterns across what you have shared...'],
+      ['Locating the turning points','Connecting chapters of your journey to your symbolic profile...'],
+      ['Finding the pattern that repeats','Synthesising recurring themes...'],
+      ['Finalising your story','Almost ready...']
+    ]:[
+      ['Consulting your chart','Reading your symbolic profile against your question...'],
+      ['Interpreting the signal','Connecting your question to your current cycle...'],
+      ['Finalising your reading','Almost ready...']
+    ];
+    var titleEl=document.querySelector('#compass-loading .cload-title');
+    var subEl=document.querySelector('#compass-loading .cload-sub');
+    var si=0;
+    if(titleEl&&subEl){titleEl.textContent=stageMsgs[0][0];subEl.textContent=stageMsgs[0][1];}
+    var stageTimer=setInterval(function(){
+      si++;
+      if(si>=stageMsgs.length){clearInterval(stageTimer);return;}
+      if(titleEl&&subEl){titleEl.textContent=stageMsgs[si][0];subEl.textContent=stageMsgs[si][1];}
+    },1100);
+    window._compassStageTimer=stageTimer;
   }else{
     document.getElementById('free-output').appendChild(loadDiv);
   }
@@ -1074,8 +1106,16 @@ function fireAI(tier){
     renderOutput(tier,_reportData);
   })
   .catch(function(){
-    var l=document.getElementById('ai-loader');
-    if(l)l.textContent='Report generation failed. Please refresh and try again.';
+    if(window._compassStageTimer){clearInterval(window._compassStageTimer);window._compassStageTimer=null;}
+    if(tier==='compass_career'||tier==='compass_lifestory'||tier==='compass_askastro'){
+      var titleErrEl=document.querySelector('#compass-loading .cload-title');
+      var subErrEl=document.querySelector('#compass-loading .cload-sub');
+      if(titleErrEl)titleErrEl.textContent='Report generation failed';
+      if(subErrEl)subErrEl.textContent='Please refresh and try again.';
+    }else{
+      var l=document.getElementById('ai-loader');
+      if(l)l.textContent='Report generation failed. Please refresh and try again.';
+    }
   });
 }
 
@@ -1193,13 +1233,22 @@ function renderOutput(tier,p){
   out.innerHTML=html;
   out.classList.add('visible');
   if(tier==='compass_career'||tier==='compass_lifestory'||tier==='compass_askastro'){
-    /* Compass tiers use discrete view switching - must explicitly show premium-output */
+    /* Compass tiers use discrete view switching - hide everything else, show premium-output explicitly */
+    if(window._compassStageTimer){clearInterval(window._compassStageTimer);window._compassStageTimer=null;}
+    var heroEl2=document.querySelector('.hero');
+    if(heroEl2)heroEl2.style.display='none';
+    var inputSec2=document.getElementById('input-section');
+    if(inputSec2)inputSec2.style.display='none';
+    var freeOut2=document.getElementById('free-output');
+    if(freeOut2)freeOut2.style.display='none';
     document.getElementById('view-compass').classList.remove('active');
     document.getElementById('view-results').classList.remove('active');
     document.getElementById('compass-loading').classList.remove('active');
     out.style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }else{
+    setTimeout(function(){out.scrollIntoView({behavior:'smooth',block:'start'});},100);
   }
-  setTimeout(function(){out.scrollIntoView({behavior:'smooth',block:'start'});},100);
 }
 
 function downloadPDF(){
