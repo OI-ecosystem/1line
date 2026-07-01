@@ -1,4 +1,4 @@
-<!-- 1LINE Astro Overview v1.3 | Updated: 06 Jun 2026 | Example input format fixed -->
+<!-- 1LINE Astro Overview v4.1 | Updated: 01 Jul 2026 | Expanded to full platform landing page - Compass, new sections, comparison table, ecosystem -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -492,11 +492,81 @@
   .hero-oneline { animation: fadeUp 0.7s 0.2s ease both; }
   .hero-cta-wrap { animation: fadeUp 0.7s 0.3s ease both; }
 
+  /* ── NEW v4.1 SECTIONS ── */
+  .platform-lenses { background: var(--bg); border-top: 1px solid var(--rule); }
+  .lenses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
+  .lens-card { background: var(--bg-card); border: 1px solid var(--rule); border-radius: var(--r); padding: 1.5rem 1.4rem; }
+  .lens-name { font-family: var(--serif); font-size: 1.1rem; color: var(--ink); margin-bottom: 0.4rem; }
+  .lens-desc { font-size: 0.82rem; color: var(--ink-3); line-height: 1.6; }
+
+  .how-steps { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr auto 1fr; gap: 0; margin-top: 2.2rem; align-items: start; }
+  .how-step { text-align: center; padding: 0 0.5rem; }
+  .how-step-num { width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: var(--bg); font-size: 0.7rem; font-weight: 600; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.7rem; }
+  .how-step-title { font-family: var(--serif); font-size: 0.9rem; color: var(--ink); margin-bottom: 0.3rem; }
+  .how-step-body { font-size: 0.76rem; color: var(--ink-3); line-height: 1.5; }
+  .how-arrow { display: flex; align-items: flex-start; padding-top: 7px; color: var(--ink-3); font-size: 1rem; }
+
+  .compass-feature { background: var(--ink); border-top: 1px solid var(--rule); }
+  .compass-feature .section-label { color: rgba(247,245,240,0.4); }
+  .compass-headline { font-family: var(--serif); font-size: clamp(2rem,4vw,3rem); color: var(--bg); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.25rem; }
+  .compass-headline em { font-style: italic; color: #C4A96A; }
+  .compass-body { font-size: 0.95rem; color: rgba(247,245,240,0.65); line-height: 1.75; max-width: 580px; margin-bottom: 2.5rem; }
+  .compass-diagram { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .compass-node { background: rgba(247,245,240,0.07); border: 1px solid rgba(247,245,240,0.14); border-radius: var(--r); padding: 0.8rem 1.2rem; font-size: 0.82rem; color: var(--bg); }
+  .compass-node.highlight { background: #C4A96A; border-color: #C4A96A; color: var(--ink); font-weight: 600; }
+  .compass-arr { color: rgba(247,245,240,0.3); font-size: 1rem; }
+
+  .ecosystem-section { background: var(--bg-card); border-top: 1px solid var(--rule); }
+  .ecosystem-ladder { display: flex; flex-direction: column; gap: 0; margin-top: 2rem; max-width: 540px; }
+  .eco-step { display: flex; align-items: flex-start; gap: 1.25rem; padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+  .eco-step:last-child { border-bottom: none; }
+  .eco-num { font-size: 0.68rem; font-weight: 600; color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; padding-top: 3px; min-width: 22px; }
+  .eco-name { font-family: var(--serif); font-size: 1rem; color: var(--ink); margin-bottom: 0.2rem; }
+  .eco-desc { font-size: 0.8rem; color: var(--ink-3); line-height: 1.55; }
+
+  .pattern-section { background: var(--bg); border-top: 1px solid var(--rule); }
+  .pattern-block { max-width: 640px; }
+  .pattern-quote { font-family: var(--serif); font-size: clamp(1.2rem,2.5vw,1.55rem); color: var(--ink); line-height: 1.5; margin-bottom: 1.25rem; font-style: italic; }
+  .pattern-body { font-size: 0.9rem; color: var(--ink-2); line-height: 1.75; }
+
+  .compare-section { background: var(--bg-card); border-top: 1px solid var(--rule); }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 2rem; border: 1px solid var(--rule); border-radius: var(--r); overflow: hidden; }
+  .compare-col { padding: 0; }
+  .compare-col-head { padding: 1rem 1.25rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); border-bottom: 1px solid var(--rule); background: var(--bg); }
+  .compare-col:last-child .compare-col-head { color: var(--ink); background: var(--bg-card); }
+  .compare-item { padding: 0.8rem 1.25rem; font-size: 0.84rem; color: var(--ink-3); line-height: 1.5; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); }
+  .compare-col:last-child .compare-item { color: var(--ink); border-right: none; font-weight: 400; }
+  .compare-item:last-child { border-bottom: none; }
+
+  .all-products { background: var(--bg); border-top: 1px solid var(--rule); }
+  .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; }
+  .product-tile { background: var(--bg-card); border: 1px solid var(--rule); border-radius: var(--r); padding: 1.2rem 1.3rem; }
+  .product-tile-name { font-family: var(--serif); font-size: 1rem; color: var(--ink); margin-bottom: 0.25rem; }
+  .product-tile-price { font-size: 0.7rem; font-weight: 600; color: var(--ink-3); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.45rem; }
+  .product-tile-desc { font-size: 0.79rem; color: var(--ink-3); line-height: 1.55; }
+
+  .ask-astro-section { background: var(--bg-card); border-top: 1px solid var(--rule); }
+  .ask-block { max-width: 600px; }
+  .ask-headline { font-family: var(--serif); font-size: clamp(1.5rem,3vw,2.2rem); color: var(--ink); line-height: 1.2; margin-bottom: 1rem; }
+  .ask-body { font-size: 0.9rem; color: var(--ink-2); line-height: 1.75; }
+
+  .not-prediction { background: var(--bg); border-top: 1px solid var(--rule); }
+  .not-headline { font-family: var(--serif); font-size: clamp(1.6rem,3.2vw,2.6rem); color: var(--ink); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.25rem; }
+  .not-body { font-size: 0.9rem; color: var(--ink-2); line-height: 1.75; max-width: 580px; }
+
   @media (max-width: 768px) {
     section { padding: 3.5rem 1.25rem; }
     .topbar { padding: 1.25rem 1.25rem 0; }
     .footer-inner { flex-direction: column; align-items: flex-start; }
     .teaser-card, .input-card { padding: 1.5rem 1.3rem; }
+    .lenses-grid { grid-template-columns: 1fr 1fr; }
+    .how-steps { grid-template-columns: 1fr; gap: 1.25rem; }
+    .how-arrow { display: none; }
+    .compass-diagram { flex-direction: column; align-items: flex-start; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .compare-col:first-child { display: none; }
+    .compare-item { border-right: none; }
+    .products-grid { grid-template-columns: 1fr 1fr; }
     .tiers-grid { grid-template-columns: 1fr; }
   }
 </style>
@@ -658,6 +728,260 @@
         <span class="flow-step">Choose your depth</span>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- NEW — ONE PROFILE, MULTIPLE PERSPECTIVES -->
+<section class="platform-lenses">
+  <div class="container reveal">
+    <p class="section-label">One profile. Multiple perspectives.</p>
+    <h2 class="does-headline">Every report begins from the same symbolic foundation.</h2>
+    <div class="does-body">
+      <p>Your birth information creates a symbolic profile consisting of your Life Path, Zodiac, Element, Archetype and Current Personal Year. Every report builds from this foundation — no questionnaires, no personality tests, only established symbolic systems interpreted together.</p>
+    </div>
+    <div class="lenses-grid">
+      <div class="lens-card">
+        <p class="lens-name">Identity</p>
+        <p class="lens-desc">Understand your symbolic foundations — who you are at the level your birth data reveals.</p>
+      </div>
+      <div class="lens-card">
+        <p class="lens-name">Career Compass</p>
+        <p class="lens-desc">Explore work style, motivation drivers, direction and professional alignment through your symbolic profile.</p>
+      </div>
+      <div class="lens-card">
+        <p class="lens-name">Life Story</p>
+        <p class="lens-desc">Discover the recurring themes and the narrative thread connecting the major chapters of your life.</p>
+      </div>
+      <div class="lens-card">
+        <p class="lens-name">Compatibility</p>
+        <p class="lens-desc">Understand the symbolic dynamics between two people — strengths, friction and communication patterns.</p>
+      </div>
+      <div class="lens-card">
+        <p class="lens-name">Annual Forecast</p>
+        <p class="lens-desc">Explore the symbolic themes shaping the coming year, month by month.</p>
+      </div>
+      <div class="lens-card">
+        <p class="lens-name">Ask Astro</p>
+        <p class="lens-desc">One specific question answered using your existing symbolic profile. No need to recreate anything.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEW — HOW ASTRO WORKS -->
+<section class="does" style="background: var(--bg-card);">
+  <div class="container reveal">
+    <p class="section-label">How it works</p>
+    <h2 class="does-headline">Five steps. One continuing conversation.</h2>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-num">1</div>
+        <p class="how-step-title">Birth Date</p>
+        <p class="how-step-body">Enter your date of birth. Birth time is optional but adds additional depth.</p>
+      </div>
+      <div class="how-arrow">&rarr;</div>
+      <div class="how-step">
+        <div class="how-step-num">2</div>
+        <p class="how-step-title">Symbolic Profile</p>
+        <p class="how-step-body">Your Life Path, Zodiac, Element, Archetype and Personal Year generate instantly — free.</p>
+      </div>
+      <div class="how-arrow">&rarr;</div>
+      <div class="how-step">
+        <div class="how-step-num">3</div>
+        <p class="how-step-title">Describe Your Situation</p>
+        <p class="how-step-body">Compass reads your current situation against your symbolic profile and recommends the most relevant path.</p>
+      </div>
+      <div class="how-arrow">&rarr;</div>
+      <div class="how-step">
+        <div class="how-step-num">4</div>
+        <p class="how-step-title">AI Reflection Report</p>
+        <p class="how-step-body">A premium report is generated — synthesising your symbolic signals into a coherent, specific reading.</p>
+      </div>
+      <div class="how-arrow">&rarr;</div>
+      <div class="how-step">
+        <div class="how-step-num">5</div>
+        <p class="how-step-title">Continue Exploring</p>
+        <p class="how-step-body">Your symbolic foundation remains. Return with a question. Add a deeper lens. The conversation continues.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEW — COMPASS FEATURE -->
+<section class="compass-feature">
+  <div class="container reveal">
+    <p class="section-label">Compass</p>
+    <h2 class="compass-headline">Compass doesn&rsquo;t predict.<br><em>It interprets.</em></h2>
+    <p class="compass-body">Instead of choosing a report first, describe your current situation in one sentence. Compass analyses your situation against your symbolic profile and identifies the most relevant path for deeper exploration. The report finds you — not the other way around.</p>
+    <div class="compass-diagram">
+      <div class="compass-node">Current Situation</div>
+      <div class="compass-arr">&rarr;</div>
+      <div class="compass-node">Compass Analysis</div>
+      <div class="compass-arr">&rarr;</div>
+      <div class="compass-node highlight">Recommended Path</div>
+      <div class="compass-arr">&rarr;</div>
+      <div class="compass-node">Premium Report</div>
+    </div>
+  </div>
+</section>
+
+<!-- NEW — REPORTS THAT BUILD ON EACH OTHER -->
+<section class="ecosystem-section">
+  <div class="container reveal">
+    <p class="section-label">Reports that build on each other</p>
+    <h2 class="does-headline">Nothing is repeated. Everything compounds.</h2>
+    <div class="does-body">
+      <p>Each report assumes the symbolic profile that came before it. Nothing is explained twice. Each lens adds a new layer of understanding to the same foundation.</p>
+    </div>
+    <div class="ecosystem-ladder">
+      <div class="eco-step">
+        <span class="eco-num">01</span>
+        <div>
+          <p class="eco-name">Astro Profile</p>
+          <p class="eco-desc">Your symbolic identity — the foundation everything else builds from.</p>
+        </div>
+      </div>
+      <div class="eco-step">
+        <span class="eco-num">02</span>
+        <div>
+          <p class="eco-name">Astro Insight</p>
+          <p class="eco-desc">Deeper identity, decision patterns, relationship dynamics and hidden strengths.</p>
+        </div>
+      </div>
+      <div class="eco-step">
+        <span class="eco-num">03</span>
+        <div>
+          <p class="eco-name">Career Compass</p>
+          <p class="eco-desc">Work signature, motivation drivers, the translation gap between who you are and how you currently present.</p>
+        </div>
+      </div>
+      <div class="eco-step">
+        <span class="eco-num">04</span>
+        <div>
+          <p class="eco-name">Life Story</p>
+          <p class="eco-desc">The recurring thread connecting the chapters of your life — named, not described.</p>
+        </div>
+      </div>
+      <div class="eco-step">
+        <span class="eco-num">05</span>
+        <div>
+          <p class="eco-name">Ask Astro</p>
+          <p class="eco-desc">One focused question. One symbolic reading. Return to it whenever something specific surfaces.</p>
+        </div>
+      </div>
+      <div class="eco-step">
+        <span class="eco-num">06</span>
+        <div>
+          <p class="eco-name">Annual Forecast</p>
+          <p class="eco-desc">The symbolic themes shaping the coming year — month by month, grounded in your personal cycle.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEW — PATTERN THAT REPEATS -->
+<section class="pattern-section">
+  <div class="container reveal">
+    <p class="section-label">Built around recurring patterns</p>
+    <div class="pattern-block">
+      <p class="pattern-quote">&ldquo;When multiple symbolic systems repeatedly highlight the same themes, they deserve special attention.&rdquo;</p>
+      <p class="pattern-body">Rather than treating astrology and numerology as separate systems, 1LINE Astro looks for agreement between them. When your Life Path, element, archetype and current cycle all point toward the same pattern, that agreement becomes the foundation of every report — not an isolated observation, but a signal that has earned attention.</p>
+      <p class="pattern-body" style="margin-top:1rem;">Every premium report identifies the recurring signals first. Everything else is interpreted through them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NEW — WHAT MAKES THIS DIFFERENT -->
+<section class="compare-section">
+  <div class="container reveal">
+    <p class="section-label">What makes this different</p>
+    <h2 class="does-headline">Symbolic intelligence, not sun sign content.</h2>
+    <div class="compare-grid">
+      <div class="compare-col">
+        <div class="compare-col-head">Traditional Astrology</div>
+        <div class="compare-item">Daily predictions based on sun sign</div>
+        <div class="compare-item">Generic descriptions shared by millions</div>
+        <div class="compare-item">One-size-fits-all horoscopes</div>
+        <div class="compare-item">Disconnected, isolated reports</div>
+        <div class="compare-item">Fortune-telling framing</div>
+      </div>
+      <div class="compare-col">
+        <div class="compare-col-head">1LINE Astro</div>
+        <div class="compare-item">Integrated symbolic profile from birth data</div>
+        <div class="compare-item">Current situation analysis via Compass</div>
+        <div class="compare-item">AI-written reflections specific to your signals</div>
+        <div class="compare-item">Connected report ecosystem — each builds on the last</div>
+        <div class="compare-item">Reflection and pattern recognition — not prediction</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEW — ALL PRODUCTS -->
+<section class="all-products">
+  <div class="container reveal">
+    <p class="section-label">Explore your symbolic profile</p>
+    <h2 class="does-headline">Choose your depth.</h2>
+    <div class="products-grid">
+      <div class="product-tile">
+        <p class="product-tile-name">Astro Profile</p>
+        <p class="product-tile-price">&pound;15 one-time</p>
+        <p class="product-tile-desc">Your complete symbolic foundation — Life Path, Zodiac, Element, Archetype, Personal Year and Current Signal.</p>
+      </div>
+      <div class="product-tile">
+        <p class="product-tile-name">Astro Insight</p>
+        <p class="product-tile-price">&pound;29 one-time</p>
+        <p class="product-tile-desc">Identity, decision patterns, relationship profile, career profile, hidden strength and shadow — the complete character map.</p>
+      </div>
+      <div class="product-tile">
+        <p class="product-tile-name">Career Compass</p>
+        <p class="product-tile-price">&pound;49 one-time</p>
+        <p class="product-tile-desc">Your work signature, the friction you keep meeting, where your trajectory quietly points, and the translation gap.</p>
+      </div>
+      <div class="product-tile">
+        <p class="product-tile-name">Life Story</p>
+        <p class="product-tile-price">&pound;49 one-time</p>
+        <p class="product-tile-desc">The recurring thread. The turning point. Who you are becoming. Your life sentence — something to keep.</p>
+      </div>
+      <div class="product-tile">
+        <p class="product-tile-name">Astro Compatibility</p>
+        <p class="product-tile-price">&pound;49 one-time</p>
+        <p class="product-tile-desc">Two symbolic profiles compared — strengths, friction, communication patterns and what each person needs.</p>
+      </div>
+      <div class="product-tile">
+        <p class="product-tile-name">Annual Forecast</p>
+        <p class="product-tile-price">&pound;99 one-time</p>
+        <p class="product-tile-desc">Twelve months of symbolic themes — best growth windows, biggest challenges, personal motto and companion PDF.</p>
+      </div>
+      <div class="product-tile">
+        <p class="product-tile-name">Ask Astro</p>
+        <p class="product-tile-price">&pound;9 one-time</p>
+        <p class="product-tile-desc">One question. One focused symbolic reflection. Your existing profile provides the context — no setup required.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEW — ASK ASTRO AS CONTINUING CONVERSATION -->
+<section class="ask-astro-section">
+  <div class="container reveal">
+    <p class="section-label">A continuing conversation</p>
+    <div class="ask-block">
+      <h2 class="ask-headline">Your reports are not the end.<br>They are the beginning.</h2>
+      <p class="ask-body">When something shifts — a decision surfaces, a pattern returns, a question you can&rsquo;t quite resolve — Ask Astro lets you bring that one thing to your existing symbolic profile. No need to recreate your foundation. No new setup. One question, one focused reflection, grounded in who you already know yourself to be.</p>
+      <p class="ask-body" style="margin-top:1rem;">It is not another report. It is the ongoing conversation your symbolic profile makes possible.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NEW — NOT PREDICTION -->
+<section class="not-prediction">
+  <div class="container reveal">
+    <p class="section-label">Built for reflection. Not prediction.</p>
+    <h2 class="not-headline">This platform is designed<br>for self-understanding.</h2>
+    <p class="not-body">1LINE Astro does not predict future events. It does not make decisions for you. It is designed for reflection, pattern recognition and personal meaning. The outputs are interpretations of established symbolic systems applied to your specific birth data and current situation — not forecasts, not diagnoses, not guarantees.</p>
+    <p class="not-body" style="margin-top:1rem;">The value is in recognising what was already there. The decisions remain entirely yours.</p>
   </div>
 </section>
 
