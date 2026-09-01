@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Redirecting…</title>
+</head>
+<body>
+  <div id="fallback" style="display:none; font-family:sans-serif; text-align:center; padding:4rem;">
+    <h1>Page not found</h1>
+    <p><a href="/">Return to 1LINE</a></p>
+  </div>
+
+<script>
+  (function () {
+    var path = window.location.pathname;
+    var tail = window.location.search + window.location.hash; // preserves ?unlocked=true
+
+    // Pattern 1: old project-path prefix, e.g. /1line/gift/
+    if (path.toLowerCase().indexOf('/1line/') === 0) {
+      window.location.replace(path.replace(/^\/1line\//i, '/') + tail);
+      return;
+    }
+    if (path.toLowerCase() === '/1line') {
+      window.location.replace('/' + tail);
+      return;
+    }
+
+    // Pattern 2: known wrong filenames from old templates
+    var knownBadFiles = {
+      '/1line_index.html': '/index.html'
+    };
+    var match = knownBadFiles[path.toLowerCase()];
+    if (match) {
+      window.location.replace(match + tail);
+      return;
+    }
+
+    document.getElementById('fallback').style.display = 'block';
+  })();
+</script>
+</body>
+</html>
