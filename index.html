@@ -1,4 +1,4 @@
-<!-- 1LINE Index v2.8 | Updated: 29 Jun 2026 | Career card added to Professional & Creator -->
+<!-- 1LINE Index v2.9 | Updated: 29 Sep 2026 | Hero: Gift/Pitch/Coach buttons, down-arrow scroll, readability; Coming soon: Property + Planning -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,7 +87,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 8rem 2rem 5rem;
+    padding: 8rem 2rem 7.5rem;
     text-align: center;
     position: relative;
   }
@@ -97,7 +97,7 @@
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--ink-3);
+    color: var(--ink-2);
     margin-bottom: 2.2rem;
   }
 
@@ -154,8 +154,8 @@
   .rotating-line {
     font-family: var(--serif);
     font-style: italic;
-    font-size: 1.2rem;
-    color: var(--ink-3);
+    font-size: 1.25rem;
+    color: var(--ink-2);
     animation: rotateLines 12s infinite;
     display: block;
   }
@@ -267,19 +267,22 @@
   }
 
   .hero-scroll {
-    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-    color: var(--ink-3); font-size: 0.75rem; letter-spacing: 0.08em;
-    text-transform: uppercase; animation: bobDown 2s ease-in-out infinite;
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    width: 58px; height: 58px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 1.5px solid rgba(26,25,22,0.35); color: var(--ink);
+    background: rgba(255,255,255,0.55); text-decoration: none;
+    animation: bobDown 2.4s ease-in-out infinite;
+    transition: border-color 0.2s, background 0.2s;
   }
-  .scroll-line {
-    width: 1px; height: 36px;
-    background: linear-gradient(to bottom, var(--ink-3), transparent);
-  }
+  .hero-scroll:hover { border-color: var(--ink); background: #FFFFFF; }
+  .hero-scroll:focus-visible { outline: 3px solid rgba(26,127,232,0.45); outline-offset: 3px; }
+  .hero-scroll svg { width: 26px; height: 26px; }
   @keyframes bobDown {
     0%,100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(5px); }
+    50% { transform: translateX(-50%) translateY(7px); }
   }
+  @media (prefers-reduced-motion: reduce) { .hero-scroll { animation: none; } }
 
   /* SECTION COMMONS */
   section { padding: 7rem 2rem; }
@@ -489,7 +492,8 @@
     transition: color 0.2s, gap 0.2s;
   }
   .util-card:hover .util-card-cta { color: var(--ink); gap: 0.55rem; }
-  .util-card.soon { opacity: 0.55; cursor: default; }
+  .util-card.soon { opacity: 0.85; cursor: default; }
+  .cards-grid.soon-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
   .soon-badge {
     position: absolute; top: 1rem; right: 1rem;
     font-size: 0.65rem;
@@ -772,7 +776,7 @@
     </div>
   </div>
 
-  <p style="font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:#1A7FE8;margin:1.2rem 0 0.4rem 0;">Clarity gained for less than &pound;10</p>
+  <p style="font-size:0.8rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#1668C4;margin:1.2rem 0 0.5rem 0;">Clarity gained for less than &pound;10</p>
 
   <div class="hero-ctas">
     <a href="gift_folder.html" class="btn-primary" target="_blank" rel="noopener">
@@ -781,15 +785,14 @@
     <a href="pitch_folder.html" class="btn-secondary" target="_blank" rel="noopener">
       Explore 1LINE Pitch
     </a>
-    <span class="btn-ghost" aria-label="Coming soon">
-      Acronym Engine &middot; coming soon
-    </span>
+    <a href="coach_folder.html" class="btn-secondary" target="_blank" rel="noopener">
+      Explore 1LINE Coach
+    </a>
   </div>
 
-  <div class="hero-scroll" aria-hidden="true">
-    <div class="scroll-line"></div>
-    <span>scroll</span>
-  </div>
+  <a href="#concept" class="hero-scroll" aria-label="Scroll down to see how 1LINE works">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15"/><path d="M5.5 12.5 12 19l6.5-6.5"/></svg>
+  </a>
 </section>
 
 <!-- CONCEPT -->
@@ -992,25 +995,15 @@
         <span class="category-name" style="color:var(--ink-muted);">Coming soon</span>
         <div class="category-rule"></div>
       </div>
-      <div class="cards-grid">
+      <div class="cards-grid soon-grid">
         <div class="util-card soon">
-          <span class="util-card-title">Future Self</span>
-          <span class="util-card-desc">Describe who you're becoming. Receive a symbolic portrait of that future person.</span>
+          <span class="util-card-title">1LINE Property</span>
+          <span class="util-card-desc">Describe your home in one paragraph. See where it sits in the market cycle, what it is really good at, and how not to waste money on it.</span>
           <span class="util-card-cta">Coming soon</span>
         </div>
         <div class="util-card soon">
-          <span class="util-card-title">Startup Name</span>
-          <span class="util-card-desc">Describe your idea in one line. Receive names with meaning built in.</span>
-          <span class="util-card-cta">Coming soon</span>
-        </div>
-        <div class="util-card soon">
-          <span class="util-card-title">Relationship Reflection</span>
-          <span class="util-card-desc">One line about a relationship becomes a gentle, honest mirror.</span>
-          <span class="util-card-cta">Coming soon</span>
-        </div>
-        <div class="util-card soon">
-          <span class="util-card-title">Acronym Engine</span>
-          <span class="util-card-desc">Turn your phrase into a layered acronym with meaning at every letter.</span>
+          <span class="util-card-title">1LINE Planning</span>
+          <span class="util-card-desc">One line about your home or land. See the likely planning route, what to check first, and what it could realistically become.</span>
           <span class="util-card-cta">Coming soon</span>
         </div>
       </div>
