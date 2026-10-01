@@ -1,4 +1,4 @@
-<!-- 1LINE Bill v1.1 | Updated: 20 May 2026 | LS URL added -->
+<!-- 1LINE Bill v1.2 | Updated: 1 Oct 2026 | Readability pass + microphone + spelling check wording (Career v1.6.1 template) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -214,6 +214,44 @@ footer { border-top: 0.5px solid var(--border); padding: 32px 0 24px; margin-top
   .how-grid { grid-template-columns: 1fr; gap: 14px; }
   .opt-grid { grid-template-columns: 1fr; }
 }
+
+/* ── READABILITY PASS (Career v1.6.1 template: contrast, size, bigger box, mic) ── */
+.hero-eyebrow{font-size:12px;color:#5C5A55}
+.hero h1{font-weight:400}
+.hero-sub{font-size:17px;font-weight:400;color:#3A3A38}
+.hero-trust{font-size:13px}
+.input-label{font-size:23px;font-weight:400}
+.input-hint{font-size:14px;color:#5C5A55}
+.bill-textarea{height:auto;min-height:170px;padding:18px 64px 18px 20px;font-size:18px;font-weight:400;line-height:1.6;border:1.5px solid #948E82;border-radius:12px}
+.bill-textarea::placeholder{color:#77746C}
+.bill-textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
+.char-row{font-size:13px;color:#5C5A55}
+.optional-toggle{font-size:14px;color:#5C5A55}
+.opt-label{font-size:12px;color:#5C5A55}
+.opt-select{font-size:15px}
+.spell-heading{font-size:14px}
+.spell-msg{font-size:14px;color:#3A3A38;line-height:1.6;margin-bottom:4px}
+.spell-btn{font-size:13px}
+.generate-btn{font-size:14px;background:#1A2744}
+.generate-btn:disabled{opacity:1;background:#DDE0E7;color:#3A4460}
+.generate-note{font-size:13px;color:#6B6862}
+.how-eyebrow{font-size:12px;color:#5C5A55}
+.how-step-num{color:#8F8C84}
+.how-step-text{font-size:15px;font-weight:400;color:#3A3A38}
+.section-eyebrow{font-size:12px;color:#5C5A55}
+.footer-philosophy{font-size:13px;color:#6B6862}
+.footer-link{font-size:13px;color:#5C5A55}
+.footer-copy{font-size:12px;color:#6B6862}
+.input-wrap{position:relative}
+.mic-btn{position:absolute;right:12px;bottom:12px;width:42px;height:42px;border-radius:50%;border:1.5px solid #948E82;background:#fff;color:#1A2744;display:none;align-items:center;justify-content:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;z-index:2}
+.mic-btn:hover{border-color:#1A2744}
+.mic-btn:focus-visible{outline:3px solid rgba(26,39,68,0.35);outline-offset:2px}
+.mic-btn svg{width:20px;height:20px}
+.mic-btn.listening{background:#1A2744;border-color:#1A2744;color:#fff;animation:micpulse 1.4s ease-in-out infinite}
+@keyframes micpulse{0%,100%{box-shadow:0 0 0 0 rgba(26,39,68,0.35)}50%{box-shadow:0 0 0 8px rgba(26,39,68,0)}}
+.mic-status{display:none;margin:8px 0 0;font-size:13px;color:#1A2744;font-weight:500}
+.mic-status.visible{display:block}
+@media (prefers-reduced-motion: reduce){.mic-btn.listening{animation:none}}
 </style>
 </head>
 <body>
@@ -244,17 +282,21 @@ footer { border-top: 0.5px solid var(--border); padding: 32px 0 24px; margin-top
   <p class="input-label">Describe your monthly bills.</p>
   <p class="input-hint">Include amounts, providers and any services you pay for. The more honest you are, the more precise the output. 120–700 characters.</p>
 
-  <textarea
-    id="bill-input"
-    class="bill-textarea"
-    placeholder="£180 gas and electric with British Gas, £45 broadband with Sky, £12 Netflix, £8 Spotify, £35 car insurance with Admiral, £22 contents insurance, £15 gym I barely use..."
-    maxlength="700"
-    spellcheck="true"
-    autocorrect="on"
-    autocomplete="off"
-    autocapitalize="sentences"
-    oninput="countChars()"
-  ></textarea>
+  <div class="input-wrap">
+    <textarea
+      id="bill-input"
+      class="bill-textarea"
+      placeholder="£180 gas and electric with British Gas, £45 broadband with Sky, £12 Netflix, £8 Spotify, £35 car insurance with Admiral, £22 contents insurance, £15 gym I barely use..."
+      maxlength="700"
+      spellcheck="true"
+      autocorrect="on"
+      autocomplete="off"
+      autocapitalize="sentences"
+      oninput="countChars()"
+    ></textarea>
+    <button type="button" class="mic-btn" data-target="bill-input" aria-label="Speak instead of typing" aria-pressed="false" title="Speak instead of typing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg></button>
+  </div>
+  <p class="mic-status" id="mic-status-bill-input" aria-live="polite">Listening… speak, then pause.</p>
 
   <div class="char-row">
     <span>120 – 700 characters</span>
@@ -300,10 +342,11 @@ footer { border-top: 0.5px solid var(--border); padding: 32px 0 24px; margin-top
   </div>
 
   <div id="spell-panel" class="spell-panel">
-    <div class="spell-heading">Some words may need checking — please review before continuing.</div>
+    <div class="spell-heading">Quick check before we begin</div>
+    <div class="spell-msg">Read your description once more. Words underlined in red may be misspelt. The clearer your words, the sharper your bill review.</div>
     <div class="spell-btns">
-      <button class="spell-btn" onclick="dismissSpell()">Continue Anyway</button>
-      <button class="spell-btn" onclick="focusInput()">Review Text</button>
+      <button class="spell-btn" onclick="dismissSpell()">Looks good, continue</button>
+      <button class="spell-btn" onclick="focusInput()">Edit my text</button>
     </div>
   </div>
 
@@ -1060,6 +1103,58 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
+</script>
+
+<script>
+/* ── MICROPHONE (browser speech-to-text, no cost, nothing sent to our server) ── */
+(function() {
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var btns = document.querySelectorAll('.mic-btn');
+  if (!btns.length) return;
+  var i;
+  if (!SR) { for (i = 0; i < btns.length; i++) { btns[i].style.display = 'none'; } return; }
+  var active = null;
+  function setup(btn) {
+    var tid = btn.getAttribute('data-target');
+    var ta = document.getElementById(tid);
+    var status = document.getElementById('mic-status-' + tid);
+    if (!ta) { btn.style.display = 'none'; return; }
+    btn.style.display = 'flex';
+    btn.addEventListener('click', function() {
+      if (active && active.btn === btn) { active.rec.stop(); return; }
+      if (active) { active.rec.stop(); }
+      var rec = new SR();
+      rec.lang = 'en-GB';
+      rec.interimResults = true;
+      rec.continuous = false;
+      var base = ta.value ? ta.value.replace(/\s+$/, '') + ' ' : '';
+      var max = ta.maxLength > 0 ? ta.maxLength : 100000;
+      function stopUI() {
+        btn.classList.remove('listening');
+        btn.setAttribute('aria-pressed', 'false');
+        if (status) status.className = 'mic-status';
+        if (active && active.btn === btn) active = null;
+      }
+      rec.onresult = function(e) {
+        var said = '';
+        for (var r = 0; r < e.results.length; r++) { said += e.results[r][0].transcript; }
+        if (!base && said) { said = said.charAt(0).toUpperCase() + said.slice(1); }
+        ta.value = (base + said).slice(0, max);
+        ta.dispatchEvent(new Event('input', { bubbles: true }));
+      };
+      rec.onend = stopUI;
+      rec.onerror = stopUI;
+      try {
+        rec.start();
+        active = { btn: btn, rec: rec };
+        btn.classList.add('listening');
+        btn.setAttribute('aria-pressed', 'true');
+        if (status) status.className = 'mic-status visible';
+      } catch (err) { stopUI(); }
+    });
+  }
+  for (i = 0; i < btns.length; i++) { setup(btns[i]); }
+})();
 </script>
 
 <!-- GoatCounter Analytics -->
