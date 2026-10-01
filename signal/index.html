@@ -1,4 +1,4 @@
-<!-- 1LINE Signal v2.5 | Updated: 20 May 2026 18:00 | Twelve Data real EOD data -->
+<!-- 1LINE Signal v2.6 | Updated: 1 Oct 2026 | Readability pass + microphone on context box (Career v1.6.1 template) | Twelve Data real EOD data -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -345,6 +345,42 @@ footer { border-top: 0.5px solid var(--border); padding: 32px 0 24px; margin-top
   .ticker-row { flex-direction: column; }
   .generate-btn { font-size: 12px; }
 }
+
+/* ── READABILITY PASS (Career v1.6.1 template: contrast, size, bigger box, mic) ── */
+.brand{font-size:14px}
+.hero-eyebrow{font-size:12px;color:#5C5A55}
+.hero h1{font-weight:400}
+.hero-sub{font-size:17px;font-weight:400;color:#3A3A38}
+.hero-note{font-size:13px;color:#5C5A55}
+.input-label{font-size:23px;font-weight:500}
+.input-hint{font-size:14px;color:#5C5A55}
+.ticker-input{font-size:22px;border:1.5px solid #948E82;border-radius:12px;padding:16px 18px}
+.ticker-input::placeholder{color:#77746C;font-size:17px;font-weight:400}
+.ticker-input:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
+.tf-btn{font-size:14px;color:#3A3A38;padding:9px 16px;border:1px solid rgba(26,26,24,0.26)}
+.recent-label{font-size:12px;color:#6B6862}
+.recent-chip{font-size:13px}
+.context-label{font-size:14px;color:#5C5A55}
+.context-input{height:auto;min-height:120px;padding:16px 64px 16px 18px;font-size:17px;font-weight:400;line-height:1.6;border:1.5px solid #948E82;border-radius:12px}
+.context-input::placeholder{color:#77746C}
+.context-input:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
+.generate-btn{font-size:14px;padding:17px 24px;background:#1A2744;color:#fff;border-radius:12px}
+.generate-btn:disabled{opacity:1;background:#DDE0E7;color:#3A4460}
+.generate-note{font-size:13px;color:#6B6862}
+.section-eyebrow{font-size:12px;color:#5C5A55}
+.footer-clarity{font-size:13px;color:#6B6862}
+.footer-link{font-size:13px;color:#5C5A55}
+.footer-copy{font-size:12px;color:#6B6862}
+.input-wrap{position:relative}
+.mic-btn{position:absolute;right:12px;bottom:12px;width:42px;height:42px;border-radius:50%;border:1.5px solid #948E82;background:#fff;color:#1A2744;display:none;align-items:center;justify-content:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;z-index:2}
+.mic-btn:hover{border-color:#1A2744}
+.mic-btn:focus-visible{outline:3px solid rgba(26,39,68,0.35);outline-offset:2px}
+.mic-btn svg{width:20px;height:20px}
+.mic-btn.listening{background:#1A2744;border-color:#1A2744;color:#fff;animation:micpulse 1.4s ease-in-out infinite}
+@keyframes micpulse{0%,100%{box-shadow:0 0 0 0 rgba(26,39,68,0.35)}50%{box-shadow:0 0 0 8px rgba(26,39,68,0)}}
+.mic-status{display:none;margin:8px 0 0;font-size:13px;color:#1A2744;font-weight:500}
+.mic-status.visible{display:block}
+@media (prefers-reduced-motion: reduce){.mic-btn.listening{animation:none}}
 </style>
 </head>
 <body>
@@ -400,7 +436,11 @@ footer { border-top: 0.5px solid var(--border); padding: 32px 0 24px; margin-top
 
   <div class="context-wrap">
     <p class="context-label">Optional — what are you trying to understand?</p>
-    <textarea id="context-input" class="context-input" maxlength="200" placeholder="e.g. Considering a swing trade / Unsure if momentum is exhausted / Looking for accumulation zones"></textarea>
+    <div class="input-wrap">
+      <textarea id="context-input" class="context-input" maxlength="200" placeholder="e.g. Considering a swing trade / Unsure if momentum is exhausted / Looking for accumulation zones"></textarea>
+      <button type="button" class="mic-btn" data-target="context-input" aria-label="Speak instead of typing" aria-pressed="false" title="Speak instead of typing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg></button>
+    </div>
+    <p class="mic-status" id="mic-status-context-input" aria-live="polite">Listening… speak, then pause.</p>
   </div>
 
   <button id="generate-btn" class="generate-btn" onclick="handleGenerate()">Analyse Asset</button>
@@ -1471,6 +1511,58 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
+</script>
+
+<script>
+/* ── MICROPHONE (browser speech-to-text, no cost, nothing sent to our server) ── */
+(function() {
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var btns = document.querySelectorAll('.mic-btn');
+  if (!btns.length) return;
+  var i;
+  if (!SR) { for (i = 0; i < btns.length; i++) { btns[i].style.display = 'none'; } return; }
+  var active = null;
+  function setup(btn) {
+    var tid = btn.getAttribute('data-target');
+    var ta = document.getElementById(tid);
+    var status = document.getElementById('mic-status-' + tid);
+    if (!ta) { btn.style.display = 'none'; return; }
+    btn.style.display = 'flex';
+    btn.addEventListener('click', function() {
+      if (active && active.btn === btn) { active.rec.stop(); return; }
+      if (active) { active.rec.stop(); }
+      var rec = new SR();
+      rec.lang = 'en-GB';
+      rec.interimResults = true;
+      rec.continuous = false;
+      var base = ta.value ? ta.value.replace(/\s+$/, '') + ' ' : '';
+      var max = ta.maxLength > 0 ? ta.maxLength : 100000;
+      function stopUI() {
+        btn.classList.remove('listening');
+        btn.setAttribute('aria-pressed', 'false');
+        if (status) status.className = 'mic-status';
+        if (active && active.btn === btn) active = null;
+      }
+      rec.onresult = function(e) {
+        var said = '';
+        for (var r = 0; r < e.results.length; r++) { said += e.results[r][0].transcript; }
+        if (!base && said) { said = said.charAt(0).toUpperCase() + said.slice(1); }
+        ta.value = (base + said).slice(0, max);
+        ta.dispatchEvent(new Event('input', { bubbles: true }));
+      };
+      rec.onend = stopUI;
+      rec.onerror = stopUI;
+      try {
+        rec.start();
+        active = { btn: btn, rec: rec };
+        btn.classList.add('listening');
+        btn.setAttribute('aria-pressed', 'true');
+        if (status) status.className = 'mic-status visible';
+      } catch (err) { stopUI(); }
+    });
+  }
+  for (i = 0; i < btns.length; i++) { setup(btns[i]); }
+})();
 </script>
 
 <!-- GoatCounter Analytics -->
