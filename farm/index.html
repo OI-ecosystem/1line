@@ -1,4 +1,4 @@
-<!-- 1LINE Farm v1.9 | Updated: 28 May 2026 17:30 | Hero+networkbar hidden at scan start not end -->
+<!-- 1LINE Farm v1.10 | Updated: 1 Oct 2026 | Readability pass (dark theme) + microphone (Career v1.6.1 template) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -771,7 +771,36 @@
   .overlay-step.active { color:rgba(16,185,129,0.9); opacity:1; }
   .overlay-step.done   { color:rgba(250,248,245,0.5); opacity:0.5; }
   @keyframes overlayslide { 0%{left:-100%} 50%{left:100%} 100%{left:100%} }
-  </style>
+  
+/* ── READABILITY PASS (Career v1.6.1 template: contrast, size, bigger box, mic) ── */
+.hero-eyebrow{font-size:11px}
+.hero-sub{font-size:15px;color:#94A3B8}
+.form-label{font-size:12px;color:#94A3B8}
+.farm-input{min-height:140px;padding:14px 64px 14px 16px;font-size:17px;border:1.5px solid #3A4452;border-radius:8px}
+.farm-input::placeholder{color:#7C8899}
+.farm-input:focus{border-color:#10B981;box-shadow:0 0 0 3px rgba(16,185,129,0.15)}
+.filter-label{font-size:12px;color:#94A3B8}
+.filter-btn{font-size:13px;color:#94A3B8}
+.form-note{font-size:13px;color:#94A3B8}
+.cross-label{color:#7C8899}
+.cross-link{font-size:12px;color:#94A3B8}
+.footer-links a{font-size:12px;color:#7C8899}
+.input-wrap{position:relative}
+.mic-btn{position:absolute;right:12px;bottom:12px;width:42px;height:42px;border-radius:50%;border:1.5px solid #948E82;background:#fff;color:#1A2744;display:none;align-items:center;justify-content:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;z-index:2}
+.mic-btn:hover{border-color:#1A2744}
+.mic-btn:focus-visible{outline:3px solid rgba(26,39,68,0.35);outline-offset:2px}
+.mic-btn svg{width:20px;height:20px}
+.mic-btn.listening{background:#1A2744;border-color:#1A2744;color:#fff;animation:micpulse 1.4s ease-in-out infinite}
+@keyframes micpulse{0%,100%{box-shadow:0 0 0 0 rgba(26,39,68,0.35)}50%{box-shadow:0 0 0 8px rgba(26,39,68,0)}}
+.mic-status{display:none;margin:8px 0 0;font-size:13px;color:#1A2744;font-weight:500}
+.mic-status.visible{display:block}
+@media (prefers-reduced-motion: reduce){.mic-btn.listening{animation:none}}
+.mic-btn{background:#131619;border-color:#3A4452;color:#10B981}
+.mic-btn:hover{border-color:#10B981}
+.mic-btn.listening{background:#10B981;border-color:#10B981;color:#0D0F12;animation:micpulsegreen 1.4s ease-in-out infinite}
+@keyframes micpulsegreen{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,0.4)}50%{box-shadow:0 0 0 8px rgba(16,185,129,0)}}
+.mic-status{color:#10B981;font-family:monospace;font-size:12px;letter-spacing:0.04em}
+</style>
 </head>
 <body>
 
@@ -843,15 +872,19 @@
 <div class="form-wrap" id="form-wrap">
   <div class="form-card">
     <label class="form-label" for="farm-input">Your farming goal</label>
-    <textarea
-      id="farm-input"
-      class="farm-input"
-      placeholder="e.g. Best low-gas opportunity right now · I have $500, 30 mins/day, low risk · What should I farm this week on Ethereum?"
-      spellcheck="true"
-      autocorrect="on"
-      maxlength="400"
-      oninput="updateFarmCount()"
-    ></textarea>
+    <div class="input-wrap">
+      <textarea
+        id="farm-input"
+        class="farm-input"
+        placeholder="e.g. Best low-gas opportunity right now · I have $500, 30 mins/day, low risk · What should I farm this week on Ethereum?"
+        spellcheck="true"
+        autocorrect="on"
+        maxlength="400"
+        oninput="updateFarmCount()"
+      ></textarea>
+      <button type="button" class="mic-btn" data-target="farm-input" aria-label="Speak instead of typing" aria-pressed="false" title="Speak instead of typing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg></button>
+    </div>
+    <p class="mic-status" id="mic-status-farm-input" aria-live="polite">Listening… speak, then pause.</p>
     <div style="display:flex;justify-content:space-between;margin-top:6px;margin-bottom:16px;font-size:11px;color:var(--dim);font-family:monospace;letter-spacing:0.04em;">
       <span>Describe your farming goal clearly for best results</span>
       <span id="farm-char-count">0 / 400</span>
@@ -1396,6 +1429,58 @@ function resetScan() {
   document.querySelector('.network-bar').style.display = '';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+</script>
+
+<script>
+/* ── MICROPHONE (browser speech-to-text, no cost, nothing sent to our server) ── */
+(function() {
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var btns = document.querySelectorAll('.mic-btn');
+  if (!btns.length) return;
+  var i;
+  if (!SR) { for (i = 0; i < btns.length; i++) { btns[i].style.display = 'none'; } return; }
+  var active = null;
+  function setup(btn) {
+    var tid = btn.getAttribute('data-target');
+    var ta = document.getElementById(tid);
+    var status = document.getElementById('mic-status-' + tid);
+    if (!ta) { btn.style.display = 'none'; return; }
+    btn.style.display = 'flex';
+    btn.addEventListener('click', function() {
+      if (active && active.btn === btn) { active.rec.stop(); return; }
+      if (active) { active.rec.stop(); }
+      var rec = new SR();
+      rec.lang = 'en-GB';
+      rec.interimResults = true;
+      rec.continuous = false;
+      var base = ta.value ? ta.value.replace(/\s+$/, '') + ' ' : '';
+      var max = ta.maxLength > 0 ? ta.maxLength : 100000;
+      function stopUI() {
+        btn.classList.remove('listening');
+        btn.setAttribute('aria-pressed', 'false');
+        if (status) status.className = 'mic-status';
+        if (active && active.btn === btn) active = null;
+      }
+      rec.onresult = function(e) {
+        var said = '';
+        for (var r = 0; r < e.results.length; r++) { said += e.results[r][0].transcript; }
+        if (!base && said) { said = said.charAt(0).toUpperCase() + said.slice(1); }
+        ta.value = (base + said).slice(0, max);
+        ta.dispatchEvent(new Event('input', { bubbles: true }));
+      };
+      rec.onend = stopUI;
+      rec.onerror = stopUI;
+      try {
+        rec.start();
+        active = { btn: btn, rec: rec };
+        btn.classList.add('listening');
+        btn.setAttribute('aria-pressed', 'true');
+        if (status) status.className = 'mic-status visible';
+      } catch (err) { stopUI(); }
+    });
+  }
+  for (i = 0; i < btns.length; i++) { setup(btns[i]); }
+})();
 </script>
 
 <!-- GoatCounter Analytics -->
