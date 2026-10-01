@@ -1,4 +1,4 @@
-<!-- 1LINE Coach v7.1 | Updated: 30 May 2026 | removed overlay, removed prices from buttons -->
+<!-- 1LINE Coach v7.2 | Updated: 1 Oct 2026 | Readability pass + microphone on all five reflections (Career v1.6.1 template) -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -619,7 +619,39 @@
       .futures-grid { grid-template-columns: 1fr; }
       .state-metrics { gap: 18px; }
     }
-  </style>
+  
+/* ── READABILITY PASS (Career v1.6.1 template: contrast, size, bigger box, mic) ── */
+.brand{font-size:14px}
+.hero-eyebrow{font-size:12px;color:#5C5A55}
+.hero h1{font-weight:400}
+.hero-sub{font-size:17px;font-weight:400;color:#3A3A38;max-width:520px}
+.hero-note{font-size:13px;color:#5C5A55}
+.section-label{font-weight:400}
+.section-sublabel{font-size:14px;font-weight:400;color:#5C5A55}
+.progress-label{font-size:12px;color:#5C5A55}
+.transition-text{color:#5C5A55}
+textarea{min-height:150px;padding:16px 64px 16px 18px;font-size:18px;font-weight:400;border:1.5px solid #948E82;border-radius:12px}
+textarea::placeholder{color:#77746C}
+textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
+.char-hint{font-size:13px;color:#6B6862}
+.btn-primary{font-size:15px;background:#1A2744;color:#FFFFFF}
+.btn-primary:disabled{opacity:1;background:#DDE0E7;color:#3A4460}
+.back-link{font-size:13px;color:#6B6862}
+.generate-note{font-size:13px;color:#6B6862}
+.footer-network-label{color:#6B6862}
+.footer-link{font-size:13px;color:#5C5A55}
+.footer-copy{font-size:12px;color:#6B6862}
+.input-wrap{position:relative}
+.mic-btn{position:absolute;right:12px;bottom:12px;width:42px;height:42px;border-radius:50%;border:1.5px solid #948E82;background:#fff;color:#1A2744;display:none;align-items:center;justify-content:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;z-index:2}
+.mic-btn:hover{border-color:#1A2744}
+.mic-btn:focus-visible{outline:3px solid rgba(26,39,68,0.35);outline-offset:2px}
+.mic-btn svg{width:20px;height:20px}
+.mic-btn.listening{background:#1A2744;border-color:#1A2744;color:#fff;animation:micpulse 1.4s ease-in-out infinite}
+@keyframes micpulse{0%,100%{box-shadow:0 0 0 0 rgba(26,39,68,0.35)}50%{box-shadow:0 0 0 8px rgba(26,39,68,0)}}
+.mic-status{display:none;margin:8px 0 0;font-size:13px;color:#1A2744;font-weight:500}
+.mic-status.visible{display:block}
+@media (prefers-reduced-motion: reduce){.mic-btn.listening{animation:none}}
+</style>
 </head>
 <body>
 
@@ -685,7 +717,11 @@
       <p class="progress-label">Reflection 1 of 5</p>
       <p class="section-label">What has been quietly weighing on you lately?</p>
       <p class="section-sublabel">Take your time. There are no wrong answers here.</p>
-      <textarea id="input-1" placeholder="Write freely. The more honest you are, the more precise the output." spellcheck="true" autocorrect="on"></textarea>
+      <div class="input-wrap">
+        <textarea id="input-1" placeholder="Write freely. The more honest you are, the more precise the output." spellcheck="true" autocorrect="on"></textarea>
+        <button type="button" class="mic-btn" data-target="input-1" aria-label="Speak instead of typing" aria-pressed="false" title="Speak instead of typing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg></button>
+      </div>
+      <p class="mic-status" id="mic-status-input-1" aria-live="polite">Listening… speak, then pause.</p>
       <p class="char-hint" id="count-1">0 characters — 30 minimum</p>
       <button class="btn-primary" id="next-1" onclick="nextStep(1)" disabled>Continue →</button>
     </div>
@@ -702,7 +738,11 @@
       <p class="progress-label">Reflection 2 of 5</p>
       <p class="section-label">What thought or pattern do you keep returning to?</p>
       <p class="section-sublabel">The thing that resurfaces even when you try to move past it.</p>
-      <textarea id="input-2" placeholder="Recurring thoughts, unresolved patterns, things left unsaid..." spellcheck="true" autocorrect="on"></textarea>
+      <div class="input-wrap">
+        <textarea id="input-2" placeholder="Recurring thoughts, unresolved patterns, things left unsaid..." spellcheck="true" autocorrect="on"></textarea>
+        <button type="button" class="mic-btn" data-target="input-2" aria-label="Speak instead of typing" aria-pressed="false" title="Speak instead of typing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg></button>
+      </div>
+      <p class="mic-status" id="mic-status-input-2" aria-live="polite">Listening… speak, then pause.</p>
       <p class="char-hint" id="count-2">0 characters — 30 minimum</p>
       <button class="btn-primary" id="next-2" onclick="nextStep(2)" disabled>Continue →</button>
       <span class="back-link" onclick="goBack(2)">← Back</span>
@@ -720,7 +760,11 @@
       <p class="progress-label">Reflection 3 of 5</p>
       <p class="section-label">What would feel like relief right now?</p>
       <p class="section-sublabel">Not what you think you should want. What would genuinely release the pressure.</p>
-      <textarea id="input-3" placeholder="Relief might look like a decision, a change, a conversation, a permission..." spellcheck="true" autocorrect="on"></textarea>
+      <div class="input-wrap">
+        <textarea id="input-3" placeholder="Relief might look like a decision, a change, a conversation, a permission..." spellcheck="true" autocorrect="on"></textarea>
+        <button type="button" class="mic-btn" data-target="input-3" aria-label="Speak instead of typing" aria-pressed="false" title="Speak instead of typing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg></button>
+      </div>
+      <p class="mic-status" id="mic-status-input-3" aria-live="polite">Listening… speak, then pause.</p>
       <p class="char-hint" id="count-3">0 characters — 30 minimum</p>
       <button class="btn-primary" id="next-3" onclick="nextStep(3)" disabled>Continue →</button>
       <span class="back-link" onclick="goBack(3)">← Back</span>
@@ -738,7 +782,11 @@
       <p class="progress-label">Reflection 4 of 5</p>
       <p class="section-label">What are you afraid might happen if nothing changes?</p>
       <p class="section-sublabel">This is the most important question. Answer it honestly.</p>
-      <textarea id="input-4" placeholder="Fear, regret, time passing, opportunities closing..." spellcheck="true" autocorrect="on"></textarea>
+      <div class="input-wrap">
+        <textarea id="input-4" placeholder="Fear, regret, time passing, opportunities closing..." spellcheck="true" autocorrect="on"></textarea>
+        <button type="button" class="mic-btn" data-target="input-4" aria-label="Speak instead of typing" aria-pressed="false" title="Speak instead of typing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg></button>
+      </div>
+      <p class="mic-status" id="mic-status-input-4" aria-live="polite">Listening… speak, then pause.</p>
       <p class="char-hint" id="count-4">0 characters — 30 minimum</p>
       <button class="btn-primary" id="next-4" onclick="nextStep(4)" disabled>Continue →</button>
       <span class="back-link" onclick="goBack(4)">← Back</span>
@@ -756,7 +804,11 @@
       <p class="progress-label">Reflection 5 of 5</p>
       <p class="section-label">What part of yourself feels underused?</p>
       <p class="section-sublabel">What ability goes unexpressed. What ambition stays quiet.</p>
-      <textarea id="input-5" placeholder="What would you do if you stopped negotiating against yourself?" spellcheck="true" autocorrect="on"></textarea>
+      <div class="input-wrap">
+        <textarea id="input-5" placeholder="What would you do if you stopped negotiating against yourself?" spellcheck="true" autocorrect="on"></textarea>
+        <button type="button" class="mic-btn" data-target="input-5" aria-label="Speak instead of typing" aria-pressed="false" title="Speak instead of typing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg></button>
+      </div>
+      <p class="mic-status" id="mic-status-input-5" aria-live="polite">Listening… speak, then pause.</p>
       <p class="char-hint" id="count-5">0 characters — 30 minimum</p>
       <button class="btn-primary" id="next-5" onclick="handleComplete()" disabled>Generate My Reflection →</button>
       <p class="generate-note">One-time access — instant generation</p>
@@ -1235,6 +1287,58 @@ function resetFlow() {
 </script>
 
 
+</script>
+
+<script>
+/* ── MICROPHONE (browser speech-to-text, no cost, nothing sent to our server) ── */
+(function() {
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var btns = document.querySelectorAll('.mic-btn');
+  if (!btns.length) return;
+  var i;
+  if (!SR) { for (i = 0; i < btns.length; i++) { btns[i].style.display = 'none'; } return; }
+  var active = null;
+  function setup(btn) {
+    var tid = btn.getAttribute('data-target');
+    var ta = document.getElementById(tid);
+    var status = document.getElementById('mic-status-' + tid);
+    if (!ta) { btn.style.display = 'none'; return; }
+    btn.style.display = 'flex';
+    btn.addEventListener('click', function() {
+      if (active && active.btn === btn) { active.rec.stop(); return; }
+      if (active) { active.rec.stop(); }
+      var rec = new SR();
+      rec.lang = 'en-GB';
+      rec.interimResults = true;
+      rec.continuous = false;
+      var base = ta.value ? ta.value.replace(/\s+$/, '') + ' ' : '';
+      var max = ta.maxLength > 0 ? ta.maxLength : 100000;
+      function stopUI() {
+        btn.classList.remove('listening');
+        btn.setAttribute('aria-pressed', 'false');
+        if (status) status.className = 'mic-status';
+        if (active && active.btn === btn) active = null;
+      }
+      rec.onresult = function(e) {
+        var said = '';
+        for (var r = 0; r < e.results.length; r++) { said += e.results[r][0].transcript; }
+        if (!base && said) { said = said.charAt(0).toUpperCase() + said.slice(1); }
+        ta.value = (base + said).slice(0, max);
+        ta.dispatchEvent(new Event('input', { bubbles: true }));
+      };
+      rec.onend = stopUI;
+      rec.onerror = stopUI;
+      try {
+        rec.start();
+        active = { btn: btn, rec: rec };
+        btn.classList.add('listening');
+        btn.setAttribute('aria-pressed', 'true');
+        if (status) status.className = 'mic-status visible';
+      } catch (err) { stopUI(); }
+    });
+  }
+  for (i = 0; i < btns.length; i++) { setup(btns[i]); }
+})();
 </script>
 
 <script data-goatcounter="https://signal333.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
