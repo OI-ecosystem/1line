@@ -1,0 +1,1971 @@
+<!-- 1LINE Property v1.1 | Updated: 06 Oct 2026 10:30 | Home MOT (personalised yearly checklist + calendar file), save/print, retry without re-pay wording, og image (lifekit333.com) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>1LINE Property — Your property. Its position. Its potential.</title>
+<meta name="description" content="Describe your home in one paragraph. 1LINE Property reads HM Land Registry evidence for your area and shows where you sit in the property cycle, what your home is really good at, and how not to waste money on it.">
+<meta name="keywords" content="property cycle, house price, home improvements, what adds value, overcapitalisation, property value UK, land registry, property market position">
+<meta property="og:title" content="1LINE Property — Your property. Its position. Its potential.">
+<meta property="og:description" content="One paragraph about your home. Where you are in the property cycle, what your home is really good at, and what not to spend money on.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lifekit333.com/property/">
+<meta property="og:image" content="https://lifekit333.com/property/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lifekit333.com/property/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FAF8F5;--white:#FFFFFF;--ink:#1A1A18;--ink-mid:#4A4A46;--ink-muted:#888884;--ink-faint:#C4C4BE;
+  --border:rgba(26,26,24,0.10);--border-mid:rgba(26,26,24,0.18);
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+  --max:640px;--green:#2D7A5A;--red:#C0392B;--amber:#A0620A;--blue:#1A7FE8;--gold:#B8975A;--navy:#1A2744;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased}
+.page{max-width:var(--max);margin:0 auto;padding:0 24px}
+nav{padding:28px 0 0;display:flex;align-items:baseline;justify-content:space-between}
+.brand{font-family:var(--serif);font-size:13px;font-weight:400;letter-spacing:0.28em;text-transform:uppercase;color:var(--ink);text-decoration:none}
+.oneline-mark{display:inline-flex;align-items:baseline;gap:0.04em;line-height:1;text-decoration:none}
+.oneline-mark .n{font-family:var(--sans);font-weight:500;font-size:1em;color:var(--ink);letter-spacing:-0.02em}
+.oneline-mark .l{font-family:var(--sans);font-weight:500;font-size:0.5em;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);position:relative;top:-0.1em}
+.buseful-badge{display:inline-flex;align-items:center;background:#1A2744;border-radius:5px;padding:5px 12px 5px 10px;text-decoration:none;margin-bottom:16px;transition:opacity 0.2s}
+.buseful-badge:hover{opacity:0.82}
+.buseful-badge-text{font-family:var(--sans);font-size:11px;font-weight:500;color:#fff;letter-spacing:0.02em}
+.buseful-badge-text em{font-style:italic;color:#C4A96A}
+.hero{padding:64px 0 48px;border-bottom:0.5px solid var(--border)}
+.hero-eyebrow{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:20px}
+.hero h1{font-family:var(--serif);font-size:clamp(30px,5vw,44px);font-weight:300;line-height:1.15;color:var(--ink);margin-bottom:18px;letter-spacing:-0.01em}
+.hero-sub{font-size:15px;color:var(--ink-mid);font-weight:300;max-width:480px;line-height:1.65}
+.input-section{padding:48px 0 0}
+.input-prompt{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--ink);margin-bottom:6px}
+.input-hint{font-size:12px;color:var(--ink-muted);margin-bottom:10px;line-height:1.6}
+.example-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.example-pill{font-size:11px;color:var(--ink-mid);background:var(--white);border:0.5px solid var(--border-mid);border-radius:20px;padding:4px 12px;cursor:pointer;transition:all 0.15s}
+.example-pill:hover{border-color:var(--ink-mid);color:var(--ink)}
+textarea{width:100%;min-height:80px;padding:16px 18px;font-family:var(--sans);font-size:14px;font-weight:300;line-height:1.65;color:var(--ink);background:var(--white);border:0.5px solid var(--border-mid);border-radius:10px;resize:none;outline:none;transition:border-color 0.2s;-webkit-appearance:none}
+textarea::placeholder{color:var(--ink-faint)}
+textarea:focus{border-color:var(--ink-mid)}
+.char-counter{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:11px;color:var(--ink-muted)}
+.char-count{font-weight:500;transition:color 0.2s}
+.char-count.valid{color:var(--green)}
+.char-count.over{color:var(--red)}
+.spell-panel{display:none;margin-top:14px;background:#FFFBF0;border:0.5px solid rgba(160,98,10,0.22);border-radius:10px;padding:18px 20px}
+.spell-panel.visible{display:block}
+.spell-heading{font-size:11px;letter-spacing:0.10em;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+.spell-corrected{font-size:13px;color:var(--ink-mid);line-height:1.65;margin-bottom:14px;font-weight:300}
+.spell-actions{display:flex;gap:8px}
+.spell-btn{padding:9px 18px;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;border-radius:7px;cursor:pointer;transition:opacity 0.15s;border:0.5px solid}
+.spell-btn:hover{opacity:0.72}
+.spell-btn.accept{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.spell-btn.ignore{background:transparent;color:var(--ink-mid);border-color:var(--border-mid)}
+.generate-btn{width:100%;margin-top:16px;padding:15px 24px;font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--white);background:var(--ink);border:none;border-radius:10px;cursor:pointer;transition:opacity 0.2s}
+.generate-btn:hover:not(:disabled){opacity:0.82}
+.generate-btn:disabled{opacity:0.28;cursor:default}
+.input-provenance{margin-top:12px;font-size:11px;color:var(--ink-faint);text-align:center}
+.how-section{padding:56px 0 48px;border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);margin-top:56px}
+.section-eyebrow{font-size:11px;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:32px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.step-num{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--ink-faint);line-height:1;margin-bottom:10px;display:block}
+.step-text{font-size:13px;color:var(--ink-mid);line-height:1.6}
+#output-section{display:none;padding:56px 0 0}
+#output-section.visible{display:block}
+.out-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:10px;display:block}
+.out-card{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:20px;margin-bottom:12px}
+.headline-verdict{font-family:var(--serif);font-size:clamp(18px,3vw,22px);font-weight:300;color:var(--ink);line-height:1.4;border-left:2px solid var(--ink);padding-left:16px;margin:16px 0}
+.gate-section{background:var(--ink);border-radius:16px;padding:36px 32px;text-align:center;margin:32px 0;display:none}
+.gate-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:12px;display:block}
+.gate-hed{font-family:var(--serif);font-size:clamp(20px,4vw,28px);font-weight:300;color:#fff;line-height:1.3;margin-bottom:8px}
+.gate-sub{font-size:13px;font-weight:300;color:rgba(255,255,255,0.55);max-width:420px;margin:0 auto 24px;line-height:1.7}
+.unlock-btn{background:#fff;color:var(--ink);border:none;padding:14px 32px;border-radius:8px;font-family:var(--sans);font-size:15px;font-weight:500;cursor:pointer;transition:opacity 0.2s}
+.unlock-btn:hover{opacity:0.88}
+.gate-small{font-size:11px;color:rgba(255,255,255,0.3);margin-top:12px}
+#ai-output{display:none;padding-top:40px;border-top:0.5px solid var(--border);margin-top:8px}
+#ai-results{display:none}
+.ai-card{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:20px;margin-bottom:10px}
+.ai-card-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:10px;display:block}
+.ai-card-text{font-size:14px;font-weight:300;color:var(--ink);line-height:1.75}
+#ai-results .ai-card-text{font-size:15px;font-weight:400;color:#2A2A28;line-height:1.7}
+.share-nudge{margin-top:32px;text-align:center;font-size:12px;color:var(--ink-muted);letter-spacing:0.06em}
+footer{border-top:0.5px solid var(--border);padding:40px 0 48px;margin-top:56px}
+.footer-network-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:14px}
+.footer-links{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.footer-link{font-size:12px;color:var(--ink-muted);background:var(--white);border:0.5px solid var(--border);border-radius:20px;padding:5px 14px;text-decoration:none;transition:border-color 0.2s,color 0.2s}
+.footer-link:hover{color:var(--ink);border-color:var(--border-mid)}
+.footer-copy{font-size:11px;color:var(--ink-faint)}
+@media(max-width:480px){.steps{grid-template-columns:1fr;gap:20px}}
+  #intelligence-overlay{display:none;position:fixed;inset:0;background:rgba(8,8,6,0.97);z-index:9999;flex-direction:column;align-items:center;justify-content:center;gap:16px;}
+  #intelligence-overlay.active{display:flex;}
+  .ov-eyebrow{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(184,151,90,0.6);}
+  .ov-title{font-family:var(--serif);font-size:clamp(20px,3.5vw,28px);font-style:italic;font-weight:300;color:#FAF8F5;text-align:center;max-width:440px;line-height:1.4;}
+  .ov-steps{display:flex;flex-direction:column;gap:8px;align-items:center;margin-top:6px;}
+  .ov-step{font-size:12px;letter-spacing:0.06em;color:rgba(250,248,245,0.25);transition:color 0.4s;opacity:0.3;}
+  .ov-step.active{color:rgba(184,151,90,0.9);opacity:1;}
+  .ov-step.done{color:rgba(250,248,245,0.45);opacity:0.45;}
+  .ov-bar{width:100px;height:1px;background:rgba(255,255,255,0.08);margin-top:10px;position:relative;overflow:hidden;}
+  .ov-bar::after{content:"";position:absolute;left:-100%;top:0;width:100%;height:100%;background:rgba(184,151,90,0.6);animation:ovslide 1.8s ease-in-out infinite;}
+  @keyframes ovslide{0%{left:-100%}50%{left:100%}100%{left:100%}}
+/* ── READABILITY PASS v1.6 (input screen only: contrast, size, weight, bigger box, mic) ── */
+.brand{font-size:14px}
+.hero-eyebrow{font-size:12px;color:#5C5A55}
+.hero h1{font-weight:400}
+.hero-sub{font-size:17px;font-weight:400;color:#3A3A38;max-width:520px}
+.input-prompt{font-size:23px;font-weight:500}
+.input-hint{font-size:14px;color:#5C5A55}
+.example-pills{gap:8px}
+.example-pill{font-size:13.5px;color:#3A3A38;border:1px solid rgba(26,26,24,0.26);padding:6px 14px}
+.example-pill:hover{border-color:#1A2744;color:#1A2744}
+.input-wrap{position:relative}
+textarea{min-height:150px;padding:18px 64px 18px 20px;font-size:18px;font-weight:400;line-height:1.6;border:1.5px solid #948E82;border-radius:12px}
+textarea::placeholder{color:#77746C}
+textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
+.char-counter{font-size:13px;color:#5C5A55}
+.spell-heading{font-size:12px}
+.spell-corrected{font-size:14px;font-weight:400}
+.spell-btn{font-size:12px}
+.generate-btn{font-size:14px;padding:17px 24px;background:#1A2744;border-radius:12px}
+.generate-btn:disabled{opacity:1;background:#DDE0E7;color:#3A4460}
+.input-provenance{font-size:13px;color:#6B6862}
+.section-eyebrow{font-size:12px;color:#5C5A55}
+.step-num{color:#8F8C84}
+.step-text{font-size:15px;color:#3A3A38}
+.footer-network-label{color:#6B6862}
+.footer-link{font-size:13px;color:#5C5A55}
+.footer-copy{font-size:12px;color:#6B6862}
+.mic-btn{position:absolute;right:12px;bottom:12px;width:42px;height:42px;border-radius:50%;border:1.5px solid #948E82;background:#fff;color:#1A2744;display:none;align-items:center;justify-content:center;cursor:pointer;transition:border-color 0.2s,background 0.2s}
+.mic-btn:hover{border-color:#1A2744}
+.mic-btn:focus-visible{outline:3px solid rgba(26,39,68,0.35);outline-offset:2px}
+.mic-btn svg{width:20px;height:20px}
+.mic-btn.listening{background:#1A2744;border-color:#1A2744;color:#fff;animation:micpulse 1.4s ease-in-out infinite}
+@keyframes micpulse{0%,100%{box-shadow:0 0 0 0 rgba(26,39,68,0.35)}50%{box-shadow:0 0 0 8px rgba(26,39,68,0)}}
+.mic-status{display:none;margin-top:8px;font-size:13px;color:#1A2744;font-weight:500}
+.mic-status.visible{display:block}
+@media (prefers-reduced-motion: reduce){.mic-btn.listening{animation:none}}
+/* ── PROPERTY: input extras (same readability scale as above) ── */
+.unlock-notice{display:none;margin-bottom:14px;font-size:13px;color:var(--green);background:#E8F5F0;border:0.5px solid rgba(45,122,90,0.2);border-radius:8px;padding:8px 14px}
+.pc-wrap{display:none;margin-top:16px}
+.pc-label{font-family:var(--serif);font-size:19px;font-weight:500;color:var(--ink);margin-bottom:6px;display:block}
+.pc-input{width:100%;max-width:260px;padding:12px 16px;font-family:var(--sans);font-size:17px;color:var(--ink);background:var(--white);border:1.5px solid #948E82;border-radius:10px;outline:none;text-transform:uppercase}
+.pc-input:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
+.pc-hint{font-size:13px;color:#5C5A55;margin-top:6px}
+.data-error{display:none;margin-top:12px;font-size:14px;color:var(--red);text-align:center}
+/* ── PROPERTY: free output ── */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;color:#3A3A38;background:var(--cream);border:1px solid rgba(26,26,24,0.18);border-radius:16px;padding:5px 12px}
+.chip.missing{color:#888884;border-style:dashed}
+.fact-row{display:flex;gap:12px;align-items:baseline;padding:12px 0;border-bottom:0.5px solid var(--border)}
+.fact-row:last-child{border-bottom:none;padding-bottom:0}
+.fact-row:first-child{padding-top:0}
+.fact-num{font-family:var(--serif);font-size:22px;font-weight:400;color:var(--ink);min-width:88px;line-height:1.2}
+.fact-text{font-size:15px;color:#3A3A38;line-height:1.55}
+.fact-src{font-size:12px;color:#6B6862;margin-top:12px}
+.hook-card{background:#FFFBF0;border:0.5px solid rgba(184,151,90,0.35);border-radius:12px;padding:20px;margin-bottom:12px}
+.hook-text{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--ink);line-height:1.4}
+.gate-list{list-style:none;max-width:420px;margin:0 auto 24px;text-align:left}
+.gate-list li{font-size:13px;color:rgba(255,255,255,0.7);padding:5px 0 5px 18px;position:relative;line-height:1.5}
+.gate-list li::before{content:"";position:absolute;left:0;top:12px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+/* ── PROPERTY: paid report ── */
+.rep-head{margin-bottom:28px}
+.rep-title{font-family:var(--serif);font-size:clamp(28px,5vw,38px);font-weight:400;line-height:1.15;color:var(--ink)}
+.rep-sub{font-size:13px;color:#5C5A55;margin-top:6px}
+.rep-section{margin-top:36px}
+.rep-h{font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#5C5A55;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.rep-h::after{content:"";flex:1;height:0.5px;background:var(--border-mid)}
+.cycle-card{background:var(--white);border:0.5px solid var(--border);border-radius:14px;padding:20px 16px 12px}
+.cycle-svg{width:100%;height:auto;display:block}
+.horizon{display:flex;gap:14px;padding:14px 0;border-top:0.5px solid var(--border)}
+.horizon:first-of-type{border-top:none}
+.hz-dot{flex:0 0 30px;width:30px;height:30px;border-radius:50%;color:#fff;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.hz-body{flex:1}
+.hz-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px}
+.hz-name{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#5C5A55}
+.hz-phase{font-family:var(--serif);font-size:21px;font-weight:500;color:var(--ink);line-height:1.2}
+.hz-data{font-size:14px;color:#3A3A38;margin-top:4px;line-height:1.6}
+.hz-mean{font-size:14px;color:var(--ink);margin-top:6px;line-height:1.6;font-style:italic}
+.conf{display:inline-block;font-size:11px;letter-spacing:0.06em;padding:2px 9px;border-radius:12px;border:0.5px solid}
+.conf-high{color:var(--green);background:#E8F5F0;border-color:rgba(45,122,90,0.25)}
+.conf-moderate{color:var(--amber);background:#FFF8E8;border-color:rgba(160,98,10,0.25)}
+.conf-limited{color:#5C5A55;background:#F2F1EE;border-color:rgba(26,26,24,0.15)}
+.mp-card{background:var(--navy);border-radius:12px;padding:20px;color:#fff;margin-top:12px}
+.mp-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.5)}
+.mp-state{font-family:var(--serif);font-size:24px;font-weight:400;color:#fff;margin:4px 0 6px}
+.mp-text{font-size:14px;color:rgba(255,255,255,0.78);line-height:1.6}
+.mp-note{font-size:12px;color:rgba(255,255,255,0.45);margin-top:8px}
+.big-range{font-family:var(--serif);font-size:clamp(26px,5vw,34px);font-weight:400;color:var(--ink);line-height:1.2;margin:2px 0 8px}
+.small-line{font-size:13px;color:#5C5A55;line-height:1.6;margin-top:8px}
+.dna-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dna-item{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:14px 16px}
+.dna-k{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6B6862;margin-bottom:4px}
+.dna-v{font-size:14px;color:var(--ink);line-height:1.55}
+.driver{margin-top:10px;font-family:var(--serif);font-size:19px;color:var(--ink);border-left:2px solid var(--gold);padding-left:14px;line-height:1.4}
+.journey{display:flex;align-items:stretch;gap:8px;margin-top:14px}
+.j-step{flex:1;background:var(--cream);border-radius:10px;padding:12px 14px}
+.j-k{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6B6862}
+.j-v{font-family:var(--serif);font-size:19px;color:var(--ink);margin-top:2px;line-height:1.25}
+.j-arrow{display:flex;align-items:center;color:var(--ink-faint);font-size:18px}
+.imp{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:10px}
+.imp-top{display:flex;gap:12px;align-items:baseline}
+.imp-rank{font-family:var(--serif);font-size:26px;color:var(--ink-faint);line-height:1;min-width:20px}
+.imp-move{font-size:16px;font-weight:500;color:var(--ink);line-height:1.4}
+.imp-tags{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 6px 32px}
+.tag{font-size:11.5px;padding:3px 10px;border-radius:12px;border:0.5px solid var(--border-mid);color:#3A3A38;background:var(--cream)}
+.tag-creation{color:var(--green);background:#E8F5F0;border-color:rgba(45,122,90,0.25)}
+.tag-protection{color:var(--navy);background:#EEF0F5;border-color:rgba(26,39,68,0.2)}
+.tag-presentation{color:var(--amber);background:#FFF8E8;border-color:rgba(160,98,10,0.25)}
+.tag-risk-high{color:var(--red);background:#FDF2F2;border-color:rgba(192,57,43,0.2)}
+.imp-why{font-size:14px;color:#3A3A38;line-height:1.6;margin-left:32px}
+.list-card{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:6px 18px}
+.li-row{padding:12px 0;border-bottom:0.5px solid var(--border)}
+.li-row:last-child{border-bottom:none}
+.li-item{font-size:15px;font-weight:500;color:var(--ink);line-height:1.45}
+.li-why{font-size:14px;color:#3A3A38;line-height:1.6;margin-top:3px}
+.dont .li-item::before{content:"\00D7";color:var(--red);font-weight:500;margin-right:8px}
+.protect .li-item::before{content:"\25C6";color:var(--gold);font-size:11px;margin-right:9px;position:relative;top:-1px}
+.scen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.scen{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:16px}
+.scen-name{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#5C5A55;margin-bottom:6px}
+.scen-range{font-family:var(--serif);font-size:20px;color:var(--ink);line-height:1.25;margin-bottom:8px}
+.scen-k{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#888884;margin-top:8px}
+.scen-v{font-size:13.5px;color:#3A3A38;line-height:1.55}
+.sentence{font-family:var(--serif);font-size:clamp(21px,3.6vw,26px);font-weight:400;color:var(--ink);line-height:1.4;border-left:2px solid var(--ink);padding-left:18px}
+.question{background:#FFFBF0;border:0.5px solid rgba(184,151,90,0.35);border-radius:12px;padding:22px;font-family:var(--serif);font-size:21px;font-style:italic;color:var(--ink);line-height:1.45}
+.moves .li-item::before{content:counter(mv);counter-increment:mv;display:inline-block;min-width:22px;color:var(--gold);font-family:var(--serif);font-size:18px}
+.moves{counter-reset:mv}
+.src{font-size:13px;color:#5C5A55;line-height:1.7}
+.src strong{color:#3A3A38;font-weight:500}
+.src ul{margin:6px 0 0 18px}
+.retry-btn{display:none;margin:16px auto 0;padding:12px 24px;background:#fff;color:var(--ink);border:none;border-radius:8px;font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer}
+@media(max-width:560px){.scen-grid{grid-template-columns:1fr}.dna-grid{grid-template-columns:1fr}.journey{flex-direction:column}.j-arrow{justify-content:center;transform:rotate(90deg)}}
+@media print{nav,footer,.share-nudge,#intelligence-overlay{display:none!important}body{background:#fff}}
+
+/* -- v1.3 TOOLS (copy, save, calendar, share, retry) - readable sans style, matches readability pass -- */
+.tool-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.tool-btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;font-family:var(--sans);font-size:14px;font-weight:500;line-height:1.2;color:#1A2744;background:#FFFFFF;border:1.5px solid #948E82;border-radius:10px;cursor:pointer;transition:border-color 0.15s,background 0.15s,color 0.15s;text-transform:none;letter-spacing:0}
+.tool-btn:hover{border-color:#1A2744}
+.tool-btn:focus-visible{outline:3px solid rgba(26,39,68,0.35);outline-offset:2px}
+.tool-btn.primary{background:#1A2744;color:#FFFFFF;border-color:#1A2744}
+.tool-btn.primary:hover{opacity:0.88}
+.tool-btn.done{border-color:#2D7A5A;color:#2D7A5A;background:#F0FBF6}
+.report-tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 32px;padding:18px 20px;background:#FFFFFF;border:1px solid rgba(26,26,24,0.16);border-radius:12px}
+.report-tools-label{width:100%;font-family:var(--sans);font-size:12px;letter-spacing:0.10em;text-transform:uppercase;color:#5C5A55;margin:0 0 4px}
+.report-tools-note{width:100%;font-family:var(--sans);font-size:13px;color:#5C5A55;line-height:1.5;margin:6px 0 0}
+.script-card{background:#FFFFFF;border:1px solid rgba(26,26,24,0.16);border-radius:12px;padding:6px 20px;margin-top:4px}
+.script-step{padding:14px 0;border-bottom:1px solid rgba(26,26,24,0.09)}
+.script-step:last-child{border-bottom:none}
+.script-step-label{font-family:var(--sans);font-size:12px;letter-spacing:0.10em;text-transform:uppercase;color:#5C5A55;margin-bottom:6px}
+.script-step-text{font-family:var(--sans);font-size:16px;font-weight:400;line-height:1.6;color:#1A1A18}
+.script-list{margin:0;padding-left:20px}
+.script-list li{font-family:var(--sans);font-size:16px;line-height:1.6;color:#1A1A18;margin-bottom:6px}
+.retry-card{display:none;background:#FFFBF0;border:1px solid rgba(160,98,10,0.30);border-radius:12px;padding:20px 22px;margin:0 0 24px}
+.retry-card.visible{display:block}
+.retry-title{font-family:var(--sans);font-size:17px;font-weight:500;color:#1A1A18;margin-bottom:6px}
+.retry-text{font-family:var(--sans);font-size:15px;color:#3A3A38;line-height:1.6;margin-bottom:14px}
+@media print{
+  nav, footer, .tool-row, .report-tools, .cross-sell, .crosssell-block, .mic-btn, .buseful-badge, .overlay, #overlay, #intelligence-overlay, .retry-card, .unlock-card, .share-nudge, .share-card { display:none !important; }
+  body{background:#FFFFFF}
+  .page{max-width:none;padding:0}
+  .report-section{break-inside:avoid}
+}
+
+/* -- Property v1.1: Home MOT -- */
+.mot-intro{font-size:15px;color:#3A3A38;line-height:1.6;margin-bottom:14px}
+.mot-month{font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#5C5A55;padding:14px 0 4px;border-bottom:0.5px solid var(--border)}
+.mot-month:first-child{padding-top:4px}
+.mot-row{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:0.5px solid var(--border)}
+.mot-box{flex:0 0 18px;width:18px;height:18px;border:1.5px solid #948E82;border-radius:4px;margin-top:3px}
+.mot-item{font-size:15px;font-weight:500;color:var(--ink);line-height:1.45}
+.mot-why{font-size:14px;color:#3A3A38;line-height:1.6;margin-top:2px}
+.mot-flag{display:inline-block;font-size:11px;letter-spacing:0.06em;color:var(--amber);background:#FFF8E8;border:0.5px solid rgba(160,98,10,0.25);border-radius:12px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+@media print{.mot-row{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div id="intelligence-overlay">
+  <p class="ov-eyebrow">1LINE Property</p>
+  <p class="ov-title" id="ov-title">Locating your property...</p>
+  <div class="ov-steps">
+    <p class="ov-step" id="ovs-1">Locating your property...</p>
+    <p class="ov-step" id="ovs-2">Reading thirty years of local prices...</p>
+    <p class="ov-step" id="ovs-3">Checking nearby sales...</p>
+    <p class="ov-step" id="ovs-4">Placing you on the property cycle...</p>
+    <p class="ov-step" id="ovs-5">Building your property intelligence...</p>
+  </div>
+  <div class="ov-bar"></div>
+</div>
+
+<div class="page">
+
+<nav>
+  <a href="https://oi-ecosystem.github.io/1line" class="brand">1LINE Property</a>
+  <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" aria-label="1LINE">
+    <span class="n">1</span><span class="l">LINE</span>
+  </a>
+</nav>
+
+<section class="hero" id="hero-section">
+  <a href="https://oi-ecosystem.github.io/b-useful/" target="_blank" rel="noopener" class="buseful-badge">
+    <span class="buseful-badge-text">B-<em>Useful</em></span>
+  </a>
+  <p class="hero-eyebrow">A 1LINE property utility</p>
+  <h1>Your property.<br>Its position. Its potential.</h1>
+  <p class="hero-sub">Describe your home in one honest paragraph. 1LINE Property reads the HM Land Registry evidence for your area and tells you where you stand, what your home is really good at — and how not to waste money on it.</p>
+</section>
+
+<section class="input-section">
+  <p class="unlock-notice" id="unlock-notice">Access unlocked — describe your property below and your full report will follow.</p>
+  <p class="input-prompt">Tell us about your property.</p>
+  <p class="input-hint">Include the postcode, what it is, when you bought it and what you paid, its condition, and anything you have done to it. The more honest, the more precise the read.</p>
+
+  <div class="example-pills">
+    <span class="example-pill" onclick="setExample(this)">1930s semi in NG2 7AB, bought 2016 for £285,000. Three bedrooms, large south-facing garden and driveway, but the kitchen is dated. Spent around £20,000 on windows and the bathroom.</span>
+    <span class="example-pill" onclick="setExample(this)">Two-bed Victorian terrace in NG7 1FT, bought 2019 for £165k. Original fireplaces, small yard, no parking. Roof redone last year, some damp in the back room.</span>
+    <span class="example-pill" onclick="setExample(this)">Four-bed detached in NG12 5AB, built 2005, bought 2012 for £260,000. Double garage and conservatory, tired bathrooms. Thinking about a loft conversion.</span>
+  </div>
+
+  <div class="input-wrap">
+    <textarea
+      id="main-input"
+      maxlength="600"
+      oninput="countChars()"
+      spellcheck="true"
+      autocorrect="on"
+      autocomplete="off"
+      autocapitalize="sentences"
+      placeholder="Three-bed 1930s semi in NG2 7AB. Bought in 2016 for £285,000. Big garden and a driveway, kitchen is tired, new windows in 2020..."
+    ></textarea>
+    <button type="button" class="mic-btn" id="mic-btn" aria-label="Speak instead of typing" aria-pressed="false" title="Speak instead of typing">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg>
+    </button>
+  </div>
+  <p class="mic-status" id="mic-status" aria-live="polite">Listening… describe your property, then pause.</p>
+
+  <div class="char-counter">
+    <span>100 – 600 characters</span>
+    <span class="char-count" id="char-count">0</span>
+  </div>
+
+  <div class="pc-wrap" id="pc-wrap">
+    <label class="pc-label" for="pc-input">Where is the property?</label>
+    <input class="pc-input" id="pc-input" type="text" maxlength="9" autocomplete="postal-code" placeholder="e.g. NG2 7AB" oninput="pcChanged()">
+    <p class="pc-hint">A full postcode gives the sharpest read. The first half (e.g. NG2) also works.</p>
+  </div>
+
+  <div class="spell-panel" id="spell-panel">
+    <p class="spell-heading">Quick check before we begin</p>
+    <p class="spell-corrected">Read your description once more. Words underlined in red may be misspelt. The clearer your words, the sharper your read.</p>
+    <div class="spell-actions">
+      <button class="spell-btn ignore" onclick="spellReview()">Edit my description</button>
+      <button class="spell-btn accept" onclick="spellContinue()">Looks good, continue</button>
+    </div>
+  </div>
+
+  <button class="generate-btn" id="generate-btn" disabled onclick="handleGenerate()">Read My Property</button>
+  <p class="data-error" id="data-error"></p>
+  <p class="input-provenance">Read from your words and public HM Land Registry data. Nothing stored.</p>
+</section>
+
+<section class="how-section" id="how-section">
+  <p class="section-eyebrow">How it works</p>
+  <div class="steps">
+    <div class="step"><span class="step-num">1</span><p class="step-text">Describe your home in one honest paragraph — where it is, what it is, what you paid and what it needs.</p></div>
+    <div class="step"><span class="step-num">2</span><p class="step-text">1LINE Property reads thirty years of HM Land Registry prices and recent sales around you.</p></div>
+    <div class="step"><span class="step-num">3</span><p class="step-text">See what we found — and with unlock, your position on the property cycle and a full report on your home.</p></div>
+  </div>
+</section>
+
+<section id="output-section">
+  <p class="section-eyebrow">Your property, as we heard it</p>
+
+  <div class="out-card">
+    <span class="out-label">What we heard</span>
+    <div class="chips" id="out-chips"></div>
+  </div>
+
+  <div class="out-card">
+    <span class="out-label" id="facts-label">Your local market</span>
+    <div id="out-facts"></div>
+    <p class="fact-src" id="facts-src"></p>
+  </div>
+
+  <div class="hook-card">
+    <span class="out-label" style="color:var(--amber);">Ready for you</span>
+    <p class="hook-text" id="out-hook"></p>
+  </div>
+</section>
+
+<div class="gate-section" id="property-gate">
+  <span class="gate-label">Unlock your full property report</span>
+  <h2 class="gate-hed">See what your property<br>could actually do.</h2>
+  <ul class="gate-list">
+    <li>The Property Cycle — where you are, short, medium and long term</li>
+    <li>Your value range, local ceiling and market position</li>
+    <li>Property DNA and what is holding your value back</li>
+    <li>Five ranked improvements — and what not to do</li>
+    <li>Protect This, three scenarios, the buyer test and your next three moves</li>
+    <li>Your Home MOT — a yearly maintenance checklist for this home, with calendar reminders</li>
+  </ul>
+  <button class="unlock-btn" id="unlock-btn" onclick="unlockProperty()">Unlock Full Property Report — £19</button>
+  <p class="gate-small">One-time · Instant · Nothing stored · Indicative, not a formal valuation</p>
+  <button class="retry-btn" id="retry-btn" onclick="unlockProperty()">Try again</button>
+</div>
+
+<section id="ai-output">
+  <div id="ai-results">
+    <div class="rep-head">
+      <p class="section-eyebrow" style="margin-bottom:10px;">1LINE Property</p>
+      <h2 class="rep-title">Your property. Its position. Its potential.</h2>
+      <p class="rep-sub" id="rep-sub"></p>
+    </div>
+
+    <div class="report-tools" id="report-tools">
+      <p class="report-tools-label">Keep this report</p>
+      <button type="button" class="tool-btn primary" onclick="saveReport()">Save or print report</button>
+      <button type="button" class="tool-btn" onclick="downloadHomeMOT()">Add Home MOT reminders to calendar</button>
+      <p class="report-tools-note" id="report-tools-note">Choose &ldquo;Save as PDF&rdquo; in the print window to keep a copy. Reminders download as a calendar file and repeat every year.</p>
+    </div>
+
+    <div class="rep-section">
+      <p class="rep-h">You are here</p>
+      <div class="cycle-card">
+        <div id="cycle-chart"></div>
+        <div id="cycle-horizons"></div>
+      </div>
+      <p class="headline-verdict" id="cycle-overall"></p>
+      <div class="mp-card" id="mp-card"></div>
+    </div>
+
+    <div class="rep-section">
+      <p class="rep-h">Your property</p>
+      <div class="ai-card"><div class="ai-card-text" id="ai-property"></div></div>
+    </div>
+
+    <div class="rep-section">
+      <p class="rep-h">Property DNA</p>
+      <div class="dna-grid" id="ai-dna"></div>
+      <p class="driver" id="ai-driver"></p>
+    </div>
+
+    <div class="rep-section">
+      <p class="rep-h">Your value range</p>
+      <div class="ai-card" id="ai-value"></div>
+    </div>
+
+    <div class="rep-section">
+      <p class="rep-h">Your local ceiling</p>
+      <div class="ai-card" id="ai-ceiling"></div>
+    </div>
+
+    <div class="rep-section">
+      <p class="rep-h">Your value gap</p>
+      <div class="ai-card"><div class="ai-card-text" id="ai-gap"></div></div>
+    </div>
+
+    <div class="rep-section">
+      <p class="rep-h">What to improve</p>
+      <div id="ai-improve"></div>
+    </div>
+
+    <div class="rep-section">
+      <p class="rep-h">What not to do</p>
+      <div class="list-card dont" id="ai-dont"></div>
+    </div>
+
+    <div class="rep-section">
+      <p class="rep-h">Protect this</p>
+      <div class="list-card protect" id="ai-protect"></div>
+    </div>
+
+    <div class="rep-section">
+      <p class="rep-h">Three scenarios</p>
+      <div class="scen-grid" id="ai-scenarios"></div>
+    </div>
+
+    <div class="rep-section">
+      <p class="rep-h">The buyer test</p>
+      <div class="ai-card"><div class="ai-card-text" id="ai-buyer"></div></div>
+    </div>
+
+    <div class="rep-section">
+      <p class="rep-h">Your property sentence</p>
+      <p class="sentence" id="ai-sentence"></p>
+    </div>
+
+    <div class="rep-section">
+      <p class="rep-h">One question to carry</p>
+      <p class="question" id="ai-question"></p>
+    </div>
+
+    <div class="rep-section">
+      <p class="rep-h">Your next three moves</p>
+      <div class="list-card moves" id="ai-moves"></div>
+    </div>
+
+    <div class="rep-section" id="mot-section">
+      <p class="rep-h">Your Home MOT</p>
+      <p class="mot-intro">A yearly check-up for this home, built from what you told us. Small jobs done on time are what protect the value above.</p>
+      <div class="list-card" id="ai-mot"></div>
+      <div class="tool-row"><button type="button" class="tool-btn primary" onclick="downloadHomeMOT()">Add these reminders to my calendar</button></div>
+    </div>
+
+    <div class="rep-section">
+      <p class="rep-h">Sources &amp; assumptions</p>
+      <div class="ai-card src" id="ai-sources"></div>
+    </div>
+
+    <p class="share-nudge">Use &ldquo;Save or print report&rdquo; at the top to keep a PDF copy.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-network-label">Other <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:10px;"><span class="n">1</span><span class="l">LINE</span></a> utilities</div>
+  <div class="footer-links">
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/bill/">1LINE Bill — household bill clarity</a>
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/decide/">1LINE Decide — decision clarity</a>
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/signal/">1LINE Signal — market analysis</a>
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/clarity/">1LINE Clarity — thinking clarity</a>
+    <a class="footer-link" href="https://oi-ecosystem.github.io/1line/coach/">1LINE Coach — reflection</a>
+  </div>
+  <p class="footer-copy">&copy; 1LINE Property. A <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:11px;"><span class="n">1</span><span class="l">LINE</span></a> property utility. Indicative clarity from your words and public HM Land Registry data — not a formal valuation or financial advice.</p>
+</footer>
+
+</div>
+
+<script>
+
+/* ── FLAGS ── */
+var PREMIUM_GATED   = true;
+var CHECKOUT_URL    = 'https://your-lemon-squeezy-link.com';   /* replace with the 1LINE Property £19 checkout link */
+var AI_URL          = 'https://rcloop-proxy.vercel.app/api/ai';
+var DATA_URL        = 'https://rcloop-proxy.vercel.app/api/property-data';   /* non-AI: HM Land Registry data only */
+var PC_URL          = 'https://api.postcodes.io';
+var _spellWarned    = false;
+var _lastCountedVal = '';
+var _lastVal        = '';
+var _state          = null;   /* the property record: input, facts, location, market, calculations, report */
+
+var MIN_CHARS = 100;
+var MAX_CHARS = 600;
+
+/* ── EXAMPLE PILLS ── */
+function setExample(el) {
+  var ta = document.getElementById('main-input');
+  ta.value = el.textContent.trim();
+  countChars();
+  ta.focus();
+}
+
+/* ── CHAR COUNTER ── */
+function countChars() {
+  var ta  = document.getElementById('main-input');
+  var cc  = document.getElementById('char-count');
+  var btn = document.getElementById('generate-btn');
+  if (!ta || !cc) return;
+  var len = ta.value.length;
+  cc.textContent = len;
+  cc.className = 'char-count' + (len >= MIN_CHARS && len <= MAX_CHARS ? ' valid' : len > MAX_CHARS ? ' over' : '');
+  if (btn) btn.disabled = !(len >= MIN_CHARS && len <= MAX_CHARS);
+  if (ta.value !== _lastCountedVal) {
+    _lastCountedVal = ta.value;
+    _spellWarned = false;
+    var p = document.getElementById('spell-panel');
+    if (p) p.className = 'spell-panel';
+    var de = document.getElementById('data-error');
+    if (de) de.style.display = 'none';
+  }
+}
+function pcChanged() {
+  var de = document.getElementById('data-error');
+  if (de) de.style.display = 'none';
+}
+
+/* ── UNIVERSAL SPELL WARNING ── */
+function handleGenerate() {
+  var val = document.getElementById('main-input').value.trim();
+  if (val.length < MIN_CHARS || val.length > MAX_CHARS) return;
+  if (!_spellWarned) {
+    _spellWarned = true;
+    document.getElementById('spell-panel').className = 'spell-panel visible';
+    var btn = document.getElementById('generate-btn');
+    if (btn) btn.disabled = true;
+    return;
+  }
+  _lastVal = val;
+  startFree(val);
+}
+function spellReview() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  document.getElementById('main-input').focus();
+}
+function spellContinue() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  var val = document.getElementById('main-input').value.trim();
+  _lastVal = val;
+  startFree(val);
+}
+
+/* ── HELPERS ── */
+function esc(s) {
+  return String(s === null || s === undefined ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+function gbp(n) {
+  if (n === null || n === undefined || isNaN(n)) return '';
+  var r = Math.round(n).toString();
+  return '£' + r.replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+}
+function roundNice(n) {
+  if (n < 500000) return Math.round(n / 1000) * 1000;
+  return Math.round(n / 5000) * 5000;
+}
+function gbpShort(n) {
+  if (n >= 1000000) return '£' + (Math.round(n / 10000) / 100) + 'm';
+  return '£' + Math.round(n / 1000) + 'k';
+}
+function pct(x, dp) {
+  var v = x * 100;
+  var s = v.toFixed(dp === undefined ? 1 : dp);
+  return (v > 0 ? '+' : '') + s + '%';
+}
+function plainPct(x, dp) {
+  return Math.abs(x * 100).toFixed(dp === undefined ? 1 : dp) + '%';
+}
+function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+function monthLabel(ym) {
+  var p = String(ym).split('-');
+  return MONTHS[parseInt(p[1], 10) - 1] + ' ' + p[0];
+}
+function confClass(c) {
+  c = String(c || '').toLowerCase();
+  if (c.indexOf('high') === 0) return 'conf conf-high';
+  if (c.indexOf('mod') === 0) return 'conf conf-moderate';
+  return 'conf conf-limited';
+}
+function confText(c) {
+  c = String(c || '').toLowerCase();
+  if (c.indexOf('high') === 0) return 'High confidence';
+  if (c.indexOf('mod') === 0) return 'Moderate confidence';
+  return 'Limited confidence';
+}
+
+/* ════════════════════════════════════════
+   1. WHAT WE HEARD — read the paragraph
+   ════════════════════════════════════════ */
+var WORDNUM = { one:1, two:2, three:3, four:4, five:5, six:6, seven:7, eight:8 };
+
+function findPostcode(text) {
+  var re = /([A-Za-z]{1,2}[0-9][A-Za-z0-9]?)\s*([0-9][A-Za-z]{2})(?![A-Za-z])/g;
+  var m;
+  while ((m = re.exec(text)) !== null) {
+    var pre = m.index > 0 ? text.charAt(m.index - 1) : ' ';
+    if (/[A-Za-z0-9]/.test(pre)) continue;
+    return { full: (m[1] + ' ' + m[2]).toUpperCase(), out: m[1].toUpperCase() };
+  }
+  var re2 = /(^|[^A-Za-z0-9£])([A-Z]{1,2}[0-9][A-Z0-9]?)(?![A-Za-z0-9])/g;
+  while ((m = re2.exec(text)) !== null) {
+    return { full: null, out: m[2] };
+  }
+  return null;
+}
+
+function findMoney(text) {
+  var out = [];
+  var re = /(£\s?)?([0-9]{1,3}(?:,[0-9]{3})+|[0-9]+(?:\.[0-9]+)?)\s?(k|grand|m|million)?(?![0-9A-Za-z])/gi;
+  var m;
+  while ((m = re.exec(text)) !== null) {
+    var hasPound = !!m[1];
+    var suf = (m[3] || '').toLowerCase();
+    var raw = m[2];
+    var n = parseFloat(raw.replace(/,/g, ''));
+    if (isNaN(n)) continue;
+    if (suf === 'k' || suf === 'grand') n = n * 1000;
+    else if (suf === 'm' || suf === 'million') { if (!hasPound) continue; n = n * 1000000; }
+    if (!hasPound && !suf && raw.indexOf(',') === -1) continue;
+    if (n < 1000) continue;
+    out.push({ value: n, ctx: text.substring(Math.max(0, m.index - 55), m.index).toLowerCase() });
+  }
+  return out;
+}
+
+var MONEY_CATS = [
+  ['mortgage', ['mortgage', 'owe ', 'outstanding', 'left to pay', 'remaining', 'loan']],
+  ['value',    ['worth', 'valued', 'valuation', 'value', 'estimate', 'agent', 'zoopla', 'rightmove', 'on the market', 'listed']],
+  ['spend',    ['spent', 'spend', 'invested', 'put in', 'putting', 'renovat', 'refurb', 'improvement', 'upgrad', 'cost', 'fitted', 'installed', 'replaced', 'redone']],
+  ['paid',     ['paid', 'bought', 'purchased', 'purchase', 'for ']]
+];
+function classifyMoney(ctx) {
+  var best = 'unknown', bestIdx = -1;
+  for (var i = 0; i < MONEY_CATS.length; i++) {
+    var words = MONEY_CATS[i][1];
+    for (var j = 0; j < words.length; j++) {
+      var k = ctx.lastIndexOf(words[j]);
+      if (k > bestIdx) { bestIdx = k; best = MONEY_CATS[i][0]; }
+    }
+  }
+  return best;
+}
+
+function findPurchase(text) {
+  var now = new Date();
+  var lower = text.toLowerCase();
+  var re = /(^|[^0-9£,])((?:19[5-9]|20[0-3])[0-9])(?![0-9]|s|'s|’s)/g;
+  var m, found = [];
+  while ((m = re.exec(text)) !== null) {
+    var y = parseInt(m[2], 10);
+    if (y > now.getFullYear()) continue;
+    var idx = m.index + m[1].length;
+    var ctx = lower.substring(Math.max(0, idx - 45), idx);
+    var month = null;
+    var mm = ctx.match(/(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s*$/);
+    if (mm) month = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'].indexOf(mm[1]) + 1;
+    var buy = /(bought|purchased|moved in|moved into|completed|since|got it|purchase|owned it)/.test(ctx);
+    var work = /(built|build|circa|dating|extension|renovat|refurb|replaced|redone|fitted|installed|new |done|roof|kitchen|bathroom|boiler|windows|in the)/.test(ctx.substring(Math.max(0, ctx.length - 22)));
+    found.push({ year: y, month: month, buy: buy, work: work });
+  }
+  for (var i = 0; i < found.length; i++) {
+    if (found[i].buy) return { year: found[i].year, month: found[i].month, assumed: false };
+  }
+  var ago = lower.match(/(bought|purchased|moved in)[^.]{0,30}?([0-9]+|one|two|three|four|five|six|seven|eight|nine|ten)\s+years?\s+ago/);
+  if (ago) {
+    var n = WORDNUM[ago[2]] || parseInt(ago[2], 10);
+    if (n) return { year: now.getFullYear() - n, month: null, assumed: false };
+  }
+  var held = lower.match(/(owned|had|lived|been)[^.]{0,25}?(?:for\s+)?([0-9]+|two|three|four|five|six|seven|eight|nine|ten)\s+years/);
+  if (held) {
+    var h = WORDNUM[held[2]] || parseInt(held[2], 10);
+    if (h) return { year: now.getFullYear() - h, month: null, assumed: true };
+  }
+  for (var j = 0; j < found.length; j++) {
+    if (!found[j].work) return { year: found[j].year, month: found[j].month, assumed: true };
+  }
+  return null;
+}
+
+function findType(l) {
+  if (/semi[\s-]?detached|(^|[^a-z])semi([^a-z]|$)/.test(l)) return 'semi';
+  if (/bungalow/.test(l)) return 'bungalow';
+  if (/(^|[^a-z-])detached/.test(l)) return 'detached';
+  if (/terrace|townhouse|town house/.test(l)) return 'terraced';
+  if (/(^|[^a-z])(apartment|maisonette|penthouse|flat(?![a-z]|[\s-]roof|[\s-]pack|[\s-]out))/.test(l)) return 'flat';
+  return null;
+}
+var TYPE_LABEL = { semi:'Semi-detached', detached:'Detached', terraced:'Terraced', flat:'Flat / maisonette', bungalow:'Bungalow' };
+var TYPE_PLURAL = { semi:'Semi-detached homes', detached:'Detached homes', terraced:'Terraced homes', flat:'Flats', bungalow:'Detached homes' };
+var TYPE_CODE = { semi:'S', detached:'D', terraced:'T', flat:'F', bungalow:'D' };
+
+function findEra(l) {
+  var m = l.match(/(1[89][0-9]0)s/);
+  if (m) return m[1] + 's';
+  m = l.match(/(^|[^0-9])([2-9]0)s ?(semi|terrace|house|build|detached|bungalow|home)/);
+  if (m) return '19' + m[2] + 's';
+  if (/georgian/.test(l)) return 'Georgian';
+  if (/victorian/.test(l)) return 'Victorian';
+  if (/edwardian/.test(l)) return 'Edwardian';
+  if (/inter[\s-]?war/.test(l)) return 'Inter-war';
+  if (/post[\s-]?war/.test(l)) return 'Post-war';
+  if (/new[\s-]?build/.test(l)) return 'New build';
+  if (/ex[\s-]?council|ex[\s-]?local authority/.test(l)) return 'Ex-council';
+  if (/barn conversion/.test(l)) return 'Barn conversion';
+  if (/period/.test(l)) return 'Period';
+  m = l.match(/built (?:in |around |circa |c\.? ?)?((?:18|19|20)[0-9]{2})/);
+  if (m) return 'Built ' + m[1];
+  return null;
+}
+
+function findFeatures(l) {
+  var f = [];
+  var g = l.match(/((?:large|big|huge|small|long|south[\s-]facing|west[\s-]facing|private|walled|corner)\s+)?(?:rear\s+)?garden/);
+  if (g) f.push(g[0].charAt(0).toUpperCase() + g[0].slice(1));
+  if (/driveway|off[\s-]road|parking/.test(l) && !/no parking/.test(l)) f.push(/driveway/.test(l) ? 'Driveway' : 'Parking');
+  if (/no parking/.test(l)) f.push('No parking');
+  if (/double garage/.test(l)) f.push('Double garage'); else if (/garage/.test(l)) f.push('Garage');
+  if (/loft conversion|converted loft|loft converted/.test(l) && !/thinking|considering|planning|want/.test(l)) f.push('Loft conversion');
+  if (/extension|extended/.test(l)) f.push('Extension');
+  if (/conservatory/.test(l)) f.push('Conservatory');
+  if (/en[\s-]?suite/.test(l)) f.push('En-suite');
+  if (/original (features|fireplace|fireplaces|floor|cornic)/.test(l)) f.push('Original features');
+  if (/damp/.test(l)) f.push('Damp mentioned');
+  return f.slice(0, 6);
+}
+
+function parseFacts(text, pcOverride) {
+  var l = text.toLowerCase();
+  var f = { text: text };
+  var pc = pcOverride ? findPostcode(pcOverride) : null;
+  if (!pc && pcOverride) {
+    var o = String(pcOverride).toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (/^[A-Z]{1,2}[0-9][A-Z0-9]?$/.test(o)) pc = { full: null, out: o };
+  }
+  if (!pc) pc = findPostcode(text);
+  f.postcode = pc ? pc.full : null;
+  f.outcode = pc ? pc.out : null;
+  f.type = findType(l);
+  var b = l.match(/([0-9]+|one|two|three|four|five|six|seven)[\s-]*(?:bed|bedroom|br)/);
+  f.beds = b ? (WORDNUM[b[1]] || parseInt(b[1], 10)) : null;
+  f.era = findEra(l);
+  f.tenure = /share of freehold/.test(l) ? 'Share of freehold' : /leasehold/.test(l) ? 'Leasehold' : /freehold/.test(l) ? 'Freehold' : null;
+  var money = findMoney(text);
+  f.pricePaid = null; f.spend = 0; f.mortgage = null; f.userValue = null;
+  var unknowns = [];
+  for (var i = 0; i < money.length; i++) {
+    var c = classifyMoney(money[i].ctx);
+    /* "bought in 2016, it cost £285,000" — a large sum after a buying word is the purchase, not works */
+    if (c === 'spend' && !f.pricePaid && money[i].value >= 60000 && /(bought|purchased|paid)/.test(money[i].ctx)) c = 'paid';
+    if (c === 'paid' && !f.pricePaid) f.pricePaid = money[i].value;
+    else if (c === 'spend') f.spend += money[i].value;
+    else if (c === 'mortgage' && !f.mortgage) f.mortgage = money[i].value;
+    else if (c === 'value' && !f.userValue) f.userValue = money[i].value;
+    else if (c === 'unknown') unknowns.push(money[i].value);
+  }
+  if (!f.pricePaid) {
+    for (var j = 0; j < unknowns.length; j++) { if (unknowns[j] >= 40000) { f.pricePaid = unknowns[j]; break; } }
+  }
+  var p = findPurchase(text);
+  f.buyYear = p ? p.year : null;
+  f.buyMonth = p ? p.month : null;
+  f.buyAssumed = p ? p.assumed : false;
+  f.features = findFeatures(l);
+  return f;
+}
+
+function chipsHtml(f, loc) {
+  var c = [];
+  var place = f.postcode || f.outcode;
+  if (place) c.push(esc(place) + (loc && loc.district ? ' · ' + esc(loc.district) : ''));
+  else c.push('<span class="chip missing">Postcode not given</span>');
+  if (f.era) c.push(esc(f.era));
+  c.push(f.type ? esc(TYPE_LABEL[f.type]) : '<span class="chip missing">Property type not given</span>');
+  if (f.beds) c.push(f.beds + ' bedroom' + (f.beds === 1 ? '' : 's'));
+  c.push(f.pricePaid ? gbpShort(f.pricePaid) + ' paid' : '<span class="chip missing">Price paid not given</span>');
+  c.push(f.buyYear ? 'Bought ' + (f.buyMonth ? MONTHS[f.buyMonth - 1].substring(0, 3) + ' ' : '') + f.buyYear : '<span class="chip missing">Year bought not given</span>');
+  if (f.spend) c.push(gbpShort(f.spend) + ' improvements');
+  if (f.tenure) c.push(esc(f.tenure));
+  if (f.mortgage) c.push('Mortgage mentioned');
+  for (var i = 0; i < f.features.length; i++) c.push(esc(f.features[i]));
+  var html = '';
+  for (var k = 0; k < c.length; k++) {
+    html += c[k].indexOf('<span') === 0 ? c[k] : '<span class="chip">' + c[k] + '</span>';
+  }
+  return html;
+}
+
+/* ════════════════════════════════════════
+   2. LOCATION (postcodes.io) + MARKET DATA (property-data, non-AI)
+   ════════════════════════════════════════ */
+function getJSON(url) {
+  return fetch(url).then(function(r) { return r.json(); });
+}
+function postJSON(url, body) {
+  return fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  }).then(function(r) { return r.json(); });
+}
+function first(v) { return Array.isArray(v) ? (v[0] || null) : (v || null); }
+
+function fetchLocation(f) {
+  function byOutcode(oc) {
+    return getJSON(PC_URL + '/outcodes/' + encodeURIComponent(oc)).then(function(j) {
+      if (!j || j.status !== 200 || !j.result) throw new Error('postcode');
+      var r = j.result;
+      return { postcode: null, outcode: r.outcode, lat: r.latitude, lon: r.longitude,
+        district: first(r.admin_district), region: first(r.region), country: first(r.country) || 'England', exact: false };
+    });
+  }
+  var p;
+  if (f.postcode) {
+    p = getJSON(PC_URL + '/postcodes/' + encodeURIComponent(f.postcode)).then(function(j) {
+      if (j && j.status === 200 && j.result) {
+        var r = j.result;
+        return { postcode: r.postcode, outcode: r.outcode, lat: r.latitude, lon: r.longitude,
+          district: r.admin_district, region: r.region, country: r.country || 'England', exact: true };
+      }
+      return byOutcode(f.outcode);
+    }, function() { return byOutcode(f.outcode); });
+  } else if (f.outcode) {
+    p = byOutcode(f.outcode);
+  } else {
+    return Promise.reject(new Error('nopostcode'));
+  }
+  return p.then(function(loc) {
+    loc.nearby = [];
+    loc.radius = 800;
+    if (loc.lat === null || loc.lat === undefined) return loc;
+    function near(radius) {
+      return getJSON(PC_URL + '/postcodes?lon=' + loc.lon + '&lat=' + loc.lat + '&radius=' + radius + '&limit=100')
+        .then(function(j) {
+          var list = (j && j.result) || [];
+          var out = [];
+          for (var i = 0; i < list.length; i++) out.push(list[i].postcode);
+          return out;
+        }, function() { return []; });
+    }
+    return near(800).then(function(list) {
+      if (list.length >= 25) { loc.nearby = list; return loc; }
+      return near(1600).then(function(list2) {
+        loc.nearby = list2.length ? list2 : list;
+        loc.radius = 1600;
+        return loc;
+      });
+    });
+  });
+}
+
+function fetchMarket(loc, f) {
+  var now = new Date();
+  var since = (now.getFullYear() - 3) + '-' + pad2(now.getMonth() + 1) + '-01';
+  var ew = /england|wales/i.test(loc.country || '');
+  var hpiP = postJSON(DATA_URL, {
+    kind: 'hpi', district: loc.district || '', region: loc.region || loc.country,
+    country: loc.country || 'England', type: f.type || ''
+  }).then(null, function(e) { return { ok: false, error: String(e) }; });
+  var ppiP = (ew && loc.nearby.length)
+    ? postJSON(DATA_URL, { kind: 'ppi', postcodes: loc.nearby, since: since }).then(null, function(e) { return { ok: false, error: String(e) }; })
+    : Promise.resolve({ ok: false, skipped: true });
+  return Promise.all([hpiP, ppiP]).then(function(a) {
+    return { hpi: a[0], ppi: a[1], since: since };
+  });
+}
+
+/* ════════════════════════════════════════
+   3. DETERMINISTIC MARKET ENGINE (same data in = same positions out)
+   ════════════════════════════════════════ */
+var PHASES = ['Recovery', 'Growth', 'Expansion', 'Peak / Plateau', 'Correction', 'Stabilisation'];
+var P_REC = 0, P_GROW = 1, P_EXP = 2, P_PEAK = 3, P_CORR = 4, P_STAB = 5;
+
+function pickSeries(h, f) {
+  if (!h || !h.ok || !h.series) return null;
+  var u = h.used || {};
+  var c = [];
+  if (u.local)   { c.push([u.local, 3, 'local-type']);    c.push([u.local, 1, 'local']); }
+  if (u.region)  { c.push([u.region, 3, 'region-type']);  c.push([u.region, 1, 'region']); }
+  if (u.country) { c.push([u.country, 3, 'country-type']); c.push([u.country, 1, 'country']); }
+  for (var i = 0; i < c.length; i++) {
+    var rows = h.series[c[i][0]];
+    if (!rows) continue;
+    var pts = [];
+    for (var k = 0; k < rows.length; k++) {
+      var v = rows[k][c[i][1]];
+      if (v !== null && v > 0) pts.push([rows[k][0], v, c[i][1] === 3 ? rows[k][4] : rows[k][2]]);
+    }
+    if (pts.length >= 72) return { slug: c[i][0], level: c[i][2], typed: c[i][1] === 3, pts: pts };
+  }
+  return null;
+}
+
+function ma3(pts, i) {
+  var s = 0, n = 0;
+  for (var k = i; k > i - 3 && k >= 0; k--) { s += pts[k][1]; n++; }
+  return s / n;
+}
+function yoyAt(pts, i) { return i - 12 < 0 ? null : ma3(pts, i) / ma3(pts, i - 12) - 1; }
+function cagr(pts, i, y) { var j = i - 12 * y; return j < 0 ? null : Math.pow(ma3(pts, i) / ma3(pts, j), 1 / y) - 1; }
+
+function metrics(pts) {
+  var L = pts.length - 1;
+  var sm = [];
+  for (var i = 0; i <= L; i++) sm.push(ma3(pts, i));
+  var m = { latest: pts[L][0], start: pts[0][0], avgNow: pts[L][2] };
+  m.a1 = yoyAt(pts, L);
+  var a1p = yoyAt(pts, L - 6);
+  m.a1prev = a1p;
+  m.mom = (m.a1 !== null && a1p !== null) ? m.a1 - a1p : 0;
+  m.c3 = cagr(pts, L, 3); m.c5 = cagr(pts, L, 5); m.c10 = cagr(pts, L, 10);
+  var max5 = 0, maxAll = 0, maxAllI = 0;
+  for (i = 0; i <= L; i++) {
+    if (sm[i] > maxAll) { maxAll = sm[i]; maxAllI = i; }
+    if (i >= L - 60 && sm[i] > max5) max5 = sm[i];
+  }
+  m.dd5 = sm[L] / max5 - 1;
+  m.ddAll = sm[L] / maxAll - 1;
+  m.peakMonth = pts[maxAllI][0];
+  var peak = sm[0], peakI = 0, worst = 0, wTrough = -1, wPeak = -1;
+  for (i = 0; i <= L; i++) {
+    if (sm[i] > peak) { peak = sm[i]; peakI = i; }
+    var d = sm[i] / peak - 1;
+    if (d < worst) { worst = d; wTrough = i; wPeak = peakI; }
+  }
+  if (worst <= -0.08 && wTrough >= 0) {
+    m.trough = { month: pts[wTrough][0], depth: worst, fromPeak: pts[wPeak][0], riseSince: sm[L] / sm[wTrough] - 1 };
+    m.yearsSinceTrough = (L - wTrough) / 12;
+  } else {
+    m.trough = null;
+    m.yearsSinceTrough = L / 12;
+  }
+  m.sm = sm;
+  return m;
+}
+
+function classifyShort(m) {
+  var a = (m.a1 || 0) * 100, d = (m.mom || 0) * 100, c3 = (m.c3 || 0) * 100;
+  if (a <= -1) return d >= 0.75 ? P_STAB : P_CORR;
+  if (a < 1) { if (d <= -0.5) return P_PEAK; if (d >= 0.5) return P_REC; return c3 > 3 ? P_PEAK : P_STAB; }
+  if (a < 3) { if (d <= -1.5) return P_PEAK; if (d >= 0.75 && (m.a1prev || 0) * 100 <= 1) return P_REC; return P_GROW; }
+  if (a < 6) return d >= 0.75 ? P_EXP : P_GROW;
+  return d <= -2 ? P_PEAK : P_EXP;
+}
+function classifyMedium(m) {
+  var a = (m.a1 || 0) * 100, dd = m.dd5 * 100, c3 = (m.c3 || 0) * 100, c5 = (m.c5 || 0) * 100;
+  if (dd <= -5) { if (a > 1) return P_REC; if (a > -1) return P_STAB; return P_CORR; }
+  if (dd <= -2) { if (a > 1) return P_REC; if (a < -1) return P_CORR; return P_PEAK; }
+  if (c5 >= 4) return P_EXP;
+  if (c5 >= 1.5) return c3 < 1 ? P_PEAK : P_GROW;
+  return c3 > c5 + 1 ? P_REC : P_PEAK;
+}
+function classifyLong(m) {
+  var a = (m.a1 || 0) * 100, dd = m.ddAll * 100, c3 = (m.c3 || 0) * 100, T = m.yearsSinceTrough;
+  if (dd <= -10) { if (a > 1) return P_REC; if (a > -1) return P_STAB; return P_CORR; }
+  if (dd <= -4) { if (a > 1) return P_REC; if (a < -1) return P_CORR; return P_PEAK; }
+  if (c3 < 0.5 && T >= 8) return P_PEAK;
+  if (T < 4) return P_REC;
+  if (T < 8) return P_GROW;
+  return P_EXP;
+}
+function nearEdge(v, edges, gap) {
+  for (var i = 0; i < edges.length; i++) { if (Math.abs(v - edges[i]) < gap) return true; }
+  return false;
+}
+function cycleConfidence(level, m, horizon, years) {
+  var local = level.indexOf('local') === 0;
+  if (horizon === 'long') return (local && years >= 20) ? 'moderate' : 'limited';
+  if (!local) return 'limited';
+  if (horizon === 'short') {
+    var clear = !nearEdge((m.a1 || 0) * 100, [-1, 1, 3, 6], 0.6) && !nearEdge((m.mom || 0) * 100, [-1.5, -0.5, 0.5, 0.75], 0.25);
+    return (level === 'local-type' && clear) ? 'high' : 'moderate';
+  }
+  return 'moderate';
+}
+
+function marketPosition(s, md) {
+  if ((s === P_EXP || s === P_PEAK) && (md === P_EXP || md === P_PEAK)) {
+    return { state: 'Seller’s window', text: 'Prices sit near the top of their recent range and the pace is no longer accelerating. Current market evidence may be relatively supportive of sellers.' };
+  }
+  if (s === P_REC || s === P_GROW || s === P_CORR || (s === P_EXP && (md === P_REC || md === P_GROW))) {
+    return { state: 'Holding environment', text: s === P_CORR
+      ? 'Prices are easing locally. Market conditions do not currently reward treating timing as the main lever — selling now would mean selling into softer prices.'
+      : 'The market is still moving in your favour. Conditions do not currently show an obvious reason to treat timing as the primary issue.' };
+  }
+  return { state: 'Neutral', text: 'The signals are mixed. Timing is neither clearly for you nor against you right now — the property itself matters more than the moment.' };
+}
+
+function compStats(rows, f) {
+  if (!rows || !rows.length) return null;
+  var code = f.type ? TYPE_CODE[f.type] : null;
+  var same = [], all = [];
+  for (var i = 0; i < rows.length; i++) {
+    if (!rows[i][1]) continue;
+    all.push(rows[i]);
+    if (!code || rows[i][2] === code || (f.type === 'bungalow' && rows[i][2] === 'S')) same.push(rows[i]);
+  }
+  function stats(list) {
+    if (!list.length) return null;
+    var p = [];
+    for (var k = 0; k < list.length; k++) p.push(list[k][1]);
+    p.sort(function(a, b) { return a - b; });
+    function q(x) { return p[Math.min(p.length - 1, Math.max(0, Math.round(x * (p.length - 1))))]; }
+    return { n: p.length, median: q(0.5), p25: q(0.25), p75: q(0.75), p90: q(0.9), max: p[p.length - 1], min: p[0] };
+  }
+  return { same: stats(same), all: stats(all), sameRows: same, typed: !!code };
+}
+
+function indexValue(f, series) {
+  if (!f.pricePaid || !f.buyYear || !series) return null;
+  var pts = series.pts;
+  var buyM = f.buyYear + '-' + pad2(f.buyMonth || 6);
+  if (buyM < pts[0][0]) return { before: true };
+  var iBuy = 0;
+  for (var i = 0; i < pts.length; i++) { if (pts[i][0] <= buyM) iBuy = i; }
+  var L = pts.length - 1;
+  var ratio = ma3(pts, L) / ma3(pts, iBuy);
+  var est = f.pricePaid * ratio;
+  var half = { 'local-type': 0.05, 'local': 0.07, 'region-type': 0.08, 'region': 0.09 }[series.level] || 0.11;
+  var years = (L - iBuy) / 12;
+  if (years > 10) half += 0.02;
+  if (f.buyAssumed) half += 0.02;
+  return { est: est, low: roundNice(est * (1 - half)), high: roundNice(est * (1 + half)), ratio: ratio, years: years,
+    conf: (series.level.indexOf('local') === 0 && !f.buyAssumed) ? 'moderate' : 'limited' };
+}
+
+function areaName(series, loc) {
+  if (!series) return 'your area';
+  if (series.level.indexOf('local') === 0) return loc.district || 'your area';
+  if (series.level.indexOf('region') === 0) return loc.region || loc.country || 'your region';
+  return loc.country || 'England';
+}
+
+function computeAll(f, loc, market) {
+  var S = { facts: f, loc: loc, market: market, created: new Date().toISOString() };
+  S.series = pickSeries(market.hpi, f);
+  if (!S.series) return S;
+  S.m = metrics(S.series.pts);
+  S.area = areaName(S.series, loc);
+  S.typeWord = (S.series.typed && f.type) ? TYPE_PLURAL[f.type] : 'Homes';
+  var years = S.series.pts.length / 12;
+  S.cycle = {
+    short:  { ph: classifyShort(S.m),  conf: cycleConfidence(S.series.level, S.m, 'short', years) },
+    medium: { ph: classifyMedium(S.m), conf: cycleConfidence(S.series.level, S.m, 'medium', years) },
+    long:   { ph: classifyLong(S.m),   conf: cycleConfidence(S.series.level, S.m, 'long', years) }
+  };
+  S.position = marketPosition(S.cycle.short.ph, S.cycle.medium.ph);
+  S.comps = (market.ppi && market.ppi.ok) ? compStats(market.ppi.rows, f) : null;
+  S.value = indexValue(f, S.series);
+  /* regional comparison line for context */
+  var h = market.hpi, u = h.used || {};
+  if (u.region && h.series[u.region] && S.series.slug !== u.region) {
+    var rp = [];
+    var rr = h.series[u.region];
+    for (var i = 0; i < rr.length; i++) { if (rr[i][1]) rp.push([rr[i][0], rr[i][1], rr[i][2]]); }
+    if (rp.length > 24) S.regionYoY = yoyAt(rp, rp.length - 1);
+  }
+  if (u.country && h.series[u.country]) {
+    var cp = [];
+    var cr = h.series[u.country];
+    for (var j = 0; j < cr.length; j++) { if (cr[j][1]) cp.push([cr[j][0], cr[j][1], cr[j][2]]); }
+    if (cp.length > 24) S.countryYoY = yoyAt(cp, cp.length - 1);
+  }
+  S.evidence = evidenceLines(S);
+  return S;
+}
+
+/* plain-English "what the data shows" for each horizon — deterministic */
+function evidenceLines(S) {
+  var m = S.m, w = S.typeWord + ' in ' + S.area;
+  var shortTxt = w + ' are ' + (m.a1 >= 0 ? 'up ' : 'down ') + plainPct(m.a1) + ' on a year ago'
+    + (m.a1prev !== null ? ', compared with ' + pct(m.a1prev) + ' six months earlier' : '') + '.';
+  var medTxt = m.c5 !== null
+    ? 'Over five years prices have moved ' + pct(Math.pow(1 + m.c5, 5) - 1, 0) + ' (' + pct(m.c5) + ' a year); over three years, ' + pct(m.c3) + ' a year.'
+      + (m.dd5 < -0.02 ? ' They sit ' + plainPct(m.dd5) + ' below their five-year high.' : ' They are at or near their five-year high.')
+    : 'There is not yet five years of local data.';
+  var longTxt;
+  if (m.trough) {
+    longTxt = 'Prices fell ' + plainPct(m.trough.depth, 0) + ' from ' + m.trough.fromPeak.substring(0, 4) + ' to a low in ' + m.trough.month.substring(0, 4)
+      + ', and have risen ' + plainPct(m.trough.riseSince, 0) + ' since. This run is ' + Math.round(m.yearsSinceTrough) + ' years old'
+      + (m.ddAll > -0.02 ? ' and prices are at or near their all-time high.' : ', and prices sit ' + plainPct(m.ddAll) + ' below their ' + m.peakMonth.substring(0, 4) + ' high.');
+  } else {
+    longTxt = 'Since ' + m.start.substring(0, 4) + ' this market has not had a fall of more than 8%.' + (m.c10 !== null ? ' Ten-year growth: ' + pct(m.c10) + ' a year.' : '');
+  }
+  return { short: shortTxt, medium: medTxt, long: longTxt };
+}
+
+/* ════════════════════════════════════════
+   4. FREE LAYER — data only. No chart, no positions, no value.
+   ════════════════════════════════════════ */
+function showDataError(msg) {
+  var de = document.getElementById('data-error');
+  de.textContent = msg;
+  de.style.display = 'block';
+}
+function setBusy(on) {
+  var btn = document.getElementById('generate-btn');
+  if (!btn) return;
+  btn.disabled = on;
+  btn.textContent = on ? 'Reading your local market…' : 'Read My Property';
+}
+
+function buildState(val) {
+  var pcInput = document.getElementById('pc-input');
+  var f = parseFacts(val, pcInput ? pcInput.value.trim() : '');
+  if (!f.postcode && !f.outcode) return Promise.reject(new Error('nopostcode'));
+  return fetchLocation(f).then(function(loc) {
+    return fetchMarket(loc, f).then(function(market) {
+      var S = computeAll(f, loc, market);
+      if (!S.series) throw new Error('nodata');
+      return S;
+    });
+  });
+}
+
+function startFree(val) {
+  setBusy(true);
+  buildState(val).then(function(S) {
+    _state = S;
+    setBusy(false);
+    renderFree(S);
+  }, function(err) {
+    setBusy(false);
+    var msg = String(err && err.message ? err.message : err);
+    if (msg === 'nopostcode' || msg === 'postcode') {
+      document.getElementById('pc-wrap').style.display = 'block';
+      document.getElementById('pc-input').focus();
+      showDataError(msg === 'postcode' ? 'We could not find that postcode. Please check it below.' : 'Add the postcode below so we can read your local market.');
+    } else {
+      showDataError('We could not reach the market data just now. Please try again in a minute.');
+    }
+  });
+}
+
+function factRow(num, text) {
+  return '<div class="fact-row"><div class="fact-num">' + num + '</div><div class="fact-text">' + text + '</div></div>';
+}
+
+function renderFree(S) {
+  var f = S.facts, m = S.m;
+  document.getElementById('out-chips').innerHTML = chipsHtml(f, S.loc);
+  var html = '';
+  html += factRow(pct(m.a1), esc(S.typeWord + ' in ' + S.area) + ' over the last 12 months.');
+  if (m.c5 !== null) html += factRow(pct(Math.pow(1 + m.c5, 5) - 1, 0), 'Over five years · ' + pct(m.c5) + ' a year on average.');
+  var cs = S.comps;
+  if (cs && cs.same && cs.same.n >= 3) {
+    html += factRow(String(cs.same.n), (cs.typed ? 'comparable ' + esc(TYPE_LABEL[f.type].toLowerCase()) : 'nearby') + ' sales within about ' + (S.loc.radius >= 1600 ? '1.5km' : '800m') + ' since ' + S.market.since.substring(0, 4) + '.');
+  } else if (S.regionYoY !== undefined && S.regionYoY !== null) {
+    html += factRow(pct(S.regionYoY), esc(S.loc.region || 'Your region') + ' as a whole over the last 12 months.');
+  }
+  if (m.trough) {
+    var ty = parseInt(m.trough.month.substring(0, 4), 10);
+    if (f.buyYear && f.buyYear >= ty) {
+      html += factRow(String(f.buyYear), 'Your purchase came ' + (f.buyYear - ty) + ' year' + (f.buyYear - ty === 1 ? '' : 's') + ' after the last market low in ' + ty + '.');
+    } else if (f.buyYear) {
+      html += factRow(String(f.buyYear), 'You bought before the last market low in ' + ty + ' — and have held through the whole recovery since.');
+    } else {
+      html += factRow(String(ty), 'The last market low here. The current run is ' + Math.round(m.yearsSinceTrough) + ' years old.');
+    }
+  }
+  document.getElementById('out-facts').innerHTML = html;
+  document.getElementById('facts-label').textContent = 'Your local market — ' + S.area;
+  document.getElementById('facts-src').textContent = 'HM Land Registry UK House Price Index (latest: ' + monthLabel(m.latest) + ')' + (cs ? ' and Price Paid Data.' : '.');
+  document.getElementById('out-hook').textContent = 'Your short, medium and long-term positions on the property cycle have been calculated. Unlock to see where you are, what your property is worth now, and what not to spend money on.';
+
+  /* Show free output — hide input views (same as template) */
+  document.getElementById('hero-section').style.display = 'none';
+  document.querySelector('.input-section').style.display = 'none';
+  document.getElementById('how-section').style.display = 'none';
+  document.getElementById('output-section').className = 'visible';
+  var unlocked = window.location.search.indexOf('unlocked=true') !== -1;
+  document.getElementById('unlock-btn').textContent = unlocked ? 'Generate My Full Property Report' : 'Unlock Full Property Report — £19';
+  document.getElementById('property-gate').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ── PAYMENT ── */
+function unlockProperty() {
+  if (PREMIUM_GATED && window.location.search.indexOf('unlocked=true') === -1) {
+    var pcInput = document.getElementById('pc-input');
+    sessionStorage.setItem('property_data', JSON.stringify({ val: _lastVal, pc: pcInput ? pcInput.value.trim() : '' }));
+    window.location.href = CHECKOUT_URL;
+    return;
+  }
+  runAIProperty();
+}
+
+/* ════════════════════════════════════════
+   5. PAID — one call to the existing /api/ai
+   ════════════════════════════════════════ */
+var _OV_MSGS = [
+  'Locating your property...',
+  'Reading thirty years of local prices...',
+  'Checking nearby sales...',
+  'Placing you on the property cycle...',
+  'Building your property intelligence...'
+];
+
+function buildPrompts(S) {
+  var f = S.facts, m = S.m, c = S.cycle;
+  var system = 'You are the analysis engine behind 1LINE Property, a UK property intelligence report for homeowners. '
+    + 'You interpret one owner\'s own description of their home against the HM Land Registry evidence supplied. '
+    + 'Write like the sharpest, most experienced UK property person in the room: specific, plain-spoken, British English, no estate-agent cliches, no filler. '
+    + 'RULES: Never invent data or facts the owner did not give. Every point must tie to what the owner said or to the evidence supplied. '
+    + 'The cycle positions are fixed by the data: explain them, never change them. Distinguish evidence from interpretation. '
+    + 'Use ranges, never single-figure valuations, and never call anything a valuation. Never predict future prices or say a phase is certain. '
+    + 'Separate VALUE CREATION (may add value), VALUE PROTECTION (prevents value being lost) and PRESENTATION (more attractive, not equivalent value). '
+    + 'Test every improvement against the local ceiling and flag overcapitalisation honestly. '
+    + 'WHAT NOT TO DO must name specific mistakes for this property type, build era, character, condition, location and price bracket, never generic advice such as avoid overspending. '
+    + 'PROTECT THIS names what the property already has that must not be sacrificed. '
+    + 'If evidence is thin, say so and lower confidence. Never mention AI, models or yourself. '
+    + 'Respond ONLY in valid JSON, no markdown, no preamble.';
+
+  var lines = [];
+  lines.push('PROPERTY — the owner\'s words: "' + f.text + '"');
+  lines.push('EXTRACTED: location ' + (S.loc.postcode || S.loc.outcode || '?') + ', ' + (S.loc.district || '?') + ', ' + (S.loc.region || S.loc.country || '')
+    + ' | type ' + (f.type ? TYPE_LABEL[f.type] : 'not given') + ' | beds ' + (f.beds || 'not given') + ' | era ' + (f.era || 'not given')
+    + ' | paid ' + (f.pricePaid ? gbp(f.pricePaid) : 'not given') + ' | bought ' + (f.buyYear ? f.buyYear + (f.buyAssumed ? ' (assumed)' : '') : 'not given')
+    + ' | improvement spend ' + (f.spend ? gbp(f.spend) : 'not given') + ' | tenure ' + (f.tenure || 'not given')
+    + (f.mortgage ? ' | mortgage ' + gbp(f.mortgage) : '') + (f.userValue ? ' | owner\'s own value idea ' + gbp(f.userValue) : ''));
+  lines.push('MARKET EVIDENCE (HM Land Registry UK HPI, latest ' + monthLabel(m.latest) + ', series: ' + S.typeWord + ' in ' + S.area + ', level ' + S.series.level + '):');
+  lines.push('- Short term: ' + S.evidence.short);
+  lines.push('- Medium term: ' + S.evidence.medium);
+  lines.push('- Long term: ' + S.evidence.long);
+  if (m.avgNow) lines.push('- Average price for this series now: ' + gbp(m.avgNow));
+  if (S.regionYoY !== undefined && S.regionYoY !== null) lines.push('- ' + (S.loc.region || 'Region') + ' 12-month change: ' + pct(S.regionYoY));
+  if (S.countryYoY !== undefined && S.countryYoY !== null) lines.push('- ' + (S.loc.country || 'England') + ' 12-month change: ' + pct(S.countryYoY));
+  lines.push('CYCLE POSITIONS (fixed): short ' + PHASES[c.short.ph] + ' (' + c.short.conf + '), medium ' + PHASES[c.medium.ph] + ' (' + c.medium.conf + '), long ' + PHASES[c.long.ph] + ' (' + c.long.conf + '). Market position: ' + S.position.state + '.');
+  if (S.value && !S.value.before) {
+    lines.push('INDEX-TRACKED VALUE: price paid moved by the index = ' + gbp(S.value.est) + ' (range ' + gbp(S.value.low) + '–' + gbp(S.value.high) + '). This excludes improvements and condition — adjust for what the owner described.');
+  } else {
+    lines.push('INDEX-TRACKED VALUE: not available (' + (S.value && S.value.before ? 'purchase predates the data' : 'price paid or year not given') + '). Use comparables only if they support a range; otherwise return 0 for low and high.');
+  }
+  var cs = S.comps;
+  if (cs && cs.same) {
+    var s = cs.same;
+    lines.push('NEARBY SALES since ' + S.market.since.substring(0, 4) + ' within about ' + (S.loc.radius >= 1600 ? '1.5km' : '800m') + (cs.typed ? ' (same type)' : ' (all types)') + ': '
+      + s.n + ' sales, median ' + gbp(s.median) + ', lower quarter ' + gbp(s.p25) + ', upper quarter ' + gbp(s.p75) + ', top 10% from ' + gbp(s.p90) + ', highest ' + gbp(s.max) + '.');
+    if (cs.all && cs.typed) lines.push('All types nearby: ' + cs.all.n + ' sales, median ' + gbp(cs.all.median) + ', highest ' + gbp(cs.all.max) + '.');
+    var recent = cs.sameRows.slice(0, 10), rl = [];
+    for (var i = 0; i < recent.length; i++) rl.push(recent[i][0].substring(0, 7) + ' ' + gbp(recent[i][1]) + ' ' + (recent[i][3] || '').toLowerCase() + (recent[i][6] ? ' (new build)' : ''));
+    if (rl.length) lines.push('Most recent: ' + rl.join('; '));
+    lines.push('Note: the latest two months of sales are incomplete because registration lags.');
+  } else {
+    lines.push('NEARBY SALES: not available' + (/scotland|northern ireland/i.test(S.loc.country || '') ? ' (Price Paid Data covers England and Wales only)' : '') + '. Say the local ceiling cannot be reliably established, with confidence limited.');
+  }
+
+  var prompt = lines.join('\n') + '\n\nReturn ONLY this JSON. Keep to the word limits — this report is read on a phone.\n'
+    + '{\n'
+    + '  "cycle": { "short": "Max 30 words: what this short-term position means for this owner.", "medium": "Max 30 words.", "long": "Max 30 words.", "overall": "One sentence reading the three positions together, honest whether good or bad." },\n'
+    + '  "property": "Max 60 words: personal interpretation of this property in this market.",\n'
+    + '  "dna": { "location": "Max 14 words", "character": "Max 14 words", "space": "Max 14 words", "scarcity": "Max 14 words", "market_position": "Max 14 words", "strongest_driver": "Max 10 words, e.g. Location + garden + parking" },\n'
+    + '  "value": { "low": 0, "high": 0, "confidence": "high|moderate|limited", "why": "Max 40 words: how the range was reached and what moves it." },\n'
+    + '  "ceiling": { "low": 0, "high": 0, "confidence": "high|moderate|limited", "why": "Max 40 words: the upper local range for broadly comparable homes." },\n'
+    + '  "value_gap": "Max 50 words: what is holding this property back.",\n'
+    + '  "improvements": [ { "move": "Max 8 words", "kind": "creation|protection|presentation", "cost": "£x–£y", "relevance": "high|medium|low", "overcap_risk": "low|moderate|high", "why": "Max 30 words" } ],\n'
+    + '  "not_to_do": [ { "item": "Don\'t ... (max 10 words)", "why": "Max 28 words" } ],\n'
+    + '  "protect": [ { "item": "Protect the ... (max 8 words)", "why": "Max 24 words" } ],\n'
+    + '  "scenarios": { "as_is": { "cost": "£0", "range": "£x–£y", "benefit": "Max 16 words", "risk": "Max 16 words", "confidence": "high|moderate|limited" }, "selective": { "cost": "£x–£y", "range": "£x–£y", "benefit": "", "risk": "", "confidence": "" }, "major": { "cost": "£x–£y", "range": "£x–£y", "benefit": "", "risk": "", "confidence": "" } },\n'
+    + '  "buyer_test": "Max 50 words: what a buyer in this bracket notices first, good and bad.",\n'
+    + '  "sentence": "One sharp, personal sentence that sums up this property\'s position and potential.",\n'
+    + '  "question": "One question for the owner to carry.",\n'
+    + '  "moves": ["Highest-value action (max 18 words)", "Most important thing to investigate (max 18 words)", "Thing to avoid spending money on (max 18 words)"],\n'
+    + '  "unknowns": ["Max 12 words each, 2-4 items: what we do not know"]\n'
+    + '}\n'
+    + 'Exactly 5 improvements ranked best first, 3-4 not_to_do, 2-3 protect. Whole pounds, no £ sign, in numeric fields.';
+  return { system: system, prompt: prompt };
+}
+
+function runAIProperty() {
+  if (!_state) return;
+  var S = _state;
+  document.getElementById('property-gate').style.display = 'none';
+  document.getElementById('retry-btn').style.display = 'none';
+  document.getElementById('ai-results').style.display = 'none';
+  var pr = buildPrompts(S);
+
+  showOverlay(function() {
+    document.getElementById('ai-output').style.display = 'block';
+
+    fetch(AI_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ system: pr.system, prompt: pr.prompt })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var text = data.content && data.content[0] ? data.content[0].text : '';
+      var clean = text.replace(/```json/g,'').replace(/```/g,'').trim();
+      var start = clean.indexOf('{'); var end = clean.lastIndexOf('}');
+      if (start !== -1 && end !== -1) clean = clean.substring(start, end+1);
+      var d = JSON.parse(clean);
+      S.report = d;
+      S.reportAt = new Date().toISOString();
+      renderAIProperty(d, S);
+    })
+    .catch(function() {
+      hideOverlay();
+      showPropertyRetry();
+    });
+  }); /* end showOverlay callback */
+}
+
+function showPropertyRetry() {
+  var gate = document.getElementById('property-gate');
+  gate.querySelector('.gate-label').textContent = 'Nearly there';
+  gate.querySelector('.gate-hed').textContent = 'Your report didn\u2019t finish loading.';
+  var gl = gate.querySelector('.gate-list');
+  if (gl) gl.style.display = 'none';
+  document.getElementById('unlock-btn').style.display = 'none';
+  gate.querySelector('.gate-small').textContent = 'This is usually a brief connection hiccup. Your access is still unlocked \u2014 you won\u2019t be charged again.';
+  document.getElementById('retry-btn').style.display = 'block';
+  gate.style.display = 'block';
+  gate.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+/* ── THE PROPERTY CYCLE — YOU ARE HERE (continuous path, six phases, three nodes) ── */
+var PHASE_ANGLE = [270, 210, 150, 90, 30, 330]; /* Recovery, Growth, Expansion, Peak/Plateau, Correction, Stabilisation (clockwise) */
+var NODE = {
+  short:  { letter: 'S', colour: '#B8975A', name: 'Short term',  span: '0–12 months' },
+  medium: { letter: 'M', colour: '#1A2744', name: 'Medium term', span: '1–5 years' },
+  long:   { letter: 'L', colour: '#1A1A18', name: 'Long term',   span: '5–15+ years' }
+};
+function drawCycle(c) {
+  var W = 540, H = 340, cx = 270, cy = 165, rx = 150, ry = 104;
+  function pt(deg, ex, ey) {
+    var a = deg * Math.PI / 180;
+    return [cx + (rx + (ex || 0)) * Math.cos(a), cy - (ry + (ey || 0)) * Math.sin(a)];
+  }
+  var s = '<svg class="cycle-svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Property cycle: short term ' + PHASES[c.short.ph] + ', medium term ' + PHASES[c.medium.ph] + ', long term ' + PHASES[c.long.ph] + '">';
+  /* rising side (Recovery to Peak, left) and falling side (Peak to Recovery, right) */
+  s += '<path d="M ' + cx + ' ' + (cy + ry) + ' A ' + rx + ' ' + ry + ' 0 0 1 ' + cx + ' ' + (cy - ry) + '" fill="none" stroke="#C9B48A" stroke-width="3" stroke-linecap="round"/>';
+  s += '<path d="M ' + cx + ' ' + (cy - ry) + ' A ' + rx + ' ' + ry + ' 0 0 1 ' + cx + ' ' + (cy + ry) + '" fill="none" stroke="#B9B6AE" stroke-width="3" stroke-linecap="round"/>';
+  /* direction chevrons between phases */
+  for (var i = 0; i < 6; i++) {
+    var mid = PHASE_ANGLE[i] - 30;
+    var p = pt(mid);
+    var a = mid * Math.PI / 180;
+    var rot = Math.atan2(ry * Math.cos(a), rx * Math.sin(a)) * 180 / Math.PI;
+    s += '<path d="M -4 -5 L 3 0 L -4 5" fill="none" stroke="#8F8C84" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(' + p[0].toFixed(1) + ' ' + p[1].toFixed(1) + ') rotate(' + rot.toFixed(1) + ')"/>';
+  }
+  /* phase points + labels */
+  for (i = 0; i < 6; i++) {
+    var q = pt(PHASE_ANGLE[i]);
+    s += '<circle cx="' + q[0].toFixed(1) + '" cy="' + q[1].toFixed(1) + '" r="4" fill="#FAF8F5" stroke="#8F8C84" stroke-width="1.5"/>';
+    var cosA = Math.cos(PHASE_ANGLE[i] * Math.PI / 180);
+    var lp = pt(PHASE_ANGLE[i], 22, 22);
+    var anchor = cosA > 0.3 ? 'start' : (cosA < -0.3 ? 'end' : 'middle');
+    var dy = PHASE_ANGLE[i] === 90 ? -2 : (PHASE_ANGLE[i] === 270 ? 12 : 4);
+    s += '<text x="' + lp[0].toFixed(1) + '" y="' + (lp[1] + dy).toFixed(1) + '" text-anchor="' + anchor + '" font-family="DM Sans, system-ui, sans-serif" font-size="14" font-weight="500" letter-spacing="0.4" fill="#3A3A38">' + PHASES[i].toUpperCase() + '</text>';
+  }
+  s += '<text x="' + cx + '" y="' + (cy - 4) + '" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="22" font-style="italic" fill="#1A1A18">You are here</text>';
+  s += '<text x="' + cx + '" y="' + (cy + 18) + '" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-size="11" letter-spacing="1.2" fill="#6B6862">PROPERTY CYCLE</text>';
+  /* nodes — spread apart when they share a phase */
+  var keys = ['long', 'medium', 'short'];
+  var groups = {};
+  for (i = 0; i < keys.length; i++) {
+    var ph = c[keys[i]].ph;
+    if (!groups[ph]) groups[ph] = [];
+    groups[ph].push(keys[i]);
+  }
+  var OFF = { 1: [0], 2: [-14, 14], 3: [-22, 0, 22] };
+  for (var g in groups) {
+    if (!groups.hasOwnProperty(g)) continue;
+    var list = groups[g];
+    for (var k = 0; k < list.length; k++) {
+      var ang = PHASE_ANGLE[parseInt(g, 10)] + OFF[list.length][k];
+      var np = pt(ang);
+      var nd = NODE[list[k]];
+      var dash = c[list[k]].conf === 'limited' ? ' stroke-dasharray="3 2.5"' : '';
+      s += '<circle cx="' + np[0].toFixed(1) + '" cy="' + np[1].toFixed(1) + '" r="15" fill="' + nd.colour + '" stroke="#FAF8F5" stroke-width="3"/>';
+      s += '<circle cx="' + np[0].toFixed(1) + '" cy="' + np[1].toFixed(1) + '" r="19" fill="none" stroke="' + nd.colour + '" stroke-width="1.2"' + dash + ' opacity="0.7"/>';
+      s += '<text x="' + np[0].toFixed(1) + '" y="' + (np[1] + 4.5).toFixed(1) + '" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-size="13" font-weight="500" fill="#FFFFFF">' + nd.letter + '</text>';
+    }
+  }
+  s += '</svg>';
+  return s;
+}
+
+function rangeText(lo, hi) {
+  lo = Number(lo); hi = Number(hi);
+  if (!lo || !hi || isNaN(lo) || isNaN(hi) || hi < lo) return null;
+  return gbp(roundNice(lo)) + ' – ' + gbp(roundNice(hi));
+}
+
+function renderAIProperty(d, S) {
+  /* Hide all input / free output views */
+  document.getElementById('hero-section').style.display = 'none';
+  document.querySelector('.input-section').style.display = 'none';
+  document.getElementById('how-section').style.display = 'none';
+  document.getElementById('output-section').style.display = 'none';
+  document.getElementById('property-gate').style.display = 'none';
+  document.getElementById('ai-output').style.display = 'block';
+  document.getElementById('ai-results').style.display = 'block';
+
+  var f = S.facts, c = S.cycle, cy = d.cycle || {};
+  var now = new Date();
+  document.getElementById('rep-sub').textContent = (S.loc.postcode || S.loc.outcode || '') + (S.loc.district ? ' · ' + S.loc.district : '')
+    + (f.type ? ' · ' + TYPE_LABEL[f.type] : '') + ' · Prepared ' + now.getDate() + ' ' + MONTHS[now.getMonth()] + ' ' + now.getFullYear();
+
+  /* You are here */
+  document.getElementById('cycle-chart').innerHTML = drawCycle(c);
+  var hz = '';
+  var order = ['short', 'medium', 'long'];
+  for (var i = 0; i < order.length; i++) {
+    var k = order[i], nd = NODE[k];
+    hz += '<div class="horizon"><div class="hz-dot" style="background:' + nd.colour + ';">' + nd.letter + '</div><div class="hz-body">'
+      + '<div class="hz-top"><span class="hz-name">' + nd.name + ' · ' + nd.span + '</span><span class="' + confClass(c[k].conf) + '">' + confText(c[k].conf) + '</span></div>'
+      + '<div class="hz-phase">' + PHASES[c[k].ph] + '</div>'
+      + '<div class="hz-data">' + esc(S.evidence[k]) + '</div>'
+      + (cy[k] ? '<div class="hz-mean">' + esc(cy[k]) + '</div>' : '')
+      + '</div></div>';
+  }
+  document.getElementById('cycle-horizons').innerHTML = hz;
+  document.getElementById('cycle-overall').textContent = cy.overall || '';
+  document.getElementById('mp-card').innerHTML = '<div class="mp-label">Market position</div><div class="mp-state">' + esc(S.position.state) + '</div>'
+    + '<div class="mp-text">' + esc(S.position.text) + '</div><div class="mp-note">A description of market pressure — not a recommendation to buy, sell or hold.</div>';
+
+  /* Your property + DNA */
+  document.getElementById('ai-property').textContent = d.property || '';
+  var dna = d.dna || {};
+  var dk = [['location','Location'],['character','Character'],['space','Space'],['scarcity','Scarcity'],['market_position','Market position']];
+  var dh = '';
+  for (i = 0; i < dk.length; i++) {
+    if (dna[dk[i][0]]) dh += '<div class="dna-item"><div class="dna-k">' + dk[i][1] + '</div><div class="dna-v">' + esc(dna[dk[i][0]]) + '</div></div>';
+  }
+  document.getElementById('ai-dna').innerHTML = dh;
+  document.getElementById('ai-driver').innerHTML = dna.strongest_driver ? '<span style="font-family:var(--sans);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#6B6862;display:block;margin-bottom:2px;">Your strongest value driver</span>' + esc(dna.strongest_driver) : '';
+
+  /* Value range — the engine's range, checked against the index; falls back to the index if out of line */
+  var v = d.value || {};
+  var vr = rangeText(v.low, v.high), vConf = v.confidence, vWhy = v.why || '', mid = null;
+  if (vr && S.value && S.value.est) {
+    var m2 = (Number(v.low) + Number(v.high)) / 2;
+    if (m2 < S.value.est * 0.6 || m2 > S.value.est * 1.6) vr = null;
+  }
+  if (vr) { mid = (Number(v.low) + Number(v.high)) / 2; }
+  else if (S.value && S.value.est) {
+    vr = gbp(S.value.low) + ' – ' + gbp(S.value.high); vConf = S.value.conf; mid = S.value.est;
+    vWhy = 'Your price paid, moved by the HM Land Registry index for ' + S.typeWord.toLowerCase() + ' in ' + S.area + '. It does not include the effect of your improvements or condition.';
+  }
+  var vh = '';
+  if (vr) {
+    vh += '<span class="ai-card-label">Indicative range today</span><div class="big-range">' + vr + '</div><span class="' + confClass(vConf) + '">' + confText(vConf) + '</span>'
+      + '<p class="small-line">' + esc(vWhy) + '</p>';
+    if (f.mortgage && mid) vh += '<p class="small-line"><strong style="color:var(--ink);font-weight:500;">Estimated equity:</strong> about ' + gbp(roundNice(mid - f.mortgage)) + ', using the mortgage figure you gave.</p>';
+    if (f.pricePaid && f.buyYear) {
+      var sc = d.scenarios || {}, sel = sc.selective || {};
+      vh += '<div class="journey"><div class="j-step"><div class="j-k">Paid · ' + f.buyYear + '</div><div class="j-v">' + gbp(f.pricePaid) + '</div></div><div class="j-arrow">&rarr;</div>'
+        + '<div class="j-step"><div class="j-k">Today</div><div class="j-v">' + vr + '</div></div>'
+        + (sel.range ? '<div class="j-arrow">&rarr;</div><div class="j-step"><div class="j-k">After selective work</div><div class="j-v">' + esc(sel.range) + '</div></div>' : '')
+        + '</div>';
+    }
+  } else {
+    vh = '<div class="ai-card-text">A reliable value range cannot be established from the information available. Adding what you paid and when would let us track it against the index.</div>';
+  }
+  document.getElementById('ai-value').innerHTML = vh;
+
+  /* Local ceiling — engine reading plus the raw evidence */
+  var ce = d.ceiling || {};
+  var cr = rangeText(ce.low, ce.high);
+  var ch = cr
+    ? '<span class="ai-card-label">Upper local range for comparable homes</span><div class="big-range">' + cr + '</div><span class="' + confClass(ce.confidence) + '">' + confText(ce.confidence) + '</span>'
+    : '<div class="ai-card-text" style="font-weight:400;">No reliable ceiling can be established from the available data.</div>';
+  if (ce.why) ch += '<p class="small-line">' + esc(ce.why) + '</p>';
+  if (S.comps && S.comps.same) {
+    var st = S.comps.same;
+    ch += '<p class="small-line" style="border-top:0.5px solid var(--border);padding-top:10px;margin-top:12px;">Evidence: ' + st.n + (S.comps.typed ? ' ' + TYPE_LABEL[f.type].toLowerCase() : '') + ' sales nearby since ' + S.market.since.substring(0, 4)
+      + ' · median ' + gbp(roundNice(st.median)) + ' · top quarter from ' + gbp(roundNice(st.p75)) + ' · highest ' + gbp(roundNice(st.max)) + '.</p>';
+  }
+  document.getElementById('ai-ceiling').innerHTML = ch;
+
+  document.getElementById('ai-gap').textContent = d.value_gap || '';
+
+  /* Improvements */
+  var KIND = { creation: 'Value creation', protection: 'Value protection', presentation: 'Presentation' };
+  var ih = '';
+  var imps = d.improvements || [];
+  for (i = 0; i < imps.length && i < 5; i++) {
+    var im = imps[i], kind = String(im.kind || '').toLowerCase();
+    var risk = String(im.overcap_risk || '').toLowerCase();
+    ih += '<div class="imp"><div class="imp-top"><span class="imp-rank">' + (i + 1) + '</span><span class="imp-move">' + esc(im.move) + '</span></div>'
+      + '<div class="imp-tags">'
+      + (KIND[kind] ? '<span class="tag tag-' + kind + '">' + KIND[kind] + '</span>' : '')
+      + (im.cost ? '<span class="tag">' + esc(im.cost) + '</span>' : '')
+      + (im.relevance ? '<span class="tag">Value relevance: ' + esc(im.relevance) + '</span>' : '')
+      + (risk ? '<span class="tag' + (risk === 'high' ? ' tag-risk-high' : '') + '">Overcapitalisation risk: ' + esc(risk) + '</span>' : '')
+      + '</div><div class="imp-why">' + esc(im.why) + '</div></div>';
+  }
+  document.getElementById('ai-improve').innerHTML = ih;
+
+  function listHtml(arr) {
+    var h = '';
+    for (var j = 0; j < (arr || []).length; j++) {
+      var it = arr[j];
+      if (typeof it === 'string') h += '<div class="li-row"><div class="li-item">' + esc(it) + '</div></div>';
+      else h += '<div class="li-row"><div class="li-item">' + esc(it.item) + '</div>' + (it.why ? '<div class="li-why">' + esc(it.why) + '</div>' : '') + '</div>';
+    }
+    return h;
+  }
+  document.getElementById('ai-dont').innerHTML = listHtml(d.not_to_do);
+  document.getElementById('ai-protect').innerHTML = listHtml(d.protect);
+
+  /* Scenarios */
+  var sc2 = d.scenarios || {};
+  var sk = [['as_is', 'As is'], ['selective', 'Selective improvement'], ['major', 'Major improvement']];
+  var sh = '';
+  for (i = 0; i < sk.length; i++) {
+    var x = sc2[sk[i][0]];
+    if (!x) continue;
+    sh += '<div class="scen"><div class="scen-name">' + sk[i][1] + '</div><div class="scen-range">' + esc(x.range || '') + '</div>'
+      + (x.confidence ? '<span class="' + confClass(x.confidence) + '">' + confText(x.confidence) + '</span>' : '')
+      + '<div class="scen-k">Cost</div><div class="scen-v">' + esc(x.cost || '') + '</div>'
+      + '<div class="scen-k">Main benefit</div><div class="scen-v">' + esc(x.benefit || '') + '</div>'
+      + '<div class="scen-k">Principal risk</div><div class="scen-v">' + esc(x.risk || '') + '</div></div>';
+  }
+  document.getElementById('ai-scenarios').innerHTML = sh;
+
+  document.getElementById('ai-buyer').textContent = d.buyer_test || '';
+  document.getElementById('ai-sentence').textContent = d.sentence || '';
+  document.getElementById('ai-question').textContent = d.question || '';
+  document.getElementById('ai-moves').innerHTML = listHtml(d.moves);
+
+  /* Home MOT (deterministic, from the owner's own words) */
+  renderHomeMOT(S);
+
+  /* Sources & assumptions */
+  var src = '<p><strong>HM Land Registry UK House Price Index</strong> — ' + esc(S.typeWord.toLowerCase() + ' in ' + S.area) + ', monthly from ' + monthLabel(S.m.start) + ' to ' + monthLabel(S.m.latest) + '. Recent months are subject to revision.</p>';
+  if (S.comps) src += '<p style="margin-top:6px;"><strong>HM Land Registry Price Paid Data</strong> — standard residential sales within about ' + (S.loc.radius >= 1600 ? '1.5km' : '800m') + ' since ' + S.market.since.substring(0, 4) + '. The latest two months are incomplete because registration lags.</p>';
+  src += '<p style="margin-top:6px;"><strong>Cycle positions</strong> are calculated from this data by fixed rules — the same evidence always gives the same reading. They describe where the market sits now, not where it will go.</p>';
+  var unk = d.unknowns || [];
+  if (unk.length) {
+    src += '<p style="margin-top:10px;"><strong>What we don&#8217;t know</strong></p><ul>';
+    for (i = 0; i < unk.length; i++) src += '<li>' + esc(unk[i]) + '</li>';
+    src += '</ul>';
+  }
+  src += '<p style="margin-top:10px;">Indicative clarity from your words and public data. Not a formal valuation, survey or financial advice. Contains HM Land Registry data &copy; Crown copyright and database right, licensed under the Open Government Licence v3.0.</p>';
+  document.getElementById('ai-sources').innerHTML = src;
+
+  /* Overlay dismisses here — after all DOM content is written */
+  hideOverlay();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ════════════════════════════════════════
+   6. HOME MOT — yearly maintenance checklist, personalised from the owner's words.
+   Deterministic: no AI call, no data request. Calendar file repeats every year.
+   ════════════════════════════════════════ */
+var MOT_MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+var _mot = [];
+
+function buildHomeMOT(S) {
+  var f = S.facts || {};
+  var l = String(f.text || '').toLowerCase();
+  var feats = (f.features || []).join(' ').toLowerCase();
+  var isFlat = f.type === 'flat';
+  var lease = /leasehold|share of freehold/i.test(f.tenure || '') || isFlat;
+  var era = String(f.era || '').toLowerCase();
+  var old = /georgian|victorian|edwardian|period|inter-war|18[0-9]0s|190|191|192|193|built 1[89]/.test(era) || /sash|original|fireplace|chimney/.test(l);
+  var garden = /garden/.test(feats) || /garden|trees?/.test(l);
+  var damp = /damp/.test(feats) || /damp|mould|condensation/.test(l);
+  var ext = /extension|loft conversion/.test(feats) || /flat roof|extension/.test(l);
+  var conserv = /conservatory/.test(feats);
+  var items = [];
+  function add(month, item, why, flag) { items.push({ m: month, item: item, why: why, flag: flag || '' }); }
+
+  /* Winter */
+  add(1, 'Test smoke and carbon monoxide alarms', 'Press the test button on each one. Most alarms need replacing after about ten years.');
+  add(1, isFlat ? 'Check your contents insurance and the building cover' : 'Check your buildings insurance rebuild figure',
+    isFlat ? 'Ask the managing agent for the building insurance summary so you know what is and is not covered.' : 'Cover should match the cost to rebuild, not the market value. Under-insuring can cut a claim.');
+  add(1, 'Check your mortgage deal end date', 'If you have a mortgage, most lenders let you secure a new rate up to six months before the current deal ends.');
+  add(1, 'Check when the electrics were last inspected', 'An electrical inspection is recommended about every ten years for owner-occupied homes' + (old ? ', and older wiring is worth checking sooner.' : '.'));
+  add(1, 'Check your EPC date', 'An Energy Performance Certificate lasts ten years. You need a valid one to sell or let.');
+  if (lease) {
+    add(3, 'Review the service charge and planned major works', 'Ask the managing agent what is planned. Big bills are usually flagged years ahead.');
+    add(3, 'Check how many years are left on the lease', 'Below about 80 years, extending the lease gets noticeably more expensive.', 'Leasehold');
+  }
+  /* Spring */
+  if (!isFlat) {
+    add(4, 'Look over the roof' + (old ? ' and chimney' : ''), 'From the ground, with binoculars if you have them: slipped or missing tiles, cracked flashing' + (old ? ', a leaning chimney stack.' : '.'));
+    add(4, 'Clear gutters and downpipes', 'Blocked gutters are one of the most common causes of damp walls.');
+  }
+  add(4, old ? 'Check window frames and sashes' : 'Check window seals and frames', old ? 'Look for soft or flaking timber and repaint before rot sets in.' : 'Misted double glazing means a failed seal. Check the frames and trickle vents.');
+  if (garden && !isFlat) add(4, 'Check trees and large shrubs near the house', 'Roots and branches close to walls and drains are easier to manage early. Check for a tree preservation order before major work.');
+  if (conserv) add(4, 'Check the conservatory roof and seals', 'Clear its gutters and look for leaks where it joins the house.');
+  /* Summer */
+  if (!isFlat) {
+    add(7, 'Check drains and gullies', 'Run the taps and watch for slow drainage or smells. Clear leaves from outside gullies.');
+    add(7, old ? 'Check the brickwork and pointing' : 'Check external walls for cracks', old ? 'Crumbling mortar lets water in. Older homes usually need soft lime mortar, not cement.' : 'Hairline cracks are common. Wider or growing cracks are worth a professional look.');
+    add(7, 'Look in the loft', 'Check for leaks, damp or pests, and that insulation is around 270mm deep with the eaves vents kept clear.');
+  }
+  if (ext && !isFlat) add(7, 'Check flat roofs and extension joins', 'Flat roofs and the join where an extension meets the house are common leak points.');
+  /* Autumn */
+  add(9, 'Book the boiler service', 'Once a year, by a Gas Safe registered engineer for a gas boiler. It keeps warranties valid and catches faults before winter.');
+  add(9, 'Bleed radiators and check the boiler pressure', 'Cold spots at the top of a radiator mean trapped air.');
+  add(10, 'Check for damp and condensation', damp ? 'You mentioned damp. Check whether it has spread and take a dated photo each year so you can see the trend.' : 'Look behind furniture, in corners and around windows for black mould or tide marks.', damp ? 'You mentioned this' : '');
+  add(10, 'Find and test the stopcock', 'Make sure it turns, so you can shut off the water fast if there is a leak.');
+  if (!isFlat) add(11, 'Clear gutters again after the leaves fall', 'The autumn clear-out is the one that matters most.');
+  add(11, 'Protect outside taps and pipes from frost', 'Lag exposed pipes and turn off and drain outside taps if you can.');
+
+  items.sort(function(a, b) { return a.m - b.m; });
+  return items;
+}
+
+function renderHomeMOT(S) {
+  _mot = buildHomeMOT(S);
+  var html = '', lastM = 0;
+  for (var i = 0; i < _mot.length; i++) {
+    var it = _mot[i];
+    if (it.m !== lastM) { html += '<div class="mot-month">' + MOT_MONTHS[it.m - 1] + '</div>'; lastM = it.m; }
+    html += '<div class="mot-row"><span class="mot-box" aria-hidden="true"></span><div><div class="mot-item">' + esc(it.item)
+      + (it.flag ? '<span class="mot-flag">' + esc(it.flag) + '</span>' : '') + '</div><div class="mot-why">' + esc(it.why) + '</div></div></div>';
+  }
+  document.getElementById('ai-mot').innerHTML = html;
+}
+
+function downloadHomeMOT() {
+  if (!_mot.length && _state) _mot = buildHomeMOT(_state);
+  if (!_mot.length) return;
+  var groups = {};
+  var order = [];
+  for (var i = 0; i < _mot.length; i++) {
+    var m = _mot[i].m;
+    if (!groups[m]) { groups[m] = []; order.push(m); }
+    groups[m].push(_mot[i].item);
+  }
+  var now = new Date();
+  var stamp = now.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+  var place = (_state && _state.loc) ? (_state.loc.postcode || _state.loc.outcode || '') : '';
+  var lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//1LINE//Home MOT//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH'];
+  for (var k = 0; k < order.length; k++) {
+    var mo = order[k];
+    var start = new Date(now.getFullYear(), mo - 1, 5);
+    if (start < now) start = new Date(now.getFullYear() + 1, mo - 1, 5);
+    var end = new Date(start.getTime());
+    end.setDate(end.getDate() + 1);
+    var title = 'Home MOT: ' + MOT_MONTHS[mo - 1] + ' checks';
+    var desc = (place ? 'For ' + place + '. ' : '') + 'This month: ' + groups[mo].join('; ') + '. From your 1LINE Property report.';
+    lines.push('BEGIN:VEVENT');
+    lines.push('UID:' + stamp + '-mot-' + mo + '-' + Math.floor(Math.random() * 1000000000) + '@1line');
+    lines.push('DTSTAMP:' + stamp);
+    lines.push('DTSTART;VALUE=DATE:' + icsDate(start));
+    lines.push('DTEND;VALUE=DATE:' + icsDate(end));
+    lines.push('RRULE:FREQ=YEARLY');
+    lines.push('SUMMARY:' + icsEscape(title));
+    lines.push('DESCRIPTION:' + icsEscape(desc));
+    lines.push('BEGIN:VALARM', 'TRIGGER:PT9H', 'ACTION:DISPLAY', 'DESCRIPTION:' + icsEscape(title), 'END:VALARM');
+    lines.push('END:VEVENT');
+  }
+  lines.push('END:VCALENDAR');
+  var blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'home-mot.ics';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function() { document.body.removeChild(a); URL.revokeObjectURL(url); }, 800);
+  var note = document.getElementById('report-tools-note');
+  if (note) note.textContent = order.length + ' yearly Home MOT reminders created. Open the downloaded file to add them to your calendar — they repeat every year.';
+}
+
+/* ── RETURN FROM PAYMENT ── */
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.location.search.indexOf('unlocked=true') !== -1) {
+    var stored = sessionStorage.getItem('property_data');
+    var d = null;
+    if (stored) { try { d = JSON.parse(stored); } catch(e) { d = null; } }
+    if (d && d.val) {
+      var ta = document.getElementById('main-input');
+      if (ta) { ta.value = d.val; countChars(); }
+      if (d.pc) { document.getElementById('pc-input').value = d.pc; }
+      _lastVal = d.val;
+      var overlay = document.getElementById('intelligence-overlay');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      buildState(d.val).then(function(S) {
+        _state = S;
+        renderFree(S);
+        runAIProperty();   /* overlay stays up — runAIProperty carries it through */
+      }, function() {
+        hideOverlay();
+        showDataError('We could not reach the market data just now. Please press the button below to try again.');
+        _spellWarned = true;
+      });
+    } else {
+      document.getElementById('unlock-notice').style.display = 'block';
+    }
+  }
+});
+
+
+/* ── INTELLIGENCE OVERLAY ── */
+function showOverlay(onComplete) {
+  var overlay = document.getElementById('intelligence-overlay');
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  var steps = document.querySelectorAll('.ov-step');
+  steps.forEach(function(s) { s.className = 'ov-step'; });
+  var i = 0;
+  function next() {
+    if (i < steps.length) {
+      steps[i].classList.add('active');
+      document.getElementById('ov-title').textContent = _OV_MSGS[i];
+      if (i > 0) { steps[i-1].classList.remove('active'); steps[i-1].classList.add('done'); }
+      i++;
+      setTimeout(next, 520);
+    } else {
+      /* Keep overlay active — update message while API call runs */
+      document.getElementById('ov-title').textContent = 'Building your property intelligence…';
+      if (onComplete) onComplete();
+    }
+  }
+  next();
+}
+function hideOverlay() {
+  var overlay = document.getElementById('intelligence-overlay');
+  overlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+/* ── MICROPHONE (browser speech-to-text, no cost, nothing sent to our server) ── */
+(function() {
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var btn = document.getElementById('mic-btn');
+  var status = document.getElementById('mic-status');
+  if (!btn) return;
+  if (!SR) { btn.style.display = 'none'; return; }
+  btn.style.display = 'flex';
+  var rec = null;
+  var listening = false;
+  var base = '';
+  function stopUI() {
+    listening = false;
+    btn.classList.remove('listening');
+    btn.setAttribute('aria-pressed', 'false');
+    if (status) status.className = 'mic-status';
+  }
+  btn.addEventListener('click', function() {
+    if (listening && rec) { rec.stop(); return; }
+    var ta = document.getElementById('main-input');
+    rec = new SR();
+    rec.lang = 'en-GB';
+    rec.interimResults = true;
+    rec.continuous = false;
+    base = ta.value ? ta.value.replace(/\s+$/, '') + ' ' : '';
+    rec.onresult = function(e) {
+      var said = '';
+      for (var i = 0; i < e.results.length; i++) { said += e.results[i][0].transcript; }
+      if (!base && said) { said = said.charAt(0).toUpperCase() + said.slice(1); }
+      ta.value = (base + said).slice(0, MAX_CHARS);
+      countChars();
+    };
+    rec.onend = stopUI;
+    rec.onerror = stopUI;
+    try {
+      rec.start();
+      listening = true;
+      btn.classList.add('listening');
+      btn.setAttribute('aria-pressed', 'true');
+      if (status) status.className = 'mic-status visible';
+    } catch (err) { stopUI(); }
+  });
+})();
+</script>
+
+<script>
+/* ── v1.3 TOOLS: copy, save/print, calendar reminder (.ics), share. No server calls. ── */
+var _copyStore = [];
+
+function storeCopy(text) {
+  _copyStore.push(String(text || ''));
+  return _copyStore.length - 1;
+}
+
+function copyBtnHTML(text, label) {
+  var i = storeCopy(text);
+  return '<button type="button" class="tool-btn" onclick="copyStored(' + i + ', this)">' + (label || 'Copy') + '</button>';
+}
+
+function copyStored(i, btn) {
+  copyText(_copyStore[i] || '', btn);
+}
+
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.setAttribute('readonly', '');
+  ta.style.position = 'fixed';
+  ta.style.top = '-1000px';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); } catch (e) {}
+  document.body.removeChild(ta);
+}
+
+function copyText(text, btn) {
+  function done() {
+    if (!btn) return;
+    var old = btn.getAttribute('data-label') || btn.textContent;
+    btn.setAttribute('data-label', old);
+    btn.textContent = 'Copied';
+    if (btn.className.indexOf(' done') === -1) btn.className += ' done';
+    setTimeout(function() {
+      btn.textContent = old;
+      btn.className = btn.className.replace(' done', '');
+    }, 1800);
+  }
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(done, function() { fallbackCopy(text); done(); });
+  } else {
+    fallbackCopy(text);
+    done();
+  }
+}
+
+function saveReport() {
+  window.print();
+}
+
+function icsEscape(s) {
+  return String(s || '')
+    .replace(/\\/g, '\\\\')
+    .replace(/;/g, '\\;')
+    .replace(/,/g, '\\,')
+    .replace(/\r?\n/g, '\\n');
+}
+
+function icsDate(d) {
+  var m = d.getMonth() + 1;
+  var day = d.getDate();
+  return String(d.getFullYear()) + (m < 10 ? '0' : '') + m + (day < 10 ? '0' : '') + day;
+}
+
+function dateInDays(n) {
+  var d = new Date();
+  d.setDate(d.getDate() + n);
+  return d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'long' });
+}
+
+function downloadICS(title, desc, daysFromNow, filename) {
+  var days = parseInt(daysFromNow, 10);
+  if (!days || days < 1 || days > 365) days = 14;
+  var start = new Date();
+  start.setDate(start.getDate() + days);
+  var end = new Date(start.getTime());
+  end.setDate(end.getDate() + 1);
+  var stamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+  var lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//1LINE//Reminder//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    'UID:' + stamp + '-' + Math.floor(Math.random() * 1000000000) + '@1line',
+    'DTSTAMP:' + stamp,
+    'DTSTART;VALUE=DATE:' + icsDate(start),
+    'DTEND;VALUE=DATE:' + icsDate(end),
+    'SUMMARY:' + icsEscape(title),
+    'DESCRIPTION:' + icsEscape(desc),
+    'BEGIN:VALARM',
+    'TRIGGER:PT9H',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:' + icsEscape(title),
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ];
+  var blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = filename || 'reminder.ics';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function() { document.body.removeChild(a); URL.revokeObjectURL(url); }, 800);
+  return days;
+}
+
+function shareText(title, text, url, btn) {
+  if (navigator.share) {
+    navigator.share({ title: title, text: text, url: url }).catch(function() {});
+    return;
+  }
+  copyText(text + '\n' + url, btn);
+}
+</script>
+
+<!-- GoatCounter Analytics -->
+<script data-goatcounter="https://signal333.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
