@@ -1,0 +1,1466 @@
+<!-- 1LINE Legit v1.3 | Updated: 06 Oct 2026 09:15 | Red-flag highlighter (free), share-this-warning, bank phone script, ready-to-paste fraud report, 7726/159 routes, save/print, copy buttons, retry on error (no re-pay), og image -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1LINE Legit - Is this a scam?</title>
+  <meta name="description" content="Paste the message, email or offer you're unsure about. 1LINE Legit analyses it, checks current UK scam intelligence and tells you exactly what you're dealing with." />
+  <meta name="keywords" content="is this a scam, scam checker, phishing checker, royal mail scam, hmrc scam, how to spot a scam, uk scam check, fake text message" />
+  <meta property="og:title" content="1LINE Legit — Is this real?" />
+  <meta property="og:description" content="Paste what you received. We analyse it against current UK scam intelligence and tell you what you're dealing with." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://oi-ecosystem.github.io/1line/legit/" />
+  <meta property="og:image" content="https://oi-ecosystem.github.io/1line/legit/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://oi-ecosystem.github.io/1line/legit/og.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #FAF8F5;
+      --white: #FFFFFF;
+      --ink: #1A1A18;
+      --ink-mid: #4A4A46;
+      --ink-muted: #888884;
+      --ink-faint: #C4C4BE;
+      --border: rgba(26,26,24,0.10);
+      --border-mid: rgba(26,26,24,0.18);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --max: 640px;
+      --green: #2D7A5A;
+      --red: #C0392B;
+      --amber: #A0620A;
+      --gold: #B8903A;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+    nav { padding: 28px 0 0; display: flex; align-items: baseline; justify-content: space-between; }
+    .brand { font-family: var(--serif); font-size: 13px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+
+    .oneline-mark { display: inline-flex; align-items: baseline; gap: 0.04em; line-height: 1; text-decoration: none; }
+    .oneline-mark .n { font-family: var(--sans); font-weight: 500; font-size: 1em; color: var(--ink); letter-spacing: -0.02em; }
+    .oneline-mark .l { font-family: var(--sans); font-weight: 500; font-size: 0.5em; letter-spacing: 0.18em; text-transform: uppercase; color: #1A7FE8; position: relative; top: -0.1em; }
+
+    .buseful-badge { display: inline-flex; align-items: center; background: #1A2744; border-radius: 5px; padding: 5px 12px 5px 10px; text-decoration: none; margin-bottom: 16px; transition: opacity 0.2s; }
+    .buseful-badge:hover { opacity: 0.82; }
+    .buseful-badge-text { font-family: var(--sans); font-size: 11px; font-weight: 500; color: #FFFFFF; letter-spacing: 0.02em; }
+    .buseful-badge-text em { font-style: italic; color: #C4A96A; }
+
+    .hero { padding: 64px 0 48px; border-bottom: 0.5px solid var(--border); }
+    .hero-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 20px; }
+    .hero h1 { font-family: var(--serif); font-size: clamp(30px, 5vw, 42px); font-weight: 300; line-height: 1.18; color: var(--ink); margin-bottom: 18px; letter-spacing: -0.01em; }
+    .hero-sub { font-size: 15px; color: var(--ink-mid); font-weight: 300; max-width: 480px; line-height: 1.65; }
+
+    .input-section { padding: 48px 0 0; }
+    .input-prompt { font-family: var(--serif); font-size: 20px; font-weight: 400; color: var(--ink); margin-bottom: 6px; }
+    .input-hint { font-size: 12px; color: var(--ink-muted); margin-bottom: 16px; line-height: 1.6; }
+
+    .pills-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .pill-btn {
+      padding: 8px 14px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--ink-mid);
+      background: var(--white);
+      border: 0.5px solid var(--border-mid);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .pill-btn:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
+
+    textarea {
+      width: 100%;
+      min-height: 160px;
+      padding: 16px;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--ink);
+      background: var(--white);
+      border: 0.5px solid var(--border-mid);
+      border-radius: 6px;
+      resize: vertical;
+      outline: none;
+      line-height: 1.65;
+      transition: border-color 0.15s;
+    }
+    textarea:focus { border-color: var(--ink-mid); }
+    textarea::placeholder { color: var(--ink-faint); }
+
+    .char-row { display: flex; justify-content: flex-end; margin-top: 6px; margin-bottom: 20px; }
+    .char-count { font-size: 11px; color: var(--ink-faint); }
+
+    .spell-panel { display: none; background: #FFFDF5; border: 0.5px solid rgba(160,98,10,0.22); border-radius: 6px; padding: 14px 16px; margin-bottom: 18px; }
+    .spell-panel.visible { display: block; }
+    .spell-panel p { font-size: 13px; color: var(--amber); margin-bottom: 10px; }
+    .spell-actions { display: flex; gap: 10px; }
+    .spell-btn { padding: 7px 16px; font-size: 12px; font-weight: 500; border-radius: 4px; border: none; cursor: pointer; transition: opacity 0.15s; }
+    .spell-btn.primary { background: var(--ink); color: var(--white); }
+    .spell-btn.secondary { background: transparent; color: var(--ink-mid); border: 0.5px solid var(--border-mid); }
+    .spell-btn:hover { opacity: 0.78; }
+
+    .generate-btn {
+      width: 100%;
+      padding: 16px 24px;
+      background: var(--ink);
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 500;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      letter-spacing: 0.01em;
+      transition: opacity 0.2s;
+      margin-bottom: 40px;
+    }
+    .generate-btn:hover { opacity: 0.82; }
+    .generate-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .how-section { padding: 32px 0 40px; border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); margin-bottom: 40px; }
+    .how-section h2 { font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--ink); margin-bottom: 20px; }
+    .how-steps { display: flex; flex-direction: column; gap: 14px; }
+    .how-step { display: flex; gap: 14px; align-items: flex-start; }
+    .how-num { font-size: 11px; font-weight: 500; color: var(--ink-faint); min-width: 20px; padding-top: 2px; }
+    .how-text { font-size: 14px; color: var(--ink-mid); font-weight: 300; line-height: 1.6; }
+
+    /* Output section */
+    .output-section { padding: 0 0 60px; }
+    .section-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 28px; }
+
+    .heard-block { margin-bottom: 32px; }
+    .heard-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 12px; }
+    .heard-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .heard-chip { padding: 6px 12px; background: var(--white); border: 0.5px solid var(--border-mid); border-radius: 4px; font-size: 12px; color: var(--ink-mid); }
+
+    /* Verdict cards */
+    .verdict-card { border-radius: 8px; padding: 28px; margin-bottom: 20px; }
+    .verdict-card.scam { background: #FEF2F2; border: 0.5px solid rgba(192,57,43,0.25); }
+    .verdict-card.suspicious { background: #FFFDF5; border: 0.5px solid rgba(160,98,10,0.25); }
+    .verdict-card.check { background: #FFFDF5; border: 0.5px solid rgba(160,98,10,0.18); }
+    .verdict-card.legit { background: #F0FBF6; border: 0.5px solid rgba(45,122,90,0.25); }
+    .verdict-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 10px; }
+    .verdict-title { font-family: var(--serif); font-size: 28px; font-weight: 400; margin-bottom: 8px; }
+    .verdict-title.scam { color: var(--red); }
+    .verdict-title.suspicious { color: var(--amber); }
+    .verdict-title.check { color: var(--amber); }
+    .verdict-title.legit { color: var(--green); }
+    .verdict-sub { font-size: 14px; color: var(--ink-mid); font-weight: 300; line-height: 1.6; }
+
+    .safety-card { background: var(--white); border: 0.5px solid var(--border); border-radius: 8px; padding: 24px 28px; margin-bottom: 20px; }
+    .safety-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 12px; }
+    .safety-action { font-size: 15px; color: var(--ink); font-weight: 400; line-height: 1.65; margin-bottom: 16px; }
+    .safety-already { border-top: 0.5px solid var(--border); padding-top: 16px; margin-top: 4px; }
+    .safety-already-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+    .already-options { display: flex; flex-direction: column; gap: 8px; }
+    .already-option { font-size: 13px; color: var(--ink-mid); padding: 10px 14px; background: var(--cream); border-radius: 4px; cursor: pointer; border: 0.5px solid var(--border); transition: border-color 0.15s; }
+    .already-option:hover { border-color: var(--red); color: var(--red); }
+
+    .example-section { margin-bottom: 32px; }
+    .example-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 12px; }
+    .example-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+    .example-pill { padding: 6px 12px; background: var(--cream); border: 0.5px solid var(--border-mid); border-radius: 4px; font-size: 12px; color: var(--ink-mid); }
+
+    .premium-gate { background: var(--white); border: 0.5px solid var(--border-mid); border-radius: 10px; padding: 36px 28px; text-align: center; margin-top: 32px; }
+    .premium-gate-eyebrow { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .premium-gate-title { font-family: var(--serif); font-size: 26px; font-weight: 300; color: var(--ink); margin-bottom: 14px; line-height: 1.25; }
+    .premium-gate-sub { font-size: 14px; color: var(--ink-mid); font-weight: 300; margin-bottom: 28px; line-height: 1.65; max-width: 400px; margin-left: auto; margin-right: auto; }
+    .premium-features { text-align: left; margin-bottom: 28px; display: flex; flex-direction: column; gap: 10px; }
+    .premium-feature { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--ink-mid); }
+    .premium-feature::before { content: "—"; color: var(--ink-faint); flex-shrink: 0; }
+    .premium-cta { width: 100%; padding: 16px; background: var(--ink); color: var(--white); border: none; border-radius: 6px; font-family: var(--sans); font-size: 15px; font-weight: 500; cursor: pointer; transition: opacity 0.2s; margin-bottom: 12px; }
+    .premium-cta:hover { opacity: 0.82; }
+    .premium-price { font-size: 12px; color: var(--ink-faint); }
+
+    .share-nudge { background: var(--cream); border: 0.5px solid var(--border); border-radius: 6px; padding: 18px 20px; margin-top: 24px; }
+    .share-nudge p { font-size: 13px; color: var(--ink-muted); }
+
+    /* AI premium section */
+    .ai-premium { padding: 0 0 60px; }
+    .ai-section-head { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 32px; }
+
+    .report-section { margin-bottom: 36px; padding-bottom: 36px; border-bottom: 0.5px solid var(--border); }
+    .report-section:last-child { border-bottom: none; }
+    .report-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px; }
+    .report-heading { font-family: var(--serif); font-size: 20px; font-weight: 400; color: var(--ink); margin-bottom: 14px; }
+    .report-body { font-size: 14px; color: var(--ink-mid); line-height: 1.75; font-weight: 300; }
+    .report-body p { margin-bottom: 10px; }
+    .report-body p:last-child { margin-bottom: 0; }
+
+    .red-flags { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+    .red-flag { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--ink-mid); line-height: 1.6; }
+    .red-flag::before { content: "⚑"; color: var(--red); flex-shrink: 0; font-size: 12px; padding-top: 2px; }
+
+    .verify-steps { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+    .verify-step { display: flex; gap: 12px; align-items: flex-start; }
+    .verify-num { font-size: 11px; font-weight: 500; color: var(--ink-faint); min-width: 18px; padding-top: 2px; }
+    .verify-text { font-size: 14px; color: var(--ink-mid); line-height: 1.6; }
+
+    .action-steps { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+    .action-step { display: flex; gap: 12px; align-items: flex-start; }
+    .action-num { font-size: 11px; font-weight: 500; color: var(--ink-faint); min-width: 18px; padding-top: 2px; }
+    .action-text { font-size: 14px; color: var(--ink-mid); line-height: 1.6; }
+
+    /* Sources block */
+    .sources-block { background: #F4F6FA; border: 0.5px solid rgba(26,127,232,0.18); border-radius: 8px; padding: 20px 22px; margin-top: 8px; }
+    .sources-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #1A7FE8; margin-bottom: 12px; }
+    .source-list { display: flex; flex-direction: column; gap: 8px; }
+    .source-item { font-size: 13px; }
+    .source-item a { color: #1A7FE8; text-decoration: none; word-break: break-word; }
+    .source-item a:hover { text-decoration: underline; }
+
+    .report-actions { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+    .action-btn { padding: 10px 18px; font-size: 12px; font-weight: 500; border-radius: 4px; cursor: pointer; transition: opacity 0.15s; border: 0.5px solid var(--border-mid); background: var(--white); color: var(--ink-mid); }
+    .action-btn:hover { opacity: 0.75; }
+    .action-btn.primary { background: var(--ink); color: var(--white); border-color: var(--ink); }
+
+    .watch-block { background: #FEF2F2; border: 0.5px solid rgba(192,57,43,0.18); border-radius: 8px; padding: 20px 22px; margin-top: 8px; }
+    .watch-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+    .watch-items { display: flex; flex-direction: column; gap: 8px; }
+    .watch-item { font-size: 14px; color: var(--ink-mid); }
+    .watch-item::before { content: "→ "; color: var(--red); }
+
+    .cross-sell { margin-top: 48px; padding-top: 36px; border-top: 0.5px solid var(--border); }
+    .cross-sell-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 18px; }
+    .cross-links { display: flex; flex-direction: column; gap: 10px; }
+    .cross-link { display: flex; align-items: flex-start; gap: 12px; text-decoration: none; padding: 14px 16px; background: var(--white); border: 0.5px solid var(--border); border-radius: 6px; transition: border-color 0.15s; }
+    .cross-link:hover { border-color: var(--ink-mid); }
+    .cross-link-arrow { color: var(--ink-faint); flex-shrink: 0; padding-top: 1px; }
+    .cross-link-content { flex: 1; }
+    .cross-link-name { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+    .cross-link-desc { font-size: 12px; color: var(--ink-muted); }
+
+    .unlock-card { background: #EEF8F3; border: 0.5px solid rgba(45,122,90,0.25); border-radius: 8px; padding: 28px; margin-bottom: 32px; display: none; }
+    .unlock-card.visible { display: block; }
+    .unlock-card p { font-size: 14px; color: var(--green); font-weight: 400; }
+
+    footer { border-top: 0.5px solid var(--border); padding: 40px 0 56px; }
+    .footer-nav { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 20px; }
+    .footer-nav a { font-size: 12px; color: var(--ink-muted); text-decoration: none; }
+    .footer-nav a:hover { color: var(--ink); }
+    .footer-legal { font-size: 11px; color: var(--ink-faint); line-height: 1.6; }
+
+    .overlay {
+      position: fixed; inset: 0; background: var(--cream);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .overlay.active { opacity: 1; pointer-events: all; }
+    .overlay-inner { text-align: center; max-width: 260px; }
+    .overlay-spinner { width: 32px; height: 32px; border: 2px solid var(--border-mid); border-top-color: var(--ink); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 20px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .overlay-text { font-family: var(--serif); font-size: 18px; font-weight: 300; color: var(--ink); margin-bottom: 8px; }
+    .overlay-sub { font-size: 12px; color: var(--ink-muted); }
+
+    @media (max-width: 480px) {
+      .pills-row { gap: 6px; }
+      .pill-btn { font-size: 11px; padding: 7px 12px; }
+      .premium-gate { padding: 28px 20px; }
+      .verdict-card, .safety-card { padding: 22px 20px; }
+    }
+  
+/* -- READABILITY PASS (Career v1.6.1 template: contrast, size, bigger box, mic) -- */
+.brand{font-size:14px}
+.hero-eyebrow{font-size:12px;color:#5C5A55}
+.hero h1{font-weight:400}
+.hero-sub{font-size:17px;font-weight:400;color:#3A3A38;max-width:520px}
+.input-prompt{font-size:23px;font-weight:500}
+.input-hint{font-size:14px;color:#5C5A55}
+.pill-btn{font-size:13px;color:#3A3A38;border:1px solid rgba(26,26,24,0.26)}
+textarea{min-height:190px;padding:18px 64px 18px 20px;font-size:18px;font-weight:400;line-height:1.6;border:1.5px solid #948E82;border-radius:12px}
+textarea::placeholder{color:#77746C}
+textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
+.char-count{font-size:13px;color:#5C5A55}
+.spell-panel{border-radius:12px}
+.spell-panel .spell-heading{font-size:12px;letter-spacing:0.10em;text-transform:uppercase;color:#A0620A;margin-bottom:8px}
+.spell-panel .spell-corrected{font-size:14px;font-weight:400;color:#1A1A18;line-height:1.65;margin-bottom:14px}
+.spell-btn{font-size:13px}
+.generate-btn{font-size:15px;padding:17px 24px;background:#1A2744;border-radius:12px}
+.generate-btn:disabled{opacity:1;background:#DDE0E7;color:#3A4460}
+.how-section h2{font-weight:400}
+.how-num{color:#8F8C84}
+.how-text{font-size:15px;color:#3A3A38}
+.section-eyebrow{font-size:12px;color:#5C5A55}
+.footer-nav a{font-size:13px;color:#5C5A55}
+.footer-legal{font-size:12px;color:#6B6862}
+.input-wrap{position:relative}
+.mic-btn{position:absolute;right:12px;bottom:12px;width:42px;height:42px;border-radius:50%;border:1.5px solid #948E82;background:#fff;color:#1A2744;display:none;align-items:center;justify-content:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;z-index:2}
+.mic-btn:hover{border-color:#1A2744}
+.mic-btn:focus-visible{outline:3px solid rgba(26,39,68,0.35);outline-offset:2px}
+.mic-btn svg{width:20px;height:20px}
+.mic-btn.listening{background:#1A2744;border-color:#1A2744;color:#fff;animation:micpulse 1.4s ease-in-out infinite}
+@keyframes micpulse{0%,100%{box-shadow:0 0 0 0 rgba(26,39,68,0.35)}50%{box-shadow:0 0 0 8px rgba(26,39,68,0)}}
+.mic-status{display:none;margin:8px 0 0;font-size:13px;color:#1A2744;font-weight:500}
+.mic-status.visible{display:block}
+@media (prefers-reduced-motion: reduce){.mic-btn.listening{animation:none}}
+
+/* -- v1.3 TOOLS (copy, save, calendar, share, retry) - readable sans style, matches readability pass -- */
+.tool-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.tool-btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;font-family:var(--sans);font-size:14px;font-weight:500;line-height:1.2;color:#1A2744;background:#FFFFFF;border:1.5px solid #948E82;border-radius:10px;cursor:pointer;transition:border-color 0.15s,background 0.15s,color 0.15s;text-transform:none;letter-spacing:0}
+.tool-btn:hover{border-color:#1A2744}
+.tool-btn:focus-visible{outline:3px solid rgba(26,39,68,0.35);outline-offset:2px}
+.tool-btn.primary{background:#1A2744;color:#FFFFFF;border-color:#1A2744}
+.tool-btn.primary:hover{opacity:0.88}
+.tool-btn.done{border-color:#2D7A5A;color:#2D7A5A;background:#F0FBF6}
+.report-tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 32px;padding:18px 20px;background:#FFFFFF;border:1px solid rgba(26,26,24,0.16);border-radius:12px}
+.report-tools-label{width:100%;font-family:var(--sans);font-size:12px;letter-spacing:0.10em;text-transform:uppercase;color:#5C5A55;margin:0 0 4px}
+.report-tools-note{width:100%;font-family:var(--sans);font-size:13px;color:#5C5A55;line-height:1.5;margin:6px 0 0}
+.script-card{background:#FFFFFF;border:1px solid rgba(26,26,24,0.16);border-radius:12px;padding:6px 20px;margin-top:4px}
+.script-step{padding:14px 0;border-bottom:1px solid rgba(26,26,24,0.09)}
+.script-step:last-child{border-bottom:none}
+.script-step-label{font-family:var(--sans);font-size:12px;letter-spacing:0.10em;text-transform:uppercase;color:#5C5A55;margin-bottom:6px}
+.script-step-text{font-family:var(--sans);font-size:16px;font-weight:400;line-height:1.6;color:#1A1A18}
+.script-list{margin:0;padding-left:20px}
+.script-list li{font-family:var(--sans);font-size:16px;line-height:1.6;color:#1A1A18;margin-bottom:6px}
+.retry-card{display:none;background:#FFFBF0;border:1px solid rgba(160,98,10,0.30);border-radius:12px;padding:20px 22px;margin:0 0 24px}
+.retry-card.visible{display:block}
+.retry-title{font-family:var(--sans);font-size:17px;font-weight:500;color:#1A1A18;margin-bottom:6px}
+.retry-text{font-family:var(--sans);font-size:15px;color:#3A3A38;line-height:1.6;margin-bottom:14px}
+/* -- Legit v1.3: red-flag highlighter + share card -- */
+.flag-card{background:#FFFFFF;border:1px solid rgba(26,26,24,0.16);border-radius:12px;padding:22px 24px;margin-bottom:20px}
+.card-label{font-family:var(--sans);font-size:12px;letter-spacing:0.10em;text-transform:uppercase;color:#5C5A55;margin-bottom:12px}
+.flag-text{font-family:var(--sans);font-size:16px;font-weight:400;line-height:1.85;color:#1A1A18;white-space:pre-wrap;word-break:break-word;background:#FAF8F5;border:1px solid rgba(26,26,24,0.10);border-radius:10px;padding:16px 18px}
+.flag-mark{padding:1px 3px;border-radius:4px;color:#1A1A18;border-bottom:2px solid}
+.flag-red{background:#FDE2DF;border-color:#C0392B}
+.flag-amber{background:#FCEBC7;border-color:#A0620A}
+.flag-purple{background:#ECE6F7;border-color:#6B4FA3}
+.flag-legend{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.flag-legend-item{display:flex;align-items:flex-start;gap:10px;font-family:var(--sans);font-size:14px;color:#3A3A38;line-height:1.5}
+.flag-swatch{flex-shrink:0;width:14px;height:14px;border-radius:3px;border-bottom:2px solid;margin-top:3px}
+.flag-none{font-family:var(--sans);font-size:15px;color:#3A3A38;line-height:1.6;margin-top:12px}
+.share-card{background:#FFFFFF;border:1px solid rgba(26,26,24,0.16);border-radius:12px;padding:22px 24px;margin-top:24px}
+.share-title{font-family:var(--sans);font-size:17px;font-weight:500;color:#1A1A18;margin-bottom:6px}
+.share-text{font-family:var(--sans);font-size:15px;color:#3A3A38;line-height:1.6}
+@media print{
+  nav, footer, .tool-row, .report-tools, .cross-sell, .crosssell-block, .mic-btn, .buseful-badge, .overlay, #overlay, #intelligence-overlay, .retry-card, .unlock-card, .share-nudge, .share-card { display:none !important; }
+  body{background:#FFFFFF}
+  .page{max-width:none;padding:0}
+  .report-section{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<div id="overlay" class="overlay">
+  <div class="overlay-inner">
+    <div class="overlay-spinner"></div>
+    <p class="overlay-text">Checking current UK scam reports…</p>
+    <p class="overlay-sub">This can take 10–30 seconds. Please wait.</p>
+  </div>
+</div>
+
+<div class="page">
+
+  <nav>
+    <a href="https://oi-ecosystem.github.io/1line/" class="oneline-mark" aria-label="1LINE home">
+      <span class="n">1</span><span class="l">LINE</span>
+    </a>
+    <a href="https://oi-ecosystem.github.io/1line/" class="brand">Legit</a>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <a href="https://oi-ecosystem.github.io/b-useful/" class="buseful-badge" target="_blank" rel="noopener">
+        <span class="buseful-badge-text">B-<em>Useful</em></span>
+      </a>
+    </div>
+    <p class="hero-eyebrow">1LINE Legit</p>
+    <h1>Is this legitimate?<br>Don't guess. Check.</h1>
+    <p class="hero-sub">Paste the message, email, offer or link you're unsure about. We analyse it, check current UK scam intelligence and give you a verdict — not a guess.</p>
+  </section>
+
+  <section class="input-section">
+    <p class="input-prompt">Paste the message, email, offer or anything you're unsure about.</p>
+    <p class="input-hint">Copy and paste the exact text. The more you give us, the sharper the analysis.</p>
+
+    <div class="pills-row" id="pills-row">
+      <button class="pill-btn" onclick="setPill('Royal Mail: Your parcel is being held. A customs fee of £1.45 is due. Pay now to avoid return: royalmai1-delivery.co.uk/pay')">Royal Mail parcel text</button>
+      <button class="pill-btn" onclick="setPill('HMRC: You are owed a tax refund of £342.80. Claim within 24 hours or it will expire. Click here: hmrc-refund-portal.net/claim')">HMRC refund text</button>
+      <button class="pill-btn" onclick="setPill('Congratulations! You have been selected for an exclusive investment opportunity. Guaranteed 40% returns in 30 days. WhatsApp our team to get started.')">Investment opportunity</button>
+      <button class="pill-btn" onclick="setPill('We noticed unusual activity on your account. Your account has been temporarily limited. Please verify your information immediately to restore access.')">Account security warning</button>
+    </div>
+
+    <div class="input-wrap">
+      <textarea
+        id="main-input"
+        placeholder="Paste the full message, email, offer or text here. Include links, sender details and any other context."
+        oninput="countChars()"
+        onblur="spellReview()"
+        spellcheck="false"
+        lang="en-GB"
+      ></textarea>
+      <button type="button" class="mic-btn" data-target="main-input" aria-label="Speak instead of typing" aria-pressed="false" title="Speak instead of typing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg></button>
+    </div>
+    <p class="mic-status" id="mic-status-main-input" aria-live="polite">Listening… speak, then pause.</p>
+    <div class="char-row">
+      <span class="char-count" id="char-count">0 characters</span>
+    </div>
+
+    <div class="spell-panel" id="spell-panel">
+      <p class="spell-heading">Quick check before we begin</p>
+      <p class="spell-corrected">Make sure you have pasted the whole message, including any link and who it came from. Don't correct spelling mistakes in it &mdash; errors in the original are often a warning sign.</p>
+      <div class="spell-actions">
+        <button class="spell-btn primary" onclick="spellContinue()">Looks good, continue</button>
+        <button class="spell-btn secondary" onclick="spellRecheck()">Edit my text</button>
+      </div>
+    </div>
+
+    <button class="generate-btn" id="generate-btn" onclick="handleGenerate()" disabled>
+      Check this now
+    </button>
+  </section>
+
+  <section class="how-section">
+    <h2>What you get</h2>
+    <div class="how-steps">
+      <div class="how-step"><span class="how-num">01</span><span class="how-text"><strong>Verdict</strong> — Likely Scam, Suspicious, Needs Checking or Appears Legitimate — with the key warning signals.</span></div>
+      <div class="how-step"><span class="how-num">02</span><span class="how-text"><strong>Do this now</strong> — an immediate, specific safety action based on exactly what you've submitted.</span></div>
+      <div class="how-step"><span class="how-num">03</span><span class="how-text"><strong>Full intelligence report</strong> — current UK scam data, verification steps, what to do if you already clicked, and where to report. £9.</span></div>
+    </div>
+  </section>
+
+  <section class="output-section" id="output-section" style="display:none;">
+
+    <div class="unlock-card" id="unlock-card">
+      <p>✓ Payment confirmed. Your full intelligence report is ready below.</p>
+    </div>
+
+    <div class="retry-card" id="retry-card">
+      <p class="retry-title">Your report didn't finish loading.</p>
+      <p class="retry-text">Checking live UK scam reports can occasionally time out. Your access is still unlocked &mdash; you won't be charged again. Your free safety advice is below.</p>
+      <button type="button" class="tool-btn primary" onclick="retryAI()">Try again</button>
+    </div>
+
+    <p class="section-eyebrow">Your analysis</p>
+
+    <div class="heard-block" id="heard-block">
+      <p class="heard-label">What we found in your message</p>
+      <div class="heard-chips" id="heard-chips"></div>
+    </div>
+
+    <div id="verdict-card" class="verdict-card">
+      <p class="verdict-label">Verdict</p>
+      <p class="verdict-title" id="verdict-title">—</p>
+      <p class="verdict-sub" id="verdict-sub"></p>
+    </div>
+
+    <div class="flag-card" id="flag-card">
+      <p class="card-label">Your message, with warning signs marked</p>
+      <div class="flag-text" id="flag-text"></div>
+      <div class="flag-legend" id="flag-legend"></div>
+    </div>
+
+    <div class="safety-card" id="safety-card">
+      <p class="safety-label">Do this now</p>
+      <p class="safety-action" id="safety-action"></p>
+      <div class="safety-already">
+        <p class="safety-already-label">If you already acted</p>
+        <div class="already-options">
+          <div class="already-option" onclick="showAlreadyInfo('clicked')">I clicked the link</div>
+          <div class="already-option" onclick="showAlreadyInfo('details')">I entered personal details</div>
+          <div class="already-option" onclick="showAlreadyInfo('payment')">I entered card or bank details</div>
+          <div class="already-option" onclick="showAlreadyInfo('paid')">I paid money</div>
+          <div class="already-option" onclick="showAlreadyInfo('software')">I downloaded software or gave remote access</div>
+        </div>
+        <div id="already-info" style="display:none; margin-top:14px; padding: 14px 16px; background: #FEF2F2; border-radius:6px; font-size:14px; color: var(--ink-mid); line-height: 1.7;"></div>
+      </div>
+    </div>
+
+    <div class="example-section">
+      <p class="example-label">Common in the UK right now</p>
+      <div class="example-pills">
+        <span class="example-pill">Parcel delivery texts</span>
+        <span class="example-pill">HMRC refunds</span>
+        <span class="example-pill">Investment scams</span>
+        <span class="example-pill">Account security alerts</span>
+      </div>
+    </div>
+
+    <div id="premium-gate" class="premium-gate">
+      <p class="premium-gate-eyebrow">Full intelligence report — £9</p>
+      <p class="premium-gate-title">Know exactly what you're dealing with</p>
+      <p class="premium-gate-sub">Current UK scam intelligence, the mechanism behind this scam, step-by-step verification, what to do if you already acted, and where to report it.</p>
+      <div class="premium-features">
+        <span class="premium-feature">Live UK scam intelligence — what's being reported right now</span>
+        <span class="premium-feature">Detailed red flags from your specific message</span>
+        <span class="premium-feature">How this scam works and what they're after</span>
+        <span class="premium-feature">Step-by-step independent verification procedure</span>
+        <span class="premium-feature">Emergency response if you've already clicked, paid or installed</span>
+        <span class="premium-feature">What to say when you call your bank — a ready phone script</span>
+        <span class="premium-feature">Where to report it — Report Fraud, NCSC and relevant bodies, with a ready-to-paste report</span>
+        <span class="premium-feature">What to watch for next — follow-up scam attempts</span>
+      </div>
+      <button class="premium-cta" onclick="unlockLegit()">Get the full report — £9</button>
+      <p class="premium-price">One-off payment · No subscription · Instant delivery</p>
+    </div>
+
+    <div class="share-card" id="share-card">
+      <p class="share-title">Know someone who gets messages like this?</p>
+      <p class="share-text">Send them this warning. It shares the verdict and the safety advice &mdash; never the message you pasted.</p>
+      <div class="tool-row">
+        <button type="button" class="tool-btn primary" onclick="shareWarning(this)">Share this warning</button>
+        <button type="button" class="tool-btn" onclick="copyText('https://oi-ecosystem.github.io/1line/legit/', this)">Copy link to 1LINE Legit</button>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="ai-premium" id="ai-premium" style="display:none;">
+
+    <p class="ai-section-head">Your full intelligence report</p>
+
+    <div class="report-tools" id="report-tools">
+      <p class="report-tools-label">Keep and share</p>
+      <button type="button" class="tool-btn primary" onclick="saveReport()">Save or print report</button>
+      <button type="button" class="tool-btn" onclick="shareWarning(this)">Share this warning</button>
+    </div>
+
+    <div class="report-section">
+      <p class="report-label">01</p>
+      <p class="report-heading">The verdict</p>
+      <div id="r-full-verdict" class="report-body"></div>
+    </div>
+
+    <div class="report-section">
+      <p class="report-label">02</p>
+      <p class="report-heading">What we found</p>
+      <div id="r-what-found" class="report-body"></div>
+    </div>
+
+    <div class="report-section">
+      <p class="report-label">03</p>
+      <p class="report-heading">Red flags</p>
+      <div class="flag-text" id="r-flag-text" style="margin-bottom:12px;"></div>
+      <div class="flag-legend" id="r-flag-legend" style="margin-bottom:18px;"></div>
+      <div id="r-red-flags" class="red-flags"></div>
+    </div>
+
+    <div class="report-section">
+      <p class="report-label">04</p>
+      <p class="report-heading">What this scam is doing</p>
+      <div id="r-mechanism" class="report-body"></div>
+    </div>
+
+    <div class="report-section">
+      <p class="report-label">05</p>
+      <p class="report-heading">Current UK scam intelligence</p>
+      <div id="r-intelligence" class="report-body"></div>
+      <div id="r-sources" class="sources-block" style="display:none;">
+        <p class="sources-label">Sources</p>
+        <div class="source-list" id="r-source-list"></div>
+      </div>
+    </div>
+
+    <div class="report-section">
+      <p class="report-label">06</p>
+      <p class="report-heading">How to verify it safely</p>
+      <div id="r-verify" class="verify-steps"></div>
+    </div>
+
+    <div class="report-section">
+      <p class="report-label">07</p>
+      <p class="report-heading">If you already acted</p>
+      <div id="r-already-acted" class="report-body"></div>
+    </div>
+
+    <div class="report-section" id="r-bank-section">
+      <p class="report-label">08</p>
+      <p class="report-heading">Calling your bank &mdash; what to say</p>
+      <div class="script-card" id="r-bank-script"></div>
+      <div class="tool-row" id="tools-bank-script"></div>
+    </div>
+
+    <div class="report-section">
+      <p class="report-label">09</p>
+      <p class="report-heading">What to do next</p>
+      <div id="r-next-steps" class="action-steps"></div>
+    </div>
+
+    <div class="report-section">
+      <p class="report-label">10</p>
+      <p class="report-heading">Where to report it</p>
+      <div id="r-report-to" class="report-body"></div>
+      <div id="r-report-text-wrap" style="display:none;margin-top:16px;">
+        <p class="card-label">Ready-to-paste report</p>
+        <div class="flag-text" id="r-report-text"></div>
+        <div class="tool-row" id="tools-report-text"></div>
+      </div>
+    </div>
+
+    <div class="report-section">
+      <p class="report-label">11</p>
+      <p class="report-heading">What to watch for next</p>
+      <div id="r-watch-for" class="watch-block">
+        <p class="watch-label">Follow-up attempts to expect</p>
+        <div class="watch-items" id="r-watch-items"></div>
+      </div>
+    </div>
+
+    <div class="cross-sell">
+      <p class="cross-sell-label">You might also need</p>
+      <div class="cross-links">
+        <a href="https://oi-ecosystem.github.io/1line/complain/" class="cross-link">
+          <span class="cross-link-arrow">→</span>
+          <div class="cross-link-content">
+            <p class="cross-link-name">1LINE Complain</p>
+            <p class="cross-link-desc">Something was charged or you lost money — get the complaint strategy.</p>
+          </div>
+        </a>
+        <a href="https://oi-ecosystem.github.io/1line/bill/" class="cross-link">
+          <span class="cross-link-arrow">→</span>
+          <div class="cross-link-content">
+            <p class="cross-link-name">1LINE Bill</p>
+            <p class="cross-link-desc">Understand any charges or payments involved.</p>
+          </div>
+        </a>
+        <a href="https://oi-ecosystem.github.io/1line/message/" class="cross-link">
+          <span class="cross-link-arrow">→</span>
+          <div class="cross-link-content">
+            <p class="cross-link-name">1LINE Message</p>
+            <p class="cross-link-desc">Draft the response or report to send to the relevant organisation.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </section>
+
+  <footer>
+    <div class="footer-nav">
+      <a href="https://oi-ecosystem.github.io/1line/">Home</a>
+      <a href="https://oi-ecosystem.github.io/1line/complain/">Complain</a>
+      <a href="https://oi-ecosystem.github.io/1line/ask/">Ask</a>
+      <a href="https://oi-ecosystem.github.io/1line/message/">Message</a>
+      <a href="https://oi-ecosystem.github.io/1line/resolver/">Resolver</a>
+      <a href="https://oi-ecosystem.github.io/1line/decide/">Decide</a>
+    </div>
+    <p class="footer-legal">1LINE Legit is part of the LifeKit333 ecosystem. Results are guidance, not legal or financial advice. Always contact official organisations through independently verified contact details. © 2026 LifeKit333 / RC Loop Ltd.</p>
+  </footer>
+
+</div>
+
+<script>
+var PREMIUM_GATED = true;
+var _spellWarned = false;
+var _lastCountedVal = '';
+var _aiUnlocked = false;
+var _lastInput = '';
+var _lastChips = [];
+var _lastVerdict = '';
+var _lastVerdictSub = '';
+var _lastSafetyAction = '';
+
+var ALREADY_ADVICE = {
+  clicked: 'You clicked the link. Do not click it again. Run a security scan on your device using your existing antivirus software. Check for any new apps or extensions you don\'t recognise. If you entered any information on the page that loaded, treat those details as compromised and act accordingly.',
+  details: 'You entered personal details. Change your passwords on any accounts using the same email address immediately. Enable two-factor authentication where possible. Monitor your accounts for unusual activity. Report it to Report Fraud at reportfraud.police.uk or call 0300 123 2040.',
+  payment: 'You entered card or bank details. Contact your bank immediately — call the number on the back of your card or use your bank\'s official app. Ask them to block the card and check for unauthorised transactions. Report it to Report Fraud at reportfraud.police.uk. Your bank has a legal obligation to help.',
+  paid: 'You paid money. Contact your bank immediately and report it as a fraudulent payment. If you paid by bank transfer, ask them to raise a recall — speed matters. If you paid by card, request a chargeback. Report it to Report Fraud at reportfraud.police.uk. Do not pay any further demands, even if they claim to be "releasing your money".',
+  software: 'You downloaded software or gave remote access. This is serious. Disconnect the device from the internet immediately. Do not use it for banking or sensitive accounts until it has been professionally checked. Contact your bank from a different device. If you gave remote access, assume the scammer may have seen everything on screen.'
+};
+
+function esc(s) {
+  if (!s) return '';
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+
+function setPill(text) {
+  var ta = document.getElementById('main-input');
+  ta.value = text;
+  _spellWarned = false;
+  _lastCountedVal = '';
+  countChars();
+  ta.focus();
+}
+
+function countChars() {
+  var ta = document.getElementById('main-input');
+  var cc = document.getElementById('char-count');
+  var btn = document.getElementById('generate-btn');
+  var len = ta.value.length;
+
+  if (ta.value !== _lastCountedVal) {
+    _lastCountedVal = ta.value;
+    _spellWarned = false;
+    var p = document.getElementById('spell-panel');
+    if (p) p.className = 'spell-panel';
+  }
+
+  cc.textContent = len + ' characters';
+  btn.disabled = (len < 20);
+}
+
+function spellReview() {
+  if (_spellWarned) return;
+  var ta = document.getElementById('main-input');
+  var val = ta.value.trim();
+  if (val.length < 20) return;
+  var p = document.getElementById('spell-panel');
+  if (!p) return;
+  _spellWarned = true;
+  p.className = 'spell-panel visible';
+}
+
+function spellContinue() {
+  var p = document.getElementById('spell-panel');
+  if (p) p.className = 'spell-panel';
+  handleGenerate();
+}
+
+function spellRecheck() {
+  var p = document.getElementById('spell-panel');
+  if (p) p.className = 'spell-panel';
+  var ta = document.getElementById('main-input');
+  ta.focus();
+}
+
+function handleGenerate() {
+  var ta = document.getElementById('main-input');
+  var val = ta.value.trim();
+  if (val.length < 20) { alert('Please paste the message or text you want us to check.'); return; }
+
+  if (_spellWarned) {
+    var p = document.getElementById('spell-panel');
+    if (p && p.className.indexOf('visible') !== -1) return;
+  }
+
+  if (PREMIUM_GATED && !_aiUnlocked) {
+    generateLegit(val);
+    return;
+  }
+
+  runAILegit(val);
+}
+
+function extractHeardChips(val) {
+  var chips = [];
+  var lower = val.toLowerCase();
+
+  if (lower.indexOf('royal mail') !== -1) chips.push('Royal Mail');
+  else if (lower.indexOf('amazon') !== -1) chips.push('Amazon');
+  else if (lower.indexOf('hmrc') !== -1 || lower.indexOf('tax') !== -1) chips.push('HMRC');
+  else if (lower.indexOf('bank') !== -1 || lower.indexOf('barclays') !== -1 || lower.indexOf('lloyds') !== -1 || lower.indexOf('natwest') !== -1 || lower.indexOf('halifax') !== -1) chips.push('Bank communication');
+  else if (lower.indexOf('paypal') !== -1) chips.push('PayPal');
+  else if (lower.indexOf('apple') !== -1 || lower.indexOf('icloud') !== -1) chips.push('Apple / iCloud');
+  else if (lower.indexOf('microsoft') !== -1 || lower.indexOf('windows') !== -1) chips.push('Microsoft');
+  else if (lower.indexOf('netflix') !== -1) chips.push('Netflix');
+  else if (lower.indexOf('dvla') !== -1) chips.push('DVLA');
+  else if (lower.indexOf('bt ') !== -1 || lower.indexOf('broadband') !== -1) chips.push('Telecoms');
+  else if (lower.indexOf('invest') !== -1 || lower.indexOf('crypto') !== -1 || lower.indexOf('bitcoin') !== -1) chips.push('Investment offer');
+  else if (lower.indexOf('job') !== -1 || lower.indexOf('employment') !== -1) chips.push('Job offer');
+
+  var moneyMatch = val.match(/[£$€]\s?[\d,]+(?:\.\d{2})?/);
+  if (moneyMatch) chips.push(moneyMatch[0]);
+
+  if (lower.indexOf('http') !== -1 || lower.indexOf('www.') !== -1 || lower.match(/\.[a-z]{2,4}\//) !== null) chips.push('Link included');
+
+  if (lower.indexOf('24 hour') !== -1 || lower.indexOf('24hr') !== -1 || lower.indexOf('urgent') !== -1 || lower.indexOf('immediately') !== -1 || lower.indexOf('expire') !== -1 || lower.indexOf('act now') !== -1) chips.push('Urgency pressure');
+
+  if (lower.indexOf('sms') !== -1 || (val.length < 200 && lower.indexOf('\n') === -1)) chips.push('Text message');
+  else if (lower.indexOf('dear') !== -1 || lower.indexOf('subject:') !== -1) chips.push('Email');
+  else if (lower.indexOf('whatsapp') !== -1) chips.push('WhatsApp message');
+
+  if (lower.indexOf('refund') !== -1) chips.push('Refund claimed');
+  if (lower.indexOf('parcel') !== -1 || lower.indexOf('delivery') !== -1 || lower.indexOf('package') !== -1) chips.push('Delivery claim');
+  if (lower.indexOf('suspended') !== -1 || lower.indexOf('limited') !== -1 || lower.indexOf('unusual activity') !== -1 || lower.indexOf('verify') !== -1) chips.push('Account threat');
+  if (lower.indexOf('guarant') !== -1 || lower.indexOf('100%') !== -1) chips.push('Guaranteed returns');
+  if (lower.indexOf('selected') !== -1 || lower.indexOf('winner') !== -1 || lower.indexOf('congratulation') !== -1) chips.push('Prize / selection claim');
+
+  return chips.slice(0, 5);
+}
+
+function calculateVerdict(val) {
+  var lower = val.toLowerCase();
+  var riskScore = 0;
+
+  var urgencyTerms = ['urgent', 'immediately', 'within 24', 'act now', 'expire', 'suspended', 'limited your account', 'verify now', 'click here now'];
+  for (var i = 0; i < urgencyTerms.length; i++) { if (lower.indexOf(urgencyTerms[i]) !== -1) { riskScore += 2; break; } }
+
+  if (lower.indexOf('http') !== -1 || val.match(/\.[a-z]{2,4}\//) !== null) {
+    var suspiciousUrl = val.match(/(?:royalmai[^a-z]|hmrc-[a-z]|paypa1|micros0ft|app1e|amaz0n|gov\.uk\.[a-z]|\.[a-z]{2,4}\.(?:tk|ml|ga|cf|gq|top|xyz|buzz|site|online|click|info))/i);
+    if (suspiciousUrl) { riskScore += 3; }
+    else if (lower.indexOf('http') !== -1) { riskScore += 1; }
+  }
+
+  if (lower.indexOf('guarant') !== -1 && (lower.indexOf('return') !== -1 || lower.indexOf('profit') !== -1)) riskScore += 3;
+  if (lower.indexOf('crypto') !== -1 || lower.indexOf('bitcoin') !== -1) riskScore += 2;
+  if (lower.match(/\d+%\s*(?:return|profit|per\s*(?:day|week|month))/i)) riskScore += 3;
+
+  if (lower.indexOf('customs fee') !== -1 || lower.indexOf('re-delivery') !== -1) riskScore += 2;
+  if (lower.indexOf('tax refund') !== -1 && lower.indexOf('link') !== -1) riskScore += 3;
+  if (lower.indexOf('account') !== -1 && (lower.indexOf('suspended') !== -1 || lower.indexOf('limited') !== -1 || lower.indexOf('unusual activity') !== -1)) riskScore += 2;
+
+  if (lower.indexOf('your password') !== -1 || lower.indexOf('your account has been') !== -1) riskScore += 1;
+
+  if (riskScore >= 5) return 'LIKELY SCAM';
+  if (riskScore >= 3) return 'SUSPICIOUS';
+  if (riskScore >= 1) return 'NEEDS CHECKING';
+  return 'APPEARS LEGITIMATE — BUT VERIFY';
+}
+
+function getVerdictSub(verdict, val) {
+  var lower = val.toLowerCase();
+  if (verdict === 'LIKELY SCAM') {
+    if (lower.indexOf('royal mail') !== -1 || lower.indexOf('parcel') !== -1 || lower.indexOf('delivery') !== -1) {
+      return 'This has the hallmarks of a parcel delivery scam — one of the most common in the UK right now. Do not click any link in this message.';
+    }
+    if (lower.indexOf('hmrc') !== -1 || lower.indexOf('tax') !== -1) {
+      return 'HMRC does not send refunds by text message. This is a phishing attempt designed to steal your bank details.';
+    }
+    if (lower.indexOf('invest') !== -1 || lower.indexOf('guarant') !== -1 || lower.indexOf('crypto') !== -1) {
+      return 'Guaranteed investment returns are a hallmark of fraud. No legitimate investment offers guaranteed profits.';
+    }
+    return 'Multiple scam indicators detected. Do not interact further with this message or the sender.';
+  }
+  if (verdict === 'SUSPICIOUS') {
+    return 'This message contains elements that are common in scams. Treat it with caution until you have verified it through official channels.';
+  }
+  if (verdict === 'NEEDS CHECKING') {
+    return 'This message has some characteristics that warrant independent verification before you take any action.';
+  }
+  return 'This appears legitimate, but you should always verify independently before providing any personal or financial information.';
+}
+
+function getSafetyAction(verdict, val) {
+  var lower = val.toLowerCase();
+  if (verdict === 'LIKELY SCAM' || verdict === 'SUSPICIOUS') {
+    if (lower.indexOf('link') !== -1 || lower.indexOf('http') !== -1 || val.match(/\.[a-z]{2,4}\//)) {
+      if (lower.indexOf('royal mail') !== -1 || lower.indexOf('parcel') !== -1 || lower.indexOf('delivery') !== -1) {
+        return 'Do not click the link. If you are expecting a parcel, go to royalmail.com directly by typing it into your browser and track it there.';
+      }
+      if (lower.indexOf('hmrc') !== -1 || lower.indexOf('tax') !== -1) {
+        return 'Do not click the link. HMRC will never ask you to claim a refund by clicking a text message link. Go to gov.uk/hmrc directly.';
+      }
+      if (lower.indexOf('bank') !== -1 || lower.indexOf('account') !== -1) {
+        return 'Do not click the link. Call your bank directly using the number on the back of your card or go to your bank\'s official website by typing it yourself.';
+      }
+      return 'Do not click any link in this message. If it claims to be from a real organisation, go to that organisation\'s official website independently and check there.';
+    }
+    if (lower.indexOf('invest') !== -1 || lower.indexOf('guarant') !== -1) {
+      return 'Do not send money or share bank details. No legitimate investment guarantees returns. If this came via WhatsApp or social media, block the contact.';
+    }
+    return 'Do not respond to this message, click any links, or provide any personal or financial information. Block the sender.';
+  }
+  return 'Verify this independently by contacting the organisation directly through their official website or phone number — not through any contact details in this message.';
+}
+
+function generateLegit(val) {
+  _lastInput = val;
+
+  var chips = extractHeardChips(val);
+  var verdict = calculateVerdict(val);
+  var verdictSub = getVerdictSub(verdict, val);
+  var safetyAction = getSafetyAction(verdict, val);
+
+  _lastChips = chips;
+  _lastVerdict = verdict;
+  _lastVerdictSub = verdictSub;
+  _lastSafetyAction = safetyAction;
+
+  var heardEl = document.getElementById('heard-chips');
+  heardEl.innerHTML = '';
+  for (var i = 0; i < chips.length; i++) {
+    var chip = document.createElement('span');
+    chip.className = 'heard-chip';
+    chip.textContent = chips[i];
+    heardEl.appendChild(chip);
+  }
+
+  var verdictCard = document.getElementById('verdict-card');
+  var verdictTitle = document.getElementById('verdict-title');
+  var verdictSubEl = document.getElementById('verdict-sub');
+  verdictTitle.textContent = verdict;
+
+  var vClass = 'check';
+  if (verdict === 'LIKELY SCAM') vClass = 'scam';
+  else if (verdict === 'SUSPICIOUS') vClass = 'suspicious';
+  else if (verdict === 'APPEARS LEGITIMATE — BUT VERIFY') vClass = 'legit';
+
+  verdictCard.className = 'verdict-card ' + vClass;
+  verdictTitle.className = 'verdict-title ' + vClass;
+  verdictSubEl.textContent = verdictSub;
+
+  document.getElementById('safety-action').textContent = safetyAction;
+
+  renderFlags('flag-text', 'flag-legend', val);
+
+  var outSec = document.getElementById('output-section');
+  outSec.style.display = 'block';
+  outSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* -- RED-FLAG HIGHLIGHTER (deterministic, runs in the browser, free) -- */
+var FLAG_RULES = [
+  { re: /(https?:\/\/[^\s]*[^\s.,;:!?)]|www\.[^\s]*[^\s.,;:!?)]|[a-z0-9][a-z0-9-]*(?:\.[a-z0-9-]+)*\.(?:co\.uk|org\.uk|com|net|org|uk|info|xyz|top|site|online|click|link|live|shop|app|io|me|cc|ru|biz)(?![a-z0-9])(?:\/(?:[^\s]*[^\s.,;:!?)])?)?)/gi,
+    cls: 'flag-red', label: 'A link. Never tap links in unexpected messages. Type the real website address yourself.' },
+  { re: /(pay now|customs (?:fee|charge)|re-?delivery fee|outstanding (?:fee|balance|payment|amount)|unpaid|click here|tap here|claim (?:now|here|your)|refunds?)/gi, word: true,
+    cls: 'flag-red', label: 'A payment or claim hook. Genuine organisations rarely ask you to pay or claim through a message link.' },
+  { re: /(verif(?:y|ied|ication)|confirm your (?:details|identity|information|account)|update your (?:payment|details|card|information)|unusual activity|security alert|log ?in|passwords?|pin)/gi, word: true,
+    cls: 'flag-red', label: 'It wants your details. Your bank and HMRC will never ask for passwords or PINs by message.' },
+  { re: /(urgent(?:ly)?|immediately|within \d+ ?(?:hours?|hrs?|days?)|24 ?hours?|act now|expires?|expired|final (?:notice|reminder|warning)|last chance|today only|avoid (?:return|suspension|charges?|a fine)|suspended|temporarily limited)/gi, word: true,
+    cls: 'flag-amber', label: 'Pressure to act fast. Scammers rush you so you do not stop to check.' },
+  { re: /(congratulations|you(?:’ve|'ve| have) been selected|winner|you(?:’ve|'ve| have) won|guaranteed|risk[- ]free|\d+ ?% (?:returns?|profit|interest))/gi, word: true,
+    cls: 'flag-purple', label: 'Too good to be true. Prizes and guaranteed returns are classic bait.' },
+  { re: /(whatsapp|telegram|gift ?cards?|crypto|bitcoin|bank transfer|safe account)/gi, word: true,
+    cls: 'flag-purple', label: 'An unusual way to pay or talk. Genuine firms do not move you to WhatsApp, gift cards, crypto or a "safe account".' }
+];
+
+function isWordChar(ch) {
+  return !!ch && /[a-z0-9]/i.test(ch);
+}
+
+function findFlags(val) {
+  var hits = [];
+  for (var r = 0; r < FLAG_RULES.length; r++) {
+    var rule = FLAG_RULES[r];
+    rule.re.lastIndex = 0;
+    var m;
+    while ((m = rule.re.exec(val)) !== null) {
+      if (!m[0].length) { rule.re.lastIndex++; continue; }
+      if (rule.word && (isWordChar(val.charAt(m.index - 1)) || isWordChar(val.charAt(m.index + m[0].length)))) continue;
+      hits.push({ s: m.index, e: m.index + m[0].length, rule: r });
+    }
+  }
+  hits.sort(function(a, b) { return a.s - b.s || (b.e - b.s) - (a.e - a.s); });
+  var kept = [];
+  var lastEnd = -1;
+  for (var i = 0; i < hits.length; i++) {
+    if (hits[i].s >= lastEnd) { kept.push(hits[i]); lastEnd = hits[i].e; }
+  }
+  return kept;
+}
+
+function renderFlags(textId, legendId, val) {
+  var textEl = document.getElementById(textId);
+  var legendEl = document.getElementById(legendId);
+  if (!textEl || !legendEl) return;
+  var hits = findFlags(val);
+  var html = '';
+  var pos = 0;
+  var used = {};
+  for (var i = 0; i < hits.length; i++) {
+    var h = hits[i];
+    var rule = FLAG_RULES[h.rule];
+    html += esc(val.substring(pos, h.s));
+    html += '<mark class="flag-mark ' + rule.cls + '" title="' + esc(rule.label) + '">' + esc(val.substring(h.s, h.e)) + '</mark>';
+    pos = h.e;
+    used[h.rule] = true;
+  }
+  html += esc(val.substring(pos));
+  textEl.innerHTML = html;
+
+  var legend = '';
+  for (var r = 0; r < FLAG_RULES.length; r++) {
+    if (used[r]) {
+      legend += '<div class="flag-legend-item"><span class="flag-swatch ' + FLAG_RULES[r].cls + '"></span><span>' + esc(FLAG_RULES[r].label) + '</span></div>';
+    }
+  }
+  if (!hits.length) {
+    legend = '<p class="flag-none">We did not spot the usual warning words. That does not make it safe &mdash; careful scammers avoid them. Always check through the official website or app you already use.</p>';
+  }
+  legendEl.innerHTML = legend;
+}
+
+function shareWarning(btn) {
+  var verdict = _lastVerdict || 'Check before you act';
+  var action = _lastSafetyAction || 'Do not click links or share details. Check through the official website or app you already use.';
+  var text = 'I checked a suspicious message with 1LINE Legit. Verdict: ' + verdict + '. ' + action + ' If you get one like it, check it here:';
+  shareText('1LINE Legit', text, 'https://oi-ecosystem.github.io/1line/legit/', btn);
+}
+
+function showAlreadyInfo(type) {
+  var el = document.getElementById('already-info');
+  el.textContent = ALREADY_ADVICE[type] || '';
+  el.style.display = 'block';
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function unlockLegit() {
+  var val = document.getElementById('main-input').value.trim();
+  if (!val || val.length < 20) { alert('Please paste the message you want us to check first.'); return; }
+
+  sessionStorage.setItem('legit_data', JSON.stringify({ val: val, chips: _lastChips, verdict: _lastVerdict, verdictSub: _lastVerdictSub, safetyAction: _lastSafetyAction }));
+  window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/LEGIT_UUID_PLACEHOLDER';
+}
+
+function showOverlay(cb) {
+  var ov = document.getElementById('overlay');
+  ov.className = 'overlay active';
+  setTimeout(cb, 600);
+}
+
+function hideOverlay() {
+  var ov = document.getElementById('overlay');
+  ov.className = 'overlay';
+}
+
+function runAILegit(val) {
+  _lastInput = val;
+
+  if (!_lastVerdict) {
+    generateLegit(val);
+  }
+
+  var outSec = document.getElementById('output-section');
+  if (outSec) outSec.style.display = 'none';
+
+  showOverlay(function() {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    var hero = document.querySelector('section.hero');
+    var inputSec = document.querySelector('section.input-section');
+    var howSec = document.querySelector('section.how-section');
+    if (hero)     hero.style.display     = 'none';
+    if (inputSec) inputSec.style.display = 'none';
+    if (howSec)   howSec.style.display   = 'none';
+    if (outSec)   outSec.style.display   = 'block';
+
+    var toHide = outSec.querySelectorAll('.section-eyebrow, .heard-block, #verdict-card, #flag-card, #safety-card, .example-section, #premium-gate, #share-card, #retry-card');
+    toHide.forEach(function(el) { el.style.display = 'none'; });
+
+    _doRunAI(val);
+  });
+}
+
+function _doRunAI(val) {
+  var systemPrompt = 'You are a UK scam intelligence analyst. Analyse the submitted text for scam indicators, then search the web for current UK scam reports that match what the user has described. Always reply ONLY in valid JSON — never include markdown, explanation or text outside the JSON. Never say "definitely safe". Never invent sources. If you search and find relevant current intelligence, include it accurately with real source URLs. UK-specific reporting bodies include: Report Fraud (reportfraud.police.uk, the official UK fraud reporting service that replaced Action Fraud; phone 0300 123 2040), NCSC (ncsc.gov.uk), Which? (which.co.uk), Citizens Advice (citizensadvice.org.uk), Financial Conduct Authority (fca.org.uk). Suspicious texts can be forwarded free to 7726. Suspicious emails can be forwarded to report@phishing.gov.uk. 159 is a free number that connects you safely to most major UK banks. Never give the user a phone number taken from the suspicious message.';
+
+  var userPrompt = 'Analyse this message for scam indicators. Search the web for current UK reports of this type of scam (last 30-60 days). Return ONLY a valid JSON object with this exact structure:\n\n{\n  "full_verdict": "2-3 sentences explaining the verdict with confidence level",\n  "what_found": "detailed analysis of what this message contains",\n  "red_flags": ["flag1", "flag2", "flag3"],\n  "mechanism": "plain English explanation of how this scam works and what the fraudsters want",\n  "intelligence": "what current UK sources say about this type of scam right now",\n  "verify_steps": ["step1", "step2", "step3"],\n  "already_acted": "what to do if you already clicked, entered details or paid — covering each scenario",\n  "next_steps": ["action1", "action2", "action3"],\n  "report_to": "where and how to report this in the UK with specific names and URLs",\n  "watch_for": ["follow-up attempt 1", "follow-up attempt 2"],\n  "bank_script": {\n    "opening": "what to say first when the bank answers: that you think you have been targeted by a scam and want to protect your account",\n    "explain": "one or two sentences describing what happened, in plain words, based on this message",\n    "ask_for": ["thing to ask the bank to do 1", "thing 2", "thing 3"],\n    "before_you_hang_up": "what to note before ending the call: adviser name, case reference, what they agreed to do"\n  },\n  "report_text": "a short factual report the person can paste into the Report Fraud form or an email: what was received, when [date], from what [sender number or address], what it asked for, and whether anything was clicked or paid [yes/no]"\n}\n\nLENGTH LIMITS (strict): each text field under 70 words; report_text under 90 words; each list at most 4 items, one sentence each; bank_script fields one or two short spoken sentences. Use [square brackets] for details the person must fill in. Never invent dates, numbers or names.\n\nMessage to analyse:\n' + val;
+
+  callSearchAPI(systemPrompt, userPrompt, function(text, sources) {
+    try {
+      var clean = text.replace(/```json/g,'').replace(/```/g,'').trim();
+      var start = clean.indexOf('{');
+      var end = clean.lastIndexOf('}');
+      if (start !== -1 && end !== -1) clean = clean.substring(start, end + 1);
+      var parsed = JSON.parse(clean);
+      renderAIResponse(parsed, sources);
+    } catch(e) {
+      showRetry();
+    }
+  }, function(err) {
+    showRetry();
+  });
+}
+
+function showRetry() {
+  hideOverlay();
+  document.getElementById('ai-premium').style.display = 'none';
+  var outSec = document.getElementById('output-section');
+  if (outSec) {
+    outSec.style.display = 'block';
+    outSec.querySelectorAll('.section-eyebrow, .heard-block, #verdict-card, #flag-card, #safety-card, #share-card').forEach(function(el){ el.style.display = ''; });
+  }
+  var rc = document.getElementById('retry-card');
+  if (rc) {
+    rc.style.display = '';
+    rc.className = 'retry-card visible';
+    rc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function retryAI() {
+  var rc = document.getElementById('retry-card');
+  if (rc) rc.className = 'retry-card';
+  _aiUnlocked = true;
+  var val = _lastInput || document.getElementById('main-input').value.trim();
+  runAILegit(val);
+}
+
+function bankScriptText(b) {
+  var lines = [];
+  if (b.opening) lines.push('OPENING: ' + b.opening);
+  if (b.explain) lines.push('WHAT HAPPENED: ' + b.explain);
+  var a = b.ask_for || [];
+  if (a.length) {
+    lines.push('ASK THEM TO:');
+    for (var i = 0; i < a.length; i++) lines.push((i + 1) + '. ' + a[i]);
+  }
+  if (b.before_you_hang_up) lines.push('BEFORE YOU HANG UP: ' + b.before_you_hang_up);
+  return lines.join('\n\n');
+}
+
+function callSearchAPI(systemPrompt, userPrompt, onSuccess, onError) {
+  fetch('https://rcloop-proxy.vercel.app/api/ai-search', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ system: systemPrompt, prompt: userPrompt })
+  })
+  .then(function(r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  })
+  .then(function(data) {
+    var text = data.content && data.content[0] ? data.content[0].text : '';
+    if (!text) throw new Error('Empty response');
+    var sources = data.sources || [];
+    onSuccess(text, sources);
+  })
+  .catch(function(e) {
+    if (onError) onError(e);
+  });
+}
+
+function renderAIResponse(d, sources) {
+  hideOverlay();
+
+  var aiPrem = document.getElementById('ai-premium');
+  aiPrem.style.display = 'block';
+
+  // 01 Full verdict
+  document.getElementById('r-full-verdict').innerHTML = '<p>' + esc(d.full_verdict || '') + '</p>';
+
+  // 02 What found
+  document.getElementById('r-what-found').innerHTML = '<p>' + esc(d.what_found || '') + '</p>';
+
+  _copyStore = [];
+
+  // 03 Red flags (their own message, marked up, then the analyst list)
+  renderFlags('r-flag-text', 'r-flag-legend', _lastInput || '');
+
+  var rfEl = document.getElementById('r-red-flags');
+  rfEl.innerHTML = '';
+  var flags = d.red_flags || [];
+  for (var i = 0; i < flags.length; i++) {
+    var fi = document.createElement('div');
+    fi.className = 'red-flag';
+    fi.textContent = flags[i];
+    rfEl.appendChild(fi);
+  }
+
+  // 04 Mechanism
+  document.getElementById('r-mechanism').innerHTML = '<p>' + esc(d.mechanism || '') + '</p>';
+
+  // 05 Intelligence
+  document.getElementById('r-intelligence').innerHTML = '<p>' + esc(d.intelligence || '') + '</p>';
+
+  // Sources — required display when search results used
+  if (sources && sources.length > 0) {
+    var srcBlock = document.getElementById('r-sources');
+    var srcList = document.getElementById('r-source-list');
+    srcList.innerHTML = '';
+    for (var j = 0; j < sources.length; j++) {
+      var src = sources[j];
+      var srcItem = document.createElement('div');
+      srcItem.className = 'source-item';
+      var a = document.createElement('a');
+      a.href = src.url || '#';
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = src.title || src.url || 'Source';
+      srcItem.appendChild(a);
+      srcList.appendChild(srcItem);
+    }
+    srcBlock.style.display = 'block';
+  }
+
+  // 06 Verify steps
+  var verEl = document.getElementById('r-verify');
+  verEl.innerHTML = '';
+  var vsteps = d.verify_steps || [];
+  for (var k = 0; k < vsteps.length; k++) {
+    var vs = document.createElement('div');
+    vs.className = 'verify-step';
+    vs.innerHTML = '<span class="verify-num">' + (k+1) + '</span><span class="verify-text">' + esc(vsteps[k]) + '</span>';
+    verEl.appendChild(vs);
+  }
+
+  // 07 Already acted
+  document.getElementById('r-already-acted').innerHTML = '<p>' + esc(d.already_acted || '') + '</p>';
+
+  // 08 Bank phone script
+  var bs = d.bank_script || {};
+  var bsHTML = '';
+  if (bs.opening) bsHTML += '<div class="script-step"><p class="script-step-label">Open with</p><p class="script-step-text">&ldquo;' + esc(bs.opening) + '&rdquo;</p></div>';
+  if (bs.explain) bsHTML += '<div class="script-step"><p class="script-step-label">Explain what happened</p><p class="script-step-text">&ldquo;' + esc(bs.explain) + '&rdquo;</p></div>';
+  var askFor = bs.ask_for || [];
+  if (askFor.length) {
+    bsHTML += '<div class="script-step"><p class="script-step-label">Ask them to</p><ol class="script-list">';
+    for (var b = 0; b < askFor.length; b++) bsHTML += '<li>' + esc(askFor[b]) + '</li>';
+    bsHTML += '</ol></div>';
+  }
+  if (bs.before_you_hang_up) bsHTML += '<div class="script-step"><p class="script-step-label">Before you hang up</p><p class="script-step-text">' + esc(bs.before_you_hang_up) + '</p></div>';
+  if (bsHTML) bsHTML += '<div class="script-step"><p class="script-step-label">Which number to call</p><p class="script-step-text">The number on the back of your card, your bank\'s official app, or 159 &mdash; never a number from the suspicious message.</p></div>';
+  document.getElementById('r-bank-script').innerHTML = bsHTML;
+  document.getElementById('r-bank-section').style.display = bsHTML ? '' : 'none';
+  document.getElementById('tools-bank-script').innerHTML = bsHTML ? copyBtnHTML(bankScriptText(bs), 'Copy bank script') : '';
+
+  // 09 Next steps
+  var nsEl = document.getElementById('r-next-steps');
+  nsEl.innerHTML = '';
+  var nsteps = d.next_steps || [];
+  for (var m = 0; m < nsteps.length; m++) {
+    var ns = document.createElement('div');
+    ns.className = 'action-step';
+    ns.innerHTML = '<span class="action-num">' + (m+1) + '</span><span class="action-text">' + esc(nsteps[m]) + '</span>';
+    nsEl.appendChild(ns);
+  }
+
+  // 10 Report to + ready-to-paste report
+  document.getElementById('r-report-to').innerHTML = '<p>' + esc(d.report_to || '') + '</p>';
+  var rtWrap = document.getElementById('r-report-text-wrap');
+  if (d.report_text) {
+    document.getElementById('r-report-text').textContent = d.report_text;
+    document.getElementById('tools-report-text').innerHTML = copyBtnHTML(d.report_text, 'Copy report text');
+    rtWrap.style.display = 'block';
+  } else {
+    rtWrap.style.display = 'none';
+  }
+
+  // 11 Watch for
+  var watchEl = document.getElementById('r-watch-items');
+  watchEl.innerHTML = '';
+  var watches = d.watch_for || [];
+  for (var n = 0; n < watches.length; n++) {
+    var wi = document.createElement('div');
+    wi.className = 'watch-item';
+    wi.textContent = watches[n];
+    watchEl.appendChild(wi);
+  }
+
+  aiPrem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var ta = document.getElementById('main-input');
+  var cc = document.getElementById('char-count');
+  cc.textContent = '0 characters';
+
+  if (window.location.search.indexOf('unlocked=true') === -1) return;
+
+  _aiUnlocked = true;
+
+  var stored = sessionStorage.getItem('legit_data');
+  if (stored) {
+    try {
+      var d = JSON.parse(stored);
+      if (d && d.val) {
+        ta.value = d.val;
+        _lastChips      = d.chips      || [];
+        _lastVerdict    = d.verdict    || '';
+        _lastVerdictSub = d.verdictSub || '';
+        _lastSafetyAction = d.safetyAction || '';
+        countChars();
+
+        var unlockCard = document.getElementById('unlock-card');
+        if (unlockCard) unlockCard.className = 'unlock-card visible';
+
+        runAILegit(d.val);
+        return;
+      }
+    } catch(e) {}
+  }
+
+  var unlockCard = document.getElementById('unlock-card');
+  if (unlockCard) unlockCard.className = 'unlock-card visible';
+  var outSec = document.getElementById('output-section');
+  if (outSec) outSec.style.display = 'block';
+});
+</script>
+
+<script>
+/* ── v1.3 TOOLS: copy, save/print, calendar reminder (.ics), share. No server calls. ── */
+var _copyStore = [];
+
+function storeCopy(text) {
+  _copyStore.push(String(text || ''));
+  return _copyStore.length - 1;
+}
+
+function copyBtnHTML(text, label) {
+  var i = storeCopy(text);
+  return '<button type="button" class="tool-btn" onclick="copyStored(' + i + ', this)">' + (label || 'Copy') + '</button>';
+}
+
+function copyStored(i, btn) {
+  copyText(_copyStore[i] || '', btn);
+}
+
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.setAttribute('readonly', '');
+  ta.style.position = 'fixed';
+  ta.style.top = '-1000px';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); } catch (e) {}
+  document.body.removeChild(ta);
+}
+
+function copyText(text, btn) {
+  function done() {
+    if (!btn) return;
+    var old = btn.getAttribute('data-label') || btn.textContent;
+    btn.setAttribute('data-label', old);
+    btn.textContent = 'Copied';
+    if (btn.className.indexOf(' done') === -1) btn.className += ' done';
+    setTimeout(function() {
+      btn.textContent = old;
+      btn.className = btn.className.replace(' done', '');
+    }, 1800);
+  }
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(done, function() { fallbackCopy(text); done(); });
+  } else {
+    fallbackCopy(text);
+    done();
+  }
+}
+
+function saveReport() {
+  window.print();
+}
+
+function icsEscape(s) {
+  return String(s || '')
+    .replace(/\\/g, '\\\\')
+    .replace(/;/g, '\\;')
+    .replace(/,/g, '\\,')
+    .replace(/\r?\n/g, '\\n');
+}
+
+function icsDate(d) {
+  var m = d.getMonth() + 1;
+  var day = d.getDate();
+  return String(d.getFullYear()) + (m < 10 ? '0' : '') + m + (day < 10 ? '0' : '') + day;
+}
+
+function dateInDays(n) {
+  var d = new Date();
+  d.setDate(d.getDate() + n);
+  return d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'long' });
+}
+
+function downloadICS(title, desc, daysFromNow, filename) {
+  var days = parseInt(daysFromNow, 10);
+  if (!days || days < 1 || days > 365) days = 14;
+  var start = new Date();
+  start.setDate(start.getDate() + days);
+  var end = new Date(start.getTime());
+  end.setDate(end.getDate() + 1);
+  var stamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+  var lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//1LINE//Reminder//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    'UID:' + stamp + '-' + Math.floor(Math.random() * 1000000000) + '@1line',
+    'DTSTAMP:' + stamp,
+    'DTSTART;VALUE=DATE:' + icsDate(start),
+    'DTEND;VALUE=DATE:' + icsDate(end),
+    'SUMMARY:' + icsEscape(title),
+    'DESCRIPTION:' + icsEscape(desc),
+    'BEGIN:VALARM',
+    'TRIGGER:PT9H',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:' + icsEscape(title),
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ];
+  var blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = filename || 'reminder.ics';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function() { document.body.removeChild(a); URL.revokeObjectURL(url); }, 800);
+  return days;
+}
+
+function shareText(title, text, url, btn) {
+  if (navigator.share) {
+    navigator.share({ title: title, text: text, url: url }).catch(function() {});
+    return;
+  }
+  copyText(text + '\n' + url, btn);
+}
+</script>
+
+<script>
+/* ── MICROPHONE (browser speech-to-text, no cost, nothing sent to our server) ── */
+(function() {
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var btns = document.querySelectorAll('.mic-btn');
+  if (!btns.length) return;
+  var i;
+  if (!SR) { for (i = 0; i < btns.length; i++) { btns[i].style.display = 'none'; } return; }
+  var active = null;
+  function setup(btn) {
+    var tid = btn.getAttribute('data-target');
+    var ta = document.getElementById(tid);
+    var status = document.getElementById('mic-status-' + tid);
+    if (!ta) { btn.style.display = 'none'; return; }
+    btn.style.display = 'flex';
+    btn.addEventListener('click', function() {
+      if (active && active.btn === btn) { active.rec.stop(); return; }
+      if (active) { active.rec.stop(); }
+      var rec = new SR();
+      rec.lang = 'en-GB';
+      rec.interimResults = true;
+      rec.continuous = false;
+      var base = ta.value ? ta.value.replace(/\s+$/, '') + ' ' : '';
+      var max = ta.maxLength > 0 ? ta.maxLength : 100000;
+      function stopUI() {
+        btn.classList.remove('listening');
+        btn.setAttribute('aria-pressed', 'false');
+        if (status) status.className = 'mic-status';
+        if (active && active.btn === btn) active = null;
+      }
+      rec.onresult = function(e) {
+        var said = '';
+        for (var r = 0; r < e.results.length; r++) { said += e.results[r][0].transcript; }
+        if (!base && said) { said = said.charAt(0).toUpperCase() + said.slice(1); }
+        ta.value = (base + said).slice(0, max);
+        ta.dispatchEvent(new Event('input', { bubbles: true }));
+      };
+      rec.onend = stopUI;
+      rec.onerror = stopUI;
+      try {
+        rec.start();
+        active = { btn: btn, rec: rec };
+        btn.classList.add('listening');
+        btn.setAttribute('aria-pressed', 'true');
+        if (status) status.className = 'mic-status visible';
+      } catch (err) { stopUI(); }
+    });
+  }
+  for (i = 0; i < btns.length; i++) { setup(btns[i]); }
+})();
+</script>
+
+<script data-goatcounter="https://signal333.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

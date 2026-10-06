@@ -1,0 +1,1307 @@
+<!-- 1LINE Complain v1.3 | Updated: 06 Oct 2026 09:15 | Phone script added (promised on gate), length caps for 4k limit, copy buttons, save/print, calendar reminders, retry on error (no re-pay), og image -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1LINE Complain - Make your complaint count</title>
+  <meta name="description" content="Tell us what happened. 1LINE Complain rates your complaint strength, identifies what's missing, and gives you the complete complaint strategy — letter, timeline, escalation and follow-up." />
+  <meta name="keywords" content="how to complain, complaint letter, how to escalate a complaint, consumer rights, flight cancellation refund, how to get a refund, complaint to ombudsman" />
+  <meta property="og:title" content="1LINE Complain - Something went wrong. Make it count." />
+  <meta property="og:description" content="One paragraph. Complete complaint strategy. The letter, the timeline, the escalation route." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://oi-ecosystem.github.io/1line/complain/" />
+  <meta property="og:image" content="https://oi-ecosystem.github.io/1line/complain/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://oi-ecosystem.github.io/1line/complain/og.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #FAF8F5;
+      --white: #FFFFFF;
+      --ink: #1A1A18;
+      --ink-mid: #4A4A46;
+      --ink-muted: #888884;
+      --ink-faint: #C4C4BE;
+      --border: rgba(26,26,24,0.10);
+      --border-mid: rgba(26,26,24,0.18);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --max: 640px;
+      --green: #2D7A5A;
+      --red: #C0392B;
+      --amber: #A0620A;
+      --gold: #B8903A;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+    nav { padding: 28px 0 0; display: flex; align-items: baseline; justify-content: space-between; }
+    .brand { font-family: var(--serif); font-size: 13px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+
+    .oneline-mark { display: inline-flex; align-items: baseline; gap: 0.04em; line-height: 1; text-decoration: none; }
+    .oneline-mark .n { font-family: var(--sans); font-weight: 500; font-size: 1em; color: var(--ink); letter-spacing: -0.02em; }
+    .oneline-mark .l { font-family: var(--sans); font-weight: 500; font-size: 0.5em; letter-spacing: 0.18em; text-transform: uppercase; color: #1A7FE8; position: relative; top: -0.1em; }
+
+    .buseful-badge { display: inline-flex; align-items: center; background: #1A2744; border-radius: 5px; padding: 5px 12px 5px 10px; text-decoration: none; margin-bottom: 16px; transition: opacity 0.2s; }
+    .buseful-badge:hover { opacity: 0.82; }
+    .buseful-badge-text { font-family: var(--sans); font-size: 11px; font-weight: 500; color: #FFFFFF; letter-spacing: 0.02em; }
+    .buseful-badge-text em { font-style: italic; color: #C4A96A; }
+
+    .hero { padding: 64px 0 48px; border-bottom: 0.5px solid var(--border); }
+    .hero-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 20px; }
+    .hero h1 { font-family: var(--serif); font-size: clamp(30px, 5vw, 42px); font-weight: 300; line-height: 1.18; color: var(--ink); margin-bottom: 18px; letter-spacing: -0.01em; }
+    .hero-sub { font-size: 15px; color: var(--ink-mid); font-weight: 300; max-width: 480px; line-height: 1.65; }
+
+    .input-section { padding: 48px 0 0; }
+    .input-prompt { font-family: var(--serif); font-size: 20px; font-weight: 400; color: var(--ink); margin-bottom: 6px; }
+    .input-hint { font-size: 12px; color: var(--ink-muted); margin-bottom: 16px; line-height: 1.6; }
+
+    .pills-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .pill-btn {
+      padding: 8px 14px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--ink-mid);
+      background: var(--white);
+      border: 0.5px solid var(--border-mid);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .pill-btn:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 16px;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--ink);
+      background: var(--white);
+      border: 0.5px solid var(--border-mid);
+      border-radius: 6px;
+      resize: vertical;
+      outline: none;
+      line-height: 1.65;
+      transition: border-color 0.15s;
+    }
+    textarea:focus { border-color: var(--ink-mid); }
+    textarea::placeholder { color: var(--ink-faint); }
+
+    .char-row { display: flex; justify-content: flex-end; margin-top: 6px; margin-bottom: 20px; }
+    .char-count { font-size: 11px; color: var(--ink-faint); }
+    .char-count.near { color: var(--amber); }
+    .char-count.over { color: var(--red); }
+
+    .spell-panel { display: none; background: #FFFDF5; border: 0.5px solid rgba(160,98,10,0.22); border-radius: 6px; padding: 14px 16px; margin-bottom: 18px; }
+    .spell-panel.visible { display: block; }
+    .spell-panel p { font-size: 13px; color: var(--amber); margin-bottom: 10px; }
+    .spell-actions { display: flex; gap: 10px; }
+    .spell-btn { padding: 7px 16px; font-size: 12px; font-weight: 500; border-radius: 4px; border: none; cursor: pointer; transition: opacity 0.15s; }
+    .spell-btn.primary { background: var(--ink); color: var(--white); }
+    .spell-btn.secondary { background: transparent; color: var(--ink-mid); border: 0.5px solid var(--border-mid); }
+    .spell-btn:hover { opacity: 0.78; }
+
+    .generate-btn {
+      width: 100%;
+      padding: 16px 24px;
+      background: var(--ink);
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 500;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      letter-spacing: 0.01em;
+      transition: opacity 0.2s;
+      margin-bottom: 40px;
+    }
+    .generate-btn:hover { opacity: 0.82; }
+    .generate-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .how-section { padding: 32px 0 40px; border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); margin-bottom: 40px; }
+    .how-section h2 { font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--ink); margin-bottom: 20px; }
+    .how-steps { display: flex; flex-direction: column; gap: 14px; }
+    .how-step { display: flex; gap: 14px; align-items: flex-start; }
+    .how-num { font-size: 11px; font-weight: 500; color: var(--ink-faint); min-width: 20px; padding-top: 2px; }
+    .how-text { font-size: 14px; color: var(--ink-mid); font-weight: 300; line-height: 1.6; }
+
+    .output-section { padding: 0 0 60px; }
+    .section-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 28px; }
+
+    .heard-block { margin-bottom: 32px; }
+    .heard-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 12px; }
+    .heard-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .heard-chip { padding: 6px 12px; background: var(--white); border: 0.5px solid var(--border-mid); border-radius: 4px; font-size: 12px; color: var(--ink-mid); }
+
+    .out-card { background: var(--white); border: 0.5px solid var(--border); border-radius: 8px; padding: 28px; margin-bottom: 20px; }
+    .out-card-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 10px; }
+    .out-card-title { font-family: var(--serif); font-size: 26px; font-weight: 400; color: var(--ink); margin-bottom: 8px; }
+    .out-card-title.strong { color: var(--green); }
+    .out-card-title.moderate { color: var(--amber); }
+    .out-card-title.weak { color: var(--red); }
+    .out-card-sub { font-size: 14px; color: var(--ink-mid); font-weight: 300; line-height: 1.6; }
+
+    .missing-card { background: #FFFDF5; border: 0.5px solid rgba(160,98,10,0.22); border-radius: 8px; padding: 24px 28px; margin-bottom: 20px; }
+    .missing-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); margin-bottom: 10px; }
+    .missing-text { font-size: 15px; color: var(--ink); font-weight: 400; line-height: 1.65; }
+
+    .example-section { margin-bottom: 32px; }
+    .example-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 12px; }
+    .example-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+    .example-pill { padding: 6px 12px; background: var(--cream); border: 0.5px solid var(--border-mid); border-radius: 4px; font-size: 12px; color: var(--ink-mid); }
+
+    .premium-gate { background: var(--white); border: 0.5px solid var(--border-mid); border-radius: 10px; padding: 36px 28px; text-align: center; margin-top: 32px; }
+    .premium-gate-eyebrow { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .premium-gate-title { font-family: var(--serif); font-size: 26px; font-weight: 300; color: var(--ink); margin-bottom: 14px; line-height: 1.25; }
+    .premium-gate-sub { font-size: 14px; color: var(--ink-mid); font-weight: 300; margin-bottom: 28px; line-height: 1.65; max-width: 400px; margin-left: auto; margin-right: auto; }
+    .premium-features { text-align: left; margin-bottom: 28px; display: flex; flex-direction: column; gap: 10px; }
+    .premium-feature { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--ink-mid); }
+    .premium-feature::before { content: "—"; color: var(--ink-faint); flex-shrink: 0; }
+    .premium-cta { width: 100%; padding: 16px; background: var(--ink); color: var(--white); border: none; border-radius: 6px; font-family: var(--sans); font-size: 15px; font-weight: 500; cursor: pointer; transition: opacity 0.2s; margin-bottom: 12px; }
+    .premium-cta:hover { opacity: 0.82; }
+    .premium-price { font-size: 12px; color: var(--ink-faint); }
+
+    .share-nudge { background: var(--cream); border: 0.5px solid var(--border); border-radius: 6px; padding: 18px 20px; margin-top: 24px; }
+    .share-nudge p { font-size: 13px; color: var(--ink-muted); }
+
+    .ai-premium { padding: 0 0 60px; }
+    .ai-section-head { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 32px; }
+
+    .report-section { margin-bottom: 36px; padding-bottom: 36px; border-bottom: 0.5px solid var(--border); }
+    .report-section:last-child { border-bottom: none; }
+    .report-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px; }
+    .report-heading { font-family: var(--serif); font-size: 20px; font-weight: 400; color: var(--ink); margin-bottom: 14px; }
+    .report-body { font-size: 14px; color: var(--ink-mid); line-height: 1.75; font-weight: 300; }
+    .report-body p { margin-bottom: 10px; }
+    .report-body p:last-child { margin-bottom: 0; }
+
+    .timeline-block { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+    .timeline-item { display: flex; gap: 14px; align-items: flex-start; }
+    .timeline-date { font-size: 12px; font-weight: 500; color: var(--ink-mid); min-width: 100px; padding-top: 1px; }
+    .timeline-event { font-size: 14px; color: var(--ink); }
+
+    .evidence-list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+    .evidence-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--ink-mid); line-height: 1.6; }
+    .evidence-item::before { content: "✓"; color: var(--green); flex-shrink: 0; font-weight: 500; }
+    .evidence-missing-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--ink-mid); line-height: 1.6; }
+    .evidence-missing-item::before { content: "○"; color: var(--amber); flex-shrink: 0; }
+
+    .letter-block { background: #F8F7F4; border-left: 2px solid var(--ink-faint); border-radius: 0 4px 4px 0; padding: 20px 22px; font-size: 14px; color: var(--ink); line-height: 1.8; white-space: pre-line; font-family: var(--sans); }
+
+    .escalation-ladder { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+    .ladder-step { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 0.5px solid var(--border); }
+    .ladder-step:last-child { border-bottom: none; }
+    .ladder-num { font-size: 11px; font-weight: 500; color: var(--ink-faint); min-width: 18px; padding-top: 2px; }
+    .ladder-text { font-size: 14px; color: var(--ink-mid); line-height: 1.6; }
+
+    .follow-pack { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
+    .follow-item { background: var(--white); border: 0.5px solid var(--border); border-radius: 6px; padding: 16px 18px; }
+    .follow-item-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 8px; }
+    .follow-item-text { font-size: 14px; color: var(--ink); line-height: 1.7; white-space: pre-line; }
+
+    .cross-sell { margin-top: 48px; padding-top: 36px; border-top: 0.5px solid var(--border); }
+    .cross-sell-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 18px; }
+    .cross-links { display: flex; flex-direction: column; gap: 10px; }
+    .cross-link { display: flex; align-items: flex-start; gap: 12px; text-decoration: none; padding: 14px 16px; background: var(--white); border: 0.5px solid var(--border); border-radius: 6px; transition: border-color 0.15s; }
+    .cross-link:hover { border-color: var(--ink-mid); }
+    .cross-link-arrow { color: var(--ink-faint); flex-shrink: 0; padding-top: 1px; }
+    .cross-link-content { flex: 1; }
+    .cross-link-name { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+    .cross-link-desc { font-size: 12px; color: var(--ink-muted); }
+
+    .unlock-card { background: #EEF8F3; border: 0.5px solid rgba(45,122,90,0.25); border-radius: 8px; padding: 28px; margin-bottom: 32px; display: none; }
+    .unlock-card.visible { display: block; }
+    .unlock-card p { font-size: 14px; color: var(--green); font-weight: 400; }
+
+    footer { border-top: 0.5px solid var(--border); padding: 40px 0 56px; }
+    .footer-nav { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 20px; }
+    .footer-nav a { font-size: 12px; color: var(--ink-muted); text-decoration: none; }
+    .footer-nav a:hover { color: var(--ink); }
+    .footer-legal { font-size: 11px; color: var(--ink-faint); line-height: 1.6; }
+
+    .overlay {
+      position: fixed; inset: 0; background: var(--cream);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .overlay.active { opacity: 1; pointer-events: all; }
+    .overlay-inner { text-align: center; }
+    .overlay-spinner { width: 32px; height: 32px; border: 2px solid var(--border-mid); border-top-color: var(--ink); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 20px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .overlay-text { font-family: var(--serif); font-size: 18px; font-weight: 300; color: var(--ink); }
+
+    @media (max-width: 480px) {
+      .pills-row { gap: 6px; }
+      .pill-btn { font-size: 11px; padding: 7px 12px; }
+      .premium-gate { padding: 28px 20px; }
+      .out-card, .missing-card { padding: 22px 20px; }
+    }
+  
+/* -- READABILITY PASS (Career v1.6.1 template: contrast, size, bigger box, mic) -- */
+.brand{font-size:14px}
+.hero-eyebrow{font-size:12px;color:#5C5A55}
+.hero h1{font-weight:400}
+.hero-sub{font-size:17px;font-weight:400;color:#3A3A38;max-width:520px}
+.input-prompt{font-size:23px;font-weight:500}
+.input-hint{font-size:14px;color:#5C5A55}
+.pill-btn{font-size:13px;color:#3A3A38;border:1px solid rgba(26,26,24,0.26)}
+textarea{min-height:190px;padding:18px 64px 18px 20px;font-size:18px;font-weight:400;line-height:1.6;border:1.5px solid #948E82;border-radius:12px}
+textarea::placeholder{color:#77746C}
+textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
+.char-count{font-size:13px;color:#5C5A55}
+.spell-panel{border-radius:12px}
+.spell-panel .spell-heading{font-size:12px;letter-spacing:0.10em;text-transform:uppercase;color:#A0620A;margin-bottom:8px}
+.spell-panel .spell-corrected{font-size:14px;font-weight:400;color:#1A1A18;line-height:1.65;margin-bottom:14px}
+.spell-btn{font-size:13px}
+.generate-btn{font-size:15px;padding:17px 24px;background:#1A2744;border-radius:12px}
+.generate-btn:disabled{opacity:1;background:#DDE0E7;color:#3A4460}
+.how-section h2{font-weight:400}
+.how-num{color:#8F8C84}
+.how-text{font-size:15px;color:#3A3A38}
+.section-eyebrow{font-size:12px;color:#5C5A55}
+.footer-nav a{font-size:13px;color:#5C5A55}
+.footer-legal{font-size:12px;color:#6B6862}
+.input-wrap{position:relative}
+.mic-btn{position:absolute;right:12px;bottom:12px;width:42px;height:42px;border-radius:50%;border:1.5px solid #948E82;background:#fff;color:#1A2744;display:none;align-items:center;justify-content:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;z-index:2}
+.mic-btn:hover{border-color:#1A2744}
+.mic-btn:focus-visible{outline:3px solid rgba(26,39,68,0.35);outline-offset:2px}
+.mic-btn svg{width:20px;height:20px}
+.mic-btn.listening{background:#1A2744;border-color:#1A2744;color:#fff;animation:micpulse 1.4s ease-in-out infinite}
+@keyframes micpulse{0%,100%{box-shadow:0 0 0 0 rgba(26,39,68,0.35)}50%{box-shadow:0 0 0 8px rgba(26,39,68,0)}}
+.mic-status{display:none;margin:8px 0 0;font-size:13px;color:#1A2744;font-weight:500}
+.mic-status.visible{display:block}
+@media (prefers-reduced-motion: reduce){.mic-btn.listening{animation:none}}
+
+/* -- v1.3 TOOLS (copy, save, calendar, share, retry) - readable sans style, matches readability pass -- */
+.tool-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.tool-btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;font-family:var(--sans);font-size:14px;font-weight:500;line-height:1.2;color:#1A2744;background:#FFFFFF;border:1.5px solid #948E82;border-radius:10px;cursor:pointer;transition:border-color 0.15s,background 0.15s,color 0.15s;text-transform:none;letter-spacing:0}
+.tool-btn:hover{border-color:#1A2744}
+.tool-btn:focus-visible{outline:3px solid rgba(26,39,68,0.35);outline-offset:2px}
+.tool-btn.primary{background:#1A2744;color:#FFFFFF;border-color:#1A2744}
+.tool-btn.primary:hover{opacity:0.88}
+.tool-btn.done{border-color:#2D7A5A;color:#2D7A5A;background:#F0FBF6}
+.report-tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 32px;padding:18px 20px;background:#FFFFFF;border:1px solid rgba(26,26,24,0.16);border-radius:12px}
+.report-tools-label{width:100%;font-family:var(--sans);font-size:12px;letter-spacing:0.10em;text-transform:uppercase;color:#5C5A55;margin:0 0 4px}
+.report-tools-note{width:100%;font-family:var(--sans);font-size:13px;color:#5C5A55;line-height:1.5;margin:6px 0 0}
+.script-card{background:#FFFFFF;border:1px solid rgba(26,26,24,0.16);border-radius:12px;padding:6px 20px;margin-top:4px}
+.script-step{padding:14px 0;border-bottom:1px solid rgba(26,26,24,0.09)}
+.script-step:last-child{border-bottom:none}
+.script-step-label{font-family:var(--sans);font-size:12px;letter-spacing:0.10em;text-transform:uppercase;color:#5C5A55;margin-bottom:6px}
+.script-step-text{font-family:var(--sans);font-size:16px;font-weight:400;line-height:1.6;color:#1A1A18}
+.script-list{margin:0;padding-left:20px}
+.script-list li{font-family:var(--sans);font-size:16px;line-height:1.6;color:#1A1A18;margin-bottom:6px}
+.retry-card{display:none;background:#FFFBF0;border:1px solid rgba(160,98,10,0.30);border-radius:12px;padding:20px 22px;margin:0 0 24px}
+.retry-card.visible{display:block}
+.retry-title{font-family:var(--sans);font-size:17px;font-weight:500;color:#1A1A18;margin-bottom:6px}
+.retry-text{font-family:var(--sans);font-size:15px;color:#3A3A38;line-height:1.6;margin-bottom:14px}
+@media print{
+  nav, footer, .tool-row, .report-tools, .cross-sell, .crosssell-block, .mic-btn, .buseful-badge, .overlay, #overlay, #intelligence-overlay, .retry-card, .unlock-card, .share-nudge, .share-card { display:none !important; }
+  body{background:#FFFFFF}
+  .page{max-width:none;padding:0}
+  .report-section{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<div id="overlay" class="overlay">
+  <div class="overlay-inner">
+    <div class="overlay-spinner"></div>
+    <p class="overlay-text">Building your complaint strategy…</p>
+  </div>
+</div>
+
+<div class="page">
+
+  <nav>
+    <a href="https://oi-ecosystem.github.io/1line/" class="oneline-mark" aria-label="1LINE home">
+      <span class="n">1</span><span class="l">LINE</span>
+    </a>
+    <a href="https://oi-ecosystem.github.io/1line/" class="brand">Complain</a>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <a href="https://oi-ecosystem.github.io/b-useful/" class="buseful-badge" target="_blank" rel="noopener">
+        <span class="buseful-badge-text">B-<em>Useful</em></span>
+      </a>
+    </div>
+    <p class="hero-eyebrow">1LINE Complain</p>
+    <h1>Something has gone wrong.<br>Make your complaint count.</h1>
+    <p class="hero-sub">Tell us what happened in one paragraph. We rate your complaint strength, write the letter, build the timeline, and map the escalation route.</p>
+  </section>
+
+  <section class="input-section">
+    <p class="input-prompt">Tell us what happened.</p>
+    <p class="input-hint">Include who did what, when it happened, what you've already done and what you want. One paragraph is enough.</p>
+
+    <div class="pills-row" id="pills-row">
+      <button class="pill-btn" onclick="setPill('My airline cancelled my flight 3 hours before departure and refused to rebook me or offer a refund.')">My airline cancelled my flight</button>
+      <button class="pill-btn" onclick="setPill('I bought a faulty product from a retailer two months ago. They have refused to refund or replace it despite it being within warranty.')">The retailer won't refund me</button>
+      <button class="pill-btn" onclick="setPill('My landlord has failed to fix a leak in the property for six weeks despite repeated requests in writing.')">My landlord hasn't fixed the leak</button>
+      <button class="pill-btn" onclick="setPill('My energy company has overcharged me by over £200 based on estimated readings and won\'t correct the bill.')">My energy company overcharged me</button>
+    </div>
+
+    <div class="input-wrap">
+      <textarea
+        id="main-input"
+        placeholder="Describe what happened — what went wrong, when, and what you want from them."
+        maxlength="600"
+        oninput="countChars()"
+        onblur="spellReview()"
+        spellcheck="true"
+        lang="en-GB"
+      ></textarea>
+      <button type="button" class="mic-btn" data-target="main-input" aria-label="Speak instead of typing" aria-pressed="false" title="Speak instead of typing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg></button>
+    </div>
+    <p class="mic-status" id="mic-status-main-input" aria-live="polite">Listening… speak, then pause.</p>
+    <div class="char-row">
+      <span class="char-count" id="char-count">0 / 600</span>
+    </div>
+
+    <div class="spell-panel" id="spell-panel">
+      <p class="spell-heading">Quick check before we begin</p>
+      <p class="spell-corrected">Read your words once more. Words underlined in red may be misspelt. The clearer your words, the stronger your complaint.</p>
+      <div class="spell-actions">
+        <button class="spell-btn primary" onclick="spellContinue()">Looks good, continue</button>
+        <button class="spell-btn secondary" onclick="spellRecheck()">Edit my text</button>
+      </div>
+    </div>
+
+    <button class="generate-btn" id="generate-btn" onclick="handleGenerate()" disabled>
+      Analyse my complaint
+    </button>
+  </section>
+
+  <section class="how-section">
+    <h2>What you get</h2>
+    <div class="how-steps">
+      <div class="how-step"><span class="how-num">01</span><span class="how-text"><strong>Complaint Strength rating</strong> — whether your case is strong, moderate or needs more evidence.</span></div>
+      <div class="how-step"><span class="how-num">02</span><span class="how-text"><strong>What's missing</strong> — the one or two things that would strengthen your complaint before you send it.</span></div>
+      <div class="how-step"><span class="how-num">03</span><span class="how-text"><strong>The complete strategy</strong> — letter, timeline, evidence list, escalation route and follow-up pack. £9.</span></div>
+    </div>
+  </section>
+
+  <section class="output-section" id="output-section" style="display:none;">
+
+    <div class="unlock-card" id="unlock-card">
+      <p>✓ Payment confirmed. Your full complaint report is ready below.</p>
+    </div>
+
+    <div class="retry-card" id="retry-card">
+      <p class="retry-title">Your report didn't finish loading.</p>
+      <p class="retry-text">This is usually a brief connection hiccup. Your access is still unlocked &mdash; you won't be charged again.</p>
+      <button type="button" class="tool-btn primary" onclick="retryAI()">Try again</button>
+    </div>
+
+    <p class="section-eyebrow">Your complaint analysis</p>
+
+    <div class="heard-block" id="heard-block">
+      <p class="heard-label">What we heard</p>
+      <div class="heard-chips" id="heard-chips"></div>
+    </div>
+
+    <div class="out-card" id="strength-card">
+      <p class="out-card-label">Complaint strength</p>
+      <p class="out-card-title" id="strength-title">—</p>
+      <p class="out-card-sub" id="strength-sub"></p>
+    </div>
+
+    <div class="missing-card" id="missing-card">
+      <p class="missing-label">What's missing</p>
+      <p class="missing-text" id="missing-text"></p>
+    </div>
+
+    <div class="example-section">
+      <p class="example-label">Others have complained about</p>
+      <div class="example-pills">
+        <span class="example-pill">Airlines</span>
+        <span class="example-pill">Retailers</span>
+        <span class="example-pill">Energy companies</span>
+        <span class="example-pill">Landlords</span>
+      </div>
+    </div>
+
+    <div id="premium-gate" class="premium-gate">
+      <p class="premium-gate-eyebrow">Full complaint report — £9</p>
+      <p class="premium-gate-title">Get the complete complaint strategy</p>
+      <p class="premium-gate-sub">The letter, the timeline, the escalation route, and the follow-up pack — everything you need to make this stick.</p>
+      <div class="premium-features">
+        <span class="premium-feature">Clean complaint letter — ready to send</span>
+        <span class="premium-feature">Chronological timeline of what happened</span>
+        <span class="premium-feature">Evidence checklist — what you have and what's missing</span>
+        <span class="premium-feature">Escalation ladder — ombudsman and next steps</span>
+        <span class="premium-feature">Follow-up pack — reminder, escalation and final letter</span>
+        <span class="premium-feature">Phone script if you need to call first</span>
+        <span class="premium-feature">Copy-ready letters, save as PDF and calendar reminders for your deadlines</span>
+      </div>
+      <button class="premium-cta" onclick="unlockComplain()">Get the full report — £9</button>
+      <p class="premium-price">One-off payment · No subscription · Instant delivery</p>
+    </div>
+
+    <div class="share-nudge" id="share-nudge" style="display:none;">
+      <p>Know someone who's been fobbed off by a company? Share 1LINE Complain with them.</p>
+    </div>
+
+  </section>
+
+  <section class="ai-premium" id="ai-premium" style="display:none;">
+
+    <p class="ai-section-head">Your full complaint report</p>
+
+    <div class="report-tools" id="report-tools">
+      <p class="report-tools-label">Keep this report</p>
+      <button type="button" class="tool-btn primary" onclick="saveReport()">Save or print report</button>
+      <button type="button" class="tool-btn" onclick="addDeadlineReminder(this)">Add response deadline to calendar</button>
+      <button type="button" class="tool-btn" onclick="addEscalationReminder(this)">Add escalation reminder</button>
+      <p class="report-tools-note" id="report-tools-note">Reminders download as a calendar file &mdash; open it to add to your phone or computer calendar.</p>
+    </div>
+
+    <div class="report-section" id="r-what-happened">
+      <p class="report-label">01</p>
+      <p class="report-heading">What happened</p>
+      <div class="report-body" id="rb-what-happened"></div>
+    </div>
+
+    <div class="report-section" id="r-timeline">
+      <p class="report-label">02</p>
+      <p class="report-heading">Your timeline</p>
+      <div class="timeline-block" id="rb-timeline"></div>
+    </div>
+
+    <div class="report-section" id="r-what-went-wrong">
+      <p class="report-label">03</p>
+      <p class="report-heading">What went wrong</p>
+      <div class="report-body" id="rb-what-went-wrong"></div>
+    </div>
+
+    <div class="report-section" id="r-evidence-have">
+      <p class="report-label">04</p>
+      <p class="report-heading">Evidence you have</p>
+      <div class="evidence-list" id="rb-evidence-have"></div>
+    </div>
+
+    <div class="report-section" id="r-evidence-missing">
+      <p class="report-label">05</p>
+      <p class="report-heading">Evidence that would strengthen this</p>
+      <div class="evidence-list" id="rb-evidence-missing"></div>
+    </div>
+
+    <div class="report-section" id="r-what-you-want">
+      <p class="report-label">06</p>
+      <p class="report-heading">What you want</p>
+      <div class="report-body" id="rb-what-you-want"></div>
+    </div>
+
+    <div class="report-section" id="r-letter">
+      <p class="report-label">07</p>
+      <p class="report-heading">Complaint letter</p>
+      <div class="letter-block" id="rb-letter"></div>
+      <div class="tool-row" id="tools-letter"></div>
+    </div>
+
+    <div class="report-section" id="r-phone-script">
+      <p class="report-label">08</p>
+      <p class="report-heading">Phone script &mdash; if you call first</p>
+      <div class="script-card" id="rb-phone-script"></div>
+      <div class="tool-row" id="tools-phone-script"></div>
+    </div>
+
+    <div class="report-section" id="r-deadline">
+      <p class="report-label">09</p>
+      <p class="report-heading">Response deadline</p>
+      <div class="report-body" id="rb-deadline"></div>
+    </div>
+
+    <div class="report-section" id="r-escalation">
+      <p class="report-label">10</p>
+      <p class="report-heading">Escalation route</p>
+      <div class="escalation-ladder" id="rb-escalation"></div>
+    </div>
+
+    <div class="report-section" id="r-follow-up">
+      <p class="report-label">11</p>
+      <p class="report-heading">Follow-up pack</p>
+      <div class="follow-pack" id="rb-follow-up"></div>
+    </div>
+
+    <div class="report-section" id="r-final-escalation">
+      <p class="report-label">12</p>
+      <p class="report-heading">Final escalation</p>
+      <div class="letter-block" id="rb-final-escalation"></div>
+      <div class="tool-row" id="tools-final"></div>
+    </div>
+
+    <div class="cross-sell">
+      <p class="cross-sell-label">You might also need</p>
+      <div class="cross-links">
+        <a href="https://oi-ecosystem.github.io/1line/message/" class="cross-link">
+          <span class="cross-link-arrow">→</span>
+          <div class="cross-link-content">
+            <p class="cross-link-name">1LINE Message</p>
+            <p class="cross-link-desc">Turn the complaint letter into a polished message or email.</p>
+          </div>
+        </a>
+        <a href="https://oi-ecosystem.github.io/1line/decide/" class="cross-link">
+          <span class="cross-link-arrow">→</span>
+          <div class="cross-link-content">
+            <p class="cross-link-name">1LINE Decide</p>
+            <p class="cross-link-desc">They've refused. Should you escalate, accept or let it go?</p>
+          </div>
+        </a>
+        <a href="https://oi-ecosystem.github.io/1line/bill/" class="cross-link">
+          <span class="cross-link-arrow">→</span>
+          <div class="cross-link-content">
+            <p class="cross-link-name">1LINE Bill</p>
+            <p class="cross-link-desc">Understand the financial impact of what happened.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </section>
+
+  <footer>
+    <div class="footer-nav">
+      <a href="https://oi-ecosystem.github.io/1line/">Home</a>
+      <a href="https://oi-ecosystem.github.io/1line/resolver/">Resolver</a>
+      <a href="https://oi-ecosystem.github.io/1line/message/">Message</a>
+      <a href="https://oi-ecosystem.github.io/1line/decide/">Decide</a>
+      <a href="https://oi-ecosystem.github.io/1line/ask/">Ask</a>
+      <a href="https://oi-ecosystem.github.io/1line/legit/">Legit</a>
+    </div>
+    <p class="footer-legal">1LINE Complain is part of the LifeKit333 ecosystem. Results are guidance, not legal advice. © 2026 LifeKit333 / RC Loop Ltd.</p>
+  </footer>
+
+</div>
+
+<script>
+var PREMIUM_GATED = true;
+var _spellWarned = false;
+var _lastCountedVal = '';
+var _aiUnlocked = false;
+var _lastInput = '';
+var _lastChips = [];
+var _lastStrength = '';
+var _lastStrengthSub = '';
+var _lastMissing = '';
+
+function esc(s) {
+  if (!s) return '';
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+
+function setPill(text) {
+  var ta = document.getElementById('main-input');
+  ta.value = text;
+  _spellWarned = false;
+  _lastCountedVal = '';
+  countChars();
+  ta.focus();
+}
+
+function countChars() {
+  var ta = document.getElementById('main-input');
+  var cc = document.getElementById('char-count');
+  var btn = document.getElementById('generate-btn');
+  var len = ta.value.length;
+
+  if (ta.value !== _lastCountedVal) {
+    _lastCountedVal = ta.value;
+    _spellWarned = false;
+    var p = document.getElementById('spell-panel');
+    if (p) p.className = 'spell-panel';
+  }
+
+  cc.textContent = len + ' / 600';
+  cc.className = 'char-count';
+  if (len > 540) cc.className = 'char-count near';
+  if (len > 600) cc.className = 'char-count over';
+
+  btn.disabled = (len < 60 || len > 600);
+}
+
+function spellReview() {
+  if (_spellWarned) return;
+  var ta = document.getElementById('main-input');
+  var val = ta.value.trim();
+  if (val.length < 60) return;
+  var p = document.getElementById('spell-panel');
+  if (!p) return;
+  _spellWarned = true;
+  p.className = 'spell-panel visible';
+}
+
+function spellContinue() {
+  var p = document.getElementById('spell-panel');
+  if (p) p.className = 'spell-panel';
+  handleGenerate();
+}
+
+function spellRecheck() {
+  var p = document.getElementById('spell-panel');
+  if (p) p.className = 'spell-panel';
+  var ta = document.getElementById('main-input');
+  ta.focus();
+}
+
+function handleGenerate() {
+  var ta = document.getElementById('main-input');
+  var val = ta.value.trim();
+  if (val.length < 60) { alert('Please describe what happened in at least a few sentences.'); return; }
+  if (val.length > 600) { alert('Please keep your description under 600 characters.'); return; }
+
+  if (_spellWarned) {
+    var p = document.getElementById('spell-panel');
+    if (p && p.className.indexOf('visible') !== -1) return;
+  }
+
+  if (PREMIUM_GATED && !_aiUnlocked) {
+    generateComplain(val);
+    return;
+  }
+
+  runAIComplain(val);
+}
+
+function extractHeardChips(val) {
+  var chips = [];
+  var lower = val.toLowerCase();
+
+  var orgs = [
+    ['airline', 'Airline'], ['flight', 'Flight'], ['airport', 'Airport'],
+    ['amazon', 'Amazon'], ['retailer', 'Retailer'], ['shop', 'Shop'], ['store', 'Store'],
+    ['bank', 'Bank'], ['barclays', 'Barclays'], ['lloyds', 'Lloyds'], ['hsbc', 'HSBC'],
+    ['energy', 'Energy company'], ['british gas', 'British Gas'], ['eon', 'E.ON'], ['octopus', 'Octopus'],
+    ['landlord', 'Landlord'], ['letting agent', 'Letting agent'], ['estate agent', 'Estate agent'],
+    ['insurer', 'Insurer'], ['insurance', 'Insurance'],
+    ['telecoms', 'Telecoms'], ['broadband', 'Broadband'], ['sky', 'Sky'], ['bt', 'BT'], ['virgin', 'Virgin Media'],
+    ['council', 'Council'], ['local authority', 'Local authority'],
+    ['delivery', 'Delivery company'], ['royal mail', 'Royal Mail'], ['parcelforce', 'Parcelforce'],
+    ['subscription', 'Subscription'], ['gym', 'Gym']
+  ];
+  for (var i = 0; i < orgs.length; i++) {
+    if (lower.indexOf(orgs[i][0]) !== -1) { chips.push(orgs[i][1]); if (chips.length >= 2) break; }
+  }
+
+  var moneyMatch = val.match(/[£$€]\s?[\d,]+(?:\.\d{2})?/);
+  if (moneyMatch) chips.push(moneyMatch[0] + ' involved');
+
+  var dateMatch = val.match(/\b(?:january|february|march|april|may|june|july|august|september|october|november|december|\d{1,2}(?:st|nd|rd|th)?\s+(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)|\d{1,2}\/\d{1,2}(?:\/\d{2,4})?)\b/i);
+  if (dateMatch) chips.push('Dated ' + dateMatch[0]);
+
+  var weeks = lower.match(/(\d+)\s+weeks?\s+ago/);
+  var months = lower.match(/(\d+)\s+months?\s+ago/);
+  if (weeks) chips.push(weeks[1] + ' weeks ago');
+  else if (months) chips.push(months[1] + ' months ago');
+
+  if (lower.indexOf('refund') !== -1) chips.push('Refund requested');
+  else if (lower.indexOf('compensa') !== -1) chips.push('Compensation requested');
+  else if (lower.indexOf('repair') !== -1 || lower.indexOf('fix') !== -1) chips.push('Repair requested');
+  else if (lower.indexOf('replace') !== -1) chips.push('Replacement requested');
+  else if (lower.indexOf('apolog') !== -1) chips.push('Apology requested');
+
+  if (lower.indexOf('already email') !== -1 || lower.indexOf('already written') !== -1 || lower.indexOf('already contact') !== -1) chips.push('Already contacted them');
+  if (lower.indexOf('no response') !== -1 || lower.indexOf('ignored') !== -1 || lower.indexOf('not heard back') !== -1) chips.push('No response received');
+  if (lower.indexOf('cancelled') !== -1 || lower.indexOf('canceled') !== -1) chips.push('Cancellation');
+  if (lower.indexOf('faulty') !== -1 || lower.indexOf('broken') !== -1 || lower.indexOf('defect') !== -1) chips.push('Faulty goods');
+  if (lower.indexOf('overcharg') !== -1 || lower.indexOf('wrong bill') !== -1 || lower.indexOf('incorrect bill') !== -1) chips.push('Billing error');
+
+  return chips.slice(0, 5);
+}
+
+function calculateStrength(val) {
+  var lower = val.toLowerCase();
+  var score = 0;
+
+  if (val.length > 200) score += 2;
+  else if (val.length > 100) score += 1;
+
+  if (lower.match(/[£$€]\s?[\d,]+/)) score += 2;
+  if (lower.match(/\b(?:january|february|march|april|may|june|july|august|september|october|november|december|\d{1,2}(?:st|nd|rd|th)?|\d{1,2}\/\d{1,2})\b/i)) score += 1;
+  if (lower.indexOf('receipt') !== -1 || lower.indexOf('invoice') !== -1 || lower.indexOf('email') !== -1 || lower.indexOf('screenshot') !== -1 || lower.indexOf('photo') !== -1) score += 2;
+  if (lower.indexOf('warranty') !== -1 || lower.indexOf('consumer rights') !== -1 || lower.indexOf('regulation') !== -1 || lower.indexOf('ec261') !== -1 || lower.indexOf('under the') !== -1) score += 2;
+  if (lower.indexOf('already') !== -1 && (lower.indexOf('contact') !== -1 || lower.indexOf('email') !== -1 || lower.indexOf('call') !== -1)) score += 1;
+  if (lower.indexOf('refund') !== -1 || lower.indexOf('compensa') !== -1 || lower.indexOf('replace') !== -1 || lower.indexOf('repair') !== -1) score += 1;
+
+  if (score >= 7) return 'STRONG';
+  if (score >= 4) return 'MODERATE';
+  return 'NEEDS MORE EVIDENCE';
+}
+
+function getStrengthSub(strength, val) {
+  var lower = val.toLowerCase();
+  if (strength === 'STRONG') {
+    return 'Your complaint has clear evidence and a specific remedy. This is well-positioned to get a response.';
+  }
+  if (strength === 'MODERATE') {
+    if (lower.indexOf('receipt') === -1 && lower.indexOf('invoice') === -1 && lower.indexOf('email') === -1) {
+      return 'Your case is credible, but adding documented evidence would make it harder to dismiss.';
+    }
+    return 'Your complaint has substance. A clearer timeline and specific remedy will strengthen it further.';
+  }
+  return 'The situation is real, but we need more detail to build a complaint that will land.';
+}
+
+function getMissing(val) {
+  var lower = val.toLowerCase();
+  var missing = [];
+
+  if (!lower.match(/\b(?:january|february|march|april|may|june|july|august|september|october|november|december|\d{1,2}(?:st|nd|rd|th)?|\d{1,2}\/\d{1,2})\b/i)) {
+    missing.push('A specific date or timeline of what happened.');
+  }
+  if (lower.indexOf('receipt') === -1 && lower.indexOf('invoice') === -1 && lower.indexOf('email') === -1 && lower.indexOf('photo') === -1 && lower.indexOf('screenshot') === -1 && lower.indexOf('proof') === -1) {
+    missing.push('Any reference to evidence you have — receipts, emails, photos or screenshots.');
+  }
+  if (lower.indexOf('refund') === -1 && lower.indexOf('compensa') === -1 && lower.indexOf('replace') === -1 && lower.indexOf('repair') === -1 && lower.indexOf('apolog') === -1 && lower.indexOf('want') === -1) {
+    missing.push('What you actually want from them — a refund, a replacement, compensation or an apology.');
+  }
+  if (!lower.match(/[£$€]\s?[\d,]+/) && lower.indexOf('money') === -1 && lower.indexOf('paid') === -1 && lower.indexOf('charged') === -1) {
+    missing.push('The amount involved, or what was paid or charged.');
+  }
+
+  if (missing.length === 0) {
+    return 'Your description covers the key points. The full report will reconstruct your timeline and build the letter.';
+  }
+  return missing.slice(0, 2).join(' ');
+}
+
+function generateComplain(val) {
+  _lastInput = val;
+
+  var chips = extractHeardChips(val);
+  var strength = calculateStrength(val);
+  var strengthSub = getStrengthSub(strength, val);
+  var missing = getMissing(val);
+
+  _lastChips = chips;
+  _lastStrength = strength;
+  _lastStrengthSub = strengthSub;
+  _lastMissing = missing;
+
+  var heardEl = document.getElementById('heard-chips');
+  heardEl.innerHTML = '';
+  for (var i = 0; i < chips.length; i++) {
+    var chip = document.createElement('span');
+    chip.className = 'heard-chip';
+    chip.textContent = chips[i];
+    heardEl.appendChild(chip);
+  }
+
+  var titleEl = document.getElementById('strength-title');
+  titleEl.textContent = strength;
+  titleEl.className = 'out-card-title';
+  if (strength === 'STRONG') titleEl.className += ' strong';
+  else if (strength === 'MODERATE') titleEl.className += ' moderate';
+  else titleEl.className += ' weak';
+
+  document.getElementById('strength-sub').textContent = strengthSub;
+  document.getElementById('missing-text').textContent = missing;
+
+  var outSec = document.getElementById('output-section');
+  outSec.style.display = 'block';
+  outSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function unlockComplain() {
+  var val = document.getElementById('main-input').value.trim();
+  if (!val || val.length < 60) { alert('Please describe your complaint first.'); return; }
+
+  sessionStorage.setItem('complain_data', JSON.stringify({ val: val, chips: _lastChips, strength: _lastStrength, strengthSub: _lastStrengthSub, missing: _lastMissing }));
+  window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/COMPLAIN_UUID_PLACEHOLDER';
+}
+
+function showOverlay(cb) {
+  var ov = document.getElementById('overlay');
+  ov.className = 'overlay active';
+  setTimeout(cb, 600);
+}
+
+function hideOverlay() {
+  var ov = document.getElementById('overlay');
+  ov.className = 'overlay';
+}
+
+function runAIComplain(val) {
+  _lastInput = val;
+
+  if (!_lastStrength) {
+    generateComplain(val);
+  }
+
+  var outSec = document.getElementById('output-section');
+  if (outSec) outSec.style.display = 'none';
+
+  showOverlay(function() {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    var hero = document.querySelector('section.hero');
+    var inputSec = document.querySelector('section.input-section');
+    var howSec = document.querySelector('section.how-section');
+    if (hero)     hero.style.display     = 'none';
+    if (inputSec) inputSec.style.display = 'none';
+    if (howSec)   howSec.style.display   = 'none';
+    if (outSec)   outSec.style.display   = 'block';
+
+    var toHide = outSec.querySelectorAll('.section-eyebrow, .heard-block, .out-card, .missing-card, .example-section, #premium-gate, .share-nudge');
+    toHide.forEach(function(el) { el.style.display = 'none'; });
+
+    _doRunAI(val);
+  });
+}
+
+function _doRunAI(val) {
+  var systemPrompt = 'You are an expert consumer rights adviser and complaint strategist. Your job is to analyse a complaint situation and produce a structured, actionable complaint strategy. You always respond with valid JSON only — no markdown, no explanation outside the JSON structure. Your complaint letter should be formal, factual and effective. Your escalation advice should reference real UK bodies where applicable (Financial Ombudsman, Energy Ombudsman, Aviation ADR, Citizens Advice, Trading Standards, ICO, etc.).';
+
+  var userPrompt = 'Analyse this complaint and return ONLY a valid JSON object with this exact structure:\n\n{\n  "what_happened": "clean factual summary in 2-3 sentences",\n  "timeline": [\n    { "date": "date or period", "event": "what happened" }\n  ],\n  "what_went_wrong": "2-3 sentences separating fact from emotion",\n  "evidence_have": ["item1", "item2"],\n  "evidence_missing": ["item1", "item2"],\n  "what_you_want": "the specific remedy requested",\n  "complaint_letter": "the full formal complaint letter ready to send",\n  "phone_script": {\n    "opening": "the first thing to say once connected: who you are, your [reference number], and that you are calling to make a formal complaint",\n    "key_points": ["point 1", "point 2", "point 3"],\n    "the_ask": "exactly what to ask them to do, and by when",\n    "if_fobbed_off": "calm, firm words to use if they refuse, stall or say they cannot help",\n    "before_you_hang_up": "what to ask for before ending the call: the adviser name, a complaint reference, and written confirmation by email"\n  },\n  "deadline": "a sensible response deadline and why",\n  "deadline_days": 14,\n  "escalation_route": [\n    { "step": "1", "action": "where to go and what to say" }\n  ],\n  "follow_up": [\n    { "label": "Reminder (14 days)", "text": "the follow-up message" },\n    { "label": "Escalation (28 days)", "text": "the escalation message" }\n  ],\n  "final_escalation": "the final letter if they do not respond"\n}\n\n'
+    + 'LENGTH LIMITS (strict, so the whole report fits): complaint_letter under 220 words; each follow_up text under 80 words; final_escalation under 160 words; each phone_script field one or two short spoken sentences; key_points exactly 3; timeline at most 6 items; escalation_route at most 4 steps; evidence lists at most 4 items each. '
+    + 'deadline_days must be a whole number of days (normally 14). '
+    + 'Use [square brackets] for any detail the person must fill in (their name, account or booking reference, dates not given). Never invent facts, dates, amounts or reference numbers. '
+    + 'Do not state legal entitlements as certain: describe what the person can reasonably request and which body handles this type of complaint. Where it applies, mention that many UK ombudsmen take a complaint after 8 weeks or after a final response letter. '
+    + 'The phone script must sound natural when spoken aloud, polite and firm, never aggressive.\n\nComplaint situation:\n' + val;
+
+  callAnthropicAPI(systemPrompt, userPrompt, function(text) {
+    var parsed = null;
+    try {
+      var clean = text.replace(/```json/g,'').replace(/```/g,'').trim();
+      var start = clean.indexOf('{');
+      var end = clean.lastIndexOf('}');
+      if (start !== -1 && end !== -1) clean = clean.substring(start, end + 1);
+      parsed = JSON.parse(clean);
+    } catch(e) {
+      showRetry();
+      return;
+    }
+    renderAIResponse(parsed);
+  }, function(err) {
+    showRetry();
+  });
+}
+
+function showRetry() {
+  hideOverlay();
+  document.getElementById('ai-premium').style.display = 'none';
+  var outSec = document.getElementById('output-section');
+  if (outSec) outSec.style.display = 'block';
+  var rc = document.getElementById('retry-card');
+  if (rc) {
+    rc.style.display = '';
+    rc.className = 'retry-card visible';
+    rc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function retryAI() {
+  var rc = document.getElementById('retry-card');
+  if (rc) rc.className = 'retry-card';
+  _aiUnlocked = true;
+  var val = _lastInput || document.getElementById('main-input').value.trim();
+  runAIComplain(val);
+}
+
+var _lastReport = null;
+
+function addDeadlineReminder(btn) {
+  var d = _lastReport || {};
+  var days = parseInt(d.deadline_days, 10) || 14;
+  var desc = 'Check whether they have replied to your complaint. ' + (d.what_you_want ? 'You asked for: ' + d.what_you_want + ' ' : '') + 'If not, send the reminder letter from your 1LINE Complain report.';
+  downloadICS('Complaint: response deadline', desc, days, 'complaint-deadline.ics');
+  var note = document.getElementById('report-tools-note');
+  if (note) note.textContent = 'Deadline reminder created for ' + dateInDays(days) + '. Open the downloaded file to add it to your calendar.';
+}
+
+function addEscalationReminder(btn) {
+  var d = _lastReport || {};
+  var days = (parseInt(d.deadline_days, 10) || 14) + 14;
+  var desc = 'If your complaint is still not resolved, send the escalation letter from your 1LINE Complain report and follow the escalation route.';
+  downloadICS('Complaint: escalate if unresolved', desc, days, 'complaint-escalation.ics');
+  var note = document.getElementById('report-tools-note');
+  if (note) note.textContent = 'Escalation reminder created for ' + dateInDays(days) + '. Open the downloaded file to add it to your calendar.';
+}
+
+function phoneScriptText(p) {
+  var lines = [];
+  if (p.opening) lines.push('OPENING: ' + p.opening);
+  var kp = p.key_points || [];
+  if (kp.length) {
+    lines.push('KEY POINTS:');
+    for (var i = 0; i < kp.length; i++) lines.push((i + 1) + '. ' + kp[i]);
+  }
+  if (p.the_ask) lines.push('YOUR ASK: ' + p.the_ask);
+  if (p.if_fobbed_off) lines.push('IF THEY STALL OR REFUSE: ' + p.if_fobbed_off);
+  if (p.before_you_hang_up) lines.push('BEFORE YOU HANG UP: ' + p.before_you_hang_up);
+  return lines.join('\n\n');
+}
+
+function callAnthropicAPI(systemPrompt, userPrompt, onSuccess, onError) {
+  fetch('https://rcloop-proxy.vercel.app/api/ai', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ system: systemPrompt, prompt: userPrompt })
+  })
+  .then(function(r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  })
+  .then(function(data) {
+    var text = data.content && data.content[0] ? data.content[0].text : '';
+    if (!text) throw new Error('Empty response');
+    onSuccess(text);
+  })
+  .catch(function(e) {
+    if (onError) onError(e);
+  });
+}
+
+function renderAIResponse(d) {
+  hideOverlay();
+
+  var aiPrem = document.getElementById('ai-premium');
+  aiPrem.style.display = 'block';
+
+  // 01 What happened
+  var el = document.getElementById('rb-what-happened');
+  el.innerHTML = '<p>' + esc(d.what_happened || '') + '</p>';
+
+  // 02 Timeline
+  var tlEl = document.getElementById('rb-timeline');
+  tlEl.innerHTML = '';
+  var tl = d.timeline || [];
+  for (var i = 0; i < tl.length; i++) {
+    var item = document.createElement('div');
+    item.className = 'timeline-item';
+    item.innerHTML = '<span class="timeline-date">' + esc(tl[i].date || '') + '</span><span class="timeline-event">' + esc(tl[i].event || '') + '</span>';
+    tlEl.appendChild(item);
+  }
+
+  // 03 What went wrong
+  document.getElementById('rb-what-went-wrong').innerHTML = '<p>' + esc(d.what_went_wrong || '') + '</p>';
+
+  // 04 Evidence have
+  var evHave = document.getElementById('rb-evidence-have');
+  evHave.innerHTML = '';
+  var have = d.evidence_have || [];
+  for (var j = 0; j < have.length; j++) {
+    var evItem = document.createElement('div');
+    evItem.className = 'evidence-item';
+    evItem.textContent = have[j];
+    evHave.appendChild(evItem);
+  }
+
+  // 05 Evidence missing
+  var evMiss = document.getElementById('rb-evidence-missing');
+  evMiss.innerHTML = '';
+  var miss = d.evidence_missing || [];
+  for (var k = 0; k < miss.length; k++) {
+    var missItem = document.createElement('div');
+    missItem.className = 'evidence-missing-item';
+    missItem.textContent = miss[k];
+    evMiss.appendChild(missItem);
+  }
+
+  // 06 What you want
+  document.getElementById('rb-what-you-want').innerHTML = '<p>' + esc(d.what_you_want || '') + '</p>';
+
+  _lastReport = d;
+  _copyStore = [];
+
+  // 07 Letter
+  document.getElementById('rb-letter').textContent = d.complaint_letter || '';
+  document.getElementById('tools-letter').innerHTML = d.complaint_letter ? copyBtnHTML(d.complaint_letter, 'Copy letter') : '';
+
+  // 08 Phone script
+  var ps = d.phone_script || {};
+  var psEl = document.getElementById('rb-phone-script');
+  var psHTML = '';
+  if (ps.opening) psHTML += '<div class="script-step"><p class="script-step-label">Open with</p><p class="script-step-text">&ldquo;' + esc(ps.opening) + '&rdquo;</p></div>';
+  var kps = ps.key_points || [];
+  if (kps.length) {
+    psHTML += '<div class="script-step"><p class="script-step-label">Make these points</p><ol class="script-list">';
+    for (var p = 0; p < kps.length; p++) psHTML += '<li>' + esc(kps[p]) + '</li>';
+    psHTML += '</ol></div>';
+  }
+  if (ps.the_ask) psHTML += '<div class="script-step"><p class="script-step-label">Your ask</p><p class="script-step-text">&ldquo;' + esc(ps.the_ask) + '&rdquo;</p></div>';
+  if (ps.if_fobbed_off) psHTML += '<div class="script-step"><p class="script-step-label">If they stall or refuse</p><p class="script-step-text">&ldquo;' + esc(ps.if_fobbed_off) + '&rdquo;</p></div>';
+  if (ps.before_you_hang_up) psHTML += '<div class="script-step"><p class="script-step-label">Before you hang up</p><p class="script-step-text">' + esc(ps.before_you_hang_up) + '</p></div>';
+  psEl.innerHTML = psHTML;
+  document.getElementById('r-phone-script').style.display = psHTML ? '' : 'none';
+  document.getElementById('tools-phone-script').innerHTML = psHTML ? copyBtnHTML(phoneScriptText(ps), 'Copy phone script') : '';
+
+  // 08 Deadline
+  document.getElementById('rb-deadline').innerHTML = '<p>' + esc(d.deadline || '') + '</p>';
+
+  // 09 Escalation
+  var escEl = document.getElementById('rb-escalation');
+  escEl.innerHTML = '';
+  var esc_routes = d.escalation_route || [];
+  for (var m = 0; m < esc_routes.length; m++) {
+    var step = document.createElement('div');
+    step.className = 'ladder-step';
+    step.innerHTML = '<span class="ladder-num">' + esc(esc_routes[m].step || String(m+1)) + '</span><span class="ladder-text">' + esc(esc_routes[m].action || '') + '</span>';
+    escEl.appendChild(step);
+  }
+
+  // 10 Follow-up
+  var fuEl = document.getElementById('rb-follow-up');
+  fuEl.innerHTML = '';
+  var fu = d.follow_up || [];
+  for (var n = 0; n < fu.length; n++) {
+    var fuItem = document.createElement('div');
+    fuItem.className = 'follow-item';
+    fuItem.innerHTML = '<p class="follow-item-label">' + esc(fu[n].label || '') + '</p><p class="follow-item-text">' + esc(fu[n].text || '') + '</p>'
+      + (fu[n].text ? '<div class="tool-row">' + copyBtnHTML(fu[n].text, 'Copy') + '</div>' : '');
+    fuEl.appendChild(fuItem);
+  }
+
+  // 11 Final escalation
+  document.getElementById('rb-final-escalation').textContent = d.final_escalation || '';
+  document.getElementById('tools-final').innerHTML = d.final_escalation ? copyBtnHTML(d.final_escalation, 'Copy final letter') : '';
+
+  aiPrem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var ta = document.getElementById('main-input');
+  var cc = document.getElementById('char-count');
+  cc.textContent = '0 / 600';
+
+  if (window.location.search.indexOf('unlocked=true') === -1) return;
+
+  _aiUnlocked = true;
+
+  var stored = sessionStorage.getItem('complain_data');
+  if (stored) {
+    try {
+      var d = JSON.parse(stored);
+      if (d && d.val) {
+        ta.value = d.val;
+        _lastChips     = d.chips     || [];
+        _lastStrength  = d.strength  || '';
+        _lastStrengthSub = d.strengthSub || '';
+        _lastMissing   = d.missing   || '';
+        countChars();
+
+        var unlockCard = document.getElementById('unlock-card');
+        if (unlockCard) unlockCard.className = 'unlock-card visible';
+
+        runAIComplain(d.val);
+        return;
+      }
+    } catch(e) {}
+  }
+
+  var unlockCard = document.getElementById('unlock-card');
+  if (unlockCard) unlockCard.className = 'unlock-card visible';
+  var outSec = document.getElementById('output-section');
+  if (outSec) outSec.style.display = 'block';
+});
+</script>
+
+<script>
+/* ── v1.3 TOOLS: copy, save/print, calendar reminder (.ics), share. No server calls. ── */
+var _copyStore = [];
+
+function storeCopy(text) {
+  _copyStore.push(String(text || ''));
+  return _copyStore.length - 1;
+}
+
+function copyBtnHTML(text, label) {
+  var i = storeCopy(text);
+  return '<button type="button" class="tool-btn" onclick="copyStored(' + i + ', this)">' + (label || 'Copy') + '</button>';
+}
+
+function copyStored(i, btn) {
+  copyText(_copyStore[i] || '', btn);
+}
+
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.setAttribute('readonly', '');
+  ta.style.position = 'fixed';
+  ta.style.top = '-1000px';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); } catch (e) {}
+  document.body.removeChild(ta);
+}
+
+function copyText(text, btn) {
+  function done() {
+    if (!btn) return;
+    var old = btn.getAttribute('data-label') || btn.textContent;
+    btn.setAttribute('data-label', old);
+    btn.textContent = 'Copied';
+    if (btn.className.indexOf(' done') === -1) btn.className += ' done';
+    setTimeout(function() {
+      btn.textContent = old;
+      btn.className = btn.className.replace(' done', '');
+    }, 1800);
+  }
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(done, function() { fallbackCopy(text); done(); });
+  } else {
+    fallbackCopy(text);
+    done();
+  }
+}
+
+function saveReport() {
+  window.print();
+}
+
+function icsEscape(s) {
+  return String(s || '')
+    .replace(/\\/g, '\\\\')
+    .replace(/;/g, '\\;')
+    .replace(/,/g, '\\,')
+    .replace(/\r?\n/g, '\\n');
+}
+
+function icsDate(d) {
+  var m = d.getMonth() + 1;
+  var day = d.getDate();
+  return String(d.getFullYear()) + (m < 10 ? '0' : '') + m + (day < 10 ? '0' : '') + day;
+}
+
+function dateInDays(n) {
+  var d = new Date();
+  d.setDate(d.getDate() + n);
+  return d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'long' });
+}
+
+function downloadICS(title, desc, daysFromNow, filename) {
+  var days = parseInt(daysFromNow, 10);
+  if (!days || days < 1 || days > 365) days = 14;
+  var start = new Date();
+  start.setDate(start.getDate() + days);
+  var end = new Date(start.getTime());
+  end.setDate(end.getDate() + 1);
+  var stamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+  var lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//1LINE//Reminder//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    'UID:' + stamp + '-' + Math.floor(Math.random() * 1000000000) + '@1line',
+    'DTSTAMP:' + stamp,
+    'DTSTART;VALUE=DATE:' + icsDate(start),
+    'DTEND;VALUE=DATE:' + icsDate(end),
+    'SUMMARY:' + icsEscape(title),
+    'DESCRIPTION:' + icsEscape(desc),
+    'BEGIN:VALARM',
+    'TRIGGER:PT9H',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:' + icsEscape(title),
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ];
+  var blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = filename || 'reminder.ics';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function() { document.body.removeChild(a); URL.revokeObjectURL(url); }, 800);
+  return days;
+}
+
+function shareText(title, text, url, btn) {
+  if (navigator.share) {
+    navigator.share({ title: title, text: text, url: url }).catch(function() {});
+    return;
+  }
+  copyText(text + '\n' + url, btn);
+}
+</script>
+
+<script>
+/* ── MICROPHONE (browser speech-to-text, no cost, nothing sent to our server) ── */
+(function() {
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var btns = document.querySelectorAll('.mic-btn');
+  if (!btns.length) return;
+  var i;
+  if (!SR) { for (i = 0; i < btns.length; i++) { btns[i].style.display = 'none'; } return; }
+  var active = null;
+  function setup(btn) {
+    var tid = btn.getAttribute('data-target');
+    var ta = document.getElementById(tid);
+    var status = document.getElementById('mic-status-' + tid);
+    if (!ta) { btn.style.display = 'none'; return; }
+    btn.style.display = 'flex';
+    btn.addEventListener('click', function() {
+      if (active && active.btn === btn) { active.rec.stop(); return; }
+      if (active) { active.rec.stop(); }
+      var rec = new SR();
+      rec.lang = 'en-GB';
+      rec.interimResults = true;
+      rec.continuous = false;
+      var base = ta.value ? ta.value.replace(/\s+$/, '') + ' ' : '';
+      var max = ta.maxLength > 0 ? ta.maxLength : 100000;
+      function stopUI() {
+        btn.classList.remove('listening');
+        btn.setAttribute('aria-pressed', 'false');
+        if (status) status.className = 'mic-status';
+        if (active && active.btn === btn) active = null;
+      }
+      rec.onresult = function(e) {
+        var said = '';
+        for (var r = 0; r < e.results.length; r++) { said += e.results[r][0].transcript; }
+        if (!base && said) { said = said.charAt(0).toUpperCase() + said.slice(1); }
+        ta.value = (base + said).slice(0, max);
+        ta.dispatchEvent(new Event('input', { bubbles: true }));
+      };
+      rec.onend = stopUI;
+      rec.onerror = stopUI;
+      try {
+        rec.start();
+        active = { btn: btn, rec: rec };
+        btn.classList.add('listening');
+        btn.setAttribute('aria-pressed', 'true');
+        if (status) status.className = 'mic-status visible';
+      } catch (err) { stopUI(); }
+    });
+  }
+  for (i = 0; i < btns.length; i++) { setup(btns[i]); }
+})();
+</script>
+
+<script data-goatcounter="https://signal333.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

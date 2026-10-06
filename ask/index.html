@@ -1,0 +1,1194 @@
+<!-- 1LINE Ask v1.3 | Updated: 06 Oct 2026 09:15 | Email version of the ask, copy buttons, save/print, follow-up calendar reminder, retry on error (no re-pay), length caps, og image -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1LINE Ask - How to ask for what you want</title>
+  <meta name="description" content="Describe what you want to ask for. 1LINE Ask rates your ask strength, identifies what would strengthen it, and gives you the complete strategy to make it land." />
+  <meta name="keywords" content="how to ask for a pay rise, ask for what you want, negotiation help, how to make an ask, ask for a discount, how to ask your boss" />
+  <meta property="og:title" content="1LINE Ask - Ask for what you want. And get it." />
+  <meta property="og:description" content="One paragraph. Complete ask strategy. Know exactly what to say and when to say it." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://oi-ecosystem.github.io/1line/ask/" />
+  <meta property="og:image" content="https://oi-ecosystem.github.io/1line/ask/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://oi-ecosystem.github.io/1line/ask/og.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #FAF8F5;
+      --white: #FFFFFF;
+      --ink: #1A1A18;
+      --ink-mid: #4A4A46;
+      --ink-muted: #888884;
+      --ink-faint: #C4C4BE;
+      --border: rgba(26,26,24,0.10);
+      --border-mid: rgba(26,26,24,0.18);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --max: 640px;
+      --green: #2D7A5A;
+      --red: #C0392B;
+      --amber: #A0620A;
+      --gold: #B8903A;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+    nav { padding: 28px 0 0; display: flex; align-items: baseline; justify-content: space-between; }
+    .brand { font-family: var(--serif); font-size: 13px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+
+    .oneline-mark { display: inline-flex; align-items: baseline; gap: 0.04em; line-height: 1; text-decoration: none; }
+    .oneline-mark .n { font-family: var(--sans); font-weight: 500; font-size: 1em; color: var(--ink); letter-spacing: -0.02em; }
+    .oneline-mark .l { font-family: var(--sans); font-weight: 500; font-size: 0.5em; letter-spacing: 0.18em; text-transform: uppercase; color: #1A7FE8; position: relative; top: -0.1em; }
+
+    .buseful-badge { display: inline-flex; align-items: center; background: #1A2744; border-radius: 5px; padding: 5px 12px 5px 10px; text-decoration: none; margin-bottom: 16px; transition: opacity 0.2s; }
+    .buseful-badge:hover { opacity: 0.82; }
+    .buseful-badge-text { font-family: var(--sans); font-size: 11px; font-weight: 500; color: #FFFFFF; letter-spacing: 0.02em; }
+    .buseful-badge-text em { font-style: italic; color: #C4A96A; }
+
+    .hero { padding: 64px 0 48px; border-bottom: 0.5px solid var(--border); }
+    .hero-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 20px; }
+    .hero h1 { font-family: var(--serif); font-size: clamp(30px, 5vw, 42px); font-weight: 300; line-height: 1.18; color: var(--ink); margin-bottom: 18px; letter-spacing: -0.01em; }
+    .hero-sub { font-size: 15px; color: var(--ink-mid); font-weight: 300; max-width: 480px; line-height: 1.65; }
+
+    .input-section { padding: 48px 0 0; }
+    .input-prompt { font-family: var(--serif); font-size: 20px; font-weight: 400; color: var(--ink); margin-bottom: 6px; }
+    .input-hint { font-size: 12px; color: var(--ink-muted); margin-bottom: 16px; line-height: 1.6; }
+
+    .pills-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .pill-btn {
+      padding: 8px 14px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--ink-mid);
+      background: var(--white);
+      border: 0.5px solid var(--border-mid);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .pill-btn:hover { border-color: var(--ink-mid); color: var(--ink); }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 16px 18px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--white);
+      border: 0.5px solid var(--border-mid);
+      border-radius: 10px;
+      resize: none;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    textarea::placeholder { color: var(--ink-faint); }
+    textarea:focus { border-color: var(--ink-mid); }
+
+    .char-counter { display: flex; justify-content: space-between; margin-top: 8px; font-size: 11px; color: var(--ink-muted); }
+    .char-count { font-weight: 500; }
+    .char-count.valid { color: var(--green); }
+    .char-count.over  { color: var(--red); }
+
+    .spell-panel { display: none; margin-top: 14px; background: #FFFBF0; border: 0.5px solid rgba(160,98,10,0.22); border-radius: 10px; padding: 18px 20px; }
+    .spell-panel.visible { display: block; }
+    .spell-heading { font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; }
+    .spell-corrected { font-size: 14px; color: var(--ink); line-height: 1.7; font-weight: 300; margin-bottom: 16px; }
+    .spell-actions { display: flex; gap: 8px; }
+    .spell-btn { padding: 9px 18px; font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 7px; cursor: pointer; transition: opacity 0.15s; border: 0.5px solid; }
+    .spell-btn:hover { opacity: 0.72; }
+    .spell-btn.accept { background: var(--ink); color: var(--white); border-color: var(--ink); }
+    .spell-btn.ignore { background: transparent; color: var(--ink-mid); border-color: var(--border-mid); }
+
+    .generate-btn { width: 100%; margin-top: 16px; padding: 15px 24px; font-family: var(--sans); font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--white); background: var(--ink); border: none; border-radius: 10px; cursor: pointer; transition: opacity 0.2s, transform 0.1s; }
+    .generate-btn:hover:not(:disabled) { opacity: 0.82; }
+    .generate-btn:active:not(:disabled) { transform: scale(0.99); }
+    .generate-btn:disabled { opacity: 0.28; cursor: default; }
+    .input-provenance { margin-top: 12px; font-size: 11px; color: var(--ink-faint); text-align: center; letter-spacing: 0.04em; }
+
+    .how-section { padding: 56px 0 48px; border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); margin-top: 56px; }
+    .section-eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 32px; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .step-num { font-family: var(--serif); font-size: 32px; font-weight: 300; color: var(--ink-faint); line-height: 1; margin-bottom: 10px; }
+    .step-text { font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
+
+    #output-section { display: none; padding: 56px 0; border-top: 0.5px solid var(--border); margin-top: 56px; }
+    #output-section.visible { display: block; }
+
+    .out-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 10px; display: block; }
+    .out-card { background: var(--white); border: 0.5px solid var(--border); border-radius: 12px; padding: 22px; margin-bottom: 12px; }
+
+    /* Strength meter */
+    .strength-block { margin-bottom: 28px; }
+    .strength-value { font-family: var(--serif); font-size: clamp(28px, 5vw, 38px); font-weight: 300; color: var(--ink); margin-top: 8px; }
+    .strength-value.strong { color: var(--green); }
+    .strength-value.moderate { color: var(--amber); }
+    .strength-value.weak { color: var(--red); }
+    .strength-sub { font-size: 13px; color: var(--ink-mid); margin-top: 8px; line-height: 1.6; }
+
+    /* Key strengthener */
+    .strengthener-card { background: var(--white); border: 0.5px solid var(--border); border-radius: 12px; padding: 22px; margin-bottom: 12px; }
+    .strengthener-text { font-family: var(--serif); font-size: 17px; font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.55; margin-top: 8px; border-left: 2px solid var(--border-mid); padding-left: 16px; }
+
+    /* Heard chips */
+    .heard-block { margin-bottom: 28px; }
+    .heard-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .heard-chip { font-size: 12px; color: var(--ink-mid); background: var(--cream); border: 0.5px solid var(--border-mid); border-radius: 20px; padding: 5px 14px; }
+
+    /* Unlock card */
+    .unlock-card { background: var(--ink); border-radius: 12px; padding: 28px 24px; margin-bottom: 12px; text-align: center; }
+    .unlock-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .unlock-heading { font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--white); line-height: 1.2; }
+    .unlock-sub { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: -4px; }
+    .unlock-btn { padding: 14px 32px; font-family: var(--sans); font-size: 13px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; color: var(--ink); background: var(--white); border: none; border-radius: 9px; cursor: pointer; transition: opacity 0.15s, transform 0.1s; margin-top: 4px; }
+    .unlock-btn:hover { opacity: 0.9; }
+    .unlock-btn:active { transform: scale(0.99); }
+    .unlock-price { font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 0.04em; }
+
+    /* AI Premium section */
+    .ai-premium-section { display: none; }
+    .ai-premium-section.visible { display: block; }
+
+    .ai-loading-card { background: var(--white); border: 0.5px solid var(--border); border-radius: 12px; padding: 32px; text-align: center; margin-bottom: 12px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+    .ai-spinner { width: 28px; height: 28px; border: 2px solid var(--border); border-top-color: var(--ink); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .ai-loading-text { font-size: 13px; color: var(--ink-muted); letter-spacing: 0.04em; }
+
+    .ai-result-card { display: none; background: var(--white); border: 0.5px solid var(--border); border-radius: 12px; padding: 22px; margin-bottom: 12px; }
+    .ai-result-card.visible { display: block; }
+    .ai-badge { display: inline-block; font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--white); background: var(--ink); border-radius: 3px; padding: 3px 8px; margin-bottom: 14px; }
+
+    /* Report sections */
+    .report-section { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 0.5px solid var(--border); }
+    .report-section:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+    .report-heading { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px; }
+    .report-body { font-size: 14px; color: var(--ink-mid); line-height: 1.7; font-weight: 300; }
+    .report-highlight { font-family: var(--serif); font-size: 16px; font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.55; }
+
+    /* Opening line card */
+    .opening-line-card { background: var(--cream); border: 0.5px solid var(--border-mid); border-radius: 10px; padding: 16px 18px; margin-top: 10px; }
+    .opening-line-text { font-family: var(--serif); font-size: 15px; font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.6; }
+
+    /* Objection rows */
+    .objection-row { display: flex; gap: 12px; padding: 12px 0; border-bottom: 0.5px solid var(--border); }
+    .objection-row:last-child { border-bottom: none; }
+    .objection-q { font-size: 13px; font-weight: 500; color: var(--ink); flex: 1; }
+    .objection-a { font-size: 13px; color: var(--ink-mid); flex: 2; line-height: 1.55; }
+
+    /* Channel pill */
+    .channel-pill { display: inline-block; font-size: 12px; font-weight: 500; color: var(--white); background: var(--ink); border-radius: 20px; padding: 6px 16px; margin-top: 6px; }
+
+    /* Imprint */
+    .imprint-card { background: var(--white); border: 0.5px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 12px; }
+    .imprint-text { font-family: var(--serif); font-size: 15px; font-style: italic; font-weight: 300; color: var(--ink-mid); line-height: 1.75; border-left: 2px solid var(--border-mid); padding-left: 16px; margin: 12px 0 10px; }
+    .imprint-meta { font-size: 11px; color: var(--ink-muted); }
+
+    /* Cross-sell */
+    .crosssell-block { margin: 28px 0 12px; padding: 24px; background: var(--white); border: 0.5px solid var(--border); border-radius: 12px; }
+    .crosssell-heading { font-family: var(--serif); font-size: 17px; font-weight: 300; color: var(--ink); margin-bottom: 14px; }
+    .crosssell-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .crosssell-card { display: flex; flex-direction: column; gap: 5px; padding: 14px 16px; background: var(--cream); border: 0.5px solid var(--border); border-radius: 9px; text-decoration: none; transition: border-color 0.2s; }
+    .crosssell-card:hover { border-color: var(--border-mid); }
+    .crosssell-name { font-size: 12px; font-weight: 500; color: var(--ink); }
+    .crosssell-desc { font-size: 11px; color: var(--ink-muted); line-height: 1.5; flex: 1; }
+    .crosssell-cta  { font-size: 11px; color: var(--ink); font-weight: 500; margin-top: 4px; }
+
+    footer { border-top: 0.5px solid var(--border); padding: 40px 0 48px; margin-top: 56px; }
+    .footer-network-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 14px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+    .footer-link { font-size: 12px; color: var(--ink-muted); background: var(--white); border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 14px; text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+    .footer-link:hover { color: var(--ink); border-color: var(--border-mid); }
+    .footer-copy { font-size: 11px; color: var(--ink-faint); }
+
+    @media (max-width: 480px) {
+      .steps { grid-template-columns: 1fr; gap: 20px; }
+      .crosssell-cards { grid-template-columns: 1fr; }
+      .pills-row { gap: 6px; }
+      .pill-btn { font-size: 11px; padding: 7px 11px; }
+    }
+
+    /* Intelligence overlay */
+    #intelligence-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,9,0.96);
+      z-index: 9999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+    #intelligence-overlay.active { display: flex; }
+    .overlay-eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(196,169,106,0.7); font-family: var(--sans); }
+    .overlay-title { font-family: var(--serif); font-size: clamp(22px, 4vw, 32px); font-style: italic; font-weight: 300; color: #FAF8F5; text-align: center; max-width: 480px; line-height: 1.4; }
+    .overlay-steps { display: flex; flex-direction: column; gap: 10px; align-items: center; margin-top: 8px; }
+    .overlay-step { font-size: 12px; letter-spacing: 0.08em; color: rgba(250,248,245,0.35); font-family: var(--sans); transition: color 0.4s, opacity 0.4s; opacity: 0.4; }
+    .overlay-step.active { color: rgba(196,169,106,0.9); opacity: 1; }
+    .overlay-step.done { color: rgba(250,248,245,0.55); opacity: 0.55; }
+    .overlay-bar { width: 120px; height: 1px; background: rgba(255,255,255,0.1); margin-top: 8px; position: relative; overflow: hidden; }
+    .overlay-bar::after { content: ''; position: absolute; left: -100%; top: 0; width: 100%; height: 100%; background: rgba(196,169,106,0.7); animation: overlayslide 1.6s ease-in-out infinite; }
+    @keyframes overlayslide { 0% { left: -100%; } 50% { left: 100%; } 100% { left: 100%; } }
+
+    #output-section { animation: none; }
+    #output-section.reveal-animate { animation: resultReveal 0.7s ease forwards; }
+    @keyframes resultReveal { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  
+/* -- READABILITY PASS (Career v1.6.1 template: contrast, size, bigger box, mic) -- */
+.brand{font-size:14px}
+.hero-eyebrow{font-size:12px;color:#5C5A55}
+.hero h1{font-weight:400}
+.hero-sub{font-size:17px;font-weight:400;color:#3A3A38;max-width:520px}
+.input-prompt{font-size:23px;font-weight:500}
+.input-hint{font-size:14px;color:#5C5A55}
+textarea{min-height:150px;padding:18px 64px 18px 20px;font-size:18px;font-weight:400;line-height:1.6;border:1.5px solid #948E82;border-radius:12px}
+textarea::placeholder{color:#77746C}
+textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
+.char-counter{font-size:13px;color:#5C5A55}
+.spell-heading{font-size:12px}
+.spell-corrected{font-size:14px;font-weight:400}
+.spell-btn{font-size:12px}
+.generate-btn{font-size:14px;padding:17px 24px;background:#1A2744;border-radius:12px}
+.generate-btn:disabled{opacity:1;background:#DDE0E7;color:#3A4460}
+.input-provenance{font-size:13px;color:#6B6862}
+.section-eyebrow{font-size:12px;color:#5C5A55}
+.step-num{color:#8F8C84}
+.step-text{font-size:15px;color:#3A3A38}
+.footer-network-label{color:#6B6862}
+.footer-link{font-size:13px;color:#5C5A55}
+.footer-copy{font-size:12px;color:#6B6862}
+textarea{min-height:190px}
+.pill-btn{font-size:13px;color:#3A3A38;border:1px solid rgba(26,26,24,0.26)}
+.input-wrap{position:relative}
+.mic-btn{position:absolute;right:12px;bottom:12px;width:42px;height:42px;border-radius:50%;border:1.5px solid #948E82;background:#fff;color:#1A2744;display:none;align-items:center;justify-content:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;z-index:2}
+.mic-btn:hover{border-color:#1A2744}
+.mic-btn:focus-visible{outline:3px solid rgba(26,39,68,0.35);outline-offset:2px}
+.mic-btn svg{width:20px;height:20px}
+.mic-btn.listening{background:#1A2744;border-color:#1A2744;color:#fff;animation:micpulse 1.4s ease-in-out infinite}
+@keyframes micpulse{0%,100%{box-shadow:0 0 0 0 rgba(26,39,68,0.35)}50%{box-shadow:0 0 0 8px rgba(26,39,68,0)}}
+.mic-status{display:none;margin:8px 0 0;font-size:13px;color:#1A2744;font-weight:500}
+.mic-status.visible{display:block}
+@media (prefers-reduced-motion: reduce){.mic-btn.listening{animation:none}}
+
+/* -- v1.3 TOOLS (copy, save, calendar, share, retry) - readable sans style, matches readability pass -- */
+.tool-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.tool-btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;font-family:var(--sans);font-size:14px;font-weight:500;line-height:1.2;color:#1A2744;background:#FFFFFF;border:1.5px solid #948E82;border-radius:10px;cursor:pointer;transition:border-color 0.15s,background 0.15s,color 0.15s;text-transform:none;letter-spacing:0}
+.tool-btn:hover{border-color:#1A2744}
+.tool-btn:focus-visible{outline:3px solid rgba(26,39,68,0.35);outline-offset:2px}
+.tool-btn.primary{background:#1A2744;color:#FFFFFF;border-color:#1A2744}
+.tool-btn.primary:hover{opacity:0.88}
+.tool-btn.done{border-color:#2D7A5A;color:#2D7A5A;background:#F0FBF6}
+.report-tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 32px;padding:18px 20px;background:#FFFFFF;border:1px solid rgba(26,26,24,0.16);border-radius:12px}
+.report-tools-label{width:100%;font-family:var(--sans);font-size:12px;letter-spacing:0.10em;text-transform:uppercase;color:#5C5A55;margin:0 0 4px}
+.report-tools-note{width:100%;font-family:var(--sans);font-size:13px;color:#5C5A55;line-height:1.5;margin:6px 0 0}
+.script-card{background:#FFFFFF;border:1px solid rgba(26,26,24,0.16);border-radius:12px;padding:6px 20px;margin-top:4px}
+.script-step{padding:14px 0;border-bottom:1px solid rgba(26,26,24,0.09)}
+.script-step:last-child{border-bottom:none}
+.script-step-label{font-family:var(--sans);font-size:12px;letter-spacing:0.10em;text-transform:uppercase;color:#5C5A55;margin-bottom:6px}
+.script-step-text{font-family:var(--sans);font-size:16px;font-weight:400;line-height:1.6;color:#1A1A18}
+.script-list{margin:0;padding-left:20px}
+.script-list li{font-family:var(--sans);font-size:16px;line-height:1.6;color:#1A1A18;margin-bottom:6px}
+.retry-card{display:none;background:#FFFBF0;border:1px solid rgba(160,98,10,0.30);border-radius:12px;padding:20px 22px;margin:0 0 24px}
+.retry-card.visible{display:block}
+.retry-title{font-family:var(--sans);font-size:17px;font-weight:500;color:#1A1A18;margin-bottom:6px}
+.retry-text{font-family:var(--sans);font-size:15px;color:#3A3A38;line-height:1.6;margin-bottom:14px}
+@media print{
+  nav, footer, .tool-row, .report-tools, .cross-sell, .crosssell-block, .mic-btn, .buseful-badge, .overlay, #overlay, #intelligence-overlay, .retry-card, .unlock-card, .share-nudge, .share-card { display:none !important; }
+  body{background:#FFFFFF}
+  .page{max-width:none;padding:0}
+  .report-section{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<div id="intelligence-overlay">
+  <p class="overlay-eyebrow">1LINE Ask</p>
+  <p class="overlay-title" id="overlay-title">Reading your situation&hellip;</p>
+  <div class="overlay-steps">
+    <p class="overlay-step" id="ostep-1">Reading your situation&hellip;</p>
+    <p class="overlay-step" id="ostep-2">Assessing your ask strength&hellip;</p>
+    <p class="overlay-step" id="ostep-3">Building your strongest case&hellip;</p>
+    <p class="overlay-step" id="ostep-4">Mapping likely objections&hellip;</p>
+    <p class="overlay-step" id="ostep-5">Preparing your ask strategy&hellip;</p>
+  </div>
+  <div class="overlay-bar"></div>
+</div>
+
+<div class="page">
+
+  <nav>
+    <a href="https://oi-ecosystem.github.io/1line/" class="brand">1LINE Ask</a>
+    <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" aria-label="Part of 1LINE">
+      <span class="n">1</span><span class="l">LINE</span>
+    </a>
+  </nav>
+
+  <section class="hero">
+    <a href="https://oi-ecosystem.github.io/b-useful/" target="_blank" rel="noopener" class="buseful-badge">
+      <span class="buseful-badge-text">B-<em>Useful</em></span>
+    </a>
+    <p class="hero-eyebrow">A 1LINE ask utility</p>
+    <h1>Ask for what you want. And get it.</h1>
+    <p class="hero-sub">Describe what you want to ask for and what the situation is. 1LINE Ask rates your ask strength, identifies what would strengthen it most, and gives you the complete strategy: timing, channel, opening line, objection responses, fallback, and exactly what to say.</p>
+  </section>
+
+  <section class="input-section">
+    <p class="input-prompt">What do you want to ask for, and what&rsquo;s the situation?</p>
+    <p class="input-hint">Include what you want, who you&rsquo;re asking, your relationship with them, and any context that matters. The more specific you are, the more precise the strategy.</p>
+
+    <div class="pills-row">
+      <button class="pill-btn" onclick="fillPill('I want to ask for a &pound;6k pay rise. I&rsquo;ve been in the role 3 years, consistently exceeded my targets, and I&rsquo;m now managing two junior team members without a title change.')">Pay rise</button>
+      <button class="pill-btn" onclick="fillPill('I want to ask my landlord for a 2-month rent extension. I&rsquo;ve been a good tenant for 4 years, always paid on time, and I&rsquo;m between jobs.')">Landlord extension</button>
+      <button class="pill-btn" onclick="fillPill('I want to ask my boss if I can work from home 3 days a week. I&rsquo;ve been in the company 2 years and my role is largely independent.')">Work from home</button>
+      <button class="pill-btn" onclick="fillPill('I want to ask for a discount on a supplier contract. We&rsquo;ve been using them for 18 months and our volume has increased by 40%.')">Supplier discount</button>
+    </div>
+
+    <div class="input-wrap">
+      <textarea
+        id="main-input"
+        maxlength="600"
+        oninput="countChars()"
+        spellcheck="true"
+        autocorrect="on"
+        autocomplete="off"
+        autocapitalize="sentences"
+        placeholder="I want to ask for a £6k pay rise. I&rsquo;ve been in my role for 3 years, I&rsquo;ve consistently exceeded targets, and I&rsquo;m now managing two junior colleagues without any title change or pay adjustment."
+        aria-label="Describe what you want to ask for and the situation"
+      ></textarea>
+      <button type="button" class="mic-btn" data-target="main-input" aria-label="Speak instead of typing" aria-pressed="false" title="Speak instead of typing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg></button>
+    </div>
+    <p class="mic-status" id="mic-status-main-input" aria-live="polite">Listening… speak, then pause.</p>
+
+    <div class="char-counter">
+      <span>60 &ndash; 600 characters</span>
+      <span class="char-count" id="char-count">0</span>
+    </div>
+
+    <div class="spell-panel" id="spell-panel">
+      <p class="spell-heading">Quick check before we begin</p>
+      <p class="spell-corrected">Read your words once more. Words underlined in red may be misspelt. The clearer your words, the sharper your ask strategy.</p>
+      <div class="spell-actions">
+        <button class="spell-btn ignore" onclick="spellReview()">Edit my text</button>
+        <button class="spell-btn accept" onclick="spellContinue()">Looks good, continue</button>
+      </div>
+    </div>
+
+    <button class="generate-btn" id="generate-btn" disabled onclick="handleGenerate()">
+      Analyse My Ask
+    </button>
+    <p class="input-provenance">Your ask strategy is derived entirely from what you describe.</p>
+  </section>
+
+  <section class="how-section">
+    <p class="section-eyebrow">How it works</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Describe what you want to ask for and who you&rsquo;re asking. One honest paragraph.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">1LINE Ask rates your ask strength and identifies the single thing that would make it land better.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Unlock the complete strategy: timing, channel, opening line, objections, fallback and follow-up.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="output-section" aria-live="polite">
+    <p class="section-eyebrow">Your ask analysis</p>
+
+    <!-- What we heard -->
+    <div class="out-card heard-block">
+      <span class="out-label">What we heard</span>
+      <div class="heard-chips" id="out-heard-chips"></div>
+    </div>
+
+    <!-- Ask strength -->
+    <div class="out-card strength-block">
+      <span class="out-label">Ask strength</span>
+      <div class="strength-value" id="out-strength-value"></div>
+      <div class="strength-sub" id="out-strength-sub"></div>
+    </div>
+
+    <!-- Key strengthener -->
+    <div class="strengthener-card">
+      <span class="out-label">The single thing that would strengthen your ask most</span>
+      <div class="strengthener-text" id="out-strengthener"></div>
+    </div>
+
+    <!-- Unlock card -->
+    <div class="unlock-card" id="premium-gate">
+      <div class="unlock-inner">
+        <p class="unlock-heading">The complete strategy to make your ask land.</p>
+        <p class="unlock-sub">Timing, channel, opening line, objections, responses, fallback and follow-up &mdash; plus a ready-to-send email version. All written for your specific situation.</p>
+        <button class="unlock-btn" onclick="unlockAI()">Get my ask strategy &mdash; &pound;9</button>
+        <span class="unlock-price">One-time &middot; Instant &middot; No account needed</span>
+      </div>
+    </div>
+
+    <!-- AI Premium output section -->
+    <div class="ai-premium-section" id="ai-premium-section">
+
+      <div class="retry-card" id="retry-card">
+        <p class="retry-title">Your strategy didn't finish loading.</p>
+        <p class="retry-text">This is usually a brief connection hiccup. Your access is still unlocked &mdash; you won't be charged again.</p>
+        <button type="button" class="tool-btn primary" onclick="retryAI()">Try again</button>
+      </div>
+
+      <div class="ai-loading-card" id="ai-loading" style="display:none;">
+        <div class="ai-spinner"></div>
+        <p class="ai-loading-text" id="ai-loading-text">Reading your situation&hellip;</p>
+      </div>
+
+      <div class="ai-result-card" id="ai-report-card">
+        <span class="out-label">Your ask strategy</span>
+        <div class="ai-badge">Written for your situation</div>
+        <div class="report-tools" id="report-tools">
+          <p class="report-tools-label">Keep this strategy</p>
+          <button type="button" class="tool-btn primary" onclick="saveReport()">Save or print strategy</button>
+          <button type="button" class="tool-btn" onclick="addFollowUpReminder(this)">Add follow-up reminder</button>
+          <p class="report-tools-note" id="report-tools-note">The reminder downloads as a calendar file &mdash; open it to add it to your phone or computer calendar.</p>
+        </div>
+        <div id="ai-report-content"></div>
+      </div>
+
+    </div>
+
+    <!-- Imprint -->
+    <div class="imprint-card">
+      <span class="out-label">Ask preserved</span>
+      <div class="imprint-text" id="out-imprint-text"></div>
+      <div class="imprint-meta" id="out-imprint-meta"></div>
+    </div>
+
+    <!-- Cross-sell -->
+    <div class="crosssell-block">
+      <p class="crosssell-heading">More clarity from one line.</p>
+      <div class="crosssell-cards">
+        <a class="crosssell-card" href="https://oi-ecosystem.github.io/1line/message/">
+          <span class="crosssell-name">1LINE Message</span>
+          <span class="crosssell-desc">Turn your ask into the actual message or email to send.</span>
+          <span class="crosssell-cta">Try it &rarr;</span>
+        </a>
+        <a class="crosssell-card" href="https://oi-ecosystem.github.io/1line/decide/">
+          <span class="crosssell-name">1LINE Decide</span>
+          <span class="crosssell-desc">They said no. Work out what to do next.</span>
+          <span class="crosssell-cta">Try it &rarr;</span>
+        </a>
+        <a class="crosssell-card" href="https://oi-ecosystem.github.io/1line/resolver/">
+          <span class="crosssell-name">1LINE Resolver</span>
+          <span class="crosssell-desc">When the situation becomes a conflict, resolve it with precision.</span>
+          <span class="crosssell-cta">Try it &rarr;</span>
+        </a>
+      </div>
+    </div>
+
+  </section>
+
+  <footer>
+    <div class="footer-network-label">Other <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:10px;"><span class="n">1</span><span class="l">LINE</span></a> utilities</div>
+    <div class="footer-links">
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/message/">1LINE Message &mdash; communication clarity</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/decide/">1LINE Decide &mdash; decision clarity</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/resolver/">1LINE Resolver &mdash; conflict clarity</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/career/">1LINE Career &mdash; career clarity</a>
+      <a class="footer-link" href="https://oi-ecosystem.github.io/1line/pitch/">1LINE Pitch &mdash; business positioning</a>
+    </div>
+    <p class="footer-copy">&copy; 1LINE Ask. A <a href="https://oi-ecosystem.github.io/1line" class="oneline-mark" style="font-size:11px;"><span class="n">1</span><span class="l">LINE</span></a> utility. Your strategy derived from your exact words.</p>
+  </footer>
+
+</div>
+
+<script>
+
+/* -- STATE -- */
+var _spellWarned = false;
+var _lastCountedVal = '';
+var _lastVal = '';
+
+/* -- CHAR COUNTER -- */
+function countChars() {
+  var ta  = document.getElementById('main-input');
+  var cc  = document.getElementById('char-count');
+  var btn = document.getElementById('generate-btn');
+  if (!ta || !cc) return;
+  var len = ta.value.length;
+  cc.textContent = len;
+  cc.className = 'char-count' + (len >= 60 && len <= 600 ? ' valid' : len > 600 ? ' over' : '');
+  if (btn) btn.disabled = !(len >= 60 && len <= 600);
+  if (ta.value !== _lastCountedVal) {
+    _lastCountedVal = ta.value;
+    _spellWarned = false;
+    var p = document.getElementById('spell-panel');
+    if (p) p.className = 'spell-panel';
+  }
+}
+
+/* -- PILL FILL -- */
+function fillPill(text) {
+  var ta = document.getElementById('main-input');
+  if (!ta) return;
+  ta.value = text;
+  countChars();
+  ta.focus();
+}
+
+/* -- SPELL HANDLING -- */
+function handleGenerate() {
+  var val = document.getElementById('main-input').value.trim();
+  if (val.length < 60 || val.length > 600) return;
+  if (!_spellWarned) {
+    _spellWarned = true;
+    document.getElementById('spell-panel').className = 'spell-panel visible';
+    var btn = document.getElementById('generate-btn');
+    if (btn) btn.disabled = true;
+    return;
+  }
+  var isUnlocked = _aiUnlocked || window.location.search.indexOf('unlocked=true') !== -1;
+  if (isUnlocked) {
+    _lastVal = val;
+    runAIAsk(val);
+  } else {
+    generateAsk(val);
+  }
+}
+
+function spellReview() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  document.getElementById('main-input').focus();
+}
+
+function spellContinue() {
+  document.getElementById('spell-panel').className = 'spell-panel';
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.disabled = false;
+  var val = document.getElementById('main-input').value.trim();
+  var isUnlocked = _aiUnlocked || window.location.search.indexOf('unlocked=true') !== -1;
+  if (isUnlocked) {
+    _lastVal = val;
+    runAIAsk(val);
+  } else {
+    generateAsk(val);
+  }
+}
+
+/* -- FREE ENGINE -- */
+function extractHeardChips(str) {
+  var chips = [];
+  var lower = str.toLowerCase();
+
+  /* Money signals */
+  var moneyMatch = str.match(/[£$€]\s*[\d,]+k?/i);
+  if (moneyMatch) chips.push(moneyMatch[0].trim());
+
+  /* Time signals */
+  var timeMatch = str.match(/(\d+)\s*(year|month|week|day)/i);
+  if (timeMatch) chips.push(timeMatch[0].trim());
+
+  /* What they want */
+  if (/pay rise|salary|raise|increase/.test(lower)) chips.push('pay rise');
+  else if (/discount|reduction|lower price|reduce/.test(lower)) chips.push('price reduction');
+  else if (/extension|more time|deadline/.test(lower)) chips.push('time extension');
+  else if (/work from home|remote|wfh/.test(lower)) chips.push('remote working');
+  else if (/promotion|promoted|title/.test(lower)) chips.push('promotion');
+  else if (/refund|money back|compensat/.test(lower)) chips.push('refund');
+  else if (/favour|introduction|referral/.test(lower)) chips.push('favour');
+  else if (/flexible|flexitime|hours/.test(lower)) chips.push('flexible hours');
+  else if (/budget|resource|funding/.test(lower)) chips.push('resources');
+
+  /* Evidence signals */
+  if (/target|goal|kpi|metric|perform/.test(lower)) chips.push('performance evidence');
+  if (/manage|lead|senior|responsib/.test(lower)) chips.push('added responsibility');
+  if (/loyal|long.term|years|tenure/.test(lower)) chips.push('tenure / loyalty');
+  if (/market|industry|rate|benchmark/.test(lower)) chips.push('market context');
+
+  /* Who they're asking */
+  if (/boss|manager|director|head|ceo/.test(lower)) chips.push('line manager');
+  else if (/landlord|agent|property/.test(lower)) chips.push('landlord');
+  else if (/supplier|vendor|contractor/.test(lower)) chips.push('supplier');
+  else if (/client|customer/.test(lower)) chips.push('client');
+
+  if (chips.length < 2) chips.push('your situation', 'ask context');
+  return chips.slice(0, 6);
+}
+
+function calculateStrength(str) {
+  var lower = str.toLowerCase();
+  var score = 0;
+
+  /* Has clear ask */
+  if (/want to ask|asking for|requesting|would like/.test(lower)) score += 1;
+  /* Has evidence */
+  if (/year|month|target|perform|result|achieved|metric|kpi/.test(lower)) score += 2;
+  /* Has context */
+  if (/because|since|given|as|due to/.test(lower)) score += 1;
+  /* Has relationship */
+  if (/years|tenure|long.term|loyal|history/.test(lower)) score += 1;
+  /* Has specifics */
+  if (/[£$€]|percent|%|\d+/.test(lower)) score += 1;
+  /* Has market awareness */
+  if (/market|industry|rate|benchmark|others|competitor/.test(lower)) score += 1;
+
+  if (score >= 5) return 'STRONG';
+  if (score >= 3) return 'MODERATE';
+  return 'NEEDS WORK';
+}
+
+function getStrengthSub(strength, str) {
+  var lower = str.toLowerCase();
+  if (strength === 'STRONG') {
+    return 'You have the foundations of a compelling ask. The strategy will help you time it correctly and handle the likely objections.';
+  }
+  if (strength === 'MODERATE') {
+    return 'Your ask has merit, but there are gaps that could be closed before you make it. The strategy will identify what to gather first.';
+  }
+  /* NEEDS WORK */
+  if (!/year|month|perform|result|achieved/.test(lower)) {
+    return 'Your ask needs stronger evidence behind it. Without it, the person you&rsquo;re asking has no reason to say yes beyond goodwill.';
+  }
+  return 'Your ask can be made much stronger before you take it forward. The strategy shows you exactly what is missing.';
+}
+
+function getStrengthener(str) {
+  var lower = str.toLowerCase();
+
+  if (!/[£$€]|\d+\s*percent|%|\d+k/.test(lower) && /pay|salary|raise|rise|increase/.test(lower)) {
+    return 'Anchor to a specific number. Asks without a number invite a counter-offer on terms you haven\'t set.';
+  }
+  if (!/market|industry|benchmark|others|comparable/.test(lower)) {
+    return 'Find out what others in comparable roles are earning or paying. Market evidence removes it from personal preference and makes it a business conversation.';
+  }
+  if (!/target|kpi|perform|result|achieved|delivered/.test(lower)) {
+    return 'Document your results before you ask. The person you\'re asking needs evidence, not assertion.';
+  }
+  if (!/timing|when|right time|good time/.test(lower)) {
+    return 'Consider the timing. The same ask lands very differently depending on when it is made.';
+  }
+  if (/boss|manager/.test(lower) && !/one.to.one|meeting|review|appraisal/.test(lower)) {
+    return 'Choose the right moment. A private, pre-agreed meeting gives your ask the weight it deserves — a corridor conversation does not.';
+  }
+  return 'Be specific about what you want and why you deserve it. Vague asks get vague answers.';
+}
+
+function generateAsk(val) {
+  _lastVal = val;
+  var chips = extractHeardChips(val);
+  var strength = calculateStrength(val);
+  var strengthSub = getStrengthSub(strength, val);
+  var strengthener = getStrengthener(val);
+
+  /* Heard chips */
+  var heardEl = document.getElementById('out-heard-chips');
+  heardEl.innerHTML = '';
+  chips.forEach(function(c) {
+    var span = document.createElement('span');
+    span.className = 'heard-chip';
+    span.textContent = c;
+    heardEl.appendChild(span);
+  });
+
+  /* Strength */
+  var strengthEl = document.getElementById('out-strength-value');
+  strengthEl.textContent = strength;
+  strengthEl.className = 'strength-value ' + strength.toLowerCase().replace(' ', '');
+
+  document.getElementById('out-strength-sub').textContent = strengthSub;
+  document.getElementById('out-strengthener').textContent = strengthener;
+
+  /* Imprint */
+  var now = new Date();
+  document.getElementById('out-imprint-text').textContent = '"' + val.substring(0, 140) + (val.length > 140 ? '...' : '') + '"';
+  document.getElementById('out-imprint-meta').textContent = 'Analysed ' + now.toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+
+  /* Show output */
+  var outSec = document.getElementById('output-section');
+  outSec.className = 'visible reveal-animate';
+  outSec.style.display = 'block';
+  setTimeout(function() { outSec.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60);
+}
+
+/* ================================================================
+   AI PREMIUM ENGINE
+================================================================ */
+var PREMIUM_GATED = true;
+var _aiUnlocked   = false;
+
+function unlockAI() {
+  if (PREMIUM_GATED && window.location.search.indexOf('unlocked=true') === -1) {
+    var val = _lastVal || document.getElementById('main-input').value.trim();
+    sessionStorage.setItem('ask_data', JSON.stringify({ val: val }));
+    window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/ASK_UUID_PLACEHOLDER';
+    return;
+  }
+  _aiUnlocked = true;
+  var val = _lastVal || document.getElementById('main-input').value.trim();
+  runAIAsk(val);
+}
+
+function runAIAsk(val) {
+  _lastVal = val;
+  generateAsk(val);
+  var outSec = document.getElementById('output-section');
+  if (outSec) outSec.style.display = 'none';
+
+  showOverlay(function() {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    var hero     = document.querySelector('section.hero');
+    var inputSec = document.querySelector('section.input-section');
+    var howSec   = document.querySelector('section.how-section');
+    if (hero)     hero.style.display     = 'none';
+    if (inputSec) inputSec.style.display = 'none';
+    if (howSec)   howSec.style.display   = 'none';
+    if (outSec)   outSec.style.display   = 'block';
+    var toHide = outSec ? outSec.querySelectorAll('.section-eyebrow, .heard-block, .strength-block, .strengthener-card, #premium-gate') : [];
+    toHide.forEach(function(el) { el.style.display = 'none'; });
+    _doRunAI(val);
+  });
+}
+
+function _doRunAI(val) {
+  var section = document.getElementById('ai-premium-section');
+  section.className = 'ai-premium-section visible';
+
+  document.getElementById('ai-loading').style.display = 'block';
+  document.getElementById('ai-report-card').className = 'ai-result-card';
+
+  var loadingMsgs = [
+    'Reading your situation…',
+    'Assessing your ask strength…',
+    'Building your strongest case…',
+    'Mapping likely objections…',
+    'Preparing your strategy…'
+  ];
+  var msgIdx = 0;
+  var loadingEl = document.getElementById('ai-loading-text');
+  var msgInterval = setInterval(function() {
+    msgIdx = (msgIdx + 1) % loadingMsgs.length;
+    if (loadingEl) loadingEl.textContent = loadingMsgs[msgIdx];
+  }, 800);
+
+  callAnthropicAPI(val, function(response) {
+    clearInterval(msgInterval);
+    try {
+      renderAIResponse(response);
+    } catch (e) {
+      showRetry();
+    }
+  }, function(err) {
+    clearInterval(msgInterval);
+    showRetry();
+  });
+}
+
+function showRetry() {
+  document.getElementById('ai-loading').style.display = 'none';
+  var section = document.getElementById('ai-premium-section');
+  if (section) section.className = 'ai-premium-section visible';
+  var rc = document.getElementById('retry-card');
+  if (rc) {
+    rc.className = 'retry-card visible';
+    rc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function retryAI() {
+  var rc = document.getElementById('retry-card');
+  if (rc) rc.className = 'retry-card';
+  _aiUnlocked = true;
+  _doRunAI(_lastVal || document.getElementById('main-input').value.trim());
+}
+
+var _lastReport = null;
+
+function addFollowUpReminder(btn) {
+  var r = _lastReport || {};
+  var days = parseInt(r.follow_up_days, 10);
+  if (!days || days < 1 || days > 120) days = 14;
+  var desc = 'Follow up on your ask' + (r.what_asking ? ': ' + r.what_asking : '.') + ' If you have no answer yet, use the follow-up approach in your 1LINE Ask strategy.';
+  downloadICS('Follow up on your ask', desc, days, 'ask-follow-up.ics');
+  var note = document.getElementById('report-tools-note');
+  if (note) note.textContent = 'Follow-up reminder created for ' + dateInDays(days) + '. Open the downloaded file to add it to your calendar.';
+}
+
+function callAnthropicAPI(val, onSuccess, onError) {
+  var systemPrompt = 'You are an expert negotiation and communication strategist. You receive a description of what someone wants to ask for and their situation. You produce a structured, highly specific ask strategy. Never give generic advice. Every section must be specific to the situation described. Respond ONLY in valid JSON with no markdown, no preamble.';
+
+  var userPrompt = 'Ask situation: ' + val
+    + '. Produce a complete ask strategy in this exact JSON structure: '
+    + '{"what_asking":"string (strip to core ask, one sentence)",'
+    + '"strongest_case":"string (2-3 sentences, the most compelling argument for this specific ask)",'
+    + '"evidence_needed":"string (what to gather before asking)",'
+    + '"best_timing":"string (when and why)",'
+    + '"best_channel":"string (face-to-face/email/meeting/phone and why)",'
+    + '"opening_line":"string (the exact first sentence to say or write)",'
+    + '"the_ask":"string (the recommended wording of the ask itself)",'
+    + '"objections":[{"they_say":"string","you_say":"string"}],'
+    + '"if_no":"string (what to do if they say no outright)",'
+    + '"if_not_now":"string (how to convert a delay into a date, not a dead end)",'
+    + '"if_yes":"string (short follow-up message to send after yes)",'
+    + '"one_thing":"string (the single most important thing to remember going into this ask)",'
+    + '"email_version":{"subject":"string (short, neutral email subject line)","body":"string (the complete email to send if asking in writing, ready to copy, using [square brackets] for names and details not given)"},'
+    + '"follow_up_days":"number (whole days until they should follow up if there is no answer, usually 7 to 30)"}'
+    + ' LENGTH LIMITS (strict): each text field under 70 words; email_version body under 170 words; objections exactly 3; opening_line one sentence. Never invent facts, figures or names the person did not give.';
+
+  fetch('https://rcloop-proxy.vercel.app/api/ai', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ system: systemPrompt, prompt: userPrompt })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    var text = data.content && data.content[0] ? data.content[0].text : '';
+    if (!text) { onError(new Error('Empty response')); return; }
+    try {
+      var clean = text.replace(/```json/g,'').replace(/```/g,'').trim();
+      var start = clean.indexOf('{');
+      var end   = clean.lastIndexOf('}');
+      if (start !== -1 && end !== -1) clean = clean.substring(start, end + 1);
+      onSuccess(JSON.parse(clean));
+    } catch(e) {
+      onError(new Error('Parse error: ' + text.substring(0, 200)));
+    }
+  })
+  .catch(function(err) { onError(err); });
+}
+
+function renderAIResponse(r) {
+  document.getElementById('ai-loading').style.display = 'none';
+  _lastReport = r;
+  _copyStore = [];
+
+  var html = '';
+
+  if (r.what_asking) {
+    html += '<div class="report-section"><div class="report-heading">What you\'re asking for</div><div class="report-highlight">' + esc(r.what_asking) + '</div></div>';
+  }
+  if (r.strongest_case) {
+    html += '<div class="report-section"><div class="report-heading">Your strongest case</div><div class="report-body">' + esc(r.strongest_case) + '</div></div>';
+  }
+  if (r.evidence_needed) {
+    html += '<div class="report-section"><div class="report-heading">What to gather first</div><div class="report-body">' + esc(r.evidence_needed) + '</div></div>';
+  }
+  if (r.best_timing) {
+    html += '<div class="report-section"><div class="report-heading">Best timing</div><div class="report-body">' + esc(r.best_timing) + '</div></div>';
+  }
+  if (r.best_channel) {
+    html += '<div class="report-section"><div class="report-heading">Best channel</div><div class="channel-pill">' + esc(r.best_channel.split('.')[0].split('(')[0].trim()) + '</div><div class="report-body" style="margin-top:10px;">' + esc(r.best_channel) + '</div></div>';
+  }
+  if (r.opening_line) {
+    html += '<div class="report-section"><div class="report-heading">Your opening line</div><div class="opening-line-card"><div class="opening-line-text">&ldquo;' + esc(r.opening_line) + '&rdquo;</div></div><div class="tool-row">' + copyBtnHTML(r.opening_line, 'Copy opening line') + '</div></div>';
+  }
+  if (r.the_ask) {
+    html += '<div class="report-section"><div class="report-heading">Make the ask</div><div class="opening-line-card"><div class="opening-line-text">' + esc(r.the_ask) + '</div></div><div class="tool-row">' + copyBtnHTML(r.the_ask, 'Copy the ask') + '</div></div>';
+  }
+  if (r.email_version && r.email_version.body) {
+    var ev = r.email_version;
+    var evText = (ev.subject ? 'Subject: ' + ev.subject + '\n\n' : '') + ev.body;
+    html += '<div class="report-section"><div class="report-heading">Prefer to ask in writing? Your email</div>'
+      + (ev.subject ? '<div class="script-step-label" style="margin-top:6px;">Subject</div><div class="script-step-text" style="margin-bottom:10px;">' + esc(ev.subject) + '</div>' : '')
+      + '<div class="script-card"><div class="script-step"><div class="script-step-text" style="white-space:pre-line;">' + esc(ev.body) + '</div></div></div>'
+      + '<div class="tool-row">' + copyBtnHTML(evText, 'Copy email') + '</div></div>';
+  }
+  if (r.objections && r.objections.length) {
+    html += '<div class="report-section"><div class="report-heading">What they\'re likely to say &mdash; and what to say back</div>';
+    r.objections.forEach(function(o) {
+      html += '<div class="objection-row"><div class="objection-q">&ldquo;' + esc(o.they_say) + '&rdquo;</div><div class="objection-a">' + esc(o.you_say) + '</div></div>';
+    });
+    html += '</div>';
+  }
+  if (r.if_no) {
+    html += '<div class="report-section"><div class="report-heading">If they say no</div><div class="report-body">' + esc(r.if_no) + '</div></div>';
+  }
+  if (r.if_not_now) {
+    html += '<div class="report-section"><div class="report-heading">If they say not now</div><div class="report-body">' + esc(r.if_not_now) + '</div></div>';
+  }
+  if (r.if_yes) {
+    html += '<div class="report-section"><div class="report-heading">If they say yes</div><div class="opening-line-card"><div class="opening-line-text">' + esc(r.if_yes) + '</div></div><div class="tool-row">' + copyBtnHTML(r.if_yes, 'Copy follow-up message') + '</div></div>';
+  }
+  if (r.one_thing) {
+    html += '<div class="report-section" style="background:rgba(26,26,24,0.03);border-radius:8px;padding:16px;"><div class="report-heading">One thing to remember</div><div class="report-highlight">' + esc(r.one_thing) + '</div></div>';
+  }
+
+  document.getElementById('ai-report-content').innerHTML = html;
+  document.getElementById('ai-report-card').className = 'ai-result-card visible';
+}
+
+function esc(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+/* -- Return from Lemon Squeezy payment -- */
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.location.search.indexOf('unlocked=true') === -1) return;
+  _aiUnlocked = true;
+  var stored = sessionStorage.getItem('ask_data');
+  if (stored) {
+    try {
+      var d = JSON.parse(stored);
+      if (d && d.val) {
+        _lastVal = d.val;
+        var ta = document.getElementById('main-input');
+        if (ta) ta.value = d.val;
+        countChars();
+        runAIAsk(d.val);
+        return;
+      }
+    } catch(e) {}
+  }
+  _aiUnlocked = true;
+  var notice = document.createElement('p');
+  notice.style.cssText = 'font-size:12px;color:#2D7A5A;background:rgba(45,122,90,0.08);border:0.5px solid rgba(45,122,90,0.25);border-radius:7px;padding:10px 14px;margin-bottom:16px;text-align:center;letter-spacing:0.04em;';
+  notice.textContent = 'Access unlocked — describe your ask and get your complete strategy.';
+  var inputSec = document.querySelector('.input-section');
+  if (inputSec) inputSec.insertBefore(notice, inputSec.firstChild);
+});
+
+/* -- Intelligence overlay -- */
+var _overlaySteps = [
+  'Reading your situation…',
+  'Assessing your ask strength…',
+  'Building your strongest case…',
+  'Mapping likely objections…',
+  'Preparing your strategy…'
+];
+var _overlayTimer = null;
+
+function showOverlay(onComplete) {
+  var overlay = document.getElementById('intelligence-overlay');
+  if (!overlay) { onComplete(); return; }
+  overlay.className = 'active';
+  var steps = overlay.querySelectorAll('.overlay-step');
+  var idx = 0;
+  steps.forEach(function(s) { s.className = 'overlay-step'; });
+  if (steps[0]) steps[0].className = 'overlay-step active';
+  _overlayTimer = setInterval(function() {
+    if (idx < steps.length - 1) {
+      steps[idx].className = 'overlay-step done';
+      idx++;
+      steps[idx].className = 'overlay-step active';
+    }
+  }, 800);
+  setTimeout(function() {
+    clearInterval(_overlayTimer);
+    overlay.className = '';
+    onComplete();
+  }, 4800);
+}
+
+</script>
+
+<script>
+/* ── v1.3 TOOLS: copy, save/print, calendar reminder (.ics), share. No server calls. ── */
+var _copyStore = [];
+
+function storeCopy(text) {
+  _copyStore.push(String(text || ''));
+  return _copyStore.length - 1;
+}
+
+function copyBtnHTML(text, label) {
+  var i = storeCopy(text);
+  return '<button type="button" class="tool-btn" onclick="copyStored(' + i + ', this)">' + (label || 'Copy') + '</button>';
+}
+
+function copyStored(i, btn) {
+  copyText(_copyStore[i] || '', btn);
+}
+
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.setAttribute('readonly', '');
+  ta.style.position = 'fixed';
+  ta.style.top = '-1000px';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); } catch (e) {}
+  document.body.removeChild(ta);
+}
+
+function copyText(text, btn) {
+  function done() {
+    if (!btn) return;
+    var old = btn.getAttribute('data-label') || btn.textContent;
+    btn.setAttribute('data-label', old);
+    btn.textContent = 'Copied';
+    if (btn.className.indexOf(' done') === -1) btn.className += ' done';
+    setTimeout(function() {
+      btn.textContent = old;
+      btn.className = btn.className.replace(' done', '');
+    }, 1800);
+  }
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(done, function() { fallbackCopy(text); done(); });
+  } else {
+    fallbackCopy(text);
+    done();
+  }
+}
+
+function saveReport() {
+  window.print();
+}
+
+function icsEscape(s) {
+  return String(s || '')
+    .replace(/\\/g, '\\\\')
+    .replace(/;/g, '\\;')
+    .replace(/,/g, '\\,')
+    .replace(/\r?\n/g, '\\n');
+}
+
+function icsDate(d) {
+  var m = d.getMonth() + 1;
+  var day = d.getDate();
+  return String(d.getFullYear()) + (m < 10 ? '0' : '') + m + (day < 10 ? '0' : '') + day;
+}
+
+function dateInDays(n) {
+  var d = new Date();
+  d.setDate(d.getDate() + n);
+  return d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'long' });
+}
+
+function downloadICS(title, desc, daysFromNow, filename) {
+  var days = parseInt(daysFromNow, 10);
+  if (!days || days < 1 || days > 365) days = 14;
+  var start = new Date();
+  start.setDate(start.getDate() + days);
+  var end = new Date(start.getTime());
+  end.setDate(end.getDate() + 1);
+  var stamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+  var lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//1LINE//Reminder//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    'UID:' + stamp + '-' + Math.floor(Math.random() * 1000000000) + '@1line',
+    'DTSTAMP:' + stamp,
+    'DTSTART;VALUE=DATE:' + icsDate(start),
+    'DTEND;VALUE=DATE:' + icsDate(end),
+    'SUMMARY:' + icsEscape(title),
+    'DESCRIPTION:' + icsEscape(desc),
+    'BEGIN:VALARM',
+    'TRIGGER:PT9H',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:' + icsEscape(title),
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ];
+  var blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = filename || 'reminder.ics';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function() { document.body.removeChild(a); URL.revokeObjectURL(url); }, 800);
+  return days;
+}
+
+function shareText(title, text, url, btn) {
+  if (navigator.share) {
+    navigator.share({ title: title, text: text, url: url }).catch(function() {});
+    return;
+  }
+  copyText(text + '\n' + url, btn);
+}
+</script>
+
+<script>
+/* ── MICROPHONE (browser speech-to-text, no cost, nothing sent to our server) ── */
+(function() {
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var btns = document.querySelectorAll('.mic-btn');
+  if (!btns.length) return;
+  var i;
+  if (!SR) { for (i = 0; i < btns.length; i++) { btns[i].style.display = 'none'; } return; }
+  var active = null;
+  function setup(btn) {
+    var tid = btn.getAttribute('data-target');
+    var ta = document.getElementById(tid);
+    var status = document.getElementById('mic-status-' + tid);
+    if (!ta) { btn.style.display = 'none'; return; }
+    btn.style.display = 'flex';
+    btn.addEventListener('click', function() {
+      if (active && active.btn === btn) { active.rec.stop(); return; }
+      if (active) { active.rec.stop(); }
+      var rec = new SR();
+      rec.lang = 'en-GB';
+      rec.interimResults = true;
+      rec.continuous = false;
+      var base = ta.value ? ta.value.replace(/\s+$/, '') + ' ' : '';
+      var max = ta.maxLength > 0 ? ta.maxLength : 100000;
+      function stopUI() {
+        btn.classList.remove('listening');
+        btn.setAttribute('aria-pressed', 'false');
+        if (status) status.className = 'mic-status';
+        if (active && active.btn === btn) active = null;
+      }
+      rec.onresult = function(e) {
+        var said = '';
+        for (var r = 0; r < e.results.length; r++) { said += e.results[r][0].transcript; }
+        if (!base && said) { said = said.charAt(0).toUpperCase() + said.slice(1); }
+        ta.value = (base + said).slice(0, max);
+        ta.dispatchEvent(new Event('input', { bubbles: true }));
+      };
+      rec.onend = stopUI;
+      rec.onerror = stopUI;
+      try {
+        rec.start();
+        active = { btn: btn, rec: rec };
+        btn.classList.add('listening');
+        btn.setAttribute('aria-pressed', 'true');
+        if (status) status.className = 'mic-status visible';
+      } catch (err) { stopUI(); }
+    });
+  }
+  for (i = 0; i < btns.length; i++) { setup(btns[i]); }
+})();
+</script>
+
+<script data-goatcounter="https://signal333.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
