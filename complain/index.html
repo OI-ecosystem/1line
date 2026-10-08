@@ -1,4 +1,4 @@
-<!-- 1LINE Complain v1.4 | Updated: 06 Oct 2026 12:30 | Paid access checked by the proxy (/api/ai-paid: Lemon Squeezy order or owner key); real checkout link; buy prompt if no purchase found. v1.3.1: Preview image links use lifekit333.com; phone script, caps, copy, save/print, reminders, retry -->
+<!-- 1LINE Complain v1.4.1 | Updated: 08 Oct 2026 | "Payment confirmed" note shows only after the proxy accepts a real order; bare ?unlocked=true shows the normal page. v1.4: paid access via /api/ai-paid; phone script, copy, save/print, reminders, retry -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -994,6 +994,14 @@ function callAnthropicAPI(systemPrompt, userPrompt, onSuccess, onError) {
 function renderAIResponse(d) {
   hideOverlay();
 
+  /* The proxy has accepted this request. Confirm payment only when a real order was used. */
+  var _uc = document.getElementById('unlock-card');
+  if (_uc && getAccess('complain').order) {
+    _uc.querySelector('p').textContent = '\u2713 Payment confirmed. Your full report is ready below.';
+    _uc.className = 'unlock-card visible';
+    _uc.style.display = '';
+  }
+
   var aiPrem = document.getElementById('ai-premium');
   aiPrem.style.display = 'block';
 
@@ -1119,17 +1127,20 @@ document.addEventListener('DOMContentLoaded', function() {
         _lastMissing   = d.missing   || '';
         countChars();
 
-        var unlockCard = document.getElementById('unlock-card');
-        if (unlockCard) unlockCard.className = 'unlock-card visible';
-
         runAIComplain(d.val);
         return;
       }
     } catch(e) {}
   }
 
+  /* No saved text (e.g. receipt link opened in a new browser): only show a note if there is a real order or owner key */
+  var _acc = getAccess('complain');
+  if (!((_acc.order && _acc.key) || _acc.owner)) return;
   var unlockCard = document.getElementById('unlock-card');
-  if (unlockCard) unlockCard.className = 'unlock-card visible';
+  if (unlockCard) {
+    unlockCard.querySelector('p').textContent = 'Access unlocked \u2014 enter your details above to get your full report.';
+    unlockCard.className = 'unlock-card visible';
+  }
   var outSec = document.getElementById('output-section');
   if (outSec) outSec.style.display = 'block';
 });

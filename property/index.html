@@ -1,4 +1,4 @@
-<!-- 1LINE Property v1.2 | Updated: 06 Oct 2026 12:30 | Paid access checked by the proxy (/api/ai-paid: Lemon Squeezy order or owner key); real checkout link; buy prompt if no purchase found. v1.1: Home MOT, save/print, retry, og image -->
+<!-- 1LINE Property v1.2.1 | Updated: 08 Oct 2026 | "Access unlocked" note only shows with a real order or owner key. v1.2: Paid access via /api/ai-paid; v1.1: Home MOT, save/print, retry, og image -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1780,7 +1780,8 @@ document.addEventListener('DOMContentLoaded', function() {
         _spellWarned = true;
       });
     } else {
-      document.getElementById('unlock-notice').style.display = 'block';
+      var _acc = getAccess('property');
+      if ((_acc.order && _acc.key) || _acc.owner) document.getElementById('unlock-notice').style.display = 'block';
     }
   }
 });

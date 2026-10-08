@@ -1,4 +1,4 @@
-<!-- 1LINE Ask v1.4 | Updated: 06 Oct 2026 12:30 | Paid access checked by the proxy (/api/ai-paid: Lemon Squeezy order or owner key); real checkout link; buy prompt if no purchase found. v1.3.1: Preview image links use lifekit333.com; Email version, copy buttons, save/print, follow-up reminder, retry -->
+<!-- 1LINE Ask v1.4.1 | Updated: 08 Oct 2026 | "Access unlocked" note only shows with a real order or owner key. v1.4: Paid access checked by the proxy (/api/ai-paid); email version, copy, save/print, reminder, retry -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -979,6 +979,8 @@ document.addEventListener('DOMContentLoaded', function() {
     } catch(e) {}
   }
   _aiUnlocked = true;
+  var _acc = getAccess('ask');
+  if (!((_acc.order && _acc.key) || _acc.owner)) return;
   var notice = document.createElement('p');
   notice.style.cssText = 'font-size:12px;color:#2D7A5A;background:rgba(45,122,90,0.08);border:0.5px solid rgba(45,122,90,0.25);border-radius:7px;padding:10px 14px;margin-bottom:16px;text-align:center;letter-spacing:0.04em;';
   notice.textContent = 'Access unlocked — describe your ask and get your complete strategy.';

@@ -1,4 +1,4 @@
-<!-- 1LINE Gift v3.5 | Updated: 1 Oct 2026 | Readability pass + microphone + spelling check wording (Career v1.6.1 template) -->
+<!-- 1LINE Gift v3.6 | Updated: 08 Oct 2026 | Paid access checked by the proxy (/api/ai-paid: Lemon Squeezy order or owner key); buy prompt if no purchase found; Try again without re-paying; no error pop-ups; "Access unlocked" note only with a real order or owner key. v3.5: Readability pass + microphone -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -634,6 +634,14 @@ textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
 .mic-status{display:none;margin:8px 0 0;font-size:13px;color:#1A2744;font-weight:500}
 .mic-status.visible{display:block}
 @media (prefers-reduced-motion: reduce){.mic-btn.listening{animation:none}}
+
+/* -- v3.6: retry / buy card -- */
+.retry-card{display:none;background:#FFFBF0;border:1px solid rgba(160,98,10,0.30);border-radius:12px;padding:20px 22px;margin:0 0 24px}
+.retry-card.visible{display:block}
+.retry-title{font-family:var(--sans);font-size:17px;font-weight:500;color:#1A1A18;margin-bottom:6px}
+.retry-text{font-family:var(--sans);font-size:15px;color:#3A3A38;line-height:1.6;margin-bottom:14px}
+.retry-btn2{display:inline-flex;align-items:center;justify-content:center;padding:11px 18px;font-family:var(--sans);font-size:15px;font-weight:500;color:#FFFFFF;background:#1A2744;border:1.5px solid #1A2744;border-radius:10px;cursor:pointer}
+.retry-btn2:hover{opacity:0.88}
 </style>
 </head>
 <body>
@@ -849,6 +857,12 @@ textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
     <!-- AI Premium output section -->
     <div class="ai-premium-section" id="ai-premium-section">
       <div class="dev-banner" id="dev-banner">DEV MODE &mdash; Mock AI response. No tokens used.</div>
+
+      <div class="retry-card" id="retry-card">
+        <p class="retry-title">Your gift ideas didn't finish loading.</p>
+        <p class="retry-text">This is usually a brief connection hiccup. Your access is still unlocked &mdash; you won't be charged again.</p>
+        <button type="button" class="retry-btn2" onclick="retryAI()">Try again</button>
+      </div>
 
       <!-- Loading state -->
       <div class="ai-loading-card" id="ai-loading" style="display:none;">
@@ -1457,13 +1471,17 @@ function toggleExample() {
   label.innerHTML = isOpen ? 'See an example output &darr;' : 'Hide example &uarr;';
 }
 
+function buyNow() {
+  var val = _lastVal || document.getElementById('main-input').value.trim();
+  var rel = _lastRel || _relationship;
+  var bud = _lastBudget || _budget;
+  sessionStorage.setItem('gift_data', JSON.stringify({ val: val, rel: rel, bud: bud }));
+  window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/bf8cfe64-3345-4374-b7b0-9d2c7d2326a3';
+}
+
 function unlockAI() {
-  if (PREMIUM_GATED && window.location.search.indexOf("unlocked=true") === -1) {
-    var val = _lastVal || document.getElementById('main-input').value.trim();
-    var rel = _lastRel || _relationship;
-    var bud = _lastBudget || _budget;
-    sessionStorage.setItem('gift_data', JSON.stringify({ val: val, rel: rel, bud: bud }));
-    window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/bf8cfe64-3345-4374-b7b0-9d2c7d2326a3';
+  if (PREMIUM_GATED && window.location.search.indexOf("unlocked=true") === -1 && !hasOwnerKey()) {
+    buyNow();
     return;
   }
   _aiUnlocked = true;
@@ -1540,10 +1558,29 @@ function _doRunAI(val, rel, budget) {
       renderAIResponse(response);
     }, function(err) {
       clearInterval(msgInterval);
-      document.getElementById('ai-loading').style.display = 'none';
-      alert('Error: ' + (err && err.message ? err.message : 'Unknown error'));
+      showRetry(err);
     });
   }
+}
+
+function showRetry(err) {
+  setRetryCard(document.getElementById('retry-card'), err, 'Get my gift ideas \u2014 \u00a39');
+  document.getElementById('ai-loading').style.display = 'none';
+  var section = document.getElementById('ai-premium-section');
+  if (section) section.className = 'ai-premium-section visible';
+  var rc = document.getElementById('retry-card');
+  if (rc) {
+    rc.className = 'retry-card visible';
+    rc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function retryAI() {
+  var rc = document.getElementById('retry-card');
+  if (rc && rc.getAttribute('data-mode') === 'buy') { buyNow(); return; }
+  if (rc) rc.className = 'retry-card';
+  _aiUnlocked = true;
+  _doRunAI(_lastVal || document.getElementById('main-input').value.trim(), _lastRel || _relationship, _lastBudget || _budget);
 }
 
 function buildAvoidList(lower, rel) {
@@ -1765,8 +1802,11 @@ function ideaHTML(idea, idx) {
     + '</div>';
 }
 
+function _hideRetryCard() { var rc = document.getElementById('retry-card'); if (rc) rc.className = 'retry-card'; }
+
 function renderAIResponse(data) {
   document.getElementById('ai-loading').style.display = 'none';
+  _hideRetryCard();
 
   _allIdeas   = data.ideas || [];
   _avoidItems = data.avoid || [];
@@ -1817,12 +1857,12 @@ function callAnthropicAPI(val, rel, budget, onSuccess, onError) {
     + '. Generate 5 specific gift ideas with individual reasoning and where to find each one.'
     + ' Return ONLY this JSON structure: {"narrative":"string","ideas":[{"name":"","why":"","where":""}],"avoid":[{"name":"","why":""}]}';
 
-  fetch('https://rcloop-proxy.vercel.app/api/ai', {
+  fetch('https://rcloop-proxy.vercel.app/api/ai-paid', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ system: systemPrompt, prompt: userPrompt })
+    body: JSON.stringify(accessBody('gift', { system: systemPrompt, prompt: userPrompt }))
   })
-  .then(function(r) { return r.json(); })
+  .then(function(r) { var ae = accessError(r); if (ae) throw ae; return r.json(); })
   .then(function(data) {
     var text = data.content && data.content[0] ? data.content[0].text : '';
     if (!text) { onError(new Error('Empty response')); return; }
@@ -1876,6 +1916,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /* sessionStorage empty — show notice, page unchanged, generate fires AI directly */
   _aiUnlocked = true;
+  var _acc = getAccess('gift');
+  if (!((_acc.order && _acc.key) || _acc.owner)) return;
   var notice = document.createElement('p');
   notice.style.cssText = 'font-size:12px;color:#2D7A5A;background:rgba(45,122,90,0.08);border:0.5px solid rgba(45,122,90,0.25);border-radius:7px;padding:10px 14px;margin-bottom:16px;text-align:center;letter-spacing:0.04em;';
   notice.textContent = 'Access unlocked — describe the person and generate your gift ideas.';
@@ -1926,6 +1968,77 @@ function hideOverlay() {
 }
 
 
+</script>
+
+<script>
+/* ── ACCESS (v1.4): sends the Lemon Squeezy order details, or your owner key, with every paid request.
+   The proxy checks them before any AI call. Nothing here can unlock a report on its own. ── */
+function readParam(name) {
+  var m = window.location.search.match(new RegExp('[?&]' + name + '=([^&#]*)'));
+  return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : '';
+}
+
+function hasOwnerKey() {
+  try { return !!localStorage.getItem('1line_owner'); } catch (e) { return false; }
+}
+
+function getAccess(module) {
+  var a = { order: readParam('order'), key: readParam('key'), owner: '' };
+  try { a.owner = localStorage.getItem('1line_owner') || ''; } catch (e) {}
+  var store = '1line_access_' + module;
+  if (a.order && a.key) {
+    try { sessionStorage.setItem(store, JSON.stringify({ order: a.order, key: a.key })); } catch (e) {}
+  } else {
+    try {
+      var s = JSON.parse(sessionStorage.getItem(store) || 'null');
+      if (s && s.order && s.key) { a.order = s.order; a.key = s.key; }
+    } catch (e) {}
+  }
+  return a;
+}
+
+function accessBody(module, obj) {
+  var a = getAccess(module);
+  obj.module = module;
+  obj.order = a.order;
+  obj.key = a.key;
+  obj.owner = a.owner;
+  return obj;
+}
+
+/* 402/403 from the proxy = no valid purchase for this report */
+function accessError(r) {
+  if (r.status === 402 || r.status === 403) {
+    var e = new Error('payment');
+    e.payment = true;
+    return e;
+  }
+  return null;
+}
+
+/* Switch a retry card between "try again" and "buy" wording */
+function setRetryCard(card, err, buyLabel) {
+  if (!card) return;
+  var t = card.querySelector('.retry-title');
+  var x = card.querySelector('.retry-text');
+  var b = card.querySelector('button');
+  if (!card.getAttribute('data-orig-title')) {
+    card.setAttribute('data-orig-title', t ? t.textContent : '');
+    card.setAttribute('data-orig-text', x ? x.textContent : '');
+    card.setAttribute('data-orig-btn', b ? b.textContent : '');
+  }
+  if (err && err.payment) {
+    if (t) t.textContent = 'We couldn’t confirm a purchase for this report.';
+    if (x) x.textContent = 'If you’ve already paid, open the link in your receipt email from Lemon Squeezy and your report will run. Otherwise, you can get it here.';
+    if (b) b.textContent = buyLabel;
+    card.setAttribute('data-mode', 'buy');
+  } else {
+    if (t) t.textContent = card.getAttribute('data-orig-title');
+    if (x) x.textContent = card.getAttribute('data-orig-text');
+    if (b) b.textContent = card.getAttribute('data-orig-btn');
+    card.setAttribute('data-mode', 'retry');
+  }
+}
 </script>
 
 <script>
