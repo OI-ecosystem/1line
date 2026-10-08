@@ -1,4 +1,4 @@
-<!-- 1LINE Index v3.0 | Updated: 8 Oct 2026 | New category "Protect & Persuade": Legit, Complain, Ask; Property added to Markets (out of Coming soon); explore pills added; discover333.com line ready (switched off until the site is live). Previous: 1LINE Index v2.9 | Updated: 29 Sep 2026 | Hero: Gift/Pitch/Coach buttons, down-arrow scroll, readability; Coming soon: Property + Planning -->
+<!-- 1LINE Index v3.1 | Updated: 8 Oct 2026 | Added "Try one free" section: visitor picks one £9 utility and requests a free trial by email (owner then sends a one-use link from the owner page). Previous: 1LINE Index v3.0 | Updated: 8 Oct 2026 | New category "Protect & Persuade": Legit, Complain, Ask; Property added to Markets (out of Coming soon); explore pills added; discover333.com line ready (switched off until the site is live). Previous: 1LINE Index v2.9 | Updated: 29 Sep 2026 | Hero: Gift/Pitch/Coach buttons, down-arrow scroll, readability; Coming soon: Property + Planning -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1037,6 +1037,44 @@
 
   </div>
 </section>
+
+<!-- FREE TRIAL REQUEST (v3.1): visitor picks one £9 utility; opens their email to request a personal one-use link (sent from the owner page) -->
+<section id="free-trial" style="padding:4rem 1.5rem;border-top:1px solid var(--rule);">
+  <div class="container" style="max-width:640px;margin:0 auto;text-align:center;">
+    <p class="section-label">Try one free</p>
+    <h2 style="font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;color:var(--ink);line-height:1.2;margin:0.4rem 0 0.9rem;">See the full result before you pay for anything.</h2>
+    <p style="font-size:1rem;color:var(--ink-3);line-height:1.65;margin:0 auto 1.6rem;max-width:520px;">Choose one utility below and request a free trial. We will email you a personal link that unlocks the full result once. One free trial per person.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:0.7rem;justify-content:center;align-items:center;">
+      <label for="ft-module" style="position:absolute;left:-9999px;">Utility to try</label>
+      <select id="ft-module" style="padding:0.8rem 1rem;font-family:var(--sans);font-size:0.95rem;color:var(--ink);background:#fff;border:1px solid rgba(26,25,22,0.25);border-radius:var(--r);min-width:220px;">
+        <option value="">Choose a utility…</option>
+        <option>1LINE Gift</option>
+        <option>1LINE Legit</option>
+        <option>1LINE Ask</option>
+        <option>1LINE Complain</option>
+        <option>1LINE Clarity</option>
+        <option>1LINE Decide</option>
+        <option>1LINE Message</option>
+        <option>1LINE Resolver</option>
+        <option>1LINE Bio</option>
+        <option>1LINE AI-m</option>
+        <option>EverEcho</option>
+      </select>
+      <button type="button" class="btn-primary" onclick="requestFreeTrial()">Request my free trial</button>
+    </div>
+    <p id="ft-note" style="font-size:0.85rem;color:var(--ink-muted);margin-top:1rem;line-height:1.6;">Your email app will open with the request ready to send. If it does not, email <a href="mailto:pay1709@sky.com?subject=1LINE%20free%20trial" style="color:var(--ink);">pay1709@sky.com</a> and tell us which utility you would like to try.</p>
+  </div>
+</section>
+<script>
+function requestFreeTrial() {
+  var sel = document.getElementById('ft-module');
+  var mod = sel ? sel.value : '';
+  if (!mod) { sel.focus(); sel.style.borderColor = '#B54A3C'; setTimeout(function(){ sel.style.borderColor = ''; }, 1500); return; }
+  var subject = 'Free trial request - ' + mod;
+  var body = 'Hello,\n\nI would like to try ' + mod + ' for free.\n\nMy first name: \n\nThank you.';
+  window.location.href = 'mailto:pay1709@sky.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+}
+</script>
 
 <!-- REFLECTION CARDS -->
 <section class="physical" id="cards">
