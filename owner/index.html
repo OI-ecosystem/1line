@@ -1,4 +1,4 @@
-<!-- 1LINE Owner v1.0 | Updated: 06 Oct 2026 12:30 | Private: saves the owner key in this browser so paid modules run without checkout. The proxy checks the key; this page cannot unlock anything by itself. -->
+<!-- 1LINE Owner v1.1 | Updated: 8 Oct 2026 | Added "Send a free trial": makes a one-use 100%-off Lemon Squeezy link for any product (via /api/trial, owner key checked by the server), with Copy and Open email buttons. Previous: 1LINE Owner v1.0 | Updated: 06 Oct 2026 12:30 | Private: saves the owner key in this browser so paid modules run without checkout. The proxy checks the key; this page cannot unlock anything by itself. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +26,11 @@ button{padding:13px 20px;font-size:15px;font-weight:600;border-radius:10px;curso
 .on{background:#F0FBF6;border:1px solid rgba(45,122,90,0.3);color:#2D7A5A}
 .off{background:#fff;border:1px solid rgba(26,26,24,0.16);color:#3A3A38}
 .note{font-size:14px;color:#5C5A55;margin-top:28px}
+select{width:100%;padding:13px 14px;font-size:16px;border:1.5px solid #948E82;border-radius:12px;background:#fff;color:#1A1A18}
+h2{font-size:21px;font-weight:600;color:#1A2744;margin:48px 0 6px;padding-top:32px;border-top:1px solid rgba(26,26,24,0.12)}
+.result{margin-top:20px;padding:16px;border-radius:12px;background:#fff;border:1px solid rgba(26,39,68,0.25);font-size:15px;display:none}
+.result code{display:block;word-break:break-all;font-size:13px;background:#F3F1EC;padding:10px 12px;border-radius:8px;margin:10px 0}
+.err{color:#9A2B2B}
 </style>
 </head>
 <body>
@@ -41,6 +46,26 @@ button{padding:13px 20px;font-size:15px;font-weight:600;border-radius:10px;curso
   </div>
 
   <div class="status off" id="status"></div>
+
+  <h2>Send a free trial</h2>
+  <p>Makes a one-use link for one product with a 100% discount already applied. The person pays £0, gets the normal receipt email, and their report runs. Each link works once and then expires.</p>
+
+  <label for="t-product">Product</label>
+  <select id="t-product"><option value="">Press "Load products" first</option></select>
+  <div class="row"><button type="button" class="secondary" onclick="loadProducts()">Load products</button></div>
+
+  <label for="t-name">Their first name (optional, for the email)</label>
+  <input id="t-name" type="text" autocomplete="off" placeholder="e.g. Sam">
+
+  <label for="t-email">Their email (optional, fills in the email for you)</label>
+  <input id="t-email" type="email" autocomplete="off" placeholder="name@example.com">
+
+  <label for="t-days">Link lasts</label>
+  <select id="t-days"><option value="7">7 days</option><option value="14" selected>14 days</option><option value="30">30 days</option></select>
+
+  <div class="row"><button type="button" class="primary" id="t-make" onclick="makeTrial()">Create trial link</button></div>
+
+  <div class="result" id="t-result"></div>
 
   <p class="note">Do this once on each browser or phone you test from. Private / incognito windows forget it when closed. If the key is ever changed in Vercel, save the new one here again.</p>
 </div>
@@ -64,6 +89,79 @@ function clearKey() {
   showStatus();
 }
 showStatus();
+
+/* ── SEND A FREE TRIAL ── */
+var TRIAL_API = 'https://rcloop-proxy.vercel.app/api/trial';
+var _trial = null;
+function ownerKey() { try { return localStorage.getItem('1line_owner') || ''; } catch (e) { return ''; } }
+function niceName(n) { return String(n || '').replace(/^1LINE\s*-\s*/i, '1LINE ').replace(/\s+\)/, ')'); }
+function trialPost(obj) {
+  obj.owner = ownerKey();
+  return fetch(TRIAL_API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(obj) })
+    .then(function(r) { return r.json().then(function(d) { d._status = r.status; return d; }); });
+}
+function showResult(html) { var el = document.getElementById('t-result'); el.style.display = 'block'; el.innerHTML = html; }
+function esc(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+function needKey() {
+  if (ownerKey()) return false;
+  showResult('<span class="err">Save your owner key above first.</span>');
+  return true;
+}
+function loadProducts() {
+  if (needKey()) return;
+  var sel = document.getElementById('t-product');
+  sel.innerHTML = '<option value="">Loading…</option>';
+  trialPost({ action: 'products' }).then(function(d) {
+    if (d._status !== 200) { sel.innerHTML = '<option value="">Could not load</option>'; showResult('<span class="err">' + esc(d._status === 403 ? 'The server did not accept your owner key.' : (d.error || 'Something went wrong.')) + '</span>'); return; }
+    var html = '<option value="">Choose a product</option>';
+    for (var i = 0; i < d.products.length; i++) {
+      var p = d.products[i];
+      html += '<option value="' + esc(p.id) + '">' + esc(niceName(p.name)) + (p.price ? ' (' + esc(p.price) + ')' : '') + '</option>';
+    }
+    sel.innerHTML = html;
+    document.getElementById('t-result').style.display = 'none';
+  }).catch(function() { sel.innerHTML = '<option value="">Could not load</option>'; showResult('<span class="err">Could not reach the server. Try again.</span>'); });
+}
+function makeTrial() {
+  if (needKey()) return;
+  var pid = document.getElementById('t-product').value;
+  if (!pid) { showResult('<span class="err">Choose a product first.</span>'); return; }
+  var btn = document.getElementById('t-make');
+  btn.disabled = true; btn.textContent = 'Creating…';
+  var name = document.getElementById('t-name').value.trim();
+  trialPost({ action: 'create', product_id: pid, days: document.getElementById('t-days').value, label: name || document.getElementById('t-email').value.trim() })
+    .then(function(d) {
+      btn.disabled = false; btn.textContent = 'Create trial link';
+      if (d._status !== 200 || !d.link) { showResult('<span class="err">' + esc(d.error || 'Something went wrong.') + '</span>'); return; }
+      _trial = d;
+      showResult('<strong>Trial link ready</strong> — ' + esc(niceName(d.product)) + ', one use, expires ' + esc(d.expires) + '.'
+        + '<code id="t-link">' + esc(d.link) + '</code>'
+        + '<div class="row"><button type="button" class="primary" onclick="copyTrial()">Copy link</button>'
+        + '<button type="button" class="secondary" onclick="emailTrial()">Open email</button></div>'
+        + '<p class="note" id="t-copied" style="margin-top:12px;"></p>');
+    })
+    .catch(function() { btn.disabled = false; btn.textContent = 'Create trial link'; showResult('<span class="err">Could not reach the server. Try again.</span>'); });
+}
+function copyTrial() {
+  if (!_trial) return;
+  var done = function() { document.getElementById('t-copied').textContent = 'Copied.'; };
+  if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(_trial.link).then(done, function() { window.prompt('Copy this link:', _trial.link); }); }
+  else { window.prompt('Copy this link:', _trial.link); }
+}
+function emailTrial() {
+  if (!_trial) return;
+  var name = document.getElementById('t-name').value.trim();
+  var product = niceName(_trial.product);
+  var subject = 'Your free ' + product;
+  var body = 'Hi' + (name ? ' ' + name : '') + ',\n\n'
+    + 'I would like you to try ' + product + ' for free.\n\n'
+    + 'Use this link. Your free code is already applied, so the total shows £0:\n'
+    + _trial.link + '\n\n'
+    + 'It works once and lasts until ' + _trial.expires + '. After checkout you will get a receipt email with a button that takes you straight to your result.\n\n'
+    + 'Enjoy,\n';
+  window.location.href = 'mailto:' + encodeURIComponent(document.getElementById('t-email').value.trim())
+    + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+}
 </script>
 </body>
 </html>
