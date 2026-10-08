@@ -1,4 +1,4 @@
-<!-- 1LINE Astro v4.2 | Updated: 1 Oct 2026 | v4.1 + Compass purpose wording, readable skip line, birth time box aligned -->
+<!-- 1LINE Astro v4.3 | Updated: 8 Oct 2026 | Fixed: Ask Astro and Annual Forecast reports never ran (forecast prompt was misplaced inside the Ask Astro branch). Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE Astro v4.2 | Updated: 1 Oct 2026 | v4.1 + Compass purpose wording, readable skip line, birth time box aligned -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -352,6 +352,111 @@ textarea::placeholder, input::placeholder{color:#77746C}
 .mic-status.visible{display:block}
 @media (prefers-reduced-motion: reduce){.mic-btn.listening{animation:none}}
 </style>
+<script>
+/* 1LINE paid access config (Astro: one Lemon Squeezy product per report) */
+var ONELINE_MODULE = function() { return 'astro-' + (window._tier || 'insight'); };
+var _OL_ASTRO = {
+  profile: ['https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/a0d213dc-4684-43c9-96d6-c60d6133a528', '£15'],
+  insight: ['https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/fe89503f-b84c-41ae-8a4a-a1acbca49790', '£29'],
+  compatibility: ['https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/b20aad9e-0b4e-46fd-967a-b35d2f1e4bbf', '£49'],
+  forecast: ['https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/0d6ecc13-0298-43f2-b970-eb03f0633605', '£99'],
+  compass_career: ['https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/f368e695-7b23-43ae-9d63-1b2212ccc85b', '£49'],
+  compass_lifestory: ['https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/76746d6a-a7a8-48f4-9209-6b63b1819072', '£49'],
+  compass_askastro: ['https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/fba99d17-c765-4dc6-a937-ce8145799b18', '£9']
+};
+var ONELINE_CHECKOUT = function() { return (_OL_ASTRO[window._tier] || _OL_ASTRO.insight)[0]; };
+var ONELINE_PRICE = function() { return (_OL_ASTRO[window._tier] || _OL_ASTRO.insight)[1]; };
+</script>
+<script>
+/* ── 1LINE PAID ACCESS (shared, 8 Oct 2026) ─────────────────────────────
+   Attaches the Lemon Squeezy order details (or the owner key) to this page's
+   request to /api/ai-paid. The proxy checks them before any AI call.
+   If the proxy refuses (no valid purchase), a buy prompt is shown instead.
+   Nothing here can unlock a report on its own.
+   Page config (set just above this script): ONELINE_MODULE, ONELINE_CHECKOUT, ONELINE_PRICE
+   (each may be a value or a function).
+   ──────────────────────────────────────────────────────────────────── */
+function _olVal(v) { return (typeof v === 'function') ? v() : v; }
+
+function readParam(name) {
+  var m = window.location.search.match(new RegExp('[?&]' + name + '=([^&#]*)'));
+  return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : '';
+}
+
+function hasOwnerKey() {
+  try { return !!localStorage.getItem('1line_owner'); } catch (e) { return false; }
+}
+
+function getAccess(module) {
+  var a = { order: readParam('order'), key: readParam('key'), owner: '' };
+  try { a.owner = localStorage.getItem('1line_owner') || ''; } catch (e) {}
+  var store = '1line_access_' + module;
+  if (a.order && a.key) {
+    try { sessionStorage.setItem(store, JSON.stringify({ order: a.order, key: a.key })); } catch (e) {}
+  } else {
+    try {
+      var s = JSON.parse(sessionStorage.getItem(store) || 'null');
+      if (s && s.order && s.key) { a.order = s.order; a.key = s.key; }
+    } catch (e) {}
+  }
+  return a;
+}
+
+function showPaymentPrompt() {
+  if (document.getElementById('ol-pay-prompt')) return;
+  var price = _olVal(window.ONELINE_PRICE) || '';
+  var checkout = _olVal(window.ONELINE_CHECKOUT) || '';
+  var wrap = document.createElement('div');
+  wrap.id = 'ol-pay-prompt';
+  wrap.setAttribute('role', 'dialog');
+  wrap.setAttribute('aria-modal', 'true');
+  wrap.style.cssText = 'position:fixed;inset:0;z-index:2147483000;background:rgba(10,10,9,0.72);display:flex;align-items:center;justify-content:center;padding:20px;';
+  wrap.innerHTML =
+    '<div style="max-width:440px;width:100%;background:#FFFBF0;border:1px solid rgba(160,98,10,0.30);border-radius:14px;padding:24px 24px 20px;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#1A1A18;box-shadow:0 20px 60px rgba(0,0,0,0.35);">'
+    + '<p style="font-size:18px;font-weight:600;margin:0 0 8px;line-height:1.35;">We couldn’t confirm a purchase for this report.</p>'
+    + '<p style="font-size:15px;color:#3A3A38;line-height:1.6;margin:0 0 18px;">If you’ve already paid, open the link in your receipt email from Lemon Squeezy and your report will run. Otherwise, you can get it here.</p>'
+    + '<div style="display:flex;flex-wrap:wrap;gap:10px;">'
+    + '<button type="button" id="ol-pay-buy" style="padding:12px 20px;font-size:15px;font-weight:600;color:#fff;background:#1A2744;border:1.5px solid #1A2744;border-radius:10px;cursor:pointer;">Get the full report' + (price ? ' — ' + price : '') + '</button>'
+    + '<button type="button" id="ol-pay-close" style="padding:12px 20px;font-size:15px;font-weight:500;color:#1A2744;background:#fff;border:1.5px solid #948E82;border-radius:10px;cursor:pointer;">Close</button>'
+    + '</div></div>';
+  document.body.appendChild(wrap);
+  document.getElementById('ol-pay-buy').onclick = function() { if (checkout) window.location.href = checkout; };
+  document.getElementById('ol-pay-close').onclick = function() { window.location.href = window.location.pathname; };
+}
+
+/* true when this visit came back from a real Lemon Squeezy checkout (order + key in the link or saved) */
+function _olPaidReturn() {
+  if (window.location.search.indexOf('unlocked=true') === -1) return false;
+  var a = getAccess(String(_olVal(window.ONELINE_MODULE) || ''));
+  return !!(a.order && a.key);
+}
+/* true = go straight to the full report (the proxy still checks payment before any AI call) */
+function _olPass() { return window.location.search.indexOf('unlocked=true') !== -1 || hasOwnerKey(); }
+
+(function() {
+  if (!window.fetch || window._olFetchWrapped) return;
+  window._olFetchWrapped = true;
+  var realFetch = window.fetch;
+  window.fetch = function(url, opts) {
+    var u = (typeof url === 'string') ? url : (url && url.url) || '';
+    if (u.indexOf('/api/ai-paid') === -1 || !opts || typeof opts.body !== 'string') return realFetch.apply(this, arguments);
+    var module = String(_olVal(window.ONELINE_MODULE) || '');
+    try {
+      var b = JSON.parse(opts.body);
+      var a = getAccess(module);
+      b.module = module; b.order = a.order; b.key = a.key; b.owner = a.owner;
+      opts = Object.assign({}, opts, { body: JSON.stringify(b) });
+    } catch (e) {}
+    return realFetch.call(this, url, opts).then(function(r) {
+      if (r.status === 402 || r.status === 403) {
+        showPaymentPrompt();
+        return new Promise(function() {});   /* stop here: no error pop-ups, no spinner loops */
+      }
+      return r;
+    });
+  };
+})();
+</script>
 </head>
 <body>
 
@@ -792,7 +897,7 @@ textarea::placeholder, input::placeholder{color:#77746C}
 
 <script>
 var DEV_MODE=false, PREMIUM_GATED=true;
-var VERCEL_PROXY='https://rcloop-proxy.vercel.app/api/ai';
+var VERCEL_PROXY='https://rcloop-proxy.vercel.app/api/ai-paid';
 var LS_PROFILE='https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/a0d213dc-4684-43c9-96d6-c60d6133a528';
 var LS_INSIGHT='https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/fe89503f-b84c-41ae-8a4a-a1acbca49790';
 var LS_COMPAT='https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/b20aad9e-0b4e-46fd-967a-b35d2f1e4bbf';
@@ -1056,7 +1161,7 @@ function proceedToPayment(tier){
     _calc2.relType=document.getElementById('compat-rel').value;
   }
   var urls={profile:LS_PROFILE,insight:LS_INSIGHT,compatibility:LS_COMPAT,forecast:LS_FORECAST};
-  if(PREMIUM_GATED&&window.location.search.indexOf('unlocked=true')===-1){
+  if(PREMIUM_GATED&&!_olPass()){
     var save={tier:tier,day:_calc.day,month:_calc.month,year:_calc.year,name:_calc.name,challenge:_calc.challenge,time:_calc.time};
     if(_calc2){save.day2=_calc2.day;save.month2=_calc2.month;save.year2=_calc2.year;save.name2=_calc2.name||'';save.relType=_calc2.relType||'partner';}
     sessionStorage.setItem('astro_data',JSON.stringify(save));
@@ -1070,7 +1175,7 @@ document.addEventListener('DOMContentLoaded',function(){
   if(window.location.search.indexOf('unlocked=true')!==-1){
     /* Read tier from URL param first, fall back to sessionStorage */
     var urlParams=window.location.search;
-    var tierMatch=urlParams.match(/[?&]tier=([a-z]+)/);
+    var tierMatch=urlParams.match(/[?&]tier=([a-z_]+)/);
     if(tierMatch)_tier=tierMatch[1];
     var stored=sessionStorage.getItem('astro_data');
     if(stored){
@@ -1164,6 +1269,8 @@ function fireAI(tier){
     prompt=base+' Journey described by user: "'+_compassInput+'". Read this through their symbolic profile as a connected narrative, like a skilled biographer using astrology and numerology as the interpretive lens. Find the thread connecting what they have written - do not invent events they did not mention. CRITICAL: every field must connect symbolic signals together into synthesis, not list separate traits. Return ONLY: {"patternThatRepeats":["5 recurring themes across their full symbolic profile"],"chapterOne":"2-3 sentences synthesising the early pattern - connect their numbers with what they wrote, not as two separate facts but as one interpretation of the foundation.","hiddenPattern":"2-3 sentences on the repeating cycle nobody around them likely notices - explicitly connect two symbolic signals to explain WHY this cycle keeps recurring across different chapters of what they described.","turningPoint":"2-3 sentences on the turning point based specifically on what they wrote, synthesised through their symbolic profile - explain why their profile made this moment significant.","lifeLesson":"2-3 sentences, synthesis of profile and journey, on the lesson their pattern keeps returning them to - framed as a life lesson, never as a weakness.","becoming":"2-3 sentences, a beautiful forward-looking statement on who they are becoming if the current thread continues, connecting at least two symbolic signals.","shadowPath":"1-2 sentences on what tends to happen if this pattern is ignored or resisted.","growthPath":"1-2 sentences on what becomes possible if this pattern is followed and trusted.","threeQuestions":["3 reflective questions to carry with them, not actions - the kind that stay with someone"],"lifeSentence":"One unforgettable paragraph - their life story compressed into something they would keep forever."}';
   }else if(tier==='compass_askastro'){
     prompt=base+' Question asked: "'+_compassInput+'". Answer as a skilled astrologer sitting opposite this person, reading their chart in direct response to their exact question - not a generic FAQ answer. Connect at least two symbolic signals together to form one interpretation rather than listing separate facts. Return ONLY: {"chartSays":"2-3 sentences, synthesis of at least two symbolic signals specifically in relation to this question.","whyNow":"2 sentences connecting their personal year cycle to why this situation has appeared at this point.","beingAsked":"2 sentences on what they are symbolically being asked to learn, synthesised from the pattern, not stated as an isolated fact.","ifResist":"1-2 sentences on what tends to happen if this lesson is resisted.","smallestStep":"1 sentence - the smallest concrete next step.","returnNote":"A short closing line inviting them to return to this answer in 30 days and notice what has shifted."}';
+  }else if(tier==='forecast'){
+    var fy=(_calc&&_calc.currentYear)||new Date().getFullYear();
     prompt=base+' Generate annual forecast for '+fy+'. Return ONLY: {"yearTheme":"One sentence.","bestGrowthWindow":"Which months and why.","biggestChallenge":"Which period and how to navigate.","personalMotto":"Short motto for the year.","months":['+MONTHS.map(function(m){return '{"month":"'+m+'","theme":"Short theme","opportunity":"One opportunity","risk":"One risk","focus":"One focus"}'}).join(',')+'],"yearQuestion":"One powerful question for the year."}';
   }
   fetch(VERCEL_PROXY,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:system,prompt:prompt})})
@@ -1638,6 +1745,7 @@ function compassPurchase(lensId) {
     compassInput: document.getElementById('compass-input').value.trim()
   };
   sessionStorage.setItem('astro_data', JSON.stringify(save));
+  if (hasOwnerKey()) { _tier = save.tier; _compassInput = save.compassInput; _reportDate = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}); fireAI(_tier); return; }
   window.location.href = lens.lsUrl;
 }
 
@@ -1662,6 +1770,7 @@ function confirmAskAstro(){
     compassInput:question
   };
   sessionStorage.setItem('astro_data', JSON.stringify(save));
+  if (hasOwnerKey()) { closeAskAstroModal(); _tier = save.tier; _compassInput = save.compassInput; _reportDate = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}); fireAI(_tier); return; }
   window.location.href=askLens.lsUrl;
 }
 
