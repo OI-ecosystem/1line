@@ -1,4 +1,4 @@
-<!-- 1LINE Astro v4.3 | Updated: 8 Oct 2026 | Fixed: Ask Astro and Annual Forecast reports never ran (forecast prompt was misplaced inside the Ask Astro branch). Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE Astro v4.2 | Updated: 1 Oct 2026 | v4.1 + Compass purpose wording, readable skip line, birth time box aligned -->
+<!-- 1LINE Astro v4.4 | Updated: 8 Oct 2026 | Fixed: the four report cards under Compass ("Explore Astro reports") did nothing for the owner key (report ran on a hidden screen); they now switch back to the profile screen first. Previous: 1LINE Astro v4.3 | Updated: 8 Oct 2026 | Fixed: Ask Astro and Annual Forecast reports never ran (forecast prompt was misplaced inside the Ask Astro branch). Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE Astro v4.2 | Updated: 1 Oct 2026 | v4.1 + Compass purpose wording, readable skip line, birth time box aligned -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -1142,6 +1142,9 @@ function showCompassView(){
 
 function selectTier(tier){
   _tier=tier;
+  /* Report cards on the Compass screen: go back to the profile screen first so the report (or the second-person form) is visible */
+  var _vc=document.getElementById('view-compass');
+  if(_vc&&_vc.classList.contains('active')){showProfileView();var _po=document.getElementById('premium-output');if(_po)_po.style.display='';}
   if(tier==='compatibility'){
     document.getElementById('compat-input').style.display='block';
     document.getElementById('tier-select').style.display='none';
