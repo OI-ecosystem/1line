@@ -1,4 +1,4 @@
-<!-- 1LINE Astro v4.4 | Updated: 8 Oct 2026 | Fixed: the four report cards under Compass ("Explore Astro reports") did nothing for the owner key (report ran on a hidden screen); they now switch back to the profile screen first. Previous: 1LINE Astro v4.3 | Updated: 8 Oct 2026 | Fixed: Ask Astro and Annual Forecast reports never ran (forecast prompt was misplaced inside the Ask Astro branch). Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE Astro v4.2 | Updated: 1 Oct 2026 | v4.1 + Compass purpose wording, readable skip line, birth time box aligned -->
+<!-- 1LINE Astro v4.5 | Updated: 8 Oct 2026 | Every report (Profile, Insight, Compatibility, Forecast, as well as Compass) now gets its own loading screen with progress messages, then opens on its own clean report screen - for buyers returning from checkout and for the owner key. Also fixed: the four report cards under Compass did nothing for the owner key. Previous: 1LINE Astro v4.3 | Updated: 8 Oct 2026 | Fixed: Ask Astro and Annual Forecast reports never ran (forecast prompt was misplaced inside the Ask Astro branch). Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE Astro v4.2 | Updated: 1 Oct 2026 | v4.1 + Compass purpose wording, readable skip line, birth time box aligned -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -1210,8 +1210,8 @@ function fireAI(tier){
   loadDiv.id='ai-loader';
   loadDiv.style.cssText='text-align:center;padding:40px 0;font-family:var(--serif);font-style:italic;color:var(--ink-muted);font-size:18px;border-top:0.5px solid var(--border);';
   loadDiv.textContent=tier==='forecast'?'Generating your annual forecast...':tier==='compatibility'?'Generating compatibility report...':tier==='compass_career'?'Reading your symbolic work signature...':tier==='compass_lifestory'?'Tracing the thread through your story...':tier==='compass_askastro'?'Consulting your chart...':'Generating your full report...';
-  if(tier==='compass_career'||tier==='compass_lifestory'||tier==='compass_askastro'){
-    /* Compass tiers use discrete view switching - hide everything else, show loading view explicitly */
+  if(true){
+    /* v4.4: every report (not only Compass) gets its own loading screen, then its own report screen */
     var heroEl=document.querySelector('.hero');
     if(heroEl)heroEl.style.display='none';
     var inputSec=document.getElementById('input-section');
@@ -1234,6 +1234,26 @@ function fireAI(tier){
       ['Locating the turning points','Connecting chapters of your journey to your symbolic profile...'],
       ['Finding the pattern that repeats','Synthesising recurring themes...'],
       ['Finalising your story','Almost ready...']
+    ]:tier==='profile'?[
+      ['Reading your birth data','Cross-referencing Life Path, zodiac and element...'],
+      ['Building your symbolic profile','Connecting your numbers to your current cycle...'],
+      ['Writing your Astro Profile','Almost ready...']
+    ]:tier==='insight'?[
+      ['Reading your birth data','Cross-referencing Life Path, zodiac and element...'],
+      ['Mapping how you decide','Building your identity and decision profile...'],
+      ['Reading relationships and work','Connecting your pattern to love, career and wealth...'],
+      ['Finding your hidden strength','Locating your strength and your shadow pattern...'],
+      ['Writing your Astro Insight','Almost ready...']
+    ]:tier==='compatibility'?[
+      ['Reading both charts','Cross-referencing two sets of birth data...'],
+      ['Comparing your patterns','Locating where you align and where you clash...'],
+      ['Reading how you communicate','Connecting both profiles to everyday life together...'],
+      ['Writing your compatibility report','Almost ready...']
+    ]:tier==='forecast'?[
+      ['Reading your current cycle','Placing your Personal Year in the year ahead...'],
+      ['Mapping the year month by month','Locating your growth windows and pressure points...'],
+      ['Finding your theme for the year','Connecting the months into one story...'],
+      ['Writing your Annual Forecast','Almost ready...']
     ]:[
       ['Consulting your chart','Reading your symbolic profile against your question...'],
       ['Interpreting the signal','Connecting your question to your current cycle...'],
@@ -1247,7 +1267,7 @@ function fireAI(tier){
       si++;
       if(si>=stageMsgs.length){clearInterval(stageTimer);return;}
       if(titleEl&&subEl){titleEl.textContent=stageMsgs[si][0];subEl.textContent=stageMsgs[si][1];}
-    },1100);
+    },(tier==='compass_career'||tier==='compass_lifestory'||tier==='compass_askastro')?1100:2600);
     window._compassStageTimer=stageTimer;
   }else{
     document.getElementById('free-output').appendChild(loadDiv);
@@ -1288,7 +1308,7 @@ function fireAI(tier){
   })
   .catch(function(){
     if(window._compassStageTimer){clearInterval(window._compassStageTimer);window._compassStageTimer=null;}
-    if(tier==='compass_career'||tier==='compass_lifestory'||tier==='compass_askastro'){
+    if(true){
       var titleErrEl=document.querySelector('#compass-loading .cload-title');
       var subErrEl=document.querySelector('#compass-loading .cload-sub');
       if(titleErrEl)titleErrEl.textContent='Report generation failed';
@@ -1426,8 +1446,8 @@ function renderOutput(tier,p){
   html+='<div class="action-row"><button class="btn-sec primary" onclick="downloadPDF()">Download PDF Report</button><button class="btn-sec" onclick="resetAstro()">New Profile</button></div>';
   out.innerHTML=html;
   out.classList.add('visible');
-  if(tier==='compass_career'||tier==='compass_lifestory'||tier==='compass_askastro'){
-    /* Compass tiers use discrete view switching - hide everything else, show premium-output explicitly */
+  if(true){
+    /* v4.4: every report shows on its own screen (hide profile, show premium-output) */
     if(window._compassStageTimer){clearInterval(window._compassStageTimer);window._compassStageTimer=null;}
     var heroEl2=document.querySelector('.hero');
     if(heroEl2)heroEl2.style.display='none';
