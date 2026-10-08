@@ -1,4 +1,4 @@
-<!-- 1LINE Complain v1.3 | Updated: 06 Oct 2026 09:15 | Phone script added (promised on gate), length caps for 4k limit, copy buttons, save/print, calendar reminders, retry on error (no re-pay), og image -->
+<!-- 1LINE Complain v1.4 | Updated: 06 Oct 2026 12:30 | Paid access checked by the proxy (/api/ai-paid: Lemon Squeezy order or owner key); real checkout link; buy prompt if no purchase found. v1.3.1: Preview image links use lifekit333.com; phone script, caps, copy, save/print, reminders, retry -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,12 +13,12 @@
   <meta property="og:title" content="1LINE Complain - Something went wrong. Make it count." />
   <meta property="og:description" content="One paragraph. Complete complaint strategy. The letter, the timeline, the escalation route." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://oi-ecosystem.github.io/1line/complain/" />
-  <meta property="og:image" content="https://oi-ecosystem.github.io/1line/complain/og.png" />
+  <meta property="og:url" content="https://lifekit333.com/complain/" />
+  <meta property="og:image" content="https://lifekit333.com/complain/og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://oi-ecosystem.github.io/1line/complain/og.png" />
+  <meta name="twitter:image" content="https://lifekit333.com/complain/og.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -837,9 +837,14 @@ function generateComplain(val) {
 function unlockComplain() {
   var val = document.getElementById('main-input').value.trim();
   if (!val || val.length < 60) { alert('Please describe your complaint first.'); return; }
+  if (hasOwnerKey()) { _aiUnlocked = true; runAIComplain(val); return; }
+  buyNow();
+}
 
+function buyNow() {
+  var val = _lastInput || document.getElementById('main-input').value.trim();
   sessionStorage.setItem('complain_data', JSON.stringify({ val: val, chips: _lastChips, strength: _lastStrength, strengthSub: _lastStrengthSub, missing: _lastMissing }));
-  window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/COMPLAIN_UUID_PLACEHOLDER';
+  window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/1b04fd4a-7028-4722-ad7e-fb770d442d3e';
 }
 
 function showOverlay(cb) {
@@ -904,11 +909,12 @@ function _doRunAI(val) {
     }
     renderAIResponse(parsed);
   }, function(err) {
-    showRetry();
+    showRetry(err);
   });
 }
 
-function showRetry() {
+function showRetry(err) {
+  setRetryCard(document.getElementById('retry-card'), err, 'Get the full report \u2014 \u00a39');
   hideOverlay();
   document.getElementById('ai-premium').style.display = 'none';
   var outSec = document.getElementById('output-section');
@@ -923,6 +929,7 @@ function showRetry() {
 
 function retryAI() {
   var rc = document.getElementById('retry-card');
+  if (rc && rc.getAttribute('data-mode') === 'buy') { buyNow(); return; }
   if (rc) rc.className = 'retry-card';
   _aiUnlocked = true;
   var val = _lastInput || document.getElementById('main-input').value.trim();
@@ -964,12 +971,13 @@ function phoneScriptText(p) {
 }
 
 function callAnthropicAPI(systemPrompt, userPrompt, onSuccess, onError) {
-  fetch('https://rcloop-proxy.vercel.app/api/ai', {
+  fetch('https://rcloop-proxy.vercel.app/api/ai-paid', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ system: systemPrompt, prompt: userPrompt })
+    body: JSON.stringify(accessBody('complain', { system: systemPrompt, prompt: userPrompt }))
   })
   .then(function(r) {
+    var ae = accessError(r); if (ae) throw ae;
     if (!r.ok) throw new Error('HTTP ' + r.status);
     return r.json();
   })
@@ -1247,6 +1255,77 @@ function shareText(title, text, url, btn) {
     return;
   }
   copyText(text + '\n' + url, btn);
+}
+</script>
+
+<script>
+/* ── ACCESS (v1.4): sends the Lemon Squeezy order details, or your owner key, with every paid request.
+   The proxy checks them before any AI call. Nothing here can unlock a report on its own. ── */
+function readParam(name) {
+  var m = window.location.search.match(new RegExp('[?&]' + name + '=([^&#]*)'));
+  return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : '';
+}
+
+function hasOwnerKey() {
+  try { return !!localStorage.getItem('1line_owner'); } catch (e) { return false; }
+}
+
+function getAccess(module) {
+  var a = { order: readParam('order'), key: readParam('key'), owner: '' };
+  try { a.owner = localStorage.getItem('1line_owner') || ''; } catch (e) {}
+  var store = '1line_access_' + module;
+  if (a.order && a.key) {
+    try { sessionStorage.setItem(store, JSON.stringify({ order: a.order, key: a.key })); } catch (e) {}
+  } else {
+    try {
+      var s = JSON.parse(sessionStorage.getItem(store) || 'null');
+      if (s && s.order && s.key) { a.order = s.order; a.key = s.key; }
+    } catch (e) {}
+  }
+  return a;
+}
+
+function accessBody(module, obj) {
+  var a = getAccess(module);
+  obj.module = module;
+  obj.order = a.order;
+  obj.key = a.key;
+  obj.owner = a.owner;
+  return obj;
+}
+
+/* 402/403 from the proxy = no valid purchase for this report */
+function accessError(r) {
+  if (r.status === 402 || r.status === 403) {
+    var e = new Error('payment');
+    e.payment = true;
+    return e;
+  }
+  return null;
+}
+
+/* Switch a retry card between "try again" and "buy" wording */
+function setRetryCard(card, err, buyLabel) {
+  if (!card) return;
+  var t = card.querySelector('.retry-title');
+  var x = card.querySelector('.retry-text');
+  var b = card.querySelector('button');
+  if (!card.getAttribute('data-orig-title')) {
+    card.setAttribute('data-orig-title', t ? t.textContent : '');
+    card.setAttribute('data-orig-text', x ? x.textContent : '');
+    card.setAttribute('data-orig-btn', b ? b.textContent : '');
+  }
+  if (err && err.payment) {
+    if (t) t.textContent = 'We couldn’t confirm a purchase for this report.';
+    if (x) x.textContent = 'If you’ve already paid, open the link in your receipt email from Lemon Squeezy and your report will run. Otherwise, you can get it here.';
+    if (b) b.textContent = buyLabel;
+    card.setAttribute('data-mode', 'buy');
+  } else {
+    if (t) t.textContent = card.getAttribute('data-orig-title');
+    if (x) x.textContent = card.getAttribute('data-orig-text');
+    if (b) b.textContent = card.getAttribute('data-orig-btn');
+    card.setAttribute('data-mode', 'retry');
+  }
 }
 </script>
 

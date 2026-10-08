@@ -1,0 +1,69 @@
+<!-- 1LINE Owner v1.0 | Updated: 06 Oct 2026 12:30 | Private: saves the owner key in this browser so paid modules run without checkout. The proxy checks the key; this page cannot unlock anything by itself. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="robots" content="noindex, nofollow">
+<title>1LINE — Owner access</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#FAF8F5;color:#1A1A18;line-height:1.6;-webkit-font-smoothing:antialiased}
+.page{max-width:520px;margin:0 auto;padding:56px 24px}
+h1{font-size:26px;font-weight:600;color:#1A2744;margin-bottom:8px}
+p{font-size:16px;color:#3A3A38;margin-bottom:16px}
+label{display:block;font-size:14px;font-weight:600;margin:24px 0 8px}
+input{width:100%;padding:14px 16px;font-size:17px;border:1.5px solid #948E82;border-radius:12px;background:#fff;color:#1A1A18;outline:none}
+input:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+button{padding:13px 20px;font-size:15px;font-weight:600;border-radius:10px;cursor:pointer;border:1.5px solid #1A2744}
+.primary{background:#1A2744;color:#fff}
+.secondary{background:#fff;color:#1A2744;border-color:#948E82}
+.status{margin-top:22px;padding:14px 16px;border-radius:12px;font-size:15px}
+.on{background:#F0FBF6;border:1px solid rgba(45,122,90,0.3);color:#2D7A5A}
+.off{background:#fff;border:1px solid rgba(26,26,24,0.16);color:#3A3A38}
+.note{font-size:14px;color:#5C5A55;margin-top:28px}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Owner access</h1>
+  <p>Saves your owner key in this browser only. Paid 1LINE modules on this site will then run without checkout. The key is checked by the server, never shown in a link, and can be changed at any time in Vercel.</p>
+
+  <label for="owner-key">Owner key</label>
+  <input id="owner-key" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your owner key">
+  <div class="row">
+    <button type="button" class="primary" onclick="saveKey()">Save in this browser</button>
+    <button type="button" class="secondary" onclick="clearKey()">Remove from this browser</button>
+  </div>
+
+  <div class="status off" id="status"></div>
+
+  <p class="note">Do this once on each browser or phone you test from. Private / incognito windows forget it when closed. If the key is ever changed in Vercel, save the new one here again.</p>
+</div>
+<script>
+function showStatus() {
+  var el = document.getElementById('status');
+  var has = false;
+  try { has = !!localStorage.getItem('1line_owner'); } catch (e) {}
+  el.className = 'status ' + (has ? 'on' : 'off');
+  el.textContent = has ? 'Owner access is ON in this browser.' : 'Owner access is OFF in this browser.';
+}
+function saveKey() {
+  var v = document.getElementById('owner-key').value.trim();
+  if (v.length < 20) { alert('That key looks too short. It should be at least 20 characters.'); return; }
+  try { localStorage.setItem('1line_owner', v); } catch (e) { alert('This browser is blocking storage, so the key could not be saved.'); return; }
+  document.getElementById('owner-key').value = '';
+  showStatus();
+}
+function clearKey() {
+  try { localStorage.removeItem('1line_owner'); } catch (e) {}
+  showStatus();
+}
+showStatus();
+</script>
+</body>
+</html>

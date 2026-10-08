@@ -1,4 +1,4 @@
-<!-- 1LINE Property v1.1 | Updated: 06 Oct 2026 10:30 | Home MOT (personalised yearly checklist + calendar file), save/print, retry without re-pay wording, og image (lifekit333.com) -->
+<!-- 1LINE Property v1.2 | Updated: 06 Oct 2026 12:30 | Paid access checked by the proxy (/api/ai-paid: Lemon Squeezy order or owner key); real checkout link; buy prompt if no purchase found. v1.1: Home MOT, save/print, retry, og image -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -544,8 +544,8 @@ textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
 
 /* ── FLAGS ── */
 var PREMIUM_GATED   = true;
-var CHECKOUT_URL    = 'https://your-lemon-squeezy-link.com';   /* replace with the 1LINE Property £19 checkout link */
-var AI_URL          = 'https://rcloop-proxy.vercel.app/api/ai';
+var CHECKOUT_URL    = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/56513b87-b17f-435e-aa1d-c74686d78aa5';   /* 1LINE Property £19 */
+var AI_URL          = 'https://rcloop-proxy.vercel.app/api/ai-paid';   /* checks the purchase (or owner key) before any AI call */
 var DATA_URL        = 'https://rcloop-proxy.vercel.app/api/property-data';   /* non-AI: HM Land Registry data only */
 var PC_URL          = 'https://api.postcodes.io';
 var _spellWarned    = false;
@@ -1245,18 +1245,22 @@ function renderFree(S) {
   document.querySelector('.input-section').style.display = 'none';
   document.getElementById('how-section').style.display = 'none';
   document.getElementById('output-section').className = 'visible';
-  var unlocked = window.location.search.indexOf('unlocked=true') !== -1;
+  var unlocked = window.location.search.indexOf('unlocked=true') !== -1 || hasOwnerKey();
   document.getElementById('unlock-btn').textContent = unlocked ? 'Generate My Full Property Report' : 'Unlock Full Property Report — £19';
   document.getElementById('property-gate').style.display = 'block';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 /* ── PAYMENT ── */
+function buyNow() {
+  var pcInput = document.getElementById('pc-input');
+  sessionStorage.setItem('property_data', JSON.stringify({ val: _lastVal, pc: pcInput ? pcInput.value.trim() : '' }));
+  window.location.href = CHECKOUT_URL;
+}
+
 function unlockProperty() {
-  if (PREMIUM_GATED && window.location.search.indexOf('unlocked=true') === -1) {
-    var pcInput = document.getElementById('pc-input');
-    sessionStorage.setItem('property_data', JSON.stringify({ val: _lastVal, pc: pcInput ? pcInput.value.trim() : '' }));
-    window.location.href = CHECKOUT_URL;
+  if (PREMIUM_GATED && window.location.search.indexOf('unlocked=true') === -1 && !hasOwnerKey()) {
+    buyNow();
     return;
   }
   runAIProperty();
@@ -1358,9 +1362,9 @@ function runAIProperty() {
     fetch(AI_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ system: pr.system, prompt: pr.prompt })
+      body: JSON.stringify(accessBody('property', { system: pr.system, prompt: pr.prompt }))
     })
-    .then(function(r) { return r.json(); })
+    .then(function(r) { var ae = accessError(r); if (ae) throw ae; return r.json(); })
     .then(function(data) {
       var text = data.content && data.content[0] ? data.content[0].text : '';
       var clean = text.replace(/```json/g,'').replace(/```/g,'').trim();
@@ -1371,15 +1375,30 @@ function runAIProperty() {
       S.reportAt = new Date().toISOString();
       renderAIProperty(d, S);
     })
-    .catch(function() {
+    .catch(function(err) {
       hideOverlay();
-      showPropertyRetry();
+      showPropertyRetry(err);
     });
   }); /* end showOverlay callback */
 }
 
-function showPropertyRetry() {
+function showPropertyRetry(err) {
   var gate = document.getElementById('property-gate');
+  if (err && err.payment) {
+    gate.querySelector('.gate-label').textContent = 'Payment not confirmed';
+    gate.querySelector('.gate-hed').textContent = 'We couldn\u2019t confirm a purchase for this report.';
+    var gl0 = gate.querySelector('.gate-list');
+    if (gl0) gl0.style.display = 'none';
+    var ub = document.getElementById('unlock-btn');
+    ub.textContent = 'Unlock Full Property Report \u2014 \u00a319';
+    ub.onclick = buyNow;
+    ub.style.display = '';
+    gate.querySelector('.gate-small').textContent = 'If you\u2019ve already paid, open the link in your receipt email from Lemon Squeezy and your report will run.';
+    document.getElementById('retry-btn').style.display = 'none';
+    gate.style.display = 'block';
+    gate.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
   gate.querySelector('.gate-label').textContent = 'Nearly there';
   gate.querySelector('.gate-hed').textContent = 'Your report didn\u2019t finish loading.';
   var gl = gate.querySelector('.gate-list');
@@ -1960,6 +1979,77 @@ function shareText(title, text, url, btn) {
     return;
   }
   copyText(text + '\n' + url, btn);
+}
+</script>
+
+<script>
+/* ── ACCESS (v1.4): sends the Lemon Squeezy order details, or your owner key, with every paid request.
+   The proxy checks them before any AI call. Nothing here can unlock a report on its own. ── */
+function readParam(name) {
+  var m = window.location.search.match(new RegExp('[?&]' + name + '=([^&#]*)'));
+  return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : '';
+}
+
+function hasOwnerKey() {
+  try { return !!localStorage.getItem('1line_owner'); } catch (e) { return false; }
+}
+
+function getAccess(module) {
+  var a = { order: readParam('order'), key: readParam('key'), owner: '' };
+  try { a.owner = localStorage.getItem('1line_owner') || ''; } catch (e) {}
+  var store = '1line_access_' + module;
+  if (a.order && a.key) {
+    try { sessionStorage.setItem(store, JSON.stringify({ order: a.order, key: a.key })); } catch (e) {}
+  } else {
+    try {
+      var s = JSON.parse(sessionStorage.getItem(store) || 'null');
+      if (s && s.order && s.key) { a.order = s.order; a.key = s.key; }
+    } catch (e) {}
+  }
+  return a;
+}
+
+function accessBody(module, obj) {
+  var a = getAccess(module);
+  obj.module = module;
+  obj.order = a.order;
+  obj.key = a.key;
+  obj.owner = a.owner;
+  return obj;
+}
+
+/* 402/403 from the proxy = no valid purchase for this report */
+function accessError(r) {
+  if (r.status === 402 || r.status === 403) {
+    var e = new Error('payment');
+    e.payment = true;
+    return e;
+  }
+  return null;
+}
+
+/* Switch a retry card between "try again" and "buy" wording */
+function setRetryCard(card, err, buyLabel) {
+  if (!card) return;
+  var t = card.querySelector('.retry-title');
+  var x = card.querySelector('.retry-text');
+  var b = card.querySelector('button');
+  if (!card.getAttribute('data-orig-title')) {
+    card.setAttribute('data-orig-title', t ? t.textContent : '');
+    card.setAttribute('data-orig-text', x ? x.textContent : '');
+    card.setAttribute('data-orig-btn', b ? b.textContent : '');
+  }
+  if (err && err.payment) {
+    if (t) t.textContent = 'We couldn’t confirm a purchase for this report.';
+    if (x) x.textContent = 'If you’ve already paid, open the link in your receipt email from Lemon Squeezy and your report will run. Otherwise, you can get it here.';
+    if (b) b.textContent = buyLabel;
+    card.setAttribute('data-mode', 'buy');
+  } else {
+    if (t) t.textContent = card.getAttribute('data-orig-title');
+    if (x) x.textContent = card.getAttribute('data-orig-text');
+    if (b) b.textContent = card.getAttribute('data-orig-btn');
+    card.setAttribute('data-mode', 'retry');
+  }
 }
 </script>
 
