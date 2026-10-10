@@ -1,4 +1,4 @@
-<!-- 1LINE Message v1.6 | Updated: 8 Oct 2026 | Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE Message v1.5 | Updated: 1 Oct 2026 | Readability pass + microphone + spelling check wording (Career v1.6.1 template) -->
+<!-- 1LINE Message v1.7 | Updated: 10 Oct 2026 | Text size A- / A+ buttons (bottom right, remembered per browser) and a larger, wider layout on big screens (108% from 900px, 110% from 1200px; phones unchanged). Display only - nothing else changed. Previous: 1LINE Message v1.6 | Updated: 8 Oct 2026 | Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE Message v1.5 | Updated: 1 Oct 2026 | Readability pass + microphone + spelling check wording (Career v1.6.1 template) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -242,8 +242,23 @@ function _olPass() { return window.location.search.indexOf('unlocked=true') !== 
   };
 })();
 </script>
+<style>
+/* -- Text size + big-screen layout (display only; copied from Gift v3.7.2) -- */
+:root{--az:1;--uz:1}
+@media screen{body > .page{zoom:calc(var(--az) * var(--uz))}}
+@media screen and (min-width: 900px){:root{--az:1.08}body .page{max-width:700px}}
+@media screen and (min-width: 1200px){:root{--az:1.10}body .page{max-width:780px}}
+.textsize-group{position:fixed;right:16px;bottom:16px;z-index:50;display:flex;border:1.5px solid #1A2744;border-radius:20px;background:#FFFFFF;overflow:hidden;box-shadow:0 2px 10px rgba(26,26,24,0.12)}
+.textsize-btn{min-width:46px;height:38px;padding:0 12px;border:0;background:#FFFFFF;color:#1A2744;font-family:inherit;font-size:15px;font-weight:600;line-height:1;cursor:pointer}
+.textsize-btn + .textsize-btn{border-left:1px solid rgba(26,39,68,0.25)}
+.textsize-btn:hover{background:#F2F4F8}
+.textsize-btn:disabled{color:#B8BCC6;cursor:default;background:#FFFFFF}
+.textsize-btn:focus-visible{outline:3px solid rgba(26,39,68,0.35);outline-offset:-3px}
+@media print{.textsize-group{display:none}}
+</style>
 </head>
 <body>
+<div class="textsize-group" role="group" aria-label="Text size"><button type="button" class="textsize-btn" id="textsize-down" onclick="changeTextSize(-1)" aria-label="Make text smaller" title="Make text smaller">A&minus;</button><button type="button" class="textsize-btn" id="textsize-up" onclick="changeTextSize(1)" aria-label="Make text larger" title="Make text larger">A+</button></div>
 <div id="processing-banner" style="display:none;position:fixed;top:0;left:0;width:100%;background:#1a1a18;color:#f5f3ee;text-align:center;padding:14px 20px;font-size:14px;letter-spacing:0.04em;z-index:9999;">Writing your message versions — please wait a moment...</div>
 <script>if(_olPaidReturn()){document.getElementById('processing-banner').style.display='block';}</script>
 <div id="intelligence-overlay">
@@ -729,5 +744,30 @@ document.addEventListener('DOMContentLoaded', function() {
 <script data-goatcounter="https://signal333.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 
+<script>
+/* -- Text size A- / A+ (remembered in this browser only; display only) -- */
+var TEXT_SIZES = [1, 1.15, 1.3];
+var _textSize = 0;
+function _applyTextSize(i) {
+  _textSize = i;
+  document.documentElement.style.setProperty('--uz', String(TEXT_SIZES[i]));
+  var dn = document.getElementById('textsize-down'), up = document.getElementById('textsize-up');
+  if (dn) dn.disabled = (i === 0);
+  if (up) up.disabled = (i === TEXT_SIZES.length - 1);
+}
+function changeTextSize(step) {
+  var i = _textSize + step;
+  if (i < 0) i = 0;
+  if (i > TEXT_SIZES.length - 1) i = TEXT_SIZES.length - 1;
+  try { localStorage.setItem('1line_textsize', String(i)); } catch (e) {}
+  _applyTextSize(i);
+}
+(function() {
+  var i = 0;
+  try { i = parseInt(localStorage.getItem('1line_textsize') || '0', 10) || 0; } catch (e) {}
+  if (i < 0 || i >= TEXT_SIZES.length) i = 0;
+  _applyTextSize(i);
+})();
+</script>
 </body>
 </html>
