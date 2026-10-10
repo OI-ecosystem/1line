@@ -1,4 +1,4 @@
-<!-- 1LINE Gift v3.6 | Updated: 08 Oct 2026 | Paid access checked by the proxy (/api/ai-paid: Lemon Squeezy order or owner key); buy prompt if no purchase found; Try again without re-paying; no error pop-ups; "Access unlocked" note only with a real order or owner key. v3.5: Readability pass + microphone -->
+<!-- 1LINE Gift v3.7.1 | Updated: 10 Oct 2026 | Desktop text scale on big screens 110% (was 118%), column kept wide. Previous: 1LINE Gift v3.7 | Updated: 10 Oct 2026 | "What we heard" before payment (their own words played back, plus what is missing, e.g. age or him/her) with "Edit my description" - free until unlocked, never after; sharper free teaser (new faith and craft signals, "Also shaped by" directions); 300 characters (was 200); budgets £150-£250 and £250+; wider/larger layout on desktop + A+ text-size button; example and hint show age and him/her; "AI" removed from page wording. Previous: 1LINE Gift v3.6 | Updated: 08 Oct 2026 | Paid access checked by the proxy (/api/ai-paid: Lemon Squeezy order or owner key); buy prompt if no purchase found; Try again without re-paying; no error pop-ups; "Access unlocked" note only with a real order or owner key. v3.5: Readability pass + microphone -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -642,9 +642,33 @@ textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
 .retry-text{font-family:var(--sans);font-size:15px;color:#3A3A38;line-height:1.6;margin-bottom:14px}
 .retry-btn2{display:inline-flex;align-items:center;justify-content:center;padding:11px 18px;font-family:var(--sans);font-size:15px;font-weight:500;color:#FFFFFF;background:#1A2744;border:1.5px solid #1A2744;border-radius:10px;cursor:pointer}
 .retry-btn2:hover{opacity:0.88}
+
+/* -- v3.7: what we heard, edit, desktop size, A+ -- */
+.heard-card{margin-bottom:12px}
+.heard-for{font-size:15px;color:#3A3A38;margin:6px 0 10px;line-height:1.5}
+.heard-chips{display:flex;gap:8px;flex-wrap:wrap}
+.heard-chip{font-size:14px;color:#1A1A18;background:#FFFFFF;border:1px solid rgba(26,26,24,0.22);border-radius:20px;padding:5px 14px;line-height:1.4}
+.heard-chip.neg{color:#8A4B08;border-color:rgba(160,98,10,0.35);background:#FFFBF5}
+.heard-missing{font-size:14px;color:#8A4B08;margin-top:12px;line-height:1.5}
+.heard-edit-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px}
+.heard-edit-btn{display:inline-flex;align-items:center;padding:10px 16px;font-family:var(--sans);font-size:14px;font-weight:500;color:#1A2744;background:#FFFFFF;border:1.5px solid #1A2744;border-radius:10px;cursor:pointer}
+.heard-edit-btn:hover{background:#F2F4F8}
+.heard-edit-note{font-size:13px;color:#5C5A55}
+.direction-also{font-size:13px;color:#3A3A38;margin-top:10px;line-height:1.5}
+.direction-also strong{font-weight:500}
+.unlock-check{font-size:12px;color:rgba(255,255,255,0.62);margin-top:12px;line-height:1.5}
+:root{--az:1;--uz:1}
+.page{zoom:calc(var(--az) * var(--uz))}
+@media (min-width: 900px){:root{--az:1.08}.page{max-width:700px}}
+@media (min-width: 1200px){:root{--az:1.10}.page{max-width:780px}}
+.textsize-btn{position:fixed;right:16px;bottom:16px;z-index:50;min-width:48px;height:40px;padding:0 12px;border-radius:20px;border:1.5px solid #1A2744;background:#FFFFFF;color:#1A2744;font-family:var(--sans);font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 2px 10px rgba(26,26,24,0.12)}
+.textsize-btn:hover{background:#F2F4F8}
+.textsize-btn:focus-visible{outline:3px solid rgba(26,39,68,0.35);outline-offset:2px}
+@media print{.textsize-btn{display:none}}
 </style>
 </head>
 <body>
+<button type="button" class="textsize-btn" id="textsize-btn" onclick="cycleTextSize()" aria-label="Make text larger" title="Make text larger">A+</button>
 <!-- INTELLIGENCE OVERLAY -->
 <div id="intelligence-overlay">
   <p class="overlay-eyebrow">1LINE Gift</p>
@@ -681,7 +705,7 @@ textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
 
   <section class="input-section">
     <p class="input-prompt">Describe the person you are buying for in one line.</p>
-    <p class="input-hint">Include their interests, personality, lifestyle, age, what they love and what they hate. The more honest the description, the more precise the ideas.</p>
+    <p class="input-hint">Say whether it&rsquo;s him or her and their age, then their interests, personality, lifestyle, what they love and what they hate. The more honest the description, the more precise the ideas.</p>
 
     <!-- Relationship selector -->
     <div class="selector-block">
@@ -703,20 +727,21 @@ textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
         <button class="sel-btn" data-val="low" onclick="selectBudget(this)">Under &pound;30</button>
         <button class="sel-btn selected" data-val="mid" onclick="selectBudget(this)">&pound;30 &ndash; &pound;75</button>
         <button class="sel-btn" data-val="high" onclick="selectBudget(this)">&pound;75 &ndash; &pound;150</button>
-        <button class="sel-btn" data-val="premium" onclick="selectBudget(this)">&pound;150+</button>
+        <button class="sel-btn" data-val="premium" onclick="selectBudget(this)">&pound;150 &ndash; &pound;250</button>
+        <button class="sel-btn" data-val="top" onclick="selectBudget(this)">&pound;250+</button>
       </div>
     </div>
 
     <div class="input-wrap">
       <textarea
         id="main-input"
-        maxlength="200"
+        maxlength="300"
         oninput="countChars()"
         spellcheck="true"
         autocorrect="on"
         autocomplete="off"
         autocapitalize="sentences"
-        placeholder="My partner is 32, loves coffee, minimalist design, works in architecture, hates clutter, enjoys long walks and has a dry sense of humour."
+        placeholder="My husband, 45, a keen cyclist and Liverpool fan, loves strong coffee and old films, works in architecture, hates clutter and anything novelty."
         aria-label="Describe the person you are buying for"
       ></textarea>
       <button type="button" class="mic-btn" data-target="main-input" aria-label="Speak instead of typing" aria-pressed="false" title="Speak instead of typing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg></button>
@@ -724,7 +749,7 @@ textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
     <p class="mic-status" id="mic-status-main-input" aria-live="polite">Listening… speak, then pause.</p>
 
     <div class="char-counter">
-      <span>80 – 200 characters</span>
+      <span>80 – 300 characters</span>
       <span class="char-count" id="char-count">0</span>
     </div>
 
@@ -764,6 +789,18 @@ textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
   <section id="output-section" aria-live="polite">
     <p class="section-eyebrow">Your gift intelligence</p>
 
+    <!-- What we heard (free, before payment only) -->
+    <div class="out-card heard-card" id="heard-card">
+      <span class="out-label">What we heard</span>
+      <div class="heard-for" id="heard-for"></div>
+      <div class="heard-chips" id="heard-chips"></div>
+      <div class="heard-missing" id="heard-missing"></div>
+      <div class="heard-edit-row">
+        <button type="button" class="heard-edit-btn" onclick="editDescription()">Edit my description</button>
+        <span class="heard-edit-note">Missed something? Add it now &mdash; editing is free until you unlock.</span>
+      </div>
+    </div>
+
     <!-- Personality profile tag -->
     <div class="out-card profile-block">
       <span class="out-label">Personality profile</span>
@@ -775,6 +812,7 @@ textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
       <span class="out-label">Primary gift direction</span>
       <div class="direction-value" id="out-direction"></div>
       <div class="direction-sub" id="out-direction-sub"></div>
+      <div class="direction-also" id="out-direction-also"></div>
       <div class="categories-row" id="out-categories"></div>
     </div>
 
@@ -851,12 +889,13 @@ textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
         <p class="unlock-sub">With individual reasoning, what to avoid, and exactly where to find each one.</p>
         <button class="unlock-btn" onclick="unlockAI()">Get my gift ideas &mdash; &pound;9</button>
         <span class="unlock-price">One-time &middot; Instant &middot; No account needed</span>
+        <p class="unlock-check">Check what we heard first &mdash; once unlocked, your report is written from this description.</p>
       </div>
     </div>
 
     <!-- AI Premium output section -->
     <div class="ai-premium-section" id="ai-premium-section">
-      <div class="dev-banner" id="dev-banner">DEV MODE &mdash; Mock AI response. No tokens used.</div>
+      <div class="dev-banner" id="dev-banner">DEV MODE &mdash; Mock response. No tokens used.</div>
 
       <div class="retry-card" id="retry-card">
         <p class="retry-title">Your gift ideas didn't finish loading.</p>
@@ -925,7 +964,7 @@ textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
       </div>
     </div>
 
-    <p class="share-nudge">Unlock AI gift intelligence to get five specific, personalised recommendations for this person.</p>
+    <p class="share-nudge">Unlock your full gift ideas to get five specific, personalised recommendations for this person.</p>
   </section>
 
   <footer>
@@ -970,20 +1009,24 @@ function countChars() {
   if (!ta || !cc) return;
   var len = ta.value.length;
   cc.textContent = len;
-  cc.className = 'char-count' + (len >= 80 && len <= 200 ? ' valid' : len > 200 ? ' over' : '');
-  if (btn) btn.disabled = !(len >= 80 && len <= 200);
+  cc.className = 'char-count' + (len >= 80 && len <= 300 ? ' valid' : len > 300 ? ' over' : '');
+  if (btn) btn.disabled = !(len >= 80 && len <= 300);
   if (ta.value !== _lastCountedVal) {
     _lastCountedVal = ta.value;
     _spellWarned = false;
     var p = document.getElementById('spell-panel');
     if (p) p.className = 'spell-panel';
+    if (!_aiUnlocked) {
+      var os = document.getElementById('output-section');
+      if (os && os.className.indexOf('visible') !== -1 && os.style.display !== 'none') os.className = '';
+    }
   }
 }
 
 /* -- UNIVERSAL SPELL WARNING -- */
 function handleGenerate() {
   var val = document.getElementById('main-input').value.trim();
-  if (val.length < 80 || val.length > 200) return;
+  if (val.length < 80 || val.length > 300) return;
   if (!_spellWarned) {
     _spellWarned = true;
     document.getElementById('spell-panel').className = 'spell-panel visible';
@@ -1065,6 +1108,8 @@ var PERSONALITY_SIGNALS = {
   sentimental:  ['sentimental','memory','memories','family','personal','meaningful','keepsake','photo','photograph','nostalgic','home','treasures','mementos','significant','cherish','remember'],
   luxury:       ['luxury','premium','quality','finest','artisan','handmade','bespoke','curated','elegant','sophisticated','splurge','treat','indulge','high-end','expensive taste','champagne','cashmere'],
   nature:       ['nature','garden','gardening','plant','plants','outdoors','walking','countryside','beach','sea','ocean','green','eco','sustainable','wildlife','birds','trees','hiking','allotment','foraging'],
+  spiritual:    ['faith','christian','church','god','spiritual','catholic','muslim','islam','mosque','jewish','synagogue','hindu','temple','sikh','gurdwara','buddhist','prayer','pray','bible','worship','religious','believer','mindful'],
+  craft:        ['craftsman','craftswoman','craftsperson','carpenter','joiner','cobbler','shoemaker','woodwork','woodworker','blacksmith','leatherwork','tailor','upholster','plumber','electrician','builder','mechanic','engineer','tradesman','tradeswoman','trade','self-employed','self employed','own business','workshop','tools','handmade','skilled'],
 };
 
 function detectPersonality(str) {
@@ -1109,13 +1154,23 @@ var PROFILE_TAGS = {
   'nature,experiential':      'The outdoor spirit',
   'social,sporting':          'The active social type',
   'sporting,practical':       'The dedicated sportsperson',
-  'sporting,experiential':    'The competitive adventurer',
+  'sporting,experiential':    'The active adventurer',
   'fashion,social':           'The stylish socialiser',
   'fashion,luxury':           'The quality dresser',
   'homebody,sensory':         'The contented homebody',
   'homebody,creative':        'The creative nester',
   'social,sensory':           'The convivial host',
   'social,fashion':           'The social stylist',
+  'sporting,spiritual':       'The disciplined, grounded type',
+  'sporting,craft':           'The hands-on, active type',
+  'craft,spiritual':          'The grounded maker',
+  'craft,practical':          'The skilled pragmatist',
+  'craft,creative':           'The dedicated maker',
+  'craft,experiential':       'The hands-on adventurer',
+  'spiritual,experiential':   'The reflective explorer',
+  'spiritual,nature':         'The reflective naturalist',
+  'spiritual,sentimental':    'The quietly devoted type',
+  'spiritual,social':         'The warm, grounded connector',
 };
 
 function buildProfileTag(traits, str) {
@@ -1139,6 +1194,8 @@ function buildProfileTag(traits, str) {
     'sentimental':  'The warm rememberer',
     'luxury':       'The quality connoisseur',
     'nature':       'The grounded naturalist',
+    'spiritual':    'The grounded believer',
+    'craft':        'The skilled maker',
   };
   return fallbacks[traits[0]] || 'The thoughtful individual';
 }
@@ -1158,6 +1215,8 @@ var DIRECTIONS = {
   sentimental:  { dir: 'Personalised and preserving', sub: 'Gifts that hold meaning. Something that captures a moment, a place or a person.' },
   luxury:       { dir: 'Premium quality they would not buy themselves', sub: 'The finest version. Something they appreciate but consider an indulgence.' },
   nature:       { dir: 'The natural world brought closer', sub: 'Gifts rooted in the outdoors - tools, experiences and objects connected to nature.' },
+  spiritual:    { dir: 'Meaning, reflection and faith', sub: 'Gifts that respect what matters most to them - thoughtful and personal, never preachy.' },
+  craft:        { dir: 'Craft and quality workmanship', sub: 'Gifts that honour skill - well-made things, better tools and makers they would respect.' },
 };
 
 /* -- CATEGORIES -- */
@@ -1175,6 +1234,8 @@ var CATEGORY_MAP = {
   sentimental:  ['Personalised', 'Keepsake', 'Meaningful'],
   luxury:       ['Premium', 'Physical', 'Artisan'],
   nature:       ['Experiential', 'Physical', 'Organic'],
+  spiritual:    ['Meaningful', 'Personalised', 'Experiential'],
+  craft:        ['Physical', 'Artisan', 'Functional'],
 };
 
 /* -- BUDGET LOGIC -- */
@@ -1202,9 +1263,16 @@ var BUDGET_BANDS = {
   },
   premium: {
     tiers: [
-      { name:'Premium', range:'£150 – £250', desc:'Luxury quality, lasting impression.', rec:false },
-      { name:'Statement', range:'£250 – £400', desc:'The finest version of something they love.', rec:true },
-      { name:'Exceptional', range:'£400+', desc:'An experience or object they will never forget.', rec:false },
+      { name:'Considered', range:'£150 – £180', desc:'Luxury quality, lasting impression.', rec:false },
+      { name:'Sweet spot', range:'£180 – £250', desc:'The finest version of something they love.', rec:true },
+      { name:'Stretch', range:'£250 – £300', desc:'A gift that will be talked about for years.', rec:false },
+    ]
+  },
+  top: {
+    tiers: [
+      { name:'Premium', range:'£250 – £400', desc:'Exceptional quality they would never buy themselves.', rec:false },
+      { name:'Statement', range:'£400 – £750', desc:'A signature piece or a once-in-a-lifetime experience.', rec:true },
+      { name:'Exceptional', range:'£750+', desc:'Something truly rare, made or arranged just for them.', rec:false },
     ]
   },
 };
@@ -1393,7 +1461,143 @@ var REASONING = {
   sentimental:  'This person values meaning and memory in a gift. Something personal and thoughtful will be far more treasured than something expensive.',
   luxury:       'This person appreciates quality and craftsmanship. They notice the difference - and they would never buy the finest version for themselves.',
   nature:       'This person finds meaning in the natural world. Gifts connected to the outdoors, growing things or natural materials resonate deeply.',
+  spiritual:    'Their faith or inner life matters to them. A gift that quietly respects it will mean more than something showy.',
+  craft:        'They know good work when they see it. Quality and real craftsmanship will be noticed straight away.',
 };
+
+/* -- v3.7: WHAT WE HEARD (rules only, no AI call, nothing sent anywhere) -- */
+var HEARD_LEAD = { 'my':1,'our':1,'his':1,'her':1,'their':1,'he':1,'she':1,'they':1,'him':1,'is':1,'are':1,'was':1,
+  'a':1,'an':1,'the':1,'who':1,'that':1,'loves':1,'love':1,'enjoys':1,'enjoy':1,'likes':1,'like':1,'really':1,
+  'also':1,'very':1,'big':1,'huge':1,'has':1,'have':1,'always':1,'into':1,'being':1,'been':1,'and':1,'but':1,
+  'hes':1,'shes':1,'theyre':1,'absolutely':1,'totally':1,'quite':1,'just':1,'currently':1,'does':1,'do':1,
+  'plays':1,'play':1,'works':1,'working':1,'as':1,'in':1,'at':1,'for':1,'with':1,'of':1,'to':1,'enjoying':1,
+  'loving':1,'passionate':1,'about':1,'keen':0,'adores':1,'obsessed':1,'mad':1,'crazy':1,'massive':1,'so':1,'lot':1,'lots':1,
+  'year':1,'years':1,'yr':1,'yrs':1,'aged':1,'age':1,'yo':1,'turning':1,'turns':1,'now':1,
+  'goes':1,'going':1,'go':1,'on':1,'spends':1,'spending':1,'regularly':1,'often':1,'usually':1,'loads':1,
+  'partner':1,'husband':1,'wife':1,'boyfriend':1,'girlfriend':1,'brother':1,'sister':1,'mum':1,'mother':1,'mom':1,
+  'dad':1,'father':1,'son':1,'daughter':1,'friend':1,'colleague':1,'boss':1,'client':1,'nan':1,'nana':1,'grandad':1,
+  'grandma':1,'grandpa':1,'granddad':1,'uncle':1,'aunt':1,'auntie':1,'cousin':1,'fiance':1,'fiancee':1,'niece':1,'nephew':1,'mate':1,
+  'person':1,'someone':1,'guy':1,'man':1,'woman':1,'lady':1,'bloke':1 };
+var HEARD_NEG = { 'hates':1,'hate':1,'dislikes':1,'dislike':1,'cant':1,'cannot':1,'doesnt':1,'not':1,'never':1,'no':1,'avoid':1,'avoids':1,'detests':1,'loathes':1,'isnt':1,'wont':1 };
+var HEARD_NEG_FOLLOW = { 'stand':1,'like':1,'likes':1,'into':1,'want':1,'wants':1,'bear':1,'a':1,'an':1,'fan':1,'of':1,'big':1,'keen':1,'on':1,'really':1 };
+var HEARD_HIM = { 'he':1,'him':1,'his':1,'hes':1,'husband':1,'boyfriend':1,'brother':1,'dad':1,'father':1,'son':1,'grandad':1,'granddad':1,'grandpa':1,'uncle':1,'nephew':1,'man':1,'guy':1,'bloke':1,'fiance':1 };
+var HEARD_HER = { 'she':1,'her':1,'hers':1,'shes':1,'wife':1,'girlfriend':1,'sister':1,'mum':1,'mother':1,'mom':1,'daughter':1,'nan':1,'nana':1,'grandma':1,'aunt':1,'auntie':1,'niece':1,'woman':1,'lady':1,'fiancee':1 };
+
+function _heardKey(w) { return String(w).toLowerCase().replace(/[^a-z]/g, ''); }
+function _heardEsc(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+function _isAgeWord(w) { return /^[0-9]{1,3}(s|yo|-year-old|-years-old|-yr-old)?$/i.test(w); }
+
+function readHeard(str) {
+  var out = { age: '', who: '', phrases: [], negs: [] };
+  var ageM = str.match(/(^|[^0-9£$€.])([1-9][0-9])[ -]*(years?|yrs?|yo)?[ -]*old([^a-z]|$)/i) ||
+             str.match(/(^|[^a-z])aged? +([1-9][0-9]?)([^0-9]|$)/i) ||
+             str.match(/(^|[,(] *| is +| turning +| turns +)([1-9][0-9])( *[,.;)]| +and |$)/i);
+  if (ageM) out.age = ageM[2];
+  else { var decade = str.match(/(^|[^0-9])([1-9]0)s([^a-z]|$)/i); if (decade) out.age = decade[2] + 's'; }
+  var words = str.split(/[^A-Za-z'’]+/), him = 0, her = 0, i;
+  for (i = 0; i < words.length; i++) { var k = _heardKey(words[i]); if (HEARD_HIM[k]) him++; if (HEARD_HER[k]) her++; }
+  if (him > her) out.who = 'him'; else if (her > him) out.who = 'her';
+  var seen = {};
+  var clauses = str.split(/[,.;:!?()\/\n]+/);
+  for (var c = 0; c < clauses.length; c++) {
+    var parts = clauses[c].split(/ and | or | but | plus | & | who | which | while | also | [-–—]+ /i);
+    var neg = false;
+    for (var p = 0; p < parts.length; p++) {
+      var toks = parts[p].replace(/^\s+|\s+$/g, '').split(/\s+/);
+      var started = false, keep = [], prevAge = false;
+      for (var t = 0; t < toks.length; t++) {
+        var raw = toks[t].replace(/^["'‘“]+|["'’”]+$/g, '');
+        var key = _heardKey(raw);
+        if (!key && !_isAgeWord(raw)) continue;
+        if (!started) {
+          if (HEARD_NEG[key]) { neg = true; continue; }
+          if (neg && HEARD_NEG_FOLLOW[key]) continue;
+          if (_isAgeWord(raw) || key === 'year' || key === 'years' || key === 'yr' || key === 'yrs') { prevAge = true; continue; }
+          if (key === 'old' && prevAge) continue;
+          if (HEARD_LEAD[key] === 1) { prevAge = false; continue; }
+          if (key === 'budget' || key === 'around') { keep = []; break; }
+          started = true;
+        }
+        if (_isAgeWord(raw) && keep.length === 0) continue;
+        keep.push(raw);
+        if (keep.length >= 4) break;
+      }
+      while (keep.length && HEARD_LEAD[_heardKey(keep[keep.length - 1])] === 1) keep.pop();
+      var phrase = keep.join(' ');
+      var pk = phrase.toLowerCase();
+      if (phrase.length < 3 || seen[pk]) continue;
+      seen[pk] = true;
+      if (neg) out.negs.push(phrase); else out.phrases.push(phrase);
+    }
+  }
+  out.phrases = out.phrases.slice(0, 9);
+  out.negs = out.negs.slice(0, 3);
+  return out;
+}
+
+var HEARD_REL = { partner:'Partner', family:'Family', friend:'Friend', colleague:'Colleague', client:'Client', lastminute:'Last minute' };
+var HEARD_BUD = { low:'Under £30', mid:'£30 – £75', high:'£75 – £150', premium:'£150 – £250', top:'£250+' };
+
+function renderHeard(val) {
+  var h = readHeard(val);
+  var forBits = [];
+  if (h.who) forBits.push(h.who === 'him' ? 'Him' : 'Her');
+  if (h.age) forBits.push('age ' + h.age);
+  forBits.push(HEARD_REL[_relationship] || 'Friend');
+  forBits.push(HEARD_BUD[_budget] || '£30 – £75');
+  var forEl = document.getElementById('heard-for');
+  if (forEl) forEl.textContent = 'Buying for: ' + forBits.join(' · ');
+  var chips = '';
+  for (var i = 0; i < h.phrases.length; i++) chips += '<span class="heard-chip">' + _heardEsc(h.phrases[i]) + '</span>';
+  for (var j = 0; j < h.negs.length; j++) chips += '<span class="heard-chip neg">not: ' + _heardEsc(h.negs[j]) + '</span>';
+  var chipEl = document.getElementById('heard-chips');
+  if (chipEl) chipEl.innerHTML = chips;
+  var miss = [];
+  if (!h.who) miss.push('whether it’s him or her');
+  if (!h.age) miss.push('their age');
+  if (h.phrases.length < 3) miss.push('a few more interests');
+  var missEl = document.getElementById('heard-missing');
+  if (missEl) missEl.textContent = miss.length ? 'Worth adding: ' + miss.join(', ') + '.' : '';
+}
+
+function editDescription() {
+  var os = document.getElementById('output-section');
+  if (os) os.className = '';
+  var inputSec = document.querySelector('section.input-section');
+  if (inputSec) inputSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  var ta = document.getElementById('main-input');
+  if (ta) {
+    setTimeout(function() {
+      try { ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); } catch (e) {}
+    }, 350);
+  }
+}
+
+/* -- v3.7: A+ text size (remembered in this browser only) -- */
+var TEXT_SIZES = [1, 1.15, 1.3];
+var TEXT_LABELS = ['A+', 'A++', 'A'];
+function _applyTextSize(i) {
+  document.documentElement.style.setProperty('--uz', String(TEXT_SIZES[i]));
+  var b = document.getElementById('textsize-btn');
+  if (b) {
+    b.textContent = TEXT_LABELS[i];
+    b.setAttribute('aria-label', i === 2 ? 'Reset text size' : 'Make text larger');
+    b.setAttribute('title', i === 2 ? 'Reset text size' : 'Make text larger');
+  }
+}
+function cycleTextSize() {
+  var i = 0;
+  try { i = parseInt(localStorage.getItem('1line_textsize') || '0', 10) || 0; } catch (e) {}
+  i = (i + 1) % TEXT_SIZES.length;
+  try { localStorage.setItem('1line_textsize', String(i)); } catch (e) {}
+  _applyTextSize(i);
+}
+document.addEventListener('DOMContentLoaded', function() {
+  var i = 0;
+  try { i = parseInt(localStorage.getItem('1line_textsize') || '0', 10) || 0; } catch (e) {}
+  if (i < 0 || i >= TEXT_SIZES.length) i = 0;
+  _applyTextSize(i);
+});
 
 /* -- MAIN GENERATE -- */
 function generateGift(val, skipOverlay) {
@@ -1420,6 +1624,13 @@ function _doGenerateGift(val) {
 
   /* Profile */
   document.getElementById('out-profile').textContent = profileTag;
+  renderHeard(val);
+  var alsoEl = document.getElementById('out-direction-also');
+  if (alsoEl) {
+    var also = [];
+    for (var ai = 1; ai < traits.length && also.length < 2; ai++) { if (DIRECTIONS[traits[ai]]) also.push(DIRECTIONS[traits[ai]].dir); }
+    alsoEl.innerHTML = also.length ? '<strong>Also shaped by:</strong> ' + also.join(' &middot; ') : '';
+  }
 
   /* Direction */
   document.getElementById('out-direction').textContent = direction.dir;
@@ -1640,7 +1851,7 @@ function buildAvoidList(lower, rel) {
 
 function getMockResponse(val, rel, budget) {
   var lower = val.toLowerCase();
-  var bLabel = { low:'under £30', mid:'£30-£75', high:'£75-£150', premium:'£150+' }[budget] || '£30-£75';
+  var bLabel = { low:'under £30', mid:'£30-£75', high:'£75-£150', premium:'£150-£250', top:'£250+' }[budget] || '£30-£75';
   var relLabel = { partner:'your partner', family:'them', friend:'your friend', colleague:'your colleague', client:'your client', lastminute:'them' }[rel] || 'them';
 
   // Detect key signals from the actual input
@@ -1844,7 +2055,7 @@ function unlockRemaining() {
 }
 
 function callAnthropicAPI(val, rel, budget, onSuccess, onError) {
-  var budgetLabels = { low:'under £30', mid:'£30-£75', high:'£75-£150', premium:'£150+' };
+  var budgetLabels = { low:'under £30', mid:'£30-£75', high:'£75-£150', premium:'£150-£250', top:'£250 or more (a big-spender budget: suggest genuinely premium, luxury or once-in-a-lifetime ideas, not everyday items)' };
   var relLabels    = { partner:'romantic partner', family:'family member', friend:'friend', colleague:'work colleague', client:'professional client', lastminute:'someone (last minute)' };
 
   var systemPrompt = 'You are a gift intelligence engine. You receive a description of a person and generate highly specific, personalised gift recommendations. Never give generic suggestions. Every idea must be specific to what was described. Always include where to buy each gift. Respond ONLY in valid JSON with no markdown, no preamble, no explanation.';
