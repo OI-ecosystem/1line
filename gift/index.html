@@ -1,4 +1,4 @@
-<!-- 1LINE Gift v3.7.1 | Updated: 10 Oct 2026 | Desktop text scale on big screens 110% (was 118%), column kept wide. Previous: 1LINE Gift v3.7 | Updated: 10 Oct 2026 | "What we heard" before payment (their own words played back, plus what is missing, e.g. age or him/her) with "Edit my description" - free until unlocked, never after; sharper free teaser (new faith and craft signals, "Also shaped by" directions); 300 characters (was 200); budgets £150-£250 and £250+; wider/larger layout on desktop + A+ text-size button; example and hint show age and him/her; "AI" removed from page wording. Previous: 1LINE Gift v3.6 | Updated: 08 Oct 2026 | Paid access checked by the proxy (/api/ai-paid: Lemon Squeezy order or owner key); buy prompt if no purchase found; Try again without re-paying; no error pop-ups; "Access unlocked" note only with a real order or owner key. v3.5: Readability pass + microphone -->
+<!-- 1LINE Gift v3.7.2 | Updated: 10 Oct 2026 | Text size now two buttons, A- and A+ (A- greyed at normal size, A+ greyed at largest); "What we heard" tags up to 6 words, long phrases end at a natural break, never on a dangling word (e.g. "walks the dog every" -> "walks the dog"). Previous: 1LINE Gift v3.7.1 | Updated: 10 Oct 2026 | Desktop text scale on big screens 110% (was 118%), column kept wide. Previous: 1LINE Gift v3.7 | Updated: 10 Oct 2026 | "What we heard" before payment (their own words played back, plus what is missing, e.g. age or him/her) with "Edit my description" - free until unlocked, never after; sharper free teaser (new faith and craft signals, "Also shaped by" directions); 300 characters (was 200); budgets £150-£250 and £250+; wider/larger layout on desktop + A+ text-size button; example and hint show age and him/her; "AI" removed from page wording. Previous: 1LINE Gift v3.6 | Updated: 08 Oct 2026 | Paid access checked by the proxy (/api/ai-paid: Lemon Squeezy order or owner key); buy prompt if no purchase found; Try again without re-paying; no error pop-ups; "Access unlocked" note only with a real order or owner key. v3.5: Readability pass + microphone -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -661,14 +661,17 @@ textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
 .page{zoom:calc(var(--az) * var(--uz))}
 @media (min-width: 900px){:root{--az:1.08}.page{max-width:700px}}
 @media (min-width: 1200px){:root{--az:1.10}.page{max-width:780px}}
-.textsize-btn{position:fixed;right:16px;bottom:16px;z-index:50;min-width:48px;height:40px;padding:0 12px;border-radius:20px;border:1.5px solid #1A2744;background:#FFFFFF;color:#1A2744;font-family:var(--sans);font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 2px 10px rgba(26,26,24,0.12)}
+.textsize-group{position:fixed;right:16px;bottom:16px;z-index:50;display:flex;border:1.5px solid #1A2744;border-radius:20px;background:#FFFFFF;overflow:hidden;box-shadow:0 2px 10px rgba(26,26,24,0.12)}
+.textsize-btn{min-width:46px;height:38px;padding:0 12px;border:0;background:#FFFFFF;color:#1A2744;font-family:var(--sans);font-size:15px;font-weight:600;cursor:pointer}
+.textsize-btn + .textsize-btn{border-left:1px solid rgba(26,39,68,0.25)}
 .textsize-btn:hover{background:#F2F4F8}
-.textsize-btn:focus-visible{outline:3px solid rgba(26,39,68,0.35);outline-offset:2px}
-@media print{.textsize-btn{display:none}}
+.textsize-btn:disabled{color:#B8BCC6;cursor:default;background:#FFFFFF}
+.textsize-btn:focus-visible{outline:3px solid rgba(26,39,68,0.35);outline-offset:-3px}
+@media print{.textsize-group{display:none}}
 </style>
 </head>
 <body>
-<button type="button" class="textsize-btn" id="textsize-btn" onclick="cycleTextSize()" aria-label="Make text larger" title="Make text larger">A+</button>
+<div class="textsize-group" role="group" aria-label="Text size"><button type="button" class="textsize-btn" id="textsize-down" onclick="changeTextSize(-1)" aria-label="Make text smaller" title="Make text smaller">A&minus;</button><button type="button" class="textsize-btn" id="textsize-up" onclick="changeTextSize(1)" aria-label="Make text larger" title="Make text larger">A+</button></div>
 <!-- INTELLIGENCE OVERLAY -->
 <div id="intelligence-overlay">
   <p class="overlay-eyebrow">1LINE Gift</p>
@@ -1480,6 +1483,8 @@ var HEARD_LEAD = { 'my':1,'our':1,'his':1,'her':1,'their':1,'he':1,'she':1,'they
   'person':1,'someone':1,'guy':1,'man':1,'woman':1,'lady':1,'bloke':1 };
 var HEARD_NEG = { 'hates':1,'hate':1,'dislikes':1,'dislike':1,'cant':1,'cannot':1,'doesnt':1,'not':1,'never':1,'no':1,'avoid':1,'avoids':1,'detests':1,'loathes':1,'isnt':1,'wont':1 };
 var HEARD_NEG_FOLLOW = { 'stand':1,'like':1,'likes':1,'into':1,'want':1,'wants':1,'bear':1,'a':1,'an':1,'fan':1,'of':1,'big':1,'keen':1,'on':1,'really':1 };
+var HEARD_BREAK = { 'with':1,'for':1,'from':1,'since':1,'because':1,'during':1,'whenever':1,'when':1 };
+var HEARD_TRAIL = { 'every':1,'each':1,'the':1,'a':1,'an':1,'some':1,'any':1,'very':1,'this':1,'that':1,'these':1,'those':1,'every day':1,'most':1,'all':1,'by':1,'from':1,'into':1,'than':1,'when':1,'if':1,'whenever':1 };
 var HEARD_HIM = { 'he':1,'him':1,'his':1,'hes':1,'husband':1,'boyfriend':1,'brother':1,'dad':1,'father':1,'son':1,'grandad':1,'granddad':1,'grandpa':1,'uncle':1,'nephew':1,'man':1,'guy':1,'bloke':1,'fiance':1 };
 var HEARD_HER = { 'she':1,'her':1,'hers':1,'shes':1,'wife':1,'girlfriend':1,'sister':1,'mum':1,'mother':1,'mom':1,'daughter':1,'nan':1,'nana':1,'grandma':1,'aunt':1,'auntie':1,'niece':1,'woman':1,'lady':1,'fiancee':1 };
 
@@ -1504,6 +1509,12 @@ function readHeard(str) {
     var neg = false;
     for (var p = 0; p < parts.length; p++) {
       var toks = parts[p].replace(/^\s+|\s+$/g, '').split(/\s+/);
+      if (toks.length > 6) {
+        /* long part: end it at a natural break (with / for / from / since / because) so tags stay whole */
+        for (var q = 2; q < toks.length; q++) {
+          if (HEARD_BREAK[_heardKey(toks[q])]) { toks = toks.slice(0, q); break; }
+        }
+      }
       var started = false, keep = [], prevAge = false;
       for (var t = 0; t < toks.length; t++) {
         var raw = toks[t].replace(/^["'‘“]+|["'’”]+$/g, '');
@@ -1520,9 +1531,9 @@ function readHeard(str) {
         }
         if (_isAgeWord(raw) && keep.length === 0) continue;
         keep.push(raw);
-        if (keep.length >= 4) break;
+        if (keep.length >= 6) break;
       }
-      while (keep.length && HEARD_LEAD[_heardKey(keep[keep.length - 1])] === 1) keep.pop();
+      while (keep.length && (HEARD_LEAD[_heardKey(keep[keep.length - 1])] === 1 || HEARD_TRAIL[_heardKey(keep[keep.length - 1])])) keep.pop();
       var phrase = keep.join(' ');
       var pk = phrase.toLowerCase();
       if (phrase.length < 3 || seen[pk]) continue;
@@ -1575,20 +1586,18 @@ function editDescription() {
 
 /* -- v3.7: A+ text size (remembered in this browser only) -- */
 var TEXT_SIZES = [1, 1.15, 1.3];
-var TEXT_LABELS = ['A+', 'A++', 'A'];
+var _textSize = 0;
 function _applyTextSize(i) {
+  _textSize = i;
   document.documentElement.style.setProperty('--uz', String(TEXT_SIZES[i]));
-  var b = document.getElementById('textsize-btn');
-  if (b) {
-    b.textContent = TEXT_LABELS[i];
-    b.setAttribute('aria-label', i === 2 ? 'Reset text size' : 'Make text larger');
-    b.setAttribute('title', i === 2 ? 'Reset text size' : 'Make text larger');
-  }
+  var dn = document.getElementById('textsize-down'), up = document.getElementById('textsize-up');
+  if (dn) dn.disabled = (i === 0);
+  if (up) up.disabled = (i === TEXT_SIZES.length - 1);
 }
-function cycleTextSize() {
-  var i = 0;
-  try { i = parseInt(localStorage.getItem('1line_textsize') || '0', 10) || 0; } catch (e) {}
-  i = (i + 1) % TEXT_SIZES.length;
+function changeTextSize(step) {
+  var i = _textSize + step;
+  if (i < 0) i = 0;
+  if (i > TEXT_SIZES.length - 1) i = TEXT_SIZES.length - 1;
   try { localStorage.setItem('1line_textsize', String(i)); } catch (e) {}
   _applyTextSize(i);
 }
