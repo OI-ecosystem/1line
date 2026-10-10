@@ -1,4 +1,4 @@
-<!-- 1LINE Index v3.5 | Updated: 10 Oct 2026 | 1LINE Planning live: card added to Markets next to Property, explore pill added, Coming soon card removed (ideas line kept). Previous: 1LINE Index v3.4 | Updated: 10 Oct 2026 | "AI" removed from customer-facing wording (rotating example line, AI-m card); AI-m product name kept. Previous: 1LINE Index v3.3 | Updated: 9 Oct 2026 | Added price comparison lines: professionally written CV £100-£300 vs from £29; adviser £100-£350 an hour vs from £19. Previous: 1LINE Index v3.2 | Updated: 8 Oct 2026 | Prices now match Lemon Squeezy: Resume QuickStart £29, Resume Pro £79, Spreadsheet QuickStart £19, Spreadsheet Pro £49; plus "AI" wording replaced with plain wording (tailored output) on the RC Loop section. Previous: 1LINE Index v3.1 | Updated: 8 Oct 2026 | Added "Try one free" section: visitor picks one £9 utility and requests a free trial by email (owner then sends a one-use link from the owner page). Previous: 1LINE Index v3.0 | Updated: 8 Oct 2026 | New category "Protect & Persuade": Legit, Complain, Ask; Property added to Markets (out of Coming soon); explore pills added; discover333.com line ready (switched off until the site is live). Previous: 1LINE Index v2.9 | Updated: 29 Sep 2026 | Hero: Gift/Pitch/Coach buttons, down-arrow scroll, readability; Coming soon: Property + Planning -->
+<!-- 1LINE Index v3.6 | Updated: 10 Oct 2026 | Owner shortcut: with the owner key saved in this browser, the four RC Loop cards open the RC Loop product page instead of checkout; customers unchanged. Previous: 1LINE Index v3.5 | Updated: 10 Oct 2026 | 1LINE Planning live: card added to Markets next to Property, explore pill added, Coming soon card removed (ideas line kept). Previous: 1LINE Index v3.4 | Updated: 10 Oct 2026 | "AI" removed from customer-facing wording (rotating example line, AI-m card); AI-m product name kept. Previous: 1LINE Index v3.3 | Updated: 9 Oct 2026 | Added price comparison lines: professionally written CV £100-£300 vs from £29; adviser £100-£350 an hour vs from £19. Previous: 1LINE Index v3.2 | Updated: 8 Oct 2026 | Prices now match Lemon Squeezy: Resume QuickStart £29, Resume Pro £79, Spreadsheet QuickStart £19, Spreadsheet Pro £49; plus "AI" wording replaced with plain wording (tailored output) on the RC Loop section. Previous: 1LINE Index v3.1 | Updated: 8 Oct 2026 | Added "Try one free" section: visitor picks one £9 utility and requests a free trial by email (owner then sends a one-use link from the owner page). Previous: 1LINE Index v3.0 | Updated: 8 Oct 2026 | New category "Protect & Persuade": Legit, Complain, Ask; Property added to Markets (out of Coming soon); explore pills added; discover333.com line ready (switched off until the site is live). Previous: 1LINE Index v2.9 | Updated: 29 Sep 2026 | Hero: Gift/Pitch/Coach buttons, down-arrow scroll, readability; Coming soon: Property + Planning -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1222,5 +1222,26 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 <script data-goatcounter="https://signal333.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 
+<script>
+/* -- Owner shortcut: with the owner key saved in this browser, the RC Loop cards open the product page
+   instead of checkout (customers without the key go to checkout exactly as before) -- */
+(function() {
+var _OWNER_PAGES = {'5bc08e9b-b517-4189-ada7-aa904f57d3b6':'https://oi-ecosystem.github.io/rcloop/resume-quickstart/','b3d2ecf8-1700-45eb-81cc-2f1a40d4302f':'https://oi-ecosystem.github.io/rcloop/resume-pro/','ea665de2-5fa6-4d40-9f93-e92a47f027d4':'https://oi-ecosystem.github.io/rcloop/spreadsheet-quickstart/','ba1d0c7f-97ed-4347-b887-e285df8c1a8c':'https://oi-ecosystem.github.io/rcloop/spreadsheet-pro/'};
+function _ownerSaved() { try { return !!localStorage.getItem('1line_owner'); } catch (e) { return false; } }
+function _ownerPageFor(url) {
+  if (!url || typeof url !== 'string' || !_ownerSaved()) return '';
+  for (var id in _OWNER_PAGES) { if (url.indexOf('/checkout/buy/' + id) !== -1) return _OWNER_PAGES[id]; }
+  return '';
+}
+  document.addEventListener('click', function(e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var page = _ownerPageFor(a.getAttribute('href'));
+    if (!page) return;
+    e.preventDefault();
+    window.open(page, '_blank', 'noopener');
+  }, true);
+})();
+</script>
 </body>
 </html>
