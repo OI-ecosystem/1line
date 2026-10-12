@@ -1,4 +1,4 @@
-<!-- 1LINE Index v3.6 | Updated: 10 Oct 2026 | Owner shortcut: with the owner key saved in this browser, the four RC Loop cards open the RC Loop product page instead of checkout; customers unchanged. Previous: 1LINE Index v3.5 | Updated: 10 Oct 2026 | 1LINE Planning live: card added to Markets next to Property, explore pill added, Coming soon card removed (ideas line kept). Previous: 1LINE Index v3.4 | Updated: 10 Oct 2026 | "AI" removed from customer-facing wording (rotating example line, AI-m card); AI-m product name kept. Previous: 1LINE Index v3.3 | Updated: 9 Oct 2026 | Added price comparison lines: professionally written CV £100-£300 vs from £29; adviser £100-£350 an hour vs from £19. Previous: 1LINE Index v3.2 | Updated: 8 Oct 2026 | Prices now match Lemon Squeezy: Resume QuickStart £29, Resume Pro £79, Spreadsheet QuickStart £19, Spreadsheet Pro £49; plus "AI" wording replaced with plain wording (tailored output) on the RC Loop section. Previous: 1LINE Index v3.1 | Updated: 8 Oct 2026 | Added "Try one free" section: visitor picks one £9 utility and requests a free trial by email (owner then sends a one-use link from the owner page). Previous: 1LINE Index v3.0 | Updated: 8 Oct 2026 | New category "Protect & Persuade": Legit, Complain, Ask; Property added to Markets (out of Coming soon); explore pills added; discover333.com line ready (switched off until the site is live). Previous: 1LINE Index v2.9 | Updated: 29 Sep 2026 | Hero: Gift/Pitch/Coach buttons, down-arrow scroll, readability; Coming soon: Property + Planning -->
+<!-- 1LINE Index v3.7 | Updated: 12 Oct 2026 | Order changed so visitors reach the tools sooner: the 1LINE tools grid now comes straight after the hero (above "Why one line?" and "How it works"); shorter hero so the tools start showing before scrolling; "Clarity gained for less than £10" line removed; "Current 1LINE'ers" heading removed; RC Loop section moved up, straight after the tools; second hero button "Explore 1LINE Pitch" is now "Request a free trial" (jumps to Try one free); third button "Explore 1LINE Coach" is now "How it works" (jumps to Why one line? / How it works); scroll arrow now jumps to the tools. Nothing else changed. Previous: 1LINE Index v3.6 | Updated: 10 Oct 2026 | Owner shortcut: with the owner key saved in this browser, the four RC Loop cards open the RC Loop product page instead of checkout; customers unchanged. Previous: 1LINE Index v3.5 | Updated: 10 Oct 2026 | 1LINE Planning live: card added to Markets next to Property, explore pill added, Coming soon card removed (ideas line kept). Previous: 1LINE Index v3.4 | Updated: 10 Oct 2026 | "AI" removed from customer-facing wording (rotating example line, AI-m card); AI-m product name kept. Previous: 1LINE Index v3.3 | Updated: 9 Oct 2026 | Added price comparison lines: professionally written CV £100-£300 vs from £29; adviser £100-£350 an hour vs from £19. Previous: 1LINE Index v3.2 | Updated: 8 Oct 2026 | Prices now match Lemon Squeezy: Resume QuickStart £29, Resume Pro £79, Spreadsheet QuickStart £19, Spreadsheet Pro £49; plus "AI" wording replaced with plain wording (tailored output) on the RC Loop section. Previous: 1LINE Index v3.1 | Updated: 8 Oct 2026 | Added "Try one free" section: visitor picks one £9 utility and requests a free trial by email (owner then sends a one-use link from the owner page). Previous: 1LINE Index v3.0 | Updated: 8 Oct 2026 | New category "Protect & Persuade": Legit, Complain, Ask; Property added to Markets (out of Coming soon); explore pills added; discover333.com line ready (switched off until the site is live). Previous: 1LINE Index v2.9 | Updated: 29 Sep 2026 | Hero: Gift/Pitch/Coach buttons, down-arrow scroll, readability; Coming soon: Property + Planning -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -745,6 +745,18 @@
     transform: translateY(0);
   }
 </style>
+<style>
+/* v3.7: hero spacing tightened (same look) so the 1LINE tools start showing before scrolling */
+.hero{min-height:0;padding-top:3.5rem;padding-bottom:6.75rem}
+.hero .buseful-badge{margin-bottom:20px}
+.hero-eyebrow{margin-bottom:1.5rem}
+.hero-wordmark{margin-bottom:1rem}
+.hero-sub{margin-bottom:1.75rem}
+.rotating-line-wrap{margin-bottom:2rem}
+#utilities{padding-top:4rem}
+#utilities .utilities-header{margin-bottom:2rem}
+@media (max-width:600px){#utilities{padding-top:3rem}}
+</style>
 </head>
 <body>
 
@@ -776,78 +788,28 @@
     </div>
   </div>
 
-  <p style="font-size:0.8rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#1668C4;margin:1.2rem 0 0.5rem 0;">Clarity gained for less than &pound;10</p>
 
   <div class="hero-ctas">
     <a href="gift_folder.html" class="btn-primary" target="_blank" rel="noopener">
       Explore 1LINE Gift &rarr;
     </a>
-    <a href="pitch_folder.html" class="btn-secondary" target="_blank" rel="noopener">
-      Explore 1LINE Pitch
+    <a href="#free-trial" class="btn-secondary">
+      Request a free trial
     </a>
-    <a href="coach_folder.html" class="btn-secondary" target="_blank" rel="noopener">
-      Explore 1LINE Coach
+    <a href="#concept" class="btn-secondary">
+      How it works
     </a>
   </div>
 
-  <a href="#concept" class="hero-scroll" aria-label="Scroll down to see how 1LINE works">
+  <a href="#utilities" class="hero-scroll" aria-label="Scroll down to see all the 1LINE tools">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15"/><path d="M5.5 12.5 12 19l6.5-6.5"/></svg>
   </a>
-</section>
-
-<!-- CONCEPT -->
-<section class="concept" id="concept">
-  <div class="container">
-    <div class="concept-grid">
-      <div class="reveal">
-        <p class="section-label">Why one line?</p>
-        <h2 class="concept-headline">Compression creates clarity.</h2>
-        <div class="concept-body">
-          <p>A single line forces intention. Whether describing a child, a future, a relationship, an idea, or a personal conflict — compressed thoughts often reveal the strongest signals.</p>
-          <p>1LINE extracts structure from that compression. Patterns. Symbolic meaning. Practical outputs. All from a single thought, written honestly.</p>
-        </div>
-      </div>
-      <div class="concept-visual reveal">
-        <div class="concept-pill">Write one line about anything meaningful</div>
-        <div class="concept-pill-arrow">↓</div>
-        <div class="concept-pill">Receive a name, a reflection, or a tool</div>
-        <div class="concept-pill-arrow">↓</div>
-        <div class="concept-pill">Preserve that moment.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="how" id="how">
-  <div class="container">
-    <p class="section-label reveal">How it works</p>
-    <div class="how-steps">
-      <div class="step reveal">
-        <span class="step-num">01</span>
-        <p class="step-title">Write</p>
-        <p class="step-body">Describe something meaningful in 120–180 characters. A person, a project, a feeling, a future.</p>
-      </div>
-      <div class="step reveal">
-        <span class="step-num">02</span>
-        <p class="step-title">Transform</p>
-        <p class="step-body">1LINE interprets symbolic and practical patterns held within that single line.</p>
-      </div>
-      <div class="step reveal">
-        <span class="step-num">03</span>
-        <p class="step-title">Keep</p>
-        <p class="step-body">Receive meaning — and preserve the moment. Names, reflections, tools, cards. Something to hold onto.</p>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- UTILITIES -->
 <section class="utilities" id="utilities">
   <div class="container">
-    <div class="utilities-header reveal">
-      <h2 class="utilities-headline">Current 1LINE'ers</h2>
-    </div>
+    <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap">1LINE tools</h2>
 
     <!-- Identity & Symbolic -->
     <div class="category-section reveal">
@@ -1032,6 +994,95 @@
   </div>
 </section>
 
+<!-- RC LOOP CROSS-SELL -->
+<section style="background:#1A1916;padding:5rem 2rem;">
+  <div class="container">
+    <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:0.75rem;">Also from the ecosystem</p>
+    <h2 style="font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);color:#fff;line-height:1.15;letter-spacing:-0.02em;margin-bottom:0.75rem;">RC Loop — structured <em style="font-style:italic;color:#C4A96A;">career and finance</em> systems.</h2>
+    <p style="font-size:0.9rem;font-weight:300;color:rgba(255,255,255,0.5);max-width:440px;line-height:1.75;margin-bottom:2.5rem;">If 1LINE solves clarity in one line, RC Loop solves coherence across your professional and financial life. Same philosophy. Deeper transformation.</p>
+    <p style="font-size:0.88rem;font-weight:400;color:rgba(255,255,255,0.78);max-width:520px;line-height:1.7;margin:-1.5rem 0 2.5rem;">A professionally written CV typically costs <span style="white-space:nowrap">£100–£300</span>. Yours, tailored to the role you want — from £29.<br>Before paying an adviser <span style="white-space:nowrap">£100–£350</span> an hour, get your own numbers clear — from £19.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:0.75rem;margin-bottom:2rem;">
+      <a href="https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/5bc08e9b-b517-4189-ada7-aa904f57d3b6" target="_blank" rel="noopener" style="background:rgba(255,255,255,0.07);border:0.5px solid rgba(255,255,255,0.14);border-radius:6px;padding:1.25rem 1.3rem;text-decoration:none;display:flex;flex-direction:column;gap:0.4rem;transition:background 0.2s;">
+        <span style="font-size:0.62rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#C4A96A;">Entry · Career</span>
+        <span style="font-family:var(--serif);font-size:1.05rem;color:#fff;">QuickStart Resume</span>
+        <span style="font-size:0.82rem;color:rgba(255,255,255,0.4);">£29</span>
+        <span style="font-size:0.78rem;font-weight:300;color:rgba(255,255,255,0.45);line-height:1.55;">Instant tailored resume from one positioning input.</span>
+        <span style="font-size:0.78rem;color:#fff;text-decoration:underline;text-underline-offset:3px;margin-top:0.4rem;">Buy now →</span>
+      </a>
+      <a href="https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/b3d2ecf8-1700-45eb-81cc-2f1a40d4302f" target="_blank" rel="noopener" style="background:rgba(255,255,255,0.07);border:0.5px solid rgba(255,255,255,0.14);border-radius:6px;padding:1.25rem 1.3rem;text-decoration:none;display:flex;flex-direction:column;gap:0.4rem;transition:background 0.2s;">
+        <span style="font-size:0.62rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#C4A96A;">Premium · Career</span>
+        <span style="font-family:var(--serif);font-size:1.05rem;color:#fff;">RC Loop Resume Pro</span>
+        <span style="font-size:0.82rem;color:rgba(255,255,255,0.4);">£79</span>
+        <span style="font-size:0.78rem;font-weight:300;color:rgba(255,255,255,0.45);line-height:1.55;">Deep positioning, guided reflection, full professional output.</span>
+        <span style="font-size:0.78rem;color:#fff;text-decoration:underline;text-underline-offset:3px;margin-top:0.4rem;">Buy now →</span>
+      </a>
+      <a href="https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/ea665de2-5fa6-4d40-9f93-e92a47f027d4" target="_blank" rel="noopener" style="background:rgba(255,255,255,0.07);border:0.5px solid rgba(255,255,255,0.14);border-radius:6px;padding:1.25rem 1.3rem;text-decoration:none;display:flex;flex-direction:column;gap:0.4rem;transition:background 0.2s;">
+        <span style="font-size:0.62rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#C4A96A;">Entry · Finance</span>
+        <span style="font-family:var(--serif);font-size:1.05rem;color:#fff;">QuickStart Spreadsheet</span>
+        <span style="font-size:0.82rem;color:rgba(255,255,255,0.4);">£19</span>
+        <span style="font-size:0.78rem;font-weight:300;color:rgba(255,255,255,0.45);line-height:1.55;">Intent-based minimalist financial spreadsheet, instant tailored output.</span>
+        <span style="font-size:0.78rem;color:#fff;text-decoration:underline;text-underline-offset:3px;margin-top:0.4rem;">Buy now →</span>
+      </a>
+      <a href="https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/ba1d0c7f-97ed-4347-b887-e285df8c1a8c" target="_blank" rel="noopener" style="background:rgba(255,255,255,0.07);border:0.5px solid rgba(255,255,255,0.14);border-radius:6px;padding:1.25rem 1.3rem;text-decoration:none;display:flex;flex-direction:column;gap:0.4rem;transition:background 0.2s;">
+        <span style="font-size:0.62rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#C4A96A;">Premium · Finance</span>
+        <span style="font-family:var(--serif);font-size:1.05rem;color:#fff;">RC Loop Spreadsheet Pro</span>
+        <span style="font-size:0.82rem;color:rgba(255,255,255,0.4);">£49</span>
+        <span style="font-size:0.78rem;font-weight:300;color:rgba(255,255,255,0.45);line-height:1.55;">Structured financial positioning and scenario tracking.</span>
+        <span style="font-size:0.78rem;color:#fff;text-decoration:underline;text-underline-offset:3px;margin-top:0.4rem;">Buy now →</span>
+      </a>
+    </div>
+    <a href="https://oi-ecosystem.github.io/rcloop/" target="_blank" rel="noopener" class="btn-secondary" style="color:#fff;border-color:rgba(255,255,255,0.25);">Explore RC Loop →</a>
+  </div>
+</section>
+
+<!-- CONCEPT -->
+<section class="concept" id="concept">
+  <div class="container">
+    <div class="concept-grid">
+      <div class="reveal">
+        <p class="section-label">Why one line?</p>
+        <h2 class="concept-headline">Compression creates clarity.</h2>
+        <div class="concept-body">
+          <p>A single line forces intention. Whether describing a child, a future, a relationship, an idea, or a personal conflict — compressed thoughts often reveal the strongest signals.</p>
+          <p>1LINE extracts structure from that compression. Patterns. Symbolic meaning. Practical outputs. All from a single thought, written honestly.</p>
+        </div>
+      </div>
+      <div class="concept-visual reveal">
+        <div class="concept-pill">Write one line about anything meaningful</div>
+        <div class="concept-pill-arrow">↓</div>
+        <div class="concept-pill">Receive a name, a reflection, or a tool</div>
+        <div class="concept-pill-arrow">↓</div>
+        <div class="concept-pill">Preserve that moment.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="container">
+    <p class="section-label reveal">How it works</p>
+    <div class="how-steps">
+      <div class="step reveal">
+        <span class="step-num">01</span>
+        <p class="step-title">Write</p>
+        <p class="step-body">Describe something meaningful in 120–180 characters. A person, a project, a feeling, a future.</p>
+      </div>
+      <div class="step reveal">
+        <span class="step-num">02</span>
+        <p class="step-title">Transform</p>
+        <p class="step-body">1LINE interprets symbolic and practical patterns held within that single line.</p>
+      </div>
+      <div class="step reveal">
+        <span class="step-num">03</span>
+        <p class="step-title">Keep</p>
+        <p class="step-body">Receive meaning — and preserve the moment. Names, reflections, tools, cards. Something to hold onto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- FREE TRIAL REQUEST (v3.1): visitor picks one £9 utility; opens their email to request a personal one-use link (sent from the owner page) -->
 <section id="free-trial" style="padding:4rem 1.5rem;border-top:1px solid var(--rule);">
   <div class="container" style="max-width:640px;margin:0 auto;text-align:center;">
@@ -1142,46 +1193,6 @@ function requestFreeTrial() {
   </div>
 </section>
 
-<!-- RC LOOP CROSS-SELL -->
-<section style="background:#1A1916;padding:5rem 2rem;">
-  <div class="container">
-    <p style="font-size:0.7rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:0.75rem;">Also from the ecosystem</p>
-    <h2 style="font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);color:#fff;line-height:1.15;letter-spacing:-0.02em;margin-bottom:0.75rem;">RC Loop — structured <em style="font-style:italic;color:#C4A96A;">career and finance</em> systems.</h2>
-    <p style="font-size:0.9rem;font-weight:300;color:rgba(255,255,255,0.5);max-width:440px;line-height:1.75;margin-bottom:2.5rem;">If 1LINE solves clarity in one line, RC Loop solves coherence across your professional and financial life. Same philosophy. Deeper transformation.</p>
-    <p style="font-size:0.88rem;font-weight:400;color:rgba(255,255,255,0.78);max-width:520px;line-height:1.7;margin:-1.5rem 0 2.5rem;">A professionally written CV typically costs <span style="white-space:nowrap">£100–£300</span>. Yours, tailored to the role you want — from £29.<br>Before paying an adviser <span style="white-space:nowrap">£100–£350</span> an hour, get your own numbers clear — from £19.</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:0.75rem;margin-bottom:2rem;">
-      <a href="https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/5bc08e9b-b517-4189-ada7-aa904f57d3b6" target="_blank" rel="noopener" style="background:rgba(255,255,255,0.07);border:0.5px solid rgba(255,255,255,0.14);border-radius:6px;padding:1.25rem 1.3rem;text-decoration:none;display:flex;flex-direction:column;gap:0.4rem;transition:background 0.2s;">
-        <span style="font-size:0.62rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#C4A96A;">Entry · Career</span>
-        <span style="font-family:var(--serif);font-size:1.05rem;color:#fff;">QuickStart Resume</span>
-        <span style="font-size:0.82rem;color:rgba(255,255,255,0.4);">£29</span>
-        <span style="font-size:0.78rem;font-weight:300;color:rgba(255,255,255,0.45);line-height:1.55;">Instant tailored resume from one positioning input.</span>
-        <span style="font-size:0.78rem;color:#fff;text-decoration:underline;text-underline-offset:3px;margin-top:0.4rem;">Buy now →</span>
-      </a>
-      <a href="https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/b3d2ecf8-1700-45eb-81cc-2f1a40d4302f" target="_blank" rel="noopener" style="background:rgba(255,255,255,0.07);border:0.5px solid rgba(255,255,255,0.14);border-radius:6px;padding:1.25rem 1.3rem;text-decoration:none;display:flex;flex-direction:column;gap:0.4rem;transition:background 0.2s;">
-        <span style="font-size:0.62rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#C4A96A;">Premium · Career</span>
-        <span style="font-family:var(--serif);font-size:1.05rem;color:#fff;">RC Loop Resume Pro</span>
-        <span style="font-size:0.82rem;color:rgba(255,255,255,0.4);">£79</span>
-        <span style="font-size:0.78rem;font-weight:300;color:rgba(255,255,255,0.45);line-height:1.55;">Deep positioning, guided reflection, full professional output.</span>
-        <span style="font-size:0.78rem;color:#fff;text-decoration:underline;text-underline-offset:3px;margin-top:0.4rem;">Buy now →</span>
-      </a>
-      <a href="https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/ea665de2-5fa6-4d40-9f93-e92a47f027d4" target="_blank" rel="noopener" style="background:rgba(255,255,255,0.07);border:0.5px solid rgba(255,255,255,0.14);border-radius:6px;padding:1.25rem 1.3rem;text-decoration:none;display:flex;flex-direction:column;gap:0.4rem;transition:background 0.2s;">
-        <span style="font-size:0.62rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#C4A96A;">Entry · Finance</span>
-        <span style="font-family:var(--serif);font-size:1.05rem;color:#fff;">QuickStart Spreadsheet</span>
-        <span style="font-size:0.82rem;color:rgba(255,255,255,0.4);">£19</span>
-        <span style="font-size:0.78rem;font-weight:300;color:rgba(255,255,255,0.45);line-height:1.55;">Intent-based minimalist financial spreadsheet, instant tailored output.</span>
-        <span style="font-size:0.78rem;color:#fff;text-decoration:underline;text-underline-offset:3px;margin-top:0.4rem;">Buy now →</span>
-      </a>
-      <a href="https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/ba1d0c7f-97ed-4347-b887-e285df8c1a8c" target="_blank" rel="noopener" style="background:rgba(255,255,255,0.07);border:0.5px solid rgba(255,255,255,0.14);border-radius:6px;padding:1.25rem 1.3rem;text-decoration:none;display:flex;flex-direction:column;gap:0.4rem;transition:background 0.2s;">
-        <span style="font-size:0.62rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#C4A96A;">Premium · Finance</span>
-        <span style="font-family:var(--serif);font-size:1.05rem;color:#fff;">RC Loop Spreadsheet Pro</span>
-        <span style="font-size:0.82rem;color:rgba(255,255,255,0.4);">£49</span>
-        <span style="font-size:0.78rem;font-weight:300;color:rgba(255,255,255,0.45);line-height:1.55;">Structured financial positioning and scenario tracking.</span>
-        <span style="font-size:0.78rem;color:#fff;text-decoration:underline;text-underline-offset:3px;margin-top:0.4rem;">Buy now →</span>
-      </a>
-    </div>
-    <a href="https://oi-ecosystem.github.io/rcloop/" target="_blank" rel="noopener" class="btn-secondary" style="color:#fff;border-color:rgba(255,255,255,0.25);">Explore RC Loop →</a>
-  </div>
-</section>
 
 <!-- DISCOVER333: switched OFF until discover333.com is live. To switch on, delete this line and the matching END line below.
 <section style="padding:2.5rem 1.5rem;text-align:center;border-top:1px solid var(--rule);">
