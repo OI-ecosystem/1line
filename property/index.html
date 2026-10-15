@@ -1,4 +1,4 @@
-<!-- 1LINE Property v1.3.4 | Updated: 15 Oct 2026 | Paid reports: list items in any shape are now shown (fixes the empty "Presentation and photos" box); a box that still cannot be filled stays visible with a reference code saying why (E1 missing, E2 empty, E3 unreadable) instead of being hidden; nearby-sales and "try again" messages carry a reference code too; real sold prices quoted exactly, only index-adjusted estimates rounded. No extra calls, no added waits. Previous: 1LINE Property v1.3.2 | Updated: 15 Oct 2026 | Fixes in the four paid reports (Buy-Check, Sell-Ready, Spend Check, Works Plan): empty sections are hidden; costs always shown as £12,000–£18,000; nearby-sales data is retried once and, if it still fails, the report says so and asks you to run it again from your receipt link; prompts say "nearby sales" (never "comps") and use rounded figures; guards against missing or malformed report fields. Default £19 report unchanged. Previous: 1LINE Property v1.3.0 | Updated: 15 Oct 2026 | Property family: Buy-Check £29, Sell-Ready £29, Spend Check £9, Works Plan £9 (LS product 1LINE - PROPERTYPLAN) on /property/?tier=<name> (wording above the box changes; layout unchanged); fixed-rule price position and ceiling test; fixed "What next?" section at the end of the £19 report (Works Plan, Sell-Ready, Spend Check; Planning/Bill links only when relevant); England-only postcode message. Default page otherwise unchanged. Previous: 1LINE Property v1.2.2 | Updated: 10 Oct 2026 | Text size A- / A+ buttons (bottom right, remembered per browser) and a larger, wider layout on big screens (108% from 900px, 110% from 1200px; phones unchanged). Display only - nothing else changed. Previous: 1LINE Property v1.2.1 | Updated: 08 Oct 2026 | "Access unlocked" note only shows with a real order or owner key. v1.2: Paid access via /api/ai-paid; v1.1: Home MOT, save/print, retry, og image -->
+<!-- 1LINE Property v1.3.5 | Updated: 15 Oct 2026 | Price index request retried once after 1.5s if it fails (each try is its own call, so each stays inside Vercel's time limit); the market-data message now carries a reference code (DATA-INDEX / NETWORK / PAGE-ERROR). Nothing else changed. Previous: 1LINE Property v1.3.4 | Updated: 15 Oct 2026 | Paid reports: list items in any shape are now shown (fixes the empty "Presentation and photos" box); a box that still cannot be filled stays visible with a reference code saying why (E1 missing, E2 empty, E3 unreadable) instead of being hidden; nearby-sales and "try again" messages carry a reference code too; real sold prices quoted exactly, only index-adjusted estimates rounded. No extra calls, no added waits. Previous: 1LINE Property v1.3.2 | Updated: 15 Oct 2026 | Fixes in the four paid reports (Buy-Check, Sell-Ready, Spend Check, Works Plan): empty sections are hidden; costs always shown as £12,000–£18,000; nearby-sales data is retried once and, if it still fails, the report says so and asks you to run it again from your receipt link; prompts say "nearby sales" (never "comps") and use rounded figures; guards against missing or malformed report fields. Default £19 report unchanged. Previous: 1LINE Property v1.3.0 | Updated: 15 Oct 2026 | Property family: Buy-Check £29, Sell-Ready £29, Spend Check £9, Works Plan £9 (LS product 1LINE - PROPERTYPLAN) on /property/?tier=<name> (wording above the box changes; layout unchanged); fixed-rule price position and ceiling test; fixed "What next?" section at the end of the £19 report (Works Plan, Sell-Ready, Spend Check; Planning/Bill links only when relevant); England-only postcode message. Default page otherwise unchanged. Previous: 1LINE Property v1.2.2 | Updated: 10 Oct 2026 | Text size A- / A+ buttons (bottom right, remembered per browser) and a larger, wider layout on big screens (108% from 900px, 110% from 1200px; phones unchanged). Display only - nothing else changed. Previous: 1LINE Property v1.2.1 | Updated: 08 Oct 2026 | "Access unlocked" note only shows with a real order or owner key. v1.2: Paid access via /api/ai-paid; v1.1: Home MOT, save/print, retry, og image -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1025,10 +1025,17 @@ function fetchMarket(loc, f) {
   var now = new Date();
   var since = (now.getFullYear() - 3) + '-' + pad2(now.getMonth() + 1) + '-01';
   var ew = /england|wales/i.test(loc.country || '');
-  var hpiP = postJSON(DATA_URL, {
+  var hpiBody = {
     kind: 'hpi', district: loc.district || '', region: loc.region || loc.country,
     country: loc.country || 'England', type: f.type || ''
-  }).then(null, function(e) { return { ok: false, error: String(e) }; });
+  };
+  function hpiOnce() {
+    return postJSON(DATA_URL, hpiBody).then(function(j) {
+      return (j && j.ok && j.series && typeof j.series === 'object') ? j : { ok: false, error: (j && j.error) || 'bad response' };
+    }, function(e) { return { ok: false, error: String(e && e.message ? e.message : e) }; });
+  }
+  /* Price index: one retry after 1.5s if the first request fails */
+  var hpiP = hpiOnce().then(function(j) { return j.ok ? j : new Promise(function(res) { setTimeout(res, 1500); }).then(hpiOnce); });
   function ppiOnce() {
     return postJSON(DATA_URL, { kind: 'ppi', postcodes: loc.nearby, since: since }).then(function(j) {
       return (j && j.ok && Array.isArray(j.rows)) ? j : { ok: false, error: (j && j.error) || 'bad response' };
@@ -1273,6 +1280,13 @@ function showDataError(msg) {
   de.textContent = msg;
   de.style.display = 'block';
 }
+/* Reference code for the market-data message, so a screenshot tells us exactly what failed */
+function dataRef(err) {
+  var m = String(err && err.message ? err.message : err);
+  if (m.indexOf('nodata:') === 0) return 'DATA-INDEX (' + m.substring(7, 120) + ')';
+  if (/fetch|network|load failed/i.test(m)) return 'NETWORK (' + m.substring(0, 60) + ')';
+  return 'PAGE-ERROR (' + m.substring(0, 80) + ')';
+}
 function setBusy(on) {
   var btn = document.getElementById('generate-btn');
   if (!btn) return;
@@ -1288,7 +1302,7 @@ function buildState(val) {
     if (loc.country && !/england/i.test(loc.country)) throw new Error('notengland:' + loc.country);
     return fetchMarket(loc, f).then(function(market) {
       var S = computeAll(f, loc, market);
-      if (!S.series) throw new Error('nodata');
+      if (!S.series) throw new Error('nodata:' + ((market.hpi && market.hpi.error) || 'no index for this area'));
       tierCompute(S);
       return S;
     });
@@ -1311,7 +1325,7 @@ function startFree(val) {
     } else if (msg.indexOf('notengland:') === 0) {
       showDataError('1LINE Property covers homes in England only. That postcode is in ' + msg.substring(11) + '.');
     } else {
-      showDataError('We could not reach the market data just now. Please try again in a minute.');
+      showDataError('We could not reach the market data just now. Please try again in a minute. Reference: ' + dataRef(err));
     }
   });
 }
@@ -2650,9 +2664,9 @@ document.addEventListener('DOMContentLoaded', function() {
         _state = S;
         renderFree(S);
         runAIProperty();   /* overlay stays up — runAIProperty carries it through */
-      }, function() {
+      }, function(err) {
         hideOverlay();
-        showDataError('We could not reach the market data just now. Please press the button below to try again.');
+        showDataError('We could not reach the market data just now. Please press the button below to try again. Reference: ' + dataRef(err));
         _spellWarned = true;
       });
     } else {
