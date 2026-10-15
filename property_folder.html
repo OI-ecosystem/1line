@@ -1,4 +1,4 @@
-<!-- 1LINE Property Overview v1.1 | Updated: 15 Oct 2026 | "England only" shown under the Run button, in the not-a-valuation section and under the prices. Text additions only. Previous: 1LINE Property Overview v1.0 | Updated: 06 Oct 2026 | Landing page built from Astro Overview v4.1 template -->
+<!-- 1LINE Property Overview v1.2 | Updated: 15 Oct 2026 | Flow: "Start here" £19 report first, then "depending on what you're doing" 2x2 tiles (Buy-Check, Sell-Ready, Spend Check, Works Plan) linking to /property/?tier=, each marked "works on its own" or "best after your report". Additions, plus the free-vs-paid heading now reads "Start here". Previous: 1LINE Property Overview v1.1 | Updated: 15 Oct 2026 | "England only" shown under the Run button, in the not-a-valuation section and under the prices. Text additions only. Previous: 1LINE Property Overview v1.0 | Updated: 06 Oct 2026 | Landing page built from Astro Overview v4.1 template -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -575,6 +575,10 @@
   .tier-note { font-size: 0.85rem; color: var(--ink-3); margin-top: 1.2rem; }
   .not-body a, .does-body a { color: var(--ink); }
   .shot img.lb-trigger { cursor: zoom-in; }
+  .products-grid.two-by-two { grid-template-columns: repeat(2, 1fr); }
+  .product-tile-sit { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-warm); margin-bottom: 0.35rem; }
+  .products-grid.two-by-two .product-tile-desc { font-size: 0.86rem; }
+  @media (max-width: 768px) { .products-grid.two-by-two { grid-template-columns: 1fr; } }
   .hero-region { margin-top: 1.1rem; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em; color: var(--ink-3); }
 </style>
 </head>
@@ -754,7 +758,7 @@
 <!-- 10 — FREE + PAID -->
 <section class="tiers">
   <div class="container reveal">
-    <p class="section-label">Free first. Unlock when you need it.</p>
+    <p class="section-label">Start here &mdash; free first, unlock when you need it</p>
     <div class="tiers-grid two">
       <div class="tier-card">
         <p class="tier-name">Free analysis</p>
@@ -779,6 +783,22 @@
       </div>
     </div>
     <p class="tier-note">One-off payment. No subscription. No account needed. Covers homes in England only.</p>
+  </div>
+</section>
+
+<!-- 10b — THEN, BY SITUATION -->
+<section class="all-products">
+  <div class="container reveal">
+    <p class="section-label">Then, depending on what you&rsquo;re doing</p>
+    <h2 class="does-headline">One home. Every decision.</h2>
+    <p class="does-body" style="margin-bottom:1.6rem;">Each of these is a separate one-off purchase. Three work on their own; the Works Plan builds on your Property Report.</p>
+    <div class="products-grid two-by-two">
+      <a class="product-tile" href="https://lifekit333.com/property/?tier=buycheck" style="text-decoration:none;"><p class="product-tile-sit">Buying a house?</p><p class="product-tile-name">Buy-Check</p><p class="product-tile-price">&pound;29 &middot; works on its own</p><p class="product-tile-desc">Paste the listing and see where the asking price sits against nearby sales &mdash; with the red flags and the questions to ask before you offer.</p></a>
+      <a class="product-tile" href="https://lifekit333.com/property/?tier=sellready" style="text-decoration:none;"><p class="product-tile-sit">Selling soon?</p><p class="product-tile-name">Sell-Ready</p><p class="product-tile-price">&pound;29 &middot; works on its own</p><p class="product-tile-desc">An asking-price band, what to fix first and what to leave alone, the documents to gather and what buyers will ask.</p></a>
+      <a class="product-tile" href="https://lifekit333.com/property/?tier=spendcheck" style="text-decoration:none;"><p class="product-tile-sit">Weighing one big project?</p><p class="product-tile-name">Spend Check</p><p class="product-tile-price">&pound;9 &middot; works on its own</p><p class="product-tile-desc">Test one loft, extension or kitchen against what homes like yours actually sell for nearby &mdash; before you sign a quote.</p></a>
+      <a class="product-tile" href="https://lifekit333.com/property/?tier=propertyplan" style="text-decoration:none;"><p class="product-tile-sit">Had your Property Report?</p><p class="product-tile-name">Works Plan</p><p class="product-tile-price">&pound;9 &middot; best after your report</p><p class="product-tile-desc">Turn your report into an order of works: what to do first, 30-day, 90-day and 12-month plans, spend bands and what to get quotes for.</p></a>
+    </div>
+    <p class="tier-note">England only. Indicative clarity &mdash; not a valuation, survey or advice.</p>
   </div>
 </section>
 
