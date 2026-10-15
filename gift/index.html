@@ -1,4 +1,4 @@
-<!-- 1LINE Gift v3.8 | Updated: 15 Oct 2026 | Budget "£250+" replaced by "Custom": opens two boxes, lowest and highest amount, any figure (500, 4k, 250k, 1.5m, shown short so millions fit the same space); free "What we heard" and Budget logic use the range; the written report is told the exact range and that every idea must fit it, with extra guidance for very high budgets; all budgets: each idea must fit the budget and shows its approximate price; range kept through checkout. Previous: 1LINE Gift v3.7.2 | Updated: 10 Oct 2026 | Text size now two buttons, A- and A+ (A- greyed at normal size, A+ greyed at largest); "What we heard" tags up to 6 words, long phrases end at a natural break, never on a dangling word (e.g. "walks the dog every" -> "walks the dog"). Previous: 1LINE Gift v3.7.1 | Updated: 10 Oct 2026 | Desktop text scale on big screens 110% (was 118%), column kept wide. Previous: 1LINE Gift v3.7 | Updated: 10 Oct 2026 | "What we heard" before payment (their own words played back, plus what is missing, e.g. age or him/her) with "Edit my description" - free until unlocked, never after; sharper free teaser (new faith and craft signals, "Also shaped by" directions); 300 characters (was 200); budgets £150-£250 and £250+; wider/larger layout on desktop + A+ text-size button; example and hint show age and him/her; "AI" removed from page wording. Previous: 1LINE Gift v3.6 | Updated: 08 Oct 2026 | Paid access checked by the proxy (/api/ai-paid: Lemon Squeezy order or owner key); buy prompt if no purchase found; Try again without re-paying; no error pop-ups; "Access unlocked" note only with a real order or owner key. v3.5: Readability pass + microphone -->
+<!-- 1LINE Gift v3.8.1 | Updated: 15 Oct 2026 | Custom budgets of £2k+: the report is told prices must be realistic and never understated, and to drop anything that would cost more than the top of the range; all budgets: only name brands, shops and organisations it is confident exist, described accurately; custom budgets of £10k+: note under the ideas "At this level prices are indicative. Confirm the price with the specialist named before committing." Previous: 1LINE Gift v3.8 | Updated: 15 Oct 2026 | Budget "£250+" replaced by "Custom": opens two boxes, lowest and highest amount, any figure (500, 4k, 250k, 1.5m, shown short so millions fit the same space); free "What we heard" and Budget logic use the range; the written report is told the exact range and that every idea must fit it, with extra guidance for very high budgets; all budgets: each idea must fit the budget and shows its approximate price; range kept through checkout. Previous: 1LINE Gift v3.7.2 | Updated: 10 Oct 2026 | Text size now two buttons, A- and A+ (A- greyed at normal size, A+ greyed at largest); "What we heard" tags up to 6 words, long phrases end at a natural break, never on a dangling word (e.g. "walks the dog every" -> "walks the dog"). Previous: 1LINE Gift v3.7.1 | Updated: 10 Oct 2026 | Desktop text scale on big screens 110% (was 118%), column kept wide. Previous: 1LINE Gift v3.7 | Updated: 10 Oct 2026 | "What we heard" before payment (their own words played back, plus what is missing, e.g. age or him/her) with "Edit my description" - free until unlocked, never after; sharper free teaser (new faith and craft signals, "Also shaped by" directions); 300 characters (was 200); budgets £150-£250 and £250+; wider/larger layout on desktop + A+ text-size button; example and hint show age and him/her; "AI" removed from page wording. Previous: 1LINE Gift v3.6 | Updated: 08 Oct 2026 | Paid access checked by the proxy (/api/ai-paid: Lemon Squeezy order or owner key); buy prompt if no purchase found; Try again without re-paying; no error pop-ups; "Access unlocked" note only with a real order or owner key. v3.5: Readability pass + microphone -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -653,6 +653,7 @@ textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
 .custom-note{display:none;font-size:13px;color:#5C5A55;margin-top:8px}
 .custom-note.on{display:block}
 .custom-note.err{color:#9A2B2B}
+.price-note{font-size:13px;color:#5C5A55;font-style:italic;margin:14px 2px 0;line-height:1.5}
 
 /* -- v3.7: what we heard, edit, desktop size, A+ -- */
 .heard-card{margin-bottom:12px}
@@ -2156,6 +2157,7 @@ function renderAIResponse(data) {
   _allIdeas.forEach(function(idea, i) {
     allHTML += ideaHTML(idea, i+1);
   });
+  if ((_lastBudget || _budget) === 'custom') { _readCustom(); if ((_cMax || _cMin) >= 10000) allHTML += '<p class="price-note">At this level prices are indicative. Confirm the price with the specialist named before committing.</p>'; }
   document.getElementById('ai-idea-first').innerHTML = allHTML;
 
   // Show avoid section
@@ -2189,12 +2191,14 @@ function callAnthropicAPI(val, rel, budget, onSuccess, onError) {
     budgetLabel = customRangeLong() + ' (a custom range set by the buyer)';
     if ((_cMax || _cMin) >= 50000) budgetLabel += '. This is a very high budget: suggest genuinely exceptional ideas that use it (commissions, rare or one-of-a-kind pieces, private experiences, travel or property-scale gifts), not everyday luxury goods';
     else if ((_cMax || _cMin) >= 2000) budgetLabel += '. This is a high budget: suggest premium, memorable ideas that use it, not everyday items';
+    if ((_cMax || _cMin) >= 2000) budgetLabel += '. Prices must be realistic market prices and never understated: if an item would realistically cost more than the top of the range, do not suggest it; where prices vary widely, give an honest range';
   }
   var userPrompt  = 'Person description: ' + val
     + '. Relationship: ' + relLabel
     + '. Budget: ' + budgetLabel
     + '. Generate 5 specific gift ideas with individual reasoning and where to find each one.'
     + ' Every one of the 5 ideas must realistically cost within this budget; start each where field with its approximate price in pounds.'
+    + ' Only name brands, shops, makers and organisations you are confident exist, and describe what they do accurately; if unsure, describe the type of specialist instead of naming one.'
     + ' Return ONLY this JSON structure: {"narrative":"string","ideas":[{"name":"","why":"","where":""}],"avoid":[{"name":"","why":""}]}';
 
   fetch('https://rcloop-proxy.vercel.app/api/ai-paid', {
