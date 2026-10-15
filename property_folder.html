@@ -1,4 +1,4 @@
-<!-- 1LINE Property Overview v1.2 | Updated: 15 Oct 2026 | Flow: "Start here" £19 report first, then "depending on what you're doing" 2x2 tiles (Buy-Check, Sell-Ready, Spend Check, Works Plan) linking to /property/?tier=, each marked "works on its own" or "best after your report". Additions, plus the free-vs-paid heading now reads "Start here". Previous: 1LINE Property Overview v1.1 | Updated: 15 Oct 2026 | "England only" shown under the Run button, in the not-a-valuation section and under the prices. Text additions only. Previous: 1LINE Property Overview v1.0 | Updated: 06 Oct 2026 | Landing page built from Astro Overview v4.1 template -->
+<!-- 1LINE Property Overview v1.3 | Updated: 15 Oct 2026 | Second button directly underneath the Run button (same width, on every screen size): "Buying or selling? See all checks" scrolls down to the four product tiles, so buyers and sellers see their checks without scrolling the whole page. Nothing else changed. Previous: 1LINE Property Overview v1.2 | Updated: 15 Oct 2026 | Flow: "Start here" £19 report first, then "depending on what you're doing" 2x2 tiles (Buy-Check, Sell-Ready, Spend Check, Works Plan) linking to /property/?tier=, each marked "works on its own" or "best after your report". Additions, plus the free-vs-paid heading now reads "Start here". Previous: 1LINE Property Overview v1.1 | Updated: 15 Oct 2026 | "England only" shown under the Run button, in the not-a-valuation section and under the prices. Text additions only. Previous: 1LINE Property Overview v1.0 | Updated: 06 Oct 2026 | Landing page built from Astro Overview v4.1 template -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -129,7 +129,8 @@
     max-width: 540px;
     margin: 0 auto 2.4rem;
   }
-  .hero-cta-wrap { margin-top: 0.5rem; }
+  .hero-cta-wrap { margin-top: 0.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+  .hero-cta-wrap .btn-run, .hero-cta-wrap .btn-alt { width: 100%; max-width: 340px; justify-content: center; padding-left: 1rem; padding-right: 1rem; white-space: nowrap; }
 
   /* BUTTONS */
   .btn-run {
@@ -152,6 +153,26 @@
   .btn-run:hover { background: #2e2b28; transform: translateY(-1px); }
   .btn-run .arrow { transition: transform 0.2s; }
   .btn-run:hover .arrow { transform: translateX(3px); }
+  /* Second hero button: scrolls to the four product tiles */
+  .btn-alt {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    padding: calc(1rem - 1px) 2.4rem;
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    border-radius: var(--r);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-alt:hover { background: rgba(0,0,0,0.04); transform: translateY(-1px); }
+  #all-checks { scroll-margin-top: 1rem; }
 
   /* WHAT IT DOES */
   .does { background: var(--bg); border-top: 1px solid var(--rule); }
@@ -597,6 +618,7 @@
     <p class="hero-oneline">Describe your home. See its position, its potential &mdash; and how not to waste money on it.</p>
     <div class="hero-cta-wrap">
       <a href="https://oi-ecosystem.github.io/1line/property/" class="btn-run">Run 1LINE Property <span class="arrow">&rarr;</span></a>
+      <a href="#all-checks" class="btn-alt">Buying or selling? See all checks <span aria-hidden="true">&darr;</span></a>
     </div>
     <p class="hero-region">Covers homes in England only.</p>
   </div>
@@ -787,7 +809,7 @@
 </section>
 
 <!-- 10b — THEN, BY SITUATION -->
-<section class="all-products">
+<section class="all-products" id="all-checks">
   <div class="container reveal">
     <p class="section-label">Then, depending on what you&rsquo;re doing</p>
     <h2 class="does-headline">One home. Every decision.</h2>
