@@ -1,4 +1,4 @@
-<!-- 1LINE Gift v3.7.2 | Updated: 10 Oct 2026 | Text size now two buttons, A- and A+ (A- greyed at normal size, A+ greyed at largest); "What we heard" tags up to 6 words, long phrases end at a natural break, never on a dangling word (e.g. "walks the dog every" -> "walks the dog"). Previous: 1LINE Gift v3.7.1 | Updated: 10 Oct 2026 | Desktop text scale on big screens 110% (was 118%), column kept wide. Previous: 1LINE Gift v3.7 | Updated: 10 Oct 2026 | "What we heard" before payment (their own words played back, plus what is missing, e.g. age or him/her) with "Edit my description" - free until unlocked, never after; sharper free teaser (new faith and craft signals, "Also shaped by" directions); 300 characters (was 200); budgets £150-£250 and £250+; wider/larger layout on desktop + A+ text-size button; example and hint show age and him/her; "AI" removed from page wording. Previous: 1LINE Gift v3.6 | Updated: 08 Oct 2026 | Paid access checked by the proxy (/api/ai-paid: Lemon Squeezy order or owner key); buy prompt if no purchase found; Try again without re-paying; no error pop-ups; "Access unlocked" note only with a real order or owner key. v3.5: Readability pass + microphone -->
+<!-- 1LINE Gift v3.8 | Updated: 15 Oct 2026 | Budget "£250+" replaced by "Custom": opens two boxes, lowest and highest amount, any figure (500, 4k, 250k, 1.5m, shown short so millions fit the same space); free "What we heard" and Budget logic use the range; the written report is told the exact range and that every idea must fit it, with extra guidance for very high budgets; all budgets: each idea must fit the budget and shows its approximate price; range kept through checkout. Previous: 1LINE Gift v3.7.2 | Updated: 10 Oct 2026 | Text size now two buttons, A- and A+ (A- greyed at normal size, A+ greyed at largest); "What we heard" tags up to 6 words, long phrases end at a natural break, never on a dangling word (e.g. "walks the dog every" -> "walks the dog"). Previous: 1LINE Gift v3.7.1 | Updated: 10 Oct 2026 | Desktop text scale on big screens 110% (was 118%), column kept wide. Previous: 1LINE Gift v3.7 | Updated: 10 Oct 2026 | "What we heard" before payment (their own words played back, plus what is missing, e.g. age or him/her) with "Edit my description" - free until unlocked, never after; sharper free teaser (new faith and craft signals, "Also shaped by" directions); 300 characters (was 200); budgets £150-£250 and £250+; wider/larger layout on desktop + A+ text-size button; example and hint show age and him/her; "AI" removed from page wording. Previous: 1LINE Gift v3.6 | Updated: 08 Oct 2026 | Paid access checked by the proxy (/api/ai-paid: Lemon Squeezy order or owner key); buy prompt if no purchase found; Try again without re-paying; no error pop-ups; "Access unlocked" note only with a real order or owner key. v3.5: Readability pass + microphone -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -642,6 +642,17 @@ textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
 .retry-text{font-family:var(--sans);font-size:15px;color:#3A3A38;line-height:1.6;margin-bottom:14px}
 .retry-btn2{display:inline-flex;align-items:center;justify-content:center;padding:11px 18px;font-family:var(--sans);font-size:15px;font-weight:500;color:#FFFFFF;background:#1A2744;border:1.5px solid #1A2744;border-radius:10px;cursor:pointer}
 .retry-btn2:hover{opacity:0.88}
+/* -- v3.8: Custom budget range -- */
+.custom-range{display:none;align-items:center;gap:2px;padding:4px 8px 4px 12px;background:var(--white);border:1.5px solid var(--ink);border-radius:8px}
+.custom-range.on{display:inline-flex}
+.custom-range .cr-pound{font-family:var(--sans);font-size:14px;color:#3A3A38}
+.custom-range input{width:78px;border:0;outline:none;background:transparent;font-family:var(--sans);font-size:14px;color:var(--ink);padding:5px 2px;text-align:left}
+.custom-range input::placeholder{color:#9A968E}
+.custom-range .cr-dash{font-family:var(--sans);font-size:14px;color:#3A3A38;margin:0 6px}
+.custom-range .cr-close{border:0;background:transparent;color:#5C5A55;font-size:16px;line-height:1;cursor:pointer;padding:4px 4px 4px 8px}
+.custom-note{display:none;font-size:13px;color:#5C5A55;margin-top:8px}
+.custom-note.on{display:block}
+.custom-note.err{color:#9A2B2B}
 
 /* -- v3.7: what we heard, edit, desktop size, A+ -- */
 .heard-card{margin-bottom:12px}
@@ -731,8 +742,15 @@ textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
         <button class="sel-btn selected" data-val="mid" onclick="selectBudget(this)">&pound;30 &ndash; &pound;75</button>
         <button class="sel-btn" data-val="high" onclick="selectBudget(this)">&pound;75 &ndash; &pound;150</button>
         <button class="sel-btn" data-val="premium" onclick="selectBudget(this)">&pound;150 &ndash; &pound;250</button>
-        <button class="sel-btn" data-val="top" onclick="selectBudget(this)">&pound;250+</button>
+        <button class="sel-btn" data-val="custom" id="custom-btn" onclick="selectBudget(this)">Custom</button>
+        <span class="custom-range" id="custom-range" role="group" aria-label="Custom budget range">
+          <span class="cr-pound">&pound;</span><input id="cr-min" type="text" inputmode="decimal" autocomplete="off" placeholder="min" aria-label="Lowest amount" oninput="customChanged()" onblur="customTidy(this)">
+          <span class="cr-dash">&ndash;</span>
+          <span class="cr-pound">&pound;</span><input id="cr-max" type="text" inputmode="decimal" autocomplete="off" placeholder="max" aria-label="Highest amount" oninput="customChanged()" onblur="customTidy(this)">
+          <button type="button" class="cr-close" onclick="closeCustom()" aria-label="Back to the budget buttons" title="Back to the budget buttons">&times;</button>
+        </span>
       </div>
+      <p class="custom-note" id="custom-note">Any amount: type 500, 4k, 250k or 1.5m.</p>
     </div>
 
     <div class="input-wrap">
@@ -1002,6 +1020,98 @@ function selectBudget(el) {
   _budget = el.dataset.val;
   document.querySelectorAll('#budget-row .sel-btn').forEach(function(b) { b.classList.remove('selected'); });
   el.classList.add('selected');
+  _showCustom(_budget === 'custom');
+  if (_budget === 'custom') {
+    var mn = document.getElementById('cr-min');
+    if (mn && !mn.value) { try { mn.focus(); } catch (e) {} }
+  }
+}
+
+/* -- v3.8: CUSTOM BUDGET RANGE (any amount: 500, 4k, 250k, 1.5m) -- */
+var _cMin = 0, _cMax = 0;
+function parseAmount(v) {
+  var t = String(v || '').toLowerCase().replace(/[£,\s]/g, '');
+  var m = t.match(/^([0-9]+(?:\.[0-9]+)?)(k|m|mn|bn|b)?$/);
+  if (!m) return 0;
+  var n = parseFloat(m[1]);
+  if (m[2] === 'k') n = n * 1000;
+  else if (m[2] === 'm' || m[2] === 'mn') n = n * 1000000;
+  else if (m[2] === 'b' || m[2] === 'bn') n = n * 1000000000;
+  return Math.round(n);
+}
+function _trim(x) { return String(Math.round(x * 100) / 100); }
+function shortMoney(n) {
+  if (n >= 1000000000) return _trim(n / 1000000000) + 'bn';
+  if (n >= 1000000) return _trim(n / 1000000) + 'm';
+  if (n >= 10000) return _trim(n / 1000) + 'k';
+  return Number(n).toLocaleString('en-GB');
+}
+function longMoney(n) { return '\u00a3' + Number(n).toLocaleString('en-GB'); }
+function _readCustom() {
+  _cMin = parseAmount((document.getElementById('cr-min') || {}).value);
+  _cMax = parseAmount((document.getElementById('cr-max') || {}).value);
+  if (_cMin && _cMax && _cMax < _cMin) { var t = _cMin; _cMin = _cMax; _cMax = t; }
+}
+function customRangeShort() {
+  if (_cMin && _cMax) return '\u00a3' + shortMoney(_cMin) + ' \u2013 \u00a3' + shortMoney(_cMax);
+  if (_cMin) return '\u00a3' + shortMoney(_cMin) + '+';
+  return 'Custom';
+}
+function customRangeLong() {
+  if (_cMin && _cMax) return longMoney(_cMin) + ' to ' + longMoney(_cMax);
+  return longMoney(_cMin) + ' or more';
+}
+function _showCustom(on) {
+  var btn = document.getElementById('custom-btn'), box = document.getElementById('custom-range'), note = document.getElementById('custom-note');
+  if (box) box.className = on ? 'custom-range on' : 'custom-range';
+  if (note) note.className = on ? 'custom-note on' : 'custom-note';
+  if (btn) {
+    btn.style.display = on ? 'none' : '';
+    _readCustom();
+    btn.textContent = (!on && _cMin) ? customRangeShort() : 'Custom';
+  }
+}
+function closeCustom() {
+  var mid = document.querySelector('#budget-row .sel-btn[data-val="mid"]');
+  if (mid) selectBudget(mid);
+}
+function customChanged() {
+  _readCustom();
+  var note = document.getElementById('custom-note');
+  if (note) { note.className = 'custom-note on'; note.textContent = _cMin ? 'Range: ' + customRangeShort() : 'Any amount: type 500, 4k, 250k or 1.5m.'; }
+  /* a changed range means the old free result no longer matches: hide it (same as editing the description) */
+  if (!_aiUnlocked) {
+    var os = document.getElementById('output-section');
+    if (os && os.className.indexOf('visible') !== -1 && os.style.display !== 'none') os.className = '';
+  }
+}
+function customTidy(inp) {
+  var n = parseAmount(inp.value);
+  if (n) inp.value = shortMoney(n);
+}
+/* true when the budget is fine to use; for Custom, a lowest amount is needed */
+function _customOk() {
+  if (_budget !== 'custom') return true;
+  _readCustom();
+  if (_cMin > 0) return true;
+  var note = document.getElementById('custom-note');
+  if (note) { note.className = 'custom-note on err'; note.textContent = 'Enter your budget range first, e.g. 4k \u2013 6k or 250k \u2013 1m.'; }
+  var mn = document.getElementById('cr-min');
+  if (mn) { try { mn.focus(); } catch (e) {} }
+  return false;
+}
+/* free "Budget logic" tiers worked out from the custom range */
+function customBands() {
+  _readCustom();
+  var lo = _cMin || 250, hi = _cMax || Math.round(lo * 1.5);
+  function nice(x) { var mag = Math.pow(10, Math.max(0, Math.floor(Math.log(x) / Math.LN10) - 1)); return Math.round(x / mag) * mag; }
+  var a = nice(lo + (hi - lo) / 3), b2 = nice(lo + (hi - lo) * 2 / 3);
+  function f(x) { return '\u00a3' + shortMoney(x); }
+  return { tiers: [
+    { name:'Considered', range: f(lo) + ' \u2013 ' + f(a), desc:'Within budget with room to personalise.', rec:false },
+    { name:'Sweet spot', range: f(a) + ' \u2013 ' + f(b2), desc:'The heart of your range.', rec:true },
+    { name:'Statement', range: f(b2) + ' \u2013 ' + f(hi), desc:'The top of your range, for a gift that is remembered.', rec:false }
+  ] };
 }
 
 /* -- CHAR COUNTER -- */
@@ -1028,6 +1138,7 @@ function countChars() {
 
 /* -- UNIVERSAL SPELL WARNING -- */
 function handleGenerate() {
+  if (!_customOk()) return;
   var val = document.getElementById('main-input').value.trim();
   if (val.length < 80 || val.length > 300) return;
   if (!_spellWarned) {
@@ -1052,6 +1163,7 @@ function spellReview() {
   document.getElementById('main-input').focus();
 }
 function spellContinue() {
+  if (!_customOk()) { document.getElementById('spell-panel').className = 'spell-panel'; var gb = document.getElementById('generate-btn'); if (gb) gb.disabled = false; return; }
   document.getElementById('spell-panel').className = 'spell-panel';
   var btn = document.getElementById('generate-btn');
   if (btn) btn.disabled = false;
@@ -1555,7 +1667,7 @@ function renderHeard(val) {
   if (h.who) forBits.push(h.who === 'him' ? 'Him' : 'Her');
   if (h.age) forBits.push('age ' + h.age);
   forBits.push(HEARD_REL[_relationship] || 'Friend');
-  forBits.push(HEARD_BUD[_budget] || '£30 – £75');
+  forBits.push(_budget === 'custom' ? customRangeShort() : (HEARD_BUD[_budget] || '£30 – £75'));
   var forEl = document.getElementById('heard-for');
   if (forEl) forEl.textContent = 'Buying for: ' + forBits.join(' · ');
   var chips = '';
@@ -1626,7 +1738,7 @@ function _doGenerateGift(val) {
   var profileTag  = buildProfileTag(traits, val);
   var direction   = DIRECTIONS[traits[0]] || DIRECTIONS['sensory'];
   var categories  = CATEGORY_MAP[traits[0]] || ['Experiential','Physical','Personalised'];
-  var budgetTiers = BUDGET_BANDS[_budget] || BUDGET_BANDS['mid'];
+  var budgetTiers = (_budget === 'custom') ? customBands() : (BUDGET_BANDS[_budget] || BUDGET_BANDS['mid']);
   var ideas       = pickIdeas(traits, _relationship, _budget, val);
   var reasoning   = REASONING[traits[0]] || REASONING['sensory'];
   var today       = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
@@ -1695,7 +1807,8 @@ function buyNow() {
   var val = _lastVal || document.getElementById('main-input').value.trim();
   var rel = _lastRel || _relationship;
   var bud = _lastBudget || _budget;
-  sessionStorage.setItem('gift_data', JSON.stringify({ val: val, rel: rel, bud: bud }));
+  _readCustom();
+  sessionStorage.setItem('gift_data', JSON.stringify({ val: val, rel: rel, bud: bud, bmin: _cMin, bmax: _cMax }));
   window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/bf8cfe64-3345-4374-b7b0-9d2c7d2326a3';
 }
 
@@ -1860,7 +1973,7 @@ function buildAvoidList(lower, rel) {
 
 function getMockResponse(val, rel, budget) {
   var lower = val.toLowerCase();
-  var bLabel = { low:'under £30', mid:'£30-£75', high:'£75-£150', premium:'£150-£250', top:'£250+' }[budget] || '£30-£75';
+  var bLabel = budget === 'custom' ? customRangeLong() : ({ low:'under £30', mid:'£30-£75', high:'£75-£150', premium:'£150-£250', top:'£250+' }[budget] || '£30-£75');
   var relLabel = { partner:'your partner', family:'them', friend:'your friend', colleague:'your colleague', client:'your client', lastminute:'them' }[rel] || 'them';
 
   // Detect key signals from the actual input
@@ -2071,10 +2184,17 @@ function callAnthropicAPI(val, rel, budget, onSuccess, onError) {
 
   var relLabel    = relLabels[rel] || rel;
   var budgetLabel = budgetLabels[budget] || budget;
+  if (budget === 'custom') {
+    _readCustom();
+    budgetLabel = customRangeLong() + ' (a custom range set by the buyer)';
+    if ((_cMax || _cMin) >= 50000) budgetLabel += '. This is a very high budget: suggest genuinely exceptional ideas that use it (commissions, rare or one-of-a-kind pieces, private experiences, travel or property-scale gifts), not everyday luxury goods';
+    else if ((_cMax || _cMin) >= 2000) budgetLabel += '. This is a high budget: suggest premium, memorable ideas that use it, not everyday items';
+  }
   var userPrompt  = 'Person description: ' + val
     + '. Relationship: ' + relLabel
     + '. Budget: ' + budgetLabel
     + '. Generate 5 specific gift ideas with individual reasoning and where to find each one.'
+    + ' Every one of the 5 ideas must realistically cost within this budget; start each where field with its approximate price in pounds.'
     + ' Return ONLY this JSON structure: {"narrative":"string","ideas":[{"name":"","why":"","where":""}],"avoid":[{"name":"","why":""}]}';
 
   fetch('https://rcloop-proxy.vercel.app/api/ai-paid', {
@@ -2126,6 +2246,12 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('#budget-row .sel-btn').forEach(function(b) {
           b.className = b.dataset.val === _lastBudget ? 'sel-btn selected' : 'sel-btn';
         });
+        if (_lastBudget === 'custom') {
+          var crMin = document.getElementById('cr-min'), crMax = document.getElementById('cr-max');
+          if (crMin && d.bmin) crMin.value = shortMoney(d.bmin);
+          if (crMax && d.bmax) crMax.value = shortMoney(d.bmax);
+          _showCustom(true);
+        }
         /* Fire free output first (silent), then AI */
         _lastVal = d.val; _lastRel = _lastRel; _lastBudget = _lastBudget;
         runAIGift(d.val, _lastRel, _lastBudget);
