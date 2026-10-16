@@ -1,4 +1,4 @@
-<!-- 1LINE Gift v3.8.1 | Updated: 15 Oct 2026 | Custom budgets of £2k+: the report is told prices must be realistic and never understated, and to drop anything that would cost more than the top of the range; all budgets: only name brands, shops and organisations it is confident exist, described accurately; custom budgets of £10k+: note under the ideas "At this level prices are indicative. Confirm the price with the specialist named before committing." Previous: 1LINE Gift v3.8 | Updated: 15 Oct 2026 | Budget "£250+" replaced by "Custom": opens two boxes, lowest and highest amount, any figure (500, 4k, 250k, 1.5m, shown short so millions fit the same space); free "What we heard" and Budget logic use the range; the written report is told the exact range and that every idea must fit it, with extra guidance for very high budgets; all budgets: each idea must fit the budget and shows its approximate price; range kept through checkout. Previous: 1LINE Gift v3.7.2 | Updated: 10 Oct 2026 | Text size now two buttons, A- and A+ (A- greyed at normal size, A+ greyed at largest); "What we heard" tags up to 6 words, long phrases end at a natural break, never on a dangling word (e.g. "walks the dog every" -> "walks the dog"). Previous: 1LINE Gift v3.7.1 | Updated: 10 Oct 2026 | Desktop text scale on big screens 110% (was 118%), column kept wide. Previous: 1LINE Gift v3.7 | Updated: 10 Oct 2026 | "What we heard" before payment (their own words played back, plus what is missing, e.g. age or him/her) with "Edit my description" - free until unlocked, never after; sharper free teaser (new faith and craft signals, "Also shaped by" directions); 300 characters (was 200); budgets £150-£250 and £250+; wider/larger layout on desktop + A+ text-size button; example and hint show age and him/her; "AI" removed from page wording. Previous: 1LINE Gift v3.6 | Updated: 08 Oct 2026 | Paid access checked by the proxy (/api/ai-paid: Lemon Squeezy order or owner key); buy prompt if no purchase found; Try again without re-paying; no error pop-ups; "Access unlocked" note only with a real order or owner key. v3.5: Readability pass + microphone -->
+<!-- 1LINE Gift v3.9 | Updated: 16 Oct 2026 | Budget: if no budget button has been clicked and the description names an amount ("budget around £30", "under £50", "£20-£40", "30 quid"), that amount is used (custom range) and "What we heard" says "(from your words)"; a clicked button always wins. Accuracy: the report is told never to invent product names, titles, editions or sets, to describe the item plainly with a real brand and UK shop when unsure, never to guess membership/subscription/ticket prices ("check the current price"), to price sets realistically or leave them out, and to check every idea against these rules before answering. Previous: 1LINE Gift v3.8.1 | Updated: 15 Oct 2026 | Custom budgets of £2k+: the report is told prices must be realistic and never understated, and to drop anything that would cost more than the top of the range; all budgets: only name brands, shops and organisations it is confident exist, described accurately; custom budgets of £10k+: note under the ideas "At this level prices are indicative. Confirm the price with the specialist named before committing." Previous: 1LINE Gift v3.8 | Updated: 15 Oct 2026 | Budget "£250+" replaced by "Custom": opens two boxes, lowest and highest amount, any figure (500, 4k, 250k, 1.5m, shown short so millions fit the same space); free "What we heard" and Budget logic use the range; the written report is told the exact range and that every idea must fit it, with extra guidance for very high budgets; all budgets: each idea must fit the budget and shows its approximate price; range kept through checkout. Previous: 1LINE Gift v3.7.2 | Updated: 10 Oct 2026 | Text size now two buttons, A- and A+ (A- greyed at normal size, A+ greyed at largest); "What we heard" tags up to 6 words, long phrases end at a natural break, never on a dangling word (e.g. "walks the dog every" -> "walks the dog"). Previous: 1LINE Gift v3.7.1 | Updated: 10 Oct 2026 | Desktop text scale on big screens 110% (was 118%), column kept wide. Previous: 1LINE Gift v3.7 | Updated: 10 Oct 2026 | "What we heard" before payment (their own words played back, plus what is missing, e.g. age or him/her) with "Edit my description" - free until unlocked, never after; sharper free teaser (new faith and craft signals, "Also shaped by" directions); 300 characters (was 200); budgets £150-£250 and £250+; wider/larger layout on desktop + A+ text-size button; example and hint show age and him/her; "AI" removed from page wording. Previous: 1LINE Gift v3.6 | Updated: 08 Oct 2026 | Paid access checked by the proxy (/api/ai-paid: Lemon Squeezy order or owner key); buy prompt if no purchase found; Try again without re-paying; no error pop-ups; "Access unlocked" note only with a real order or owner key. v3.5: Readability pass + microphone -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1008,6 +1008,8 @@ textarea:focus{border-color:#1A2744;box-shadow:0 0 0 3px rgba(26,39,68,0.12)}
 /* -- STATE -- */
 var _relationship = 'partner';
 var _budget = 'mid';
+var _budgetTouched = false;   /* v3.9: true once the person clicks a budget button themselves */
+var _budgetFromText = false;  /* v3.9: true when the budget was taken from their description */
 var _spellWarned = false;
 var _lastCountedVal = '';
 
@@ -1018,6 +1020,8 @@ function selectRel(el) {
   el.classList.add('selected');
 }
 function selectBudget(el) {
+  _budgetTouched = true;
+  _budgetFromText = false;
   _budget = el.dataset.val;
   document.querySelectorAll('#budget-row .sel-btn').forEach(function(b) { b.classList.remove('selected'); });
   el.classList.add('selected');
@@ -1115,6 +1119,69 @@ function customBands() {
   ] };
 }
 
+/* -- v3.9: BUDGET FROM THE DESCRIPTION --
+   A clicked budget button always wins. If no button has been clicked and the description names an
+   amount, use that amount: "budget around £30" -> about £24-£33, "under £50" -> £25-£50,
+   "£20-£40" -> £20-£40, "over £100" -> £100-£150. Amounts need £, "pounds"/"quid" or the word "budget"
+   nearby, so ages and other numbers are never read as money. */
+function _niceAmt(x) {
+  if (x < 100) return Math.round(x);
+  if (x < 1000) return Math.round(x / 5) * 5;
+  var mag = Math.pow(10, Math.floor(Math.log(x) / Math.LN10) - 1);
+  return Math.round(x / mag) * mag;
+}
+function textBudget(val) {
+  var t = ' ' + String(val || '').toLowerCase().replace(/\u00a3/g, '£') + ' ';
+  var NUM = '([0-9][0-9,]*(?:\\.[0-9]+)?)\\s*(?:(k|m)(?![a-z]))?';
+  function amt(n, unit) { return parseAmount(String(n).replace(/,/g, '') + (unit || '')); }
+  var m;
+  /* a range: "£20-£40", "£20 to £40", "between £20 and £40", "20-40 quid" */
+  m = t.match(new RegExp('£\\s*' + NUM + '\\s*(?:-|\\u2013|to|and)\\s*£?\\s*' + NUM));
+  if (!m) m = t.match(new RegExp('(?:budget|between)[^0-9£]{0,20}£?\\s*' + NUM + '\\s*(?:-|\\u2013|to|and)\\s*£?\\s*' + NUM));
+  if (!m) m = t.match(new RegExp(NUM + '\\s*(?:-|\\u2013|to)\\s*' + NUM + '\\s*(?:pounds|quid)'));
+  if (m) {
+    var a = amt(m[1], m[2]), b = amt(m[3], m[4] || m[2]);
+    if (a && b) { if (b < a) { var sw = a; a = b; b = sw; } return { min: a, max: b }; }
+  }
+  /* a single amount, with £ / pounds / quid, or within a few words after "budget" */
+  m = t.match(new RegExp('£\\s*' + NUM));
+  if (!m) m = t.match(new RegExp(NUM + '\\s*(?:pounds|quid)'));
+  if (!m) m = t.match(new RegExp('budget[^0-9£.]{0,20}' + NUM));
+  if (!m) return null;
+  var n = amt(m[1], m[2]);
+  if (!n || n < 5) return null;
+  var before = t.substring(Math.max(0, m.index - 28), m.index), after = t.substring(m.index + m[0].length, m.index + m[0].length + 14);
+  if (/(under|less than|up to|upto|max|maximum|no more than|below|at most|tops)[^0-9]*$/.test(before) || /^\s*(max|maximum|tops|or less|or under|at most)/.test(after)) return { min: _niceAmt(n * 0.5), max: n };
+  if (/(over|more than|at least|above|minimum|from)[^0-9]*$/.test(before) || /^\s*(\+|plus|or more|or over|and up)/.test(after)) return { min: n, max: _niceAmt(n * 1.5) };
+  return { min: _niceAmt(n * 0.8), max: _niceAmt(n * 1.1) };
+}
+/* Called before every run: applies the description's budget unless a button was clicked */
+function applyTextBudget(val) {
+  if (_budgetTouched) return;
+  var tb = textBudget(val);
+  var mn = document.getElementById('cr-min'), mx = document.getElementById('cr-max');
+  if (tb) {
+    _budget = 'custom';
+    _budgetFromText = true;
+    if (mn) mn.value = shortMoney(tb.min);
+    if (mx) mx.value = shortMoney(tb.max);
+    _cMin = tb.min; _cMax = tb.max;
+    document.querySelectorAll('#budget-row .sel-btn').forEach(function(b) { b.classList.remove('selected'); });
+    _showCustom(true);
+    var note = document.getElementById('custom-note');
+    if (note) { note.className = 'custom-note on'; note.textContent = 'Taken from your description: ' + customRangeShort() + '. Pick a button to change it.'; }
+  } else if (_budgetFromText) {
+    /* the amount was removed from the description: back to the default */
+    _budgetFromText = false;
+    _budget = 'mid';
+    if (mn) mn.value = '';
+    if (mx) mx.value = '';
+    _cMin = 0; _cMax = 0;
+    _showCustom(false);
+    document.querySelectorAll('#budget-row .sel-btn').forEach(function(b) { b.className = b.dataset.val === 'mid' ? 'sel-btn selected' : 'sel-btn'; });
+  }
+}
+
 /* -- CHAR COUNTER -- */
 function countChars() {
   var ta  = document.getElementById('main-input');
@@ -1139,8 +1206,9 @@ function countChars() {
 
 /* -- UNIVERSAL SPELL WARNING -- */
 function handleGenerate() {
-  if (!_customOk()) return;
   var val = document.getElementById('main-input').value.trim();
+  applyTextBudget(val);
+  if (!_customOk()) return;
   if (val.length < 80 || val.length > 300) return;
   if (!_spellWarned) {
     _spellWarned = true;
@@ -1164,6 +1232,7 @@ function spellReview() {
   document.getElementById('main-input').focus();
 }
 function spellContinue() {
+  applyTextBudget(document.getElementById('main-input').value.trim());
   if (!_customOk()) { document.getElementById('spell-panel').className = 'spell-panel'; var gb = document.getElementById('generate-btn'); if (gb) gb.disabled = false; return; }
   document.getElementById('spell-panel').className = 'spell-panel';
   var btn = document.getElementById('generate-btn');
@@ -1668,7 +1737,7 @@ function renderHeard(val) {
   if (h.who) forBits.push(h.who === 'him' ? 'Him' : 'Her');
   if (h.age) forBits.push('age ' + h.age);
   forBits.push(HEARD_REL[_relationship] || 'Friend');
-  forBits.push(_budget === 'custom' ? customRangeShort() : (HEARD_BUD[_budget] || '£30 – £75'));
+  forBits.push(_budget === 'custom' ? customRangeShort() + (_budgetFromText ? ' (from your words)' : '') : (HEARD_BUD[_budget] || '£30 – £75'));
   var forEl = document.getElementById('heard-for');
   if (forEl) forEl.textContent = 'Buying for: ' + forBits.join(' · ');
   var chips = '';
@@ -1809,7 +1878,7 @@ function buyNow() {
   var rel = _lastRel || _relationship;
   var bud = _lastBudget || _budget;
   _readCustom();
-  sessionStorage.setItem('gift_data', JSON.stringify({ val: val, rel: rel, bud: bud, bmin: _cMin, bmax: _cMax }));
+  sessionStorage.setItem('gift_data', JSON.stringify({ val: val, rel: rel, bud: bud, bmin: _cMin, bmax: _cMax, bft: _budgetFromText }));
   window.location.href = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/bf8cfe64-3345-4374-b7b0-9d2c7d2326a3';
 }
 
@@ -2188,7 +2257,7 @@ function callAnthropicAPI(val, rel, budget, onSuccess, onError) {
   var budgetLabel = budgetLabels[budget] || budget;
   if (budget === 'custom') {
     _readCustom();
-    budgetLabel = customRangeLong() + ' (a custom range set by the buyer)';
+    budgetLabel = customRangeLong() + (_budgetFromText ? ' (taken from the buyer\'s own description)' : ' (a custom range set by the buyer)');
     if ((_cMax || _cMin) >= 50000) budgetLabel += '. This is a very high budget: suggest genuinely exceptional ideas that use it (commissions, rare or one-of-a-kind pieces, private experiences, travel or property-scale gifts), not everyday luxury goods';
     else if ((_cMax || _cMin) >= 2000) budgetLabel += '. This is a high budget: suggest premium, memorable ideas that use it, not everyday items';
     if ((_cMax || _cMin) >= 2000) budgetLabel += '. Prices must be realistic market prices and never understated: if an item would realistically cost more than the top of the range, do not suggest it; where prices vary widely, give an honest range';
@@ -2197,8 +2266,11 @@ function callAnthropicAPI(val, rel, budget, onSuccess, onError) {
     + '. Relationship: ' + relLabel
     + '. Budget: ' + budgetLabel
     + '. Generate 5 specific gift ideas with individual reasoning and where to find each one.'
-    + ' Every one of the 5 ideas must realistically cost within this budget; start each where field with its approximate price in pounds.'
+    + ' Every one of the 5 ideas must realistically cost within this budget; start each where field with its approximate price in pounds (or "Check the current price" where you are not certain of it).'
     + ' Only name brands, shops, makers and organisations you are confident exist, and describe what they do accurately; if unsure, describe the type of specialist instead of naming one.'
+    + ' Accuracy matters more than cleverness: never invent product names, book titles, editions, sets or bundles. Only name an exact product when you are certain it exists and is sold in the UK under that name; otherwise describe the item plainly (for example "an insulated stainless-steel travel mug") with a well-known brand and a real UK shop.'
+    + ' Prices must be realistic UK prices today. Never state the price of a membership, subscription, ticket or experience unless you are certain of it; write "Check the current price" instead. A complete collection or large set must be priced realistically, or not suggested.'
+    + ' Before answering, check each of the 5 ideas against every rule above (budget, real product, real shop, honest price) and replace any idea that fails.'
     + ' Return ONLY this JSON structure: {"narrative":"string","ideas":[{"name":"","why":"","where":""}],"avoid":[{"name":"","why":""}]}';
 
   fetch('https://rcloop-proxy.vercel.app/api/ai-paid', {
@@ -2242,6 +2314,7 @@ document.addEventListener('DOMContentLoaded', function() {
         _lastBudget   = d.bud || 'mid';
         _relationship = _lastRel;
         _budget       = _lastBudget;
+        _budgetFromText = !!d.bft;
         var ta = document.getElementById('main-input');
         if (ta) ta.value = d.val;
         document.querySelectorAll('#relationship-row .sel-btn').forEach(function(b) {
