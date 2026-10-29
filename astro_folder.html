@@ -1,4 +1,4 @@
-<!-- 1LINE Astro Overview v4.2 | Updated: 06 Oct 2026 | Fixes: back link + footer logo now go to 1LINE home; step 4 renamed Reflection Report -->
+<!-- 1LINE Astro Overview v4.3 | Updated: 29 Oct 2026 | Added: tabbed example readings section covering all 7 products -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -554,6 +554,127 @@
   .not-headline { font-family: var(--serif); font-size: clamp(1.6rem,3.2vw,2.6rem); color: var(--ink); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.25rem; }
   .not-body { font-size: 0.9rem; color: var(--ink-2); line-height: 1.75; max-width: 580px; }
 
+  /* ── EXAMPLE READINGS (v4.3) ── */
+  .example-readings { background: var(--bg-card); border-top: 1px solid var(--rule); }
+  .example-readings .section-label { margin-bottom: 0.6rem; }
+  .er-intro { font-size: 0.9rem; color: var(--ink-3); line-height: 1.65; margin-bottom: 2rem; max-width: 560px; }
+
+  .er-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 2rem;
+  }
+  .er-tab {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--ink-3);
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 2rem;
+    padding: 0.42rem 1rem;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
+    white-space: nowrap;
+  }
+  .er-tab:hover { color: var(--ink); border-color: rgba(26,25,22,0.25); }
+  .er-tab.active {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+
+  .er-panels { position: relative; }
+  .er-panel { display: none; }
+  .er-panel.active { display: block; }
+
+  .er-card {
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent-warm);
+    border-radius: var(--r);
+    padding: 2rem 2.2rem;
+  }
+  .er-product-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-warm);
+    margin-bottom: 1.1rem;
+    display: block;
+  }
+  .er-card-head {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 1.4rem;
+  }
+  .er-section-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 0.55rem;
+  }
+  .er-body {
+    font-size: 0.9rem;
+    color: var(--ink-2);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+  .er-body + .er-body { margin-top: 0.85rem; }
+  .er-divider {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 1.4rem 0;
+  }
+  .er-signals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.7rem;
+  }
+  .er-signal-chip {
+    font-size: 0.76rem;
+    color: var(--ink-2);
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 2rem;
+    padding: 0.3rem 0.85rem;
+    font-weight: 300;
+  }
+  .er-note {
+    font-size: 0.76rem;
+    color: var(--ink-3);
+    font-weight: 300;
+    font-style: italic;
+    margin-top: 1.6rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--rule);
+  }
+  .er-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-top: 0.7rem;
+  }
+  .er-grid-2-item p:first-child { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 0.35rem; }
+  .er-grid-2-item p:last-child { font-size: 0.86rem; color: var(--ink-2); line-height: 1.6; font-weight: 300; }
+  .er-months { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.7rem; }
+  .er-month-row { display: flex; gap: 1rem; align-items: baseline; font-size: 0.86rem; }
+  .er-month-label { font-weight: 600; min-width: 90px; color: var(--ink); font-size: 0.78rem; letter-spacing: 0.02em; }
+  .er-month-text { color: var(--ink-2); font-weight: 300; line-height: 1.5; }
+
+  @media (max-width: 768px) {
+    .er-grid-2 { grid-template-columns: 1fr; }
+    .er-card { padding: 1.5rem 1.3rem; }
+  }
+
   @media (max-width: 768px) {
     section { padding: 3.5rem 1.25rem; }
     .topbar { padding: 1.25rem 1.25rem 0; }
@@ -631,6 +752,192 @@
       </div>
     </div>
     <p class="shots-note">An example of the 1LINE Astro journey — birth date, symbolic profile, chosen depth.</p>
+  </div>
+</section>
+
+<!-- 5b — EXAMPLE READINGS (v4.3) -->
+<section class="example-readings">
+  <div class="container reveal">
+    <p class="section-label">Example readings</p>
+    <p class="er-intro">Each product produces a different kind of output. These are representative excerpts — showing the tone, depth and structure you can expect, based on the example birth date above: 03 March 2003.</p>
+
+    <div class="er-tabs" role="tablist" aria-label="Example readings by product">
+      <button class="er-tab active" role="tab" aria-selected="true"  data-tab="er-profile">Astro Profile</button>
+      <button class="er-tab"        role="tab" aria-selected="false" data-tab="er-insight">Astro Insight</button>
+      <button class="er-tab"        role="tab" aria-selected="false" data-tab="er-career">Career Compass</button>
+      <button class="er-tab"        role="tab" aria-selected="false" data-tab="er-lifestory">Life Story</button>
+      <button class="er-tab"        role="tab" aria-selected="false" data-tab="er-compat">Compatibility</button>
+      <button class="er-tab"        role="tab" aria-selected="false" data-tab="er-forecast">Annual Forecast</button>
+      <button class="er-tab"        role="tab" aria-selected="false" data-tab="er-ask">Ask Astro</button>
+    </div>
+
+    <div class="er-panels">
+
+      <!-- PANEL 1: ASTRO PROFILE -->
+      <div class="er-panel active" id="er-profile" role="tabpanel">
+        <div class="er-card">
+          <span class="er-product-tag">Astro Profile &mdash; £15</span>
+          <p class="er-card-head">Your symbolic foundation: Life Path 8 &middot; Pisces &middot; Earth &middot; The Achiever &middot; Personal Year 7</p>
+          <p class="er-section-title">Life Path &mdash; 8</p>
+          <p class="er-body">Your Life Path number is 8. This is the path of authority, structure and lasting achievement. Where others see obstacles, you see problems to be organised and solved. You are drawn to systems, outcomes and results — and you build things that endure. The recurring challenge for an 8 is the gap between ambition and patience: the thing you are trying to create requires more time than your instincts want to allow.</p>
+          <hr class="er-divider">
+          <p class="er-section-title">Zodiac &mdash; Pisces (Water &middot; Mutable)</p>
+          <p class="er-body">Born 03 March, you carry the full weight of late Pisces — the sign of boundaryless empathy, symbolic fluency and deep inner life. This sits in deliberate tension with your Life Path 8. You are simultaneously drawn toward structure and dissolution. That tension is not a problem to resolve; it is the engine of your creativity.</p>
+          <hr class="er-divider">
+          <p class="er-section-title">Current Signal</p>
+          <div class="er-signals">
+            <span class="er-signal-chip">Personal Year 7 — introspection, depth, withdrawal</span>
+            <span class="er-signal-chip">Water element active</span>
+            <span class="er-signal-chip">Mutable season — integration, not action</span>
+          </div>
+          <p class="er-note">This is a free profile excerpt. The full Astro Profile report adds your Archetype reading, Element interpretation and a downloadable PDF Identity Card.</p>
+        </div>
+      </div>
+
+      <!-- PANEL 2: ASTRO INSIGHT -->
+      <div class="er-panel" id="er-insight" role="tabpanel">
+        <div class="er-card">
+          <span class="er-product-tag">Astro Insight &mdash; £29</span>
+          <p class="er-card-head">Identity, decisions, relationships and hidden strengths — the complete character map</p>
+          <p class="er-section-title">Identity Profile</p>
+          <p class="er-body">You operate from a position of symbolic depth that most people around you cannot access. The Life Path 8 demands visible results; the Pisces foundation demands internal truth. You have spent significant energy reconciling these two impulses. The ones who know you well understand that your ambition is not about power — it is about creating something real enough to justify the inner world you carry.</p>
+          <hr class="er-divider">
+          <p class="er-section-title">Decision Profile</p>
+          <p class="er-body">Your decisions are rarely impulsive. You process internally for longer than others expect, then move decisively. The danger pattern: over-processing to the point of inaction when the emotional stakes are high. When a decision involves someone you care about, your Pisces sensitivity activates faster than your 8 rationality — and the conflict between the two creates delay.</p>
+          <hr class="er-divider">
+          <p class="er-section-title">Hidden Strength</p>
+          <p class="er-body">Your ability to understand people without needing them to explain themselves. This is not intuition in the vague sense — it is symbolic pattern recognition, running continuously. It makes you an exceptional reader of rooms, situations and motivations.</p>
+          <p class="er-section-title" style="margin-top:1.1rem">Shadow</p>
+          <p class="er-body">You can absorb the emotional atmosphere of an environment and mistake it for your own state. This matters most under pressure: when things are difficult around you, you may be carrying weight that is not yours.</p>
+          <p class="er-note">This excerpt covers four of the seven Astro Insight sections. The full report adds your Relationship Profile and Career Profile.</p>
+        </div>
+      </div>
+
+      <!-- PANEL 3: CAREER COMPASS -->
+      <div class="er-panel" id="er-career" role="tabpanel">
+        <div class="er-card">
+          <span class="er-product-tag">Career Compass &mdash; £49</span>
+          <p class="er-card-head">Work signature, motivation drivers, direction and the translation gap</p>
+          <p class="er-section-title">Work Signature</p>
+          <p class="er-body">You build. Not in the physical sense — in the structural sense. You are at your best when there is something to construct, organise or elevate. You take fragmented situations and find the logic inside them. Roles that keep you executing someone else's system, without room to shape the structure itself, quietly drain you — even when the content is interesting.</p>
+          <hr class="er-divider">
+          <p class="er-section-title">The Friction You Keep Meeting</p>
+          <p class="er-body">Authority and visibility. You are capable of both, but the Pisces current in your profile creates resistance to the front-facing, self-promoting aspects of leadership. You can hold a room — you simply prefer not to make it about holding the room. This translates in environments that reward performance over output as a pattern others misread as passivity.</p>
+          <hr class="er-divider">
+          <p class="er-section-title">Where Your Trajectory Quietly Points</p>
+          <p class="er-body">Toward leadership with context. You are not building toward a title — you are building toward a situation in which your understanding of the whole system is the thing people trust. Advisory, strategic, or senior creative roles suit you better than operational management.</p>
+          <hr class="er-divider">
+          <p class="er-section-title">The Translation Gap</p>
+          <p class="er-body">You know more than you communicate. This is the single most consistent theme in your symbolic profile — a depth of understanding that does not fully translate into how you present yourself professionally. The gap between what you know and what others perceive is narrower than you think, but it is costing you.</p>
+          <p class="er-note">Career Compass is available via Compass — describe your current work situation and it will recommend whether this report fits before you unlock it.</p>
+        </div>
+      </div>
+
+      <!-- PANEL 4: LIFE STORY -->
+      <div class="er-panel" id="er-lifestory" role="tabpanel">
+        <div class="er-card">
+          <span class="er-product-tag">Life Story &mdash; £49</span>
+          <p class="er-card-head">The recurring thread. The turning point. Who you are becoming.</p>
+          <p class="er-section-title">The Recurring Thread</p>
+          <p class="er-body">Every significant chapter of your life contains a version of the same tension: the pull between depth and discipline, between what you feel and what you build. You have never fully resolved it — and you were not meant to. That tension is the thread. The chapters look different on the surface; underneath, you are always working on the same question.</p>
+          <hr class="er-divider">
+          <p class="er-section-title">The Turning Point Pattern</p>
+          <p class="er-body">Your major transitions are triggered by a specific condition: when the structure you are inside stops matching the understanding you have outgrown it. You do not leave situations lightly — but when you do, it is because you can see the shape of the thing and it no longer holds what you have become. This pattern has repeated. It will repeat again. Recognising it earlier changes how you respond to it.</p>
+          <hr class="er-divider">
+          <p class="er-section-title">Your Life Sentence</p>
+          <p class="er-body" style="font-style:italic; font-family: var(--serif); font-size: 1.05rem; color: var(--ink);">&ldquo;You build things that last — and the most important thing you have built is your own understanding of what matters.&rdquo;</p>
+          <p class="er-note">The Life Sentence is yours to keep. Life Story includes a downloadable version formatted for saving.</p>
+        </div>
+      </div>
+
+      <!-- PANEL 5: COMPATIBILITY -->
+      <div class="er-panel" id="er-compat" role="tabpanel">
+        <div class="er-card">
+          <span class="er-product-tag">Astro Compatibility &mdash; £49</span>
+          <p class="er-card-head">Two symbolic profiles compared — this reading uses a second example birth date: 17 June 1998 (Gemini &middot; Life Path 5)</p>
+          <p class="er-section-title">Compatibility Overview</p>
+          <div class="er-grid-2">
+            <div class="er-grid-2-item">
+              <p>Person A &mdash; 03 Mar 2003</p>
+              <p>Pisces &middot; Life Path 8 &middot; Earth &middot; Water energy dominant</p>
+            </div>
+            <div class="er-grid-2-item">
+              <p>Person B &mdash; 17 Jun 1998</p>
+              <p>Gemini &middot; Life Path 5 &middot; Air &middot; Mutable adaptability</p>
+            </div>
+          </div>
+          <hr class="er-divider">
+          <p class="er-section-title">Where This Connection Runs Deep</p>
+          <p class="er-body">The 8–5 Life Path pairing is one of genuine creative friction. Person A builds with patience and long-view thinking; Person B moves fast and finds connections between things. In practice, this produces something neither could build alone — but only when the dynamic is named. Without awareness of it, A experiences B as unfinishable, and B experiences A as slow.</p>
+          <hr class="er-divider">
+          <p class="er-section-title">Communication Pattern</p>
+          <p class="er-body">Person A processes before speaking. Person B speaks to process. This is the single most common source of friction between these two symbolic profiles — not a values conflict, not a compatibility problem, simply a different relationship with language. Understanding this does not fix it, but it removes the meaning that gets wrongly attached to it.</p>
+          <hr class="er-divider">
+          <p class="er-section-title">What Each Person Needs</p>
+          <div class="er-grid-2">
+            <div class="er-grid-2-item">
+              <p>Person A needs</p>
+              <p>Space for internal processing before responding. Results that matter, not just motion.</p>
+            </div>
+            <div class="er-grid-2-item">
+              <p>Person B needs</p>
+              <p>Room to explore without premature commitment. Acknowledgement of ideas before evaluation.</p>
+            </div>
+          </div>
+          <p class="er-note">Compatibility requires two birth dates. The output is unique to that specific pairing — it does not use generic archetypes.</p>
+        </div>
+      </div>
+
+      <!-- PANEL 6: ANNUAL FORECAST -->
+      <div class="er-panel" id="er-forecast" role="tabpanel">
+        <div class="er-card">
+          <span class="er-product-tag">Annual Forecast &mdash; £99</span>
+          <p class="er-card-head">Symbolic themes for your current Personal Year — excerpt for Personal Year 7</p>
+          <p class="er-section-title">Year Theme</p>
+          <p class="er-body">Personal Year 7 is the year of withdrawal and depth. Not rest — depth. The symbolic signal for this cycle is internal: go inward, trust the process you cannot yet see, resist the urge to measure progress by external output. Significant work is happening beneath the surface. The 8 energy in your Life Path makes this deeply uncomfortable — you are wired for results, and a year of invisible work challenges your sense of self. That is the work.</p>
+          <hr class="er-divider">
+          <p class="er-section-title">Monthly Excerpt &mdash; Q1</p>
+          <div class="er-months">
+            <div class="er-month-row">
+              <span class="er-month-label">January</span>
+              <span class="er-month-text">A clarifying month. Questions you have been carrying begin to find partial answers — not through action, but through stillness. Important: do not force closure yet.</span>
+            </div>
+            <div class="er-month-row">
+              <span class="er-month-label">February</span>
+              <span class="er-month-text">Social obligations feel heavier than usual. This is not a signal to withdraw from people — it is a signal to be more selective about which conversations you give your energy to.</span>
+            </div>
+            <div class="er-month-row">
+              <span class="er-month-label">March</span>
+              <span class="er-month-text">Your birth month carries particular symbolic weight in a Year 7. Something that began three years ago reaches a meaningful point of completion or clarity. Notice it.</span>
+            </div>
+          </div>
+          <hr class="er-divider">
+          <p class="er-section-title">Personal Motto for this Year</p>
+          <p class="er-body" style="font-style:italic; font-family: var(--serif); font-size: 1.05rem; color: var(--ink);">&ldquo;The work that cannot be seen is still work.&rdquo;</p>
+          <p class="er-note">The full Annual Forecast covers all twelve months, identifies your three best growth windows, names your biggest challenge and includes a companion PDF designed for ongoing reference.</p>
+        </div>
+      </div>
+
+      <!-- PANEL 7: ASK ASTRO -->
+      <div class="er-panel" id="er-ask" role="tabpanel">
+        <div class="er-card">
+          <span class="er-product-tag">Ask Astro &mdash; £9</span>
+          <p class="er-card-head">One question. One symbolic reflection. Your profile provides the context.</p>
+          <p class="er-section-title">The Question</p>
+          <p class="er-body" style="font-style:italic">&ldquo;I keep coming back to the same decision about whether to stay in my current role or move on. How do I know when it is actually time to leave?&rdquo;</p>
+          <hr class="er-divider">
+          <p class="er-section-title">The Reading</p>
+          <p class="er-body">This question arrives in a Personal Year 7 — which is significant. The 7 cycle is explicitly not a year for major external moves. It is the year for understanding what you actually want before acting on it. The repeated return to this question is the signal — not the answer yet, but the confirmation that the question is real and worth sitting with.</p>
+          <p class="er-body" style="margin-top:0.85rem;">The pattern for a Life Path 8: you leave when you have outgrown the structure, not when the situation becomes uncomfortable. The question to ask yourself is not &ldquo;should I leave?&rdquo; but &ldquo;have I outgrown what this role can teach me?&rdquo; If the honest answer is yes, the discomfort is confirmation. If the honest answer is not yet, the discomfort is a different kind of signal.</p>
+          <p class="er-body" style="margin-top:0.85rem;">Your Pisces foundation adds one more layer: you are susceptible to absorbing the emotional atmosphere of your environment. Before making any decision, it is worth identifying how much of what you are feeling is yours — and how much belongs to the environment you are in.</p>
+          <hr class="er-divider">
+          <p class="er-section-title">One Thing to Carry</p>
+          <p class="er-body" style="font-style:italic; font-family: var(--serif); font-size: 1.05rem; color: var(--ink);">&ldquo;The question that keeps returning is already telling you something. You don&rsquo;t have to act on it this year — but you do have to take it seriously.&rdquo;</p>
+          <p class="er-note">Ask Astro uses your existing symbolic profile as context — no new setup required. Return with a question whenever something specific surfaces.</p>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -1061,6 +1368,34 @@ document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el)
   lbClose.addEventListener('click', close);
   lb.addEventListener('click', function(e) { if (e.target === lb) close(); });
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && lb.classList.contains('open')) close(); });
+})();
+</script>
+
+<!-- Example Readings tabs (v4.3) -->
+<script>
+(function() {
+  var tabs = document.querySelectorAll('.er-tab');
+  var panels = document.querySelectorAll('.er-panel');
+
+  function activateTab(btn) {
+    var target = btn.getAttribute('data-tab');
+    tabs.forEach(function(t) {
+      t.classList.remove('active');
+      t.setAttribute('aria-selected', 'false');
+    });
+    panels.forEach(function(p) { p.classList.remove('active'); });
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    var panel = document.getElementById(target);
+    if (panel) { panel.classList.add('active'); }
+  }
+
+  tabs.forEach(function(btn) {
+    btn.addEventListener('click', function() { activateTab(btn); });
+    btn.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateTab(btn); }
+    });
+  });
 })();
 </script>
 
