@@ -295,6 +295,9 @@ a:hover .arrow { transform: translateX(3px); }
 .footer-links { display: flex; gap: 1.4rem; list-style: none; }
 .footer-links a { font-size: 0.85rem; color: var(--ink-2); text-decoration: none; }
 .footer-links a:hover { color: var(--ink); }
+.footer-links { flex-wrap: wrap; }
+.footer-links .affiliate-link { color: var(--warm-ink); font-weight: 500; }
+.footer-links .affiliate-link:hover { color: var(--ink); }
 
 /* ---------- Motion ---------- */
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
