@@ -1,6 +1,10 @@
 <!-- 1LINE Answers ARTICLE TEMPLATE | v1.0 | 7 Nov 2026
   Not published (Jekyll skips files starting with _). Copy to /blog/<slug>/index.html and fill every {{...}}.
-  Rules: answer first; no prices anywhere; never quote or identify a real person's post; product link only where it genuinely fits,
+  CONTENT RULE (Garry, 7 Nov): "middle ground". Give general understanding that genuinely helps (why it happens, what matters,
+  what usually goes wrong, the main options) so the page ranks; NEVER give the person-specific answer the paid tool provides
+  (no letters written, no scores, no tailored lists, no worked outputs). End with a bridge: "to get this worked out for your
+  situation" + the product card listing what the tool gives, taken word-for-word from the product page's "What you receive".
+  Rules: answer first (short, general); no prices anywhere; never quote or identify a real person's post; product link only where it genuinely fits,
   always tagged ?ref=acis-blog&campaign=<product id>; wording "we"/"our solution"; markets topics carry "Information, not financial advice".
   Topic ids: money | rights | home | family | work | markets
   On publish also add: a card in /blog/index.html (POSTS block, and FEATURE if newest), an <item> in /blog/feed.xml, a <url> in /sitemap.xml (BLOG block). -->
@@ -112,7 +116,12 @@
           <div>
             <span class="eyebrow">Where our solution fits</span>
             <h3>{{PRODUCT_NAME}}</h3>
-            <p>{{PRODUCT_LINE: from the product page itself, never invented}}</p>
+            <p>{{PRODUCT_LEAD e.g. "Describe your situation in one sentence and get back:"}}</p>
+            <ul class="fit-list">
+              <li>{{RECEIVE_1 from the product page's "What you receive"}}</li>
+              <li>{{RECEIVE_2}}</li>
+              <li>{{RECEIVE_3}}</li>
+            </ul>
             <a class="btn" data-product="{{PRODUCT_ID}}" href="https://lifekit333.com/{{PRODUCT_PAGE}}?ref=acis-blog&amp;campaign={{PRODUCT_ID}}">See how {{PRODUCT_NAME}} works <span class="arrow">&rarr;</span></a>
           </div>
         </aside>
