@@ -1,7 +1,7 @@
 # 1LINE Answers: daily draft job
 
 Not published (Jekyll skips folders starting with `_`). Owner: Garry. Agreed 7 Nov 2026.
-The job writes ONE article a day and publishes it. Garry does not approve each post (his decision, 7 Nov 2026); the checks in step 4 are the safeguard.
+Each run writes EXACTLY ONE article and publishes it. Garry does not approve each post (his decision, 7 Nov 2026); the checks in step 4 are the safeguard.
 
 ## Hard rules (never break)
 
@@ -19,6 +19,7 @@ The job writes ONE article a day and publishes it. Garry does not approve each p
 ## Steps
 
 ### 1. Pick today's question
+- **One article per day.** If `blog/index.html` already lists an article dated today (`<time datetime="YYYY-MM-DD">` in the POSTS block), stop without writing anything (that is a success, not a failure).
 - Load the database tool: ToolSearch `select:ArtifactData` (if not present, use `mcp__claude-artifacts__db_query`). Artifact: `https://claude.ai/artifact/VmT7MN2N2NjZeUPUZfwhyi` (slug `VmT7MN2N2NjZeUPUZfwhyi`).
 - Read `leads` (newest first, up to 300) and `opps`.
 - Group leads from the last 14 days by `opp_id` (leads with no `opp_id`: group by product and the shared problem).
