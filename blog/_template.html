@@ -1,0 +1,170 @@
+<!-- 1LINE Answers ARTICLE TEMPLATE | v1.0 | 7 Nov 2026
+  Not published (Jekyll skips files starting with _). Copy to /blog/<slug>/index.html and fill every {{...}}.
+  Rules: answer first; no prices anywhere; never quote or identify a real person's post; product link only where it genuinely fits,
+  always tagged ?ref=acis-blog&campaign=<product id>; wording "we"/"our solution"; markets topics carry "Information, not financial advice".
+  Topic ids: money | rights | home | family | work | markets
+  On publish also add: a card in /blog/index.html (POSTS block, and FEATURE if newest), an <item> in /blog/feed.xml, a <url> in /sitemap.xml (BLOG block). -->
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITLE}} | 1LINE Answers</title>
+<meta name="description" content="{{META_DESCRIPTION}}">
+<link rel="canonical" href="https://lifekit333.com/blog/{{SLUG}}/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="1LINE Answers">
+<meta property="og:title" content="{{TITLE}}">
+<meta property="og:description" content="{{META_DESCRIPTION}}">
+<meta property="og:url" content="https://lifekit333.com/blog/{{SLUG}}/">
+<meta property="article:published_time" content="{{DATE_ISO}}">
+<meta property="article:section" content="{{TOPIC_LABEL}}">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#F7F5F0">
+<link rel="icon" href="/blog/assets/logo.png">
+<link rel="alternate" type="application/rss+xml" title="1LINE Answers" href="/blog/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blog/blog.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "{{TITLE}}",
+      "description": "{{META_DESCRIPTION}}",
+      "datePublished": "{{DATE_ISO}}",
+      "dateModified": "{{DATE_ISO}}",
+      "author": { "@type": "Organization", "name": "1LINE", "url": "https://lifekit333.com/" },
+      "publisher": { "@type": "Organization", "name": "1LINE", "logo": { "@type": "ImageObject", "url": "https://lifekit333.com/blog/assets/logo.png" } },
+      "mainEntityOfPage": "https://lifekit333.com/blog/{{SLUG}}/",
+      "articleSection": "{{TOPIC_LABEL}}",
+      "inLanguage": "en-GB"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "1LINE", "item": "https://lifekit333.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Answers", "item": "https://lifekit333.com/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "{{TOPIC_LABEL}}", "item": "https://lifekit333.com/blog/#{{TOPIC_ID}}" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [ { "@type": "Question", "name": "{{Q1}}", "acceptedAnswer": { "@type": "Answer", "text": "{{A1}}" } } ]
+    }
+  ]
+}
+</script>
+<!-- Lemon Squeezy affiliate tracking: OFF until Garry approves the live-site change.
+<script>window.lemonSqueezyAffiliateConfig = { store: "opportunity-intelligence" };</script>
+<script src="https://lmsqueezy.com/affiliate.js" defer></script>
+-->
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/blog/" aria-label="1LINE Answers home">
+      <img src="/blog/assets/logo.png" alt="" width="26" height="26">
+      <span class="brand-name">1LINE</span><span class="brand-sep"></span><span class="brand-sub">Answers</span>
+    </a>
+    <ul class="nav-links">
+      <li class="hide-sm"><a href="/blog/">All answers</a></li>
+      <li class="hide-sm"><a href="/blog/#topics">Topics</a></li>
+      <li><a class="nav-cta" href="/">Our tools</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <article>
+    <header class="post-head">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="/blog/">Answers</a><span aria-hidden="true">/</span><a href="/blog/#{{TOPIC_ID}}">{{TOPIC_LABEL}}</a>
+      </nav>
+      <span class="eyebrow">{{TOPIC_LABEL}}</span>
+      <h1>{{TITLE}}</h1>
+      <p class="standfirst">{{STANDFIRST}}</p>
+      <div class="meta-row">
+        <time datetime="{{DATE_ISO}}">{{DATE_LONG}}</time><span class="dot"></span><span data-readtime>6 min read</span><span class="dot"></span>
+        <button class="share-btn" type="button" data-share>Copy link</button>
+      </div>
+    </header>
+
+    <div class="post-layout">
+      <div class="prose">
+
+        <div class="answer">
+          <div class="label">The short answer</div>
+          <p>{{SHORT_ANSWER}}</p>
+        </div>
+
+        <!-- {{BODY}}: h2 sections (they build the contents list), p, ul/ol, ol.steps, .callout.tip / .callout.warn, .example, blockquote, table -->
+        <h2>{{SECTION_1}}</h2>
+        <p>{{...}}</p>
+
+        <aside class="fit" aria-label="Where our solution fits">
+          <img src="/blog/assets/logo.png" alt="" width="44" height="44">
+          <div>
+            <span class="eyebrow">Where our solution fits</span>
+            <h3>{{PRODUCT_NAME}}</h3>
+            <p>{{PRODUCT_LINE: from the product page itself, never invented}}</p>
+            <a class="btn" data-product="{{PRODUCT_ID}}" href="https://lifekit333.com/{{PRODUCT_PAGE}}?ref=acis-blog&amp;campaign={{PRODUCT_ID}}">See how {{PRODUCT_NAME}} works <span class="arrow">&rarr;</span></a>
+          </div>
+        </aside>
+
+        <section class="faq" aria-labelledby="faq-h">
+          <h2 id="faq-h">Related questions</h2>
+          <details><summary>{{Q1}}</summary><div>{{A1}}</div></details>
+        </section>
+
+        <p class="disclaimer">1LINE Answers articles are general information written to help you think a question through. They are not legal, financial or professional advice.</p>
+      </div>
+
+      <aside class="post-aside">
+        <div class="aside-sticky">
+          <div class="toc-wrap">
+            <div class="toc-title">In this answer</div>
+            <ul class="toc" id="toc"></ul>
+          </div>
+          <div class="aside-fit">
+            <span class="eyebrow">Try it</span>
+            <strong>{{PRODUCT_NAME}}</strong>
+            <p>{{PRODUCT_SHORT}}</p>
+            <a data-product="{{PRODUCT_ID}}" href="https://lifekit333.com/{{PRODUCT_PAGE}}?ref=acis-blog&amp;campaign={{PRODUCT_ID}}">Explore <span class="arrow">&rarr;</span></a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </article>
+
+  <section class="section more">
+    <div class="wrap">
+      <div class="section-head"><h2>More on {{TOPIC_LABEL}}</h2><a class="meta" href="/blog/#{{TOPIC_ID}}">See all</a></div>
+      <div class="grid">
+        <!-- {{RELATED}}: 3 cards, related articles first, then tools from the same topic -->
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <a class="brand" href="/"><img src="/blog/assets/logo.png" alt="" width="26" height="26"><span class="brand-name">1LINE</span></a>
+    <ul class="footer-links">
+      <li><a href="/">Our tools</a></li>
+      <li><a href="/blog/">All answers</a></li>
+      <li><a href="/blog/feed.xml">RSS</a></li>
+    </ul>
+    <p>&copy; 2026 1LINE. General information, not professional advice.</p>
+  </div>
+</footer>
+
+<script src="/blog/blog.js" defer></script>
+<script data-goatcounter="https://signal333.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

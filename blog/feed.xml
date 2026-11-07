@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>1LINE Answers</title>
+  <link>https://lifekit333.com/blog/</link>
+  <atom:link href="https://lifekit333.com/blog/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>Real questions, straight answers: bills, complaints and scams, homes, gifts and family, and work.</description>
+  <language>en-gb</language>
+  <!-- ITEMS:START (newest first) -->
+  <item>
+    <title>What to buy someone who says they don't want anything</title>
+    <link>https://lifekit333.com/blog/what-to-buy-someone-who-wants-nothing/</link>
+    <guid>https://lifekit333.com/blog/what-to-buy-someone-who-wants-nothing/</guid>
+    <pubDate>Sat, 07 Nov 2026 09:00:00 +0000</pubDate>
+    <category>Gifts &amp; family</category>
+    <description>"I don't want anything" is usually a clue, not a brief. How to read it, four kinds of gift that work, and a ten-minute way to find the right one.</description>
+  </item>
+  <!-- ITEMS:END -->
+</channel>
+</rss>
