@@ -285,6 +285,12 @@ a:hover .arrow { transform: translateX(3px); }
 
 .disclaimer { margin-top: 2.6rem; font-size: 0.85rem; color: var(--ink-3); line-height: 1.6; padding-top: 1.2rem; border-top: 1px solid var(--rule); }
 
+.sources { margin-top: 1.2rem; font-size: 0.82rem; color: var(--ink-3); line-height: 1.6; }
+.sources b { font-weight: 500; color: var(--ink-2); display: block; margin-bottom: 0.3rem; }
+.sources ul { padding-left: 1.1rem; margin: 0; }
+.sources li + li { margin-top: 0.2rem; }
+.prose .sources a { color: var(--ink-2); text-decoration-thickness: 1px; }
+
 /* Keep reading */
 .more { border-top: 1px solid var(--rule); background: var(--bg-2); }
 
