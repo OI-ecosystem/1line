@@ -7,8 +7,9 @@
     "opp_id": "partner-gift-stress-uk",
     "leads_count": 6,
     "drafted": "2026-11-07",
-    "status": "draft",
-    "sources": []
+    "status": "published",
+    "sources": [],
+    "published": "2026-11-07"
   },
   {
     "slug": "why-am-i-not-getting-interviews",
@@ -18,7 +19,8 @@
     "opp_id": "uk-ghosted-jobseekers-cv-diagnosis",
     "leads_count": 15,
     "drafted": "2026-11-07",
-    "status": "draft",
-    "sources": []
+    "status": "published",
+    "sources": [],
+    "published": "2026-11-07"
   }
 ]
