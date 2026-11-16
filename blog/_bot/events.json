@@ -1,0 +1,54 @@
+{
+  "about": "Yearly events the blog writes one lasting article for. The daily job reads this file (see INSTRUCTIONS.md, step 1). Each id is used as the opp_id when publishing, so covered.json records it and it is written once. Garry approved the idea on 16 Nov 2026.",
+  "events": [
+    {
+      "id": "event-black-friday-scam-check",
+      "write_from": "2026-11-17",
+      "event": "Black Friday and the weeks of offers around it, late November each year",
+      "product": "legit",
+      "question": "How can I tell if a Black Friday deal, delivery text or 'order problem' email is a scam?"
+    },
+    {
+      "id": "event-energy-price-cap-change",
+      "write_from": "2026-12-01",
+      "event": "The energy price cap changes each quarter (January, April, July, October)",
+      "product": "bill",
+      "question": "The energy price cap is changing. What does that mean for my bill?"
+    },
+    {
+      "id": "event-returning-unwanted-gift",
+      "write_from": "2026-12-14",
+      "event": "The weeks after Christmas",
+      "product": "complain",
+      "question": "Can I return a present I don't want, and what if I have no receipt?"
+    },
+    {
+      "id": "event-new-year-cv",
+      "write_from": "2026-12-21",
+      "event": "The January job search",
+      "product": "rcloop-resume",
+      "question": "How do I get my CV ready for a January job search?"
+    },
+    {
+      "id": "event-valentines-day-gift",
+      "write_from": "2027-01-04",
+      "event": "Valentine's Day, 14 February each year",
+      "product": "gift",
+      "question": "What do I get my partner for Valentine's Day?"
+    },
+    {
+      "id": "event-mothers-day-gift",
+      "write_from": "2027-01-25",
+      "event": "Mother's Day in the UK (Mothering Sunday, in March; the date moves each year)",
+      "product": "gift",
+      "question": "What do I get my mum for Mother's Day?"
+    },
+    {
+      "id": "event-council-tax-bill",
+      "write_from": "2027-02-01",
+      "event": "Council tax bills for the new year arrive in March",
+      "product": "bill",
+      "question": "My council tax bill has gone up. Is it right, and can I challenge it?"
+    }
+  ]
+}
