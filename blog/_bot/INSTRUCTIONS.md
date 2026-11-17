@@ -48,6 +48,7 @@ Each run writes EXACTLY ONE article and publishes it. Garry does not approve eac
 ### 4. Check before publishing (all must pass; otherwise do not publish)
 - No `{{` left. No `£` next to any of our product names, and no mention of a free tier. No name, handle or quote from a lead. No legal claim without a source.
 - HTML parses (python `html.parser`), JSON-LD is valid JSON.
+- The GoatCounter lines from the template are intact: `<script>window.goatcounter = {path: function(p) { return "/lifekit" + p }}</script>` immediately before the `count.js` tag (visits are recorded as `/lifekit/...` because the counter is shared with signal333.com and alpha333.org).
 - Re-read against the hard rules. If it fails any, fix it or pick another topic.
 
 ### 5. Publish
