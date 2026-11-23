@@ -1,4 +1,4 @@
-<!-- 1LINE Signal v2.8 | Updated: 10 Oct 2026 | Text size A- / A+ buttons (bottom right, remembered per browser) and a larger, wider layout on big screens (108% from 900px, 110% from 1200px; phones unchanged). Display only - nothing else changed. Previous: 1LINE Signal v2.7 | Updated: 8 Oct 2026 | Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE Signal v2.6 | Updated: 1 Oct 2026 | Readability pass + microphone on context box (Career v1.6.1 template) | Twelve Data real EOD data -->
+<!-- 1LINE Signal v2.9 | Updated: 23 Nov 2026 | Market choice (auto / US / UK London / Crypto; ASC.L or LSE:ASC also work). The ticker is looked up first (free) and the exact listing shown ("Found: ASOS plc · LSE · prices in pence (GBX) · latest close …"); the next click pays / runs. Chart and write-up use that same listing (chart symbol from the data). Real prices only (api/twelve v2.0: Twelve Data -> Yahoo Finance -> Stooq); no data = plain message, no paid run — the old "estimate from knowledge" path is gone and the writer’s numbers never replace the real ones. Prices in the instrument’s own currency (London in pence, as the chart), labelled with source, close date and "may be delayed". PDF uses the real data. Previous: 1LINE Signal v2.8 | Updated: 10 Oct 2026 | Text size A- / A+ buttons (bottom right, remembered per browser) and a larger, wider layout on big screens (108% from 900px, 110% from 1200px; phones unchanged). Display only - nothing else changed. Previous: 1LINE Signal v2.7 | Updated: 8 Oct 2026 | Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE Signal v2.6 | Updated: 1 Oct 2026 | Readability pass + microphone on context box (Career v1.6.1 template) | Twelve Data real EOD data -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -528,7 +528,7 @@ function _olPass() { return window.location.search.indexOf('unlocked=true') !== 
   <hr class="input-rule" />
 
   <p class="input-label">Enter a ticker symbol.</p>
-  <p class="input-hint">Stocks, ETFs, crypto, indices — AAPL, BTC-USD, SPY, GOLD</p>
+  <p class="input-hint">Stocks, ETFs, crypto, indices — AAPL, BTC-USD, SPY, GOLD. London shares: choose UK, or type ASC.L / LSE:ASC.</p>
 
   <div id="recent-row" class="recent-row" style="display:none;">
     <span class="recent-label">Recent</span>
@@ -538,7 +538,14 @@ function _olPass() { return window.location.search.indexOf('unlocked=true') !== 
     <div class="ticker-input-wrap">
       <input type="text" id="ticker-input" class="ticker-input" placeholder="e.g. AAPL" maxlength="12" autocomplete="off" autocorrect="off" spellcheck="false" />
     </div>
+    <select id="market-input" class="market-select" aria-label="Market" onchange="tickerChanged()">
+      <option value="auto">Market: auto</option>
+      <option value="us">US</option>
+      <option value="uk">UK (London)</option>
+      <option value="crypto">Crypto</option>
+    </select>
   </div>
+  <p id="instrument-line" class="instrument-line" aria-live="polite"></p>
 
   <div class="timeframe-row" id="timeframe-row">
     <button class="tf-btn" data-tf="1D">1D</button>
@@ -879,24 +886,127 @@ function clearError() {
 }
 
 /* ── MAIN FLOW ── */
+/* v2.9: first look the ticker up (free, real prices only) and show exactly which listing it is; the second click
+   pays / runs. Chart and write-up then use that same listing. No price data = a plain message and no paid run. */
+var _resolved = null;   /* { key, data } */
+function tickerKey() {
+  return document.getElementById('ticker-input').value.trim().toUpperCase() + '|' + document.getElementById('market-input').value;
+}
+function tickerChanged() {
+  _resolved = null;
+  var il = document.getElementById('instrument-line');
+  if (il) { il.className = 'instrument-line'; il.textContent = ''; }
+  var btn = document.getElementById('generate-btn');
+  if (btn) btn.textContent = 'Analyse Asset';
+}
+var MARKET_NAME = { us: 'in the US', uk: 'on the London Stock Exchange', crypto: 'in crypto', auto: '' };
+function currencyLabel(c) { return c === 'GBX' ? 'pence (GBX)' : (c || ''); }
+function niceAsOf(d) {
+  var m = String(d || '').match(/^([0-9]{4})-([0-9]{2})-([0-9]{2})/);
+  if (!m) return d || '';
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return parseInt(m[3], 10) + ' ' + months[parseInt(m[2], 10) - 1] + ' ' + m[1];
+}
+function instrumentText(m) {
+  return m.name + (m.exchange ? ' · ' + m.exchange : '') + ' · prices in ' + currencyLabel(m.currency)
+    + ' · latest close ' + niceAsOf(m.asOf) + ' (' + m.source + ', may be delayed)';
+}
+function noDataText(ticker, market, j) {
+  return (j && j.message ? j.message : 'No price data found for ' + ticker + (MARKET_NAME[market] ? ' ' + MARKET_NAME[market] : '') + '.')
+    + ' Check the ticker, or choose another market. We never estimate prices, so nothing has been run.';
+}
+function fetchMarket(ticker, timeframe, market) {
+  return fetch(TWELVE_PROXY, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ticker: ticker, timeframe: timeframe, market: market })
+  }).then(function(r) { return r.json(); });
+}
 function handleGenerate() {
   var ticker = document.getElementById('ticker-input').value.trim().toUpperCase();
   if (!ticker) { showError('Please enter a ticker symbol.'); return; }
-
+  var market = document.getElementById('market-input').value;
+  var btn = document.getElementById('generate-btn');
   clearError();
 
-  /* Payment gate — bypass if unlocked=true */
+  /* Step 1 — find the instrument (free) and show it */
+  if (!_resolved || _resolved.key !== tickerKey()) {
+    btn.disabled = true;
+    btn.textContent = 'Checking ticker…';
+    var key = tickerKey();
+    fetchMarket(ticker, _timeframe, market).then(function(j) {
+      btn.disabled = false;
+      if (!j || j.error || !j.currentPrice) { btn.textContent = 'Analyse Asset'; showError(noDataText(ticker, market, j)); return; }
+      _resolved = { key: key, data: j };
+      var il = document.getElementById('instrument-line');
+      il.textContent = 'Found: ' + instrumentText(j) + (j.market === 'us' && market === 'auto' ? '. A London share? Choose UK (London).' : '.');
+      il.className = 'instrument-line visible';
+      btn.textContent = (PREMIUM_GATED && !_olPass()) ? 'That’s the one — continue' : 'That’s the one — analyse';
+    }, function() {
+      btn.disabled = false;
+      btn.textContent = 'Analyse Asset';
+      showError('The price data did not load just now. Please try again in a moment.');
+    });
+    return;
+  }
+
+  /* Step 2 — confirmed: pay, or run */
   if (PREMIUM_GATED && !_olPass()) {
     var context = document.getElementById('context-input').value.trim();
-    sessionStorage.setItem('signal_data', JSON.stringify({ ticker: ticker, timeframe: _timeframe, context: context }));
+    sessionStorage.setItem('signal_data', JSON.stringify({ ticker: ticker, timeframe: _timeframe, context: context, market: market }));
     window.location.href = LS_URL;
     return;
   }
 
-  runAnalysis(ticker, _timeframe, document.getElementById('context-input').value.trim());
+  runAnalysis(ticker, _timeframe, document.getElementById('context-input').value.trim(), market, _resolved.data);
 }
 
-function runAnalysis(ticker, timeframe, context) {
+function renderTVChart(symbol, timeframe) {
+  var tvIntervalMap = { '1D':'D', '1W':'W', '1M':'M', '3M':'3M', '6M':'6M', '1Y':'12M' };
+  var tvInterval = tvIntervalMap[timeframe] || 'D';
+  var chartContainer = document.getElementById('price-chart');
+  chartContainer.innerHTML = '';
+  var iframe = document.createElement('iframe');
+  iframe.src = 'https://s.tradingview.com/widgetembed/?frameElementId=price-chart'
+    + '&symbol=' + encodeURIComponent(symbol)
+    + '&interval=' + tvInterval
+    + '&hidesidetoolbar=1&hidetoptoolbar=0&symboledit=0&saveimage=0&toolbarbg=F1F3F6'
+    + '&studies=[]&theme=light&style=1&timezone=exchange&withdateranges=1'
+    + '&showpopupbutton=0&locale=en';
+  iframe.style.cssText = 'width:100%;height:300px;border:none;display:block;';
+  iframe.setAttribute('allowtransparency', 'true');
+  iframe.setAttribute('frameborder', '0');
+  chartContainer.appendChild(iframe);
+}
+
+function runAnalysis(ticker, timeframe, context, market, pre) {
+  market = market || 'auto';
+  document.getElementById('generate-btn').disabled = true;
+  document.getElementById('output-section').className = 'output-section';
+  startLoading();
+  saveRecent(ticker);
+  renderRecent();
+  var p = (pre && pre.timeframe === timeframe) ? Promise.resolve(pre) : fetchMarket(ticker, timeframe, market);
+  p.then(function(mkt) {
+    if (!mkt || mkt.error || !mkt.currentPrice) {
+      document.getElementById('processing-banner').style.display = 'none';
+      showError(noDataText(ticker, market, mkt));
+      return;
+    }
+    _marketData = mkt;
+    var il = document.getElementById('instrument-line');
+    if (il) { il.textContent = instrumentText(mkt) + '.'; il.className = 'instrument-line visible'; }
+    /* the chart shows exactly the listing the numbers came from */
+    renderTVChart(mkt.tvSymbol || ticker, timeframe);
+    runAIAnalysis(ticker, timeframe, context, mkt);
+  }, function() {
+    document.getElementById('processing-banner').style.display = 'none';
+    showError('The price data did not load just now. Please try again — your access is still unlocked.');
+  });
+}
+
+/* v2.8 flow kept below for reference only (no longer called) */
+function runAnalysisV28(ticker, timeframe, context) {
   document.getElementById('generate-btn').disabled = true;
   document.getElementById('output-section').className = 'output-section';
   startLoading();
@@ -1072,12 +1182,13 @@ function renderMomentumCards(d) {
 function runAIAnalysis(ticker, timeframe, context, d) {
   /* d = Twelve Data response (real data) or null (fallback) */
   var hasData = d && d.currentPrice;
+  if (!hasData) { showError('No price data, so no analysis has been run. We never estimate prices.'); return; }
 
   /* Populate snapshot cards with REAL data if available */
   if (hasData) {
     var set = function(id, v) { var el = document.getElementById(id); if (el) el.textContent = v || '—'; };
     document.getElementById('snap-price').textContent = d.currentPrice.toFixed(2);
-    document.getElementById('snap-currency').textContent = d.currency || '';
+    document.getElementById('snap-currency').textContent = currencyLabel(d.currency) + ' · close ' + niceAsOf(d.asOf) + ' · ' + (d.source || '') + ' · may be delayed';
     var chgEl = document.getElementById('snap-change');
     var chgSign = d.dayChange >= 0 ? '+' : '';
     chgEl.textContent = chgSign + d.dayChange.toFixed(2) + '%';
@@ -1155,31 +1266,33 @@ function runAIAnalysis(ticker, timeframe, context, d) {
     support2:     hasData ? d.support2         : null,
     resist1:      hasData ? d.resist1          : null,
     resist2:      hasData ? d.resist2          : null,
-    dataSource:   hasData ? 'live EOD data'    : 'AI knowledge only',
+    dataSource:   'real end-of-day prices from ' + d.source + ' (latest close ' + d.asOf + '; may be delayed)',
+    instrument:   d.name + (d.exchange ? ' · ' + d.exchange : ''),
+    currency:     d.currency === 'GBX' ? 'GBX - every price is in PENCE (write e.g. 309p)' : d.currency,
     userContext:  context || 'End of day structured reading'
   };
 
 
   var system = 'You are a senior technical analyst providing structured end-of-day market interpretation. '
     + 'You have deep knowledge of price structure, classical chart patterns, volume behaviour, and key technical levels for all major stocks, ETFs, indices and crypto. '
-    + 'Where live data is provided use it. Where it is not, draw on your training knowledge of the asset structure. '
+    + 'Use ONLY the prices and levels supplied for this exact instrument. Never introduce any other price, level or figure, and never use your memory of this or any similarly named asset. Quote every price in the currency given. '
     + 'Be specific, calm, restrained and institutional in tone. Never use hype. Never guarantee outcomes. '
     + 'This is an end-of-day reading — patterns and structure, not noise. Respond ONLY in valid JSON.';
 
   var prompt = 'End-of-day signal request for ' + ticker.toUpperCase() + ' (' + timeframe + ' view).\n\n'
     + 'Available data: ' + JSON.stringify(signals) + '\n\n'
     + 'User context: ' + (context || 'General end-of-day clarity') + '\n\n'
-    + 'Using your knowledge of this asset AND the data provided, return ONLY this JSON.\n'
-    + 'For numeric fields use realistic estimated values based on your knowledge — do not use null.\n'
+    + 'Using ONLY the data provided, return ONLY this JSON.\n'
+    + 'For numeric fields copy the values supplied in the data (levels from support1/support2/resist1/resist2); never estimate.\n'
     + '{\n'
-    + '"currentPrice":"Estimated current or recent closing price as a number e.g. 189.50",\n'
-    + '"dayChange":"Estimated day change percentage as a number e.g. 1.2 or -0.8",\n'
-    + '"rsi":"Estimated RSI 14 as a number e.g. 54.2",\n'
+    + '"currentPrice":"currentPrice from the data, as a number",\n'
+    + '"dayChange":"dayChange from the data, as a number",\n'
+    + '"rsi":"rsi from the data, as a number",\n'
     + '"rsiState":"One of: Overbought / Oversold / Neutral",\n'
     + '"trend":"One of: Uptrend / Downtrend / Sideways",\n'
     + '"volumeChar":"One of: Increasing / Decreasing / Stable",\n'
-    + '"ma50":"Estimated 50-day MA as a number",\n'
-    + '"ma200":"Estimated 200-day MA as a number",\n'
+    + '"ma50":"ma50 from the data, as a number",\n'
+    + '"ma200":"ma200 from the data, as a number",\n'
     + '"aboveMa50":"true or false",\n'
     + '"aboveMa200":"true or false",\n'
     + '"support1":"Nearest support level as a number",\n'
@@ -1247,8 +1360,9 @@ function runAIAnalysis(ticker, timeframe, context, d) {
       set('vt-act',   parsed.actVerdict);
     }
 
-    /* Snapshot cards */
-    var price = parseFloat(parsed.currentPrice);
+    /* Snapshot cards — v2.9: real data is already on screen; the writer's numbers are never shown in its place */
+    var price = hasData ? d.currentPrice : parseFloat(parsed.currentPrice);
+    if (!hasData) {
     var chg   = parseFloat(parsed.dayChange);
     if (price) {
       document.getElementById('snap-price').textContent = price.toFixed(2);
@@ -1311,6 +1425,8 @@ function runAIAnalysis(ticker, timeframe, context, d) {
       });
     }
 
+    }
+
     /* Analysis text */
     set('ai-trend-text', parsed.trendAnalysis);
     set('ai-momentum-text', parsed.momentumAnalysis);
@@ -1335,6 +1451,12 @@ function runAIAnalysis(ticker, timeframe, context, d) {
       volumeTrend: parsed.volumeChar, high52: parseFloat(parsed.resist2),
       low52: parseFloat(parsed.support2)
     };
+
+    if (hasData) {   /* PDF uses the real data, in the instrument's own currency */
+      _marketData = { ticker: d.ticker || ticker.toUpperCase(), timeframe: timeframe, currentPrice: d.currentPrice, dayChange: d.dayChange,
+        currency: d.currency === 'GBX' ? 'GBX (pence)' : d.currency, rsi: d.rsi, trend: d.trend, ma50: d.ma50, ma200: d.ma200,
+        volumeTrend: d.volumeTrend, high52: d.periodHigh, low52: d.periodLow };
+    }
 
     document.getElementById('output-section').className = 'output-section visible';
     document.getElementById('output-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1619,7 +1741,8 @@ document.addEventListener('DOMContentLoaded', function() {
           }
           var aiSection = document.getElementById('loading-section');
           aiSection.className = 'loading-section visible';
-          runAnalysis(d.ticker, d.timeframe || '3M', d.context || '');
+          if (d.market) document.getElementById('market-input').value = d.market;
+          runAnalysis(d.ticker, d.timeframe || '3M', d.context || '', d.market || 'auto');
         }
       } catch(e) {}
     }
@@ -1627,6 +1750,20 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </script>
+
+<script>
+/* v2.9: a new ticker or market clears the previous match */
+(function() {
+  var ti = document.getElementById('ticker-input');
+  if (ti) ti.addEventListener('input', function() { if (typeof tickerChanged === 'function') tickerChanged(); });
+})();
+</script>
+<style>
+.market-select { font-family: var(--sans); font-size: 15px; padding: 12px 12px; border: 0.5px solid var(--border-mid); border-radius: 10px; background: #FFFFFF; color: #1A1A18; min-width: 150px; height: 54px; }
+.instrument-line { display: none; font-size: 14px; color: #1A1A18; background: #F4F7F2; border: 0.5px solid rgba(45,106,79,0.25); border-radius: 10px; padding: 10px 14px; margin: -4px 0 16px; line-height: 1.5; }
+.instrument-line.visible { display: block; }
+@media (max-width: 560px) { .market-select { width: 100%; } }
+</style>
 
 <script>
 /* ── MICROPHONE (browser speech-to-text, no cost, nothing sent to our server) ── */
