@@ -1,4 +1,4 @@
-<!-- 1LINE EverEcho v1.14 | Updated: 10 Oct 2026 | Text size A- / A+ buttons (bottom right, remembered per browser) and a larger, wider layout on big screens (108% from 900px, 110% from 1200px; phones unchanged). Display only - nothing else changed. Previous: 1LINE EverEcho v1.13 | Updated: 8 Oct 2026 | Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE EverEcho v1.12 | Updated: 1 Oct 2026 | Readability pass + microphone + spelling check wording (Career v1.6.1 template) -->
+<!-- 1LINE EverEcho v1.15 | Updated: 23 Nov 2026 | Description can now be up to 300 characters (was 180; minimum still 120) — box, counter, Generate check and microphone all follow. Identity card PDF: the preserved imprint (the parent’s own words) is no longer cut to 3 lines; the type steps down from 9 pt (to 7 pt at most) so the whole imprint fits. Nothing else changed. Previous: 1LINE EverEcho v1.14 | Updated: 10 Oct 2026 | Text size A- / A+ buttons (bottom right, remembered per browser) and a larger, wider layout on big screens (108% from 900px, 110% from 1200px; phones unchanged). Display only - nothing else changed. Previous: 1LINE EverEcho v1.13 | Updated: 8 Oct 2026 | Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE EverEcho v1.12 | Updated: 1 Oct 2026 | Readability pass + microphone + spelling check wording (Career v1.6.1 template) -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -775,7 +775,7 @@ function _olPass() { return window.location.search.indexOf('unlocked=true') !== 
     <div class="input-wrap">
       <textarea
         id="main-input"
-        maxlength="180"
+        maxlength="300"
         oninput="countChars()"
         spellcheck="true"
         autocorrect="on"
@@ -789,7 +789,7 @@ function _olPass() { return window.location.search.indexOf('unlocked=true') !== 
     <p class="mic-status" id="mic-status-main-input" aria-live="polite">Listening… speak, then pause.</p>
 
     <div class="char-counter">
-      <span>120 – 180 characters</span>
+      <span>120 – 300 characters</span>
       <span class="char-count" id="char-count">0</span>
     </div>
 
@@ -978,8 +978,8 @@ function countChars() {
   if (!ta || !cc) return;
   var len = ta.value.length;
   cc.textContent = len;
-  cc.className = 'char-count' + (len >= 120 && len <= 180 ? ' valid' : len > 180 ? ' over' : '');
-  if (btn) btn.disabled = !(len >= 120 && len <= 180);
+  cc.className = 'char-count' + (len >= 120 && len <= 300 ? ' valid' : len > 300 ? ' over' : '');
+  if (btn) btn.disabled = !(len >= 120 && len <= 300);
   if (ta.value !== _lastCountedVal) {
     _lastCountedVal = ta.value;
     _spellWarned = false;
@@ -990,7 +990,7 @@ function countChars() {
 
 function handleGenerate() {
   var val = document.getElementById('main-input').value.trim();
-  if (val.length < 120 || val.length > 180) return;
+  if (val.length < 120 || val.length > 300) return;
   if (!_spellWarned) {
     _spellWarned = true;
     document.getElementById('spell-panel').className = 'spell-panel visible';
@@ -1560,7 +1560,12 @@ function buildPDF(name, altName, colour, colName, meaning, imprint, nums, today)
   doc.setFontSize(9);
   doc.setTextColor(136,136,132);
   var imprintLines = doc.splitTextToSize(imprint, W - 36);
-  if (imprintLines.length > 3) imprintLines = imprintLines.slice(0, 3);
+  var imprintSize = 9;   /* up to 300 characters now: step the type down so the whole imprint fits above the footer rule */
+  while (curY + imprintLines.length * imprintSize * 0.41 > H - 25 && imprintSize > 7) {
+    imprintSize -= 0.5;
+    doc.setFontSize(imprintSize);
+    imprintLines = doc.splitTextToSize(imprint, W - 36);
+  }
   doc.text(imprintLines, W/2, curY, { align:'center' });
 
   doc.setDrawColor(220,218,213);
