@@ -1,4 +1,4 @@
-<!-- 1LINE Bill v1.4 | Updated: 10 Oct 2026 | Text size A- / A+ buttons (bottom right, remembered per browser) and a larger, wider layout on big screens (108% from 900px, 110% from 1200px; phones unchanged). Display only - nothing else changed. Previous: 1LINE Bill v1.3 | Updated: 8 Oct 2026 | Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE Bill v1.2 | Updated: 1 Oct 2026 | Readability pass + microphone + spelling check wording (Career v1.6.1 template) -->
+<!-- 1LINE Bill v1.5 | Updated: 23 Nov 2026 | Price £9 everywhere (was £15 in the buy prompt, £9 on the page): ONELINE_PRICE is now the one place the price is set and the two shown prices read from it. Optional "Monthly household income, after tax" in Optional context: kept through checkout, sent with the bills, and the free result shows the share of income the bills take (or a prompt to add it). "New Analysis" (which wiped the paid results) is now "Analyse different bills — £9": opens a fresh Bill in a new tab with no order carried over, so the results stay and a new analysis needs its own purchase. Previous: 1LINE Bill v1.4 | Updated: 10 Oct 2026 | Text size A- / A+ buttons (bottom right, remembered per browser) and a larger, wider layout on big screens (108% from 900px, 110% from 1200px; phones unchanged). Display only - nothing else changed. Previous: 1LINE Bill v1.3 | Updated: 8 Oct 2026 | Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE Bill v1.2 | Updated: 1 Oct 2026 | Readability pass + microphone + spelling check wording (Career v1.6.1 template) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -257,7 +257,7 @@ footer { border-top: 0.5px solid var(--border); padding: 32px 0 24px; margin-top
 /* 1LINE paid access config */
 var ONELINE_MODULE = 'bill';
 var ONELINE_CHECKOUT = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/b195f033-29fc-4e46-9dd4-6fb09ad5d105';
-var ONELINE_PRICE = '£15';
+var ONELINE_PRICE = '£9';   /* the ONE place Bill's price is set: every price shown on this page reads from it */
 </script>
 <script>
 /* ── 1LINE PAID ACCESS (shared, 8 Oct 2026) ─────────────────────────────
@@ -418,7 +418,7 @@ function _olPass() { return window.location.search.indexOf('unlocked=true') !== 
     <span id="char-count" class="char-count">0</span>
   </div>
 
-  <div class="optional-toggle" onclick="toggleOptional()">&#43; Optional context (region, household size)</div>
+  <div class="optional-toggle" onclick="toggleOptional()">&#43; Optional context (region, household size, income)</div>
   <div id="optional-panel" class="optional-panel">
     <div class="opt-grid">
       <div>
@@ -453,6 +453,11 @@ function _olPass() { return window.location.search.indexOf('unlocked=true') !== 
           <option value="Renting">Renting</option>
         </select>
       </div>
+      <div class="opt-income-wrap">
+        <div class="opt-label">Monthly household income, after tax</div>
+        <input id="opt-income" class="opt-select" type="text" inputmode="numeric" maxlength="9" placeholder="e.g. £3,200" autocomplete="off">
+        <div class="opt-hint">Optional. Shows what share of your income your bills take. Never stored.</div>
+      </div>
     </div>
   </div>
 
@@ -466,7 +471,7 @@ function _olPass() { return window.location.search.indexOf('unlocked=true') !== 
   </div>
 
   <button id="generate-btn" class="generate-btn" onclick="handleGenerate()" disabled>Analyse My Bills</button>
-  <p class="generate-note">One-time access — £9 — instant generation</p>
+  <p class="generate-note">One-time access — <span class="ol-price">£9</span> — instant generation</p>
 
   <div id="error-card" class="error-card"></div>
 </section>
@@ -515,6 +520,7 @@ function _olPass() { return window.location.search.indexOf('unlocked=true') !== 
     </div>
   </div>
   <div class="free-observation" id="free-observation">—</div>
+  <p class="income-line" id="income-line"></p>
 
   <div class="payment-gate" id="payment-gate">
     <div class="gate-heading">Your full bill clarity report.</div>
@@ -529,7 +535,7 @@ function _olPass() { return window.location.search.indexOf('unlocked=true') !== 
       <span class="gate-feat">Priority action</span>
       <span class="gate-feat">PDF download</span>
     </div>
-    <button class="gate-btn" onclick="unlockBill()">Unlock Full Bill Review — £9</button>
+    <button class="gate-btn" onclick="unlockBill()">Unlock Full Bill Review — <span class="ol-price">£9</span></button>
     <p class="gate-price">One-time · Instant download · No account needed</p>
   </div>
 </section>
@@ -650,7 +656,7 @@ function _olPass() { return window.location.search.indexOf('unlocked=true') !== 
 
   <div class="export-row">
     <button class="export-btn" onclick="exportPDF()">Download PDF</button>
-    <button class="export-btn" onclick="runNewAnalysis()">New Analysis</button>
+    <button class="export-btn" onclick="openFreshBill()">Analyse different bills — <span class="ol-price">£9</span></button>
   </div>
 
   <hr class="section-rule" />
@@ -868,7 +874,7 @@ function processGenerate() {
     var region = document.getElementById('opt-region').value;
     var household = document.getElementById('opt-household').value;
     var tenure = document.getElementById('opt-tenure').value;
-    sessionStorage.setItem('bill_data', JSON.stringify({ val: val, region: region, household: household, tenure: tenure }));
+    sessionStorage.setItem('bill_data', JSON.stringify({ val: val, region: region, household: household, tenure: tenure, income: document.getElementById('opt-income').value }));
     window.location.href = LS_URL;
     return;
   }
@@ -882,7 +888,7 @@ function unlockBill() {
     var region = document.getElementById('opt-region').value;
     var household = document.getElementById('opt-household').value;
     var tenure = document.getElementById('opt-tenure').value;
-    sessionStorage.setItem('bill_data', JSON.stringify({ val: val, region: region, household: household, tenure: tenure }));
+    sessionStorage.setItem('bill_data', JSON.stringify({ val: val, region: region, household: household, tenure: tenure, income: document.getElementById('opt-income').value }));
     window.location.href = LS_URL;
     return;
   }
@@ -913,6 +919,7 @@ function runBillAnalysis(val) {
     obs = 'Your detected recurring spend appears relatively contained. The full review will identify specific optimisation opportunities.';
   }
   document.getElementById('free-observation').textContent = obs;
+  billIncomeLine(extracted);
 
   stopLoading();
   document.getElementById('free-output').className = 'free-output visible';
@@ -935,7 +942,8 @@ function runAIBill(val, extracted) {
     extracted: extracted,
     region: document.getElementById('opt-region').value || 'UK',
     household: document.getElementById('opt-household').value || 'not specified',
-    tenure: document.getElementById('opt-tenure').value || 'not specified'
+    tenure: document.getElementById('opt-tenure').value || 'not specified',
+    monthly_household_income_after_tax: billIncome() ? '£' + billIncome() + ' (stated by the user; where useful, express bills as a share of it)' : 'not specified'
   };
 
   var system = 'You are a senior personal finance analyst specialising in household bill optimisation for UK consumers. You receive structured bill data extracted from a user description. Your role is to provide honest, specific, non-commercial bill clarity. You have no affiliations, earn no commission, and have no incentive to recommend switching. You should tell users when things are fine as readily as when they should act. Use restrained, intelligent, editorial tone. Never shame users. Never be alarming. Never use financial advice language. Base all typical ranges on UK market averages as of early 2026. Respond ONLY in valid JSON.';
@@ -1207,6 +1215,7 @@ document.addEventListener('DOMContentLoaded', function() {
           if (d.region) document.getElementById('opt-region').value = d.region;
           if (d.household) document.getElementById('opt-household').value = d.household;
           if (d.tenure) document.getElementById('opt-tenure').value = d.tenure;
+          if (d.income) { document.getElementById('opt-income').value = d.income; document.getElementById('optional-panel').className = 'optional-panel open'; }
           _lastVal = d.val;
           _spellWarned = true;
           var loadSection = document.getElementById('loading-section');
@@ -1219,6 +1228,55 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </script>
+
+
+<script>
+/* ── Bill v1.5 additions ── */
+/* every price on the page from ONELINE_PRICE */
+document.addEventListener('DOMContentLoaded', function() {
+  var p = _olVal(window.ONELINE_PRICE) || '';
+  var els = document.querySelectorAll('.ol-price');
+  for (var i = 0; i < els.length; i++) if (p) els[i].textContent = p;
+});
+/* a fresh Bill in a new tab: results here stay, and the new analysis needs its own purchase */
+function openFreshBill() {
+  var url = window.location.href.split('?')[0].split('#')[0] + '?fresh=1';
+  var a = document.createElement('a');   /* a plain new-tab link: never replaces this page */
+  a.href = url; a.target = '_blank'; a.rel = 'noopener';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+(function() {
+  if (window.location.search.indexOf('fresh=1') === -1) return;
+  /* a new tab can inherit this tab's session data: clear the previous order and bills so nothing carries over */
+  try { sessionStorage.removeItem('1line_access_bill'); sessionStorage.removeItem('bill_data'); } catch (e) {}
+})();
+/* household income (optional) */
+function billIncome() {
+  var el = document.getElementById('opt-income');
+  if (!el) return 0;
+  var n = parseFloat(String(el.value || '').replace(/[^0-9.]/g, ''));
+  if (!n || n < 100 || n > 100000) return 0;
+  return Math.round(n);
+}
+function billIncomeLine(extracted) {
+  var el = document.getElementById('income-line');
+  if (!el) return;
+  var inc = billIncome();
+  if (inc && extracted && extracted.monthly_total > 0) {
+    var share = Math.round(extracted.monthly_total / inc * 100);
+    el.innerHTML = 'These bills take about <strong>' + share + '%</strong> of your stated monthly household income (£' + inc.toLocaleString('en-GB') + ' after tax).';
+  } else {
+    el.innerHTML = 'Add your monthly household income under &ldquo;Optional context&rdquo; to see what share of it your bills take &mdash; it sharpens the full review.';
+  }
+  el.style.display = 'block';
+}
+</script>
+<style>
+.opt-income-wrap { grid-column: 1 / -1; margin-top: 4px; }
+.opt-hint { font-size: 12px; color: var(--ink-muted); margin-top: 6px; line-height: 1.5; }
+.income-line { display: none; font-size: 14px; color: var(--ink-mid); line-height: 1.6; margin: -12px 0 24px; }
+.income-line strong { color: var(--ink); font-weight: 500; }
+</style>
 
 <script>
 /* ── MICROPHONE (browser speech-to-text, no cost, nothing sent to our server) ── */
