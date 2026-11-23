@@ -1,4 +1,4 @@
-<!-- 1LINE Farm v1.13 | Updated: 10 Oct 2026 | Text size A- / A+ buttons (bottom right, remembered per browser) and a larger, wider layout on big screens (108% from 900px, 110% from 1200px; phones unchanged). Display only - nothing else changed. Previous: 1LINE Farm v1.12 | Updated: 10 Oct 2026 | "AI" removed from customer-facing wording. Previous: 1LINE Farm v1.11 | Updated: 8 Oct 2026 | Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE Farm v1.10 | Updated: 1 Oct 2026 | Readability pass (dark theme) + microphone (Career v1.6.1 template) -->
+<!-- 1LINE Farm v1.14 | Updated: 23 Nov 2026 | Live bar timestamp fixed: the fresh snapshot time was being written into the "18 above threshold" figure, so the old hard-coded "2026-05-23 02:34 UTC" never changed. The time now goes into its own place; when no live snapshot is available the bar and report say "latest not available — showing an earlier scan" instead of a stale date; a scan more than 12 hours old is flagged "next scan overdue". Works with farm-snapshot v2.0 (kept in the Upstash store). Nothing else changed. Previous: 1LINE Farm v1.13 | Updated: 10 Oct 2026 | Text size A- / A+ buttons (bottom right, remembered per browser) and a larger, wider layout on big screens (108% from 900px, 110% from 1200px; phones unchanged). Display only - nothing else changed. Previous: 1LINE Farm v1.12 | Updated: 10 Oct 2026 | "AI" removed from customer-facing wording. Previous: 1LINE Farm v1.11 | Updated: 8 Oct 2026 | Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE Farm v1.10 | Updated: 1 Oct 2026 | Readability pass (dark theme) + microphone (Career v1.6.1 template) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -928,7 +928,7 @@ function _olPass() { return window.location.search.indexOf('unlocked=true') !== 
   <span class="live-sep">·</span>
   <span class="live-urgent"><span>4</span> urgent</span>
   <span class="live-sep">·</span>
-  <span class="live-stat">Snapshot generated <span>2026-05-23 02:34 UTC</span></span>
+  <span class="live-stat">Snapshot generated <span id="snapshot-ts">checking…</span></span>
   <span class="live-sep">·</span>
   <span class="live-stat" style="color:var(--green);">✓ Briefing ready</span>
   <span class="live-sep">·</span>
@@ -1333,8 +1333,11 @@ function loadSnapshot(callback) {
       PROTOCOLS   = data.protocols;
       SNAPSHOT_TS = data.generated_at || '';
       /* Update live bar timestamp */
-      var tsEl = document.querySelector('.live-stat span:last-child');
+      var tsEl = document.getElementById('snapshot-ts');   /* was the first matching span, which was the "18" count */
       if (tsEl && SNAPSHOT_TS) tsEl.textContent = SNAPSHOT_TS;
+      /* say so plainly if the latest scan is more than 12 hours old (Hunter scans every 6 hours) */
+      var ageH = data.generated_iso ? (Date.now() - Date.parse(data.generated_iso)) / 3600000 : NaN;
+      if (tsEl && ageH > 12) { tsEl.textContent = SNAPSHOT_TS + ' (' + Math.floor(ageH) + ' hours ago — next scan overdue)'; SNAPSHOT_TS = tsEl.textContent; }
       /* Update above-threshold count */
       if (data.summary) {
         var stats = document.querySelectorAll('.live-stat span');
@@ -1345,7 +1348,9 @@ function loadSnapshot(callback) {
     } else {
       /* No snapshot yet — use fallback */
       PROTOCOLS   = FALLBACK_PROTOCOLS;
-      SNAPSHOT_TS = 'Pending first scan';
+      SNAPSHOT_TS = 'earlier scan (latest not available just now)';
+      var tsP = document.getElementById('snapshot-ts');
+      if (tsP) tsP.textContent = 'latest not available — showing an earlier scan';
     }
     /* Update market regime display */
     if (data.market_regime) {
@@ -1365,7 +1370,9 @@ function loadSnapshot(callback) {
   .catch(function() {
     /* Network error — use fallback silently */
     PROTOCOLS   = FALLBACK_PROTOCOLS;
-    SNAPSHOT_TS = 'Offline — using latest cached snapshot';
+    SNAPSHOT_TS = 'earlier scan (latest not available just now)';
+    var tsO = document.getElementById('snapshot-ts');
+    if (tsO) tsO.textContent = 'latest not available — showing an earlier scan';
     if (callback) callback();
   });
 }
