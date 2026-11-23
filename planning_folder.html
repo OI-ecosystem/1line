@@ -1,4 +1,4 @@
-<!-- 1LINE Planning Overview v1.1 | Updated: 15 Oct 2026 | "England only" shown under the Run button and under the prices. Text additions only. Previous: 1LINE Planning Overview v1.0 | Updated: 10 Oct 2026 | Landing page built from Property Overview v1.0 -->
+<!-- 1LINE Planning Overview v1.2 | Updated: 23 Nov 2026 | Add-ons row under the free / £39 cards (Site Dossier £19 per site, Headroom £79 per postcode, Planning Watch £9 per check) and one line in "What you receive". Text and layout additions only. Previous: 1LINE Planning Overview v1.1 | Updated: 15 Oct 2026 | "England only" shown under the Run button and under the prices. Text additions only. Previous: 1LINE Planning Overview v1.0 | Updated: 10 Oct 2026 | Landing page built from Property Overview v1.0 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -582,6 +582,11 @@
   .hero-region { margin-top: 1.1rem; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em; color: var(--ink-3); }
   .lens-grid-4 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.1rem; margin-top: 1.6rem; }
   @media (max-width: 768px) { .lens-grid-4 { grid-template-columns: 1fr; } }
+  /* add-ons row (v1.2) */
+  .addons-label { margin-top: 2.6rem; }
+  .addons-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .addon-desc { font-size: 0.9rem; font-weight: 300; color: var(--ink-2); line-height: 1.5; margin: -0.4rem 0 1rem; }
+  @media (max-width: 768px) { .addons-grid { grid-template-columns: 1fr; } }
 </style>
 <!-- Lemon Squeezy affiliate tracking (approved by Garry, 7 Nov 2026) -->
 <script>window.lemonSqueezyAffiliateConfig = { store: "opportunity-intelligence" };</script>
@@ -678,6 +683,7 @@
       <li><span class="tick">&#10003;</span> Catalysts, constraints and the council&rsquo;s local plan position</li>
       <li><span class="tick">&#10003;</span> Three plays, what not to do, and your next three moves</li>
       <li><span class="tick">&#10003;</span> Print or save as PDF, plus a Watch snapshot of your search to keep</li>
+      <li><span class="tick">&#10003;</span> Optional add-ons: a Site Dossier on any shortlisted site, Headroom for one postcode, and Planning Watch to see what has changed later</li>
     </ul>
   </div>
 </section>
@@ -799,6 +805,42 @@
           <li><span class="tier-tick">&#10003;</span> Three plays &amp; what not to do</li>
           <li><span class="tier-tick">&#10003;</span> Your next three moves</li>
           <li><span class="tier-tick">&#10003;</span> Print / PDF &amp; Watch snapshot</li>
+        </ul>
+      </div>
+    </div>
+    <p class="section-label addons-label">Go further &mdash; add-ons</p>
+    <div class="tiers-grid addons-grid">
+      <div class="tier-card">
+        <p class="tier-name">Site Dossier</p>
+        <p class="tier-price">&pound;19 <span>per site</span></p>
+        <p class="addon-desc">Everything published about one site from your report.</p>
+        <ul class="tier-includes">
+          <li><span class="tier-tick">&#10003;</span> Key facts &amp; dated history from the records</li>
+          <li><span class="tier-tick">&#10003;</span> Constraints checked at the site</li>
+          <li><span class="tier-tick">&#10003;</span> Due-diligence checks, in order</li>
+          <li><span class="tier-tick">&#10003;</span> Questions for the council &amp; professionals</li>
+        </ul>
+      </div>
+      <div class="tier-card">
+        <p class="tier-name">Headroom</p>
+        <p class="tier-price">&pound;79 <span>per postcode</span></p>
+        <p class="addon-desc">Planning signals and the local property market, read together.</p>
+        <ul class="tier-includes">
+          <li><span class="tier-tick">&#10003;</span> Where planning and the market agree</li>
+          <li><span class="tier-tick">&#10003;</span> Where they pull apart</li>
+          <li><span class="tier-tick">&#10003;</span> The unknowns, ranked, with who to ask</li>
+          <li><span class="tier-tick">&#10003;</span> Two lenses &mdash; never one valuation</li>
+        </ul>
+      </div>
+      <div class="tier-card">
+        <p class="tier-name">Planning Watch</p>
+        <p class="tier-price">&pound;9 <span>per check</span></p>
+        <p class="addon-desc">Load the snapshot from your report and see what has changed.</p>
+        <ul class="tier-includes">
+          <li><span class="tier-tick">&#10003;</span> New sites on the register</li>
+          <li><span class="tier-tick">&#10003;</span> Changed details, before &rarr; after</li>
+          <li><span class="tier-tick">&#10003;</span> Sites not returned this time</li>
+          <li><span class="tier-tick">&#10003;</span> A fresh snapshot for next time</li>
         </ul>
       </div>
     </div>
