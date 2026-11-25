@@ -343,6 +343,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://lifekit333.com/blog/how-to-ask-for-a-pay-rise/</loc>
+    <lastmod>2026-11-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
   <!-- BLOG:END -->
 
 </urlset>
