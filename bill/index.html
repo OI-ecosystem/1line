@@ -1,4 +1,4 @@
-<!-- 1LINE Bill v1.5 | Updated: 23 Nov 2026 | Price £9 everywhere (was £15 in the buy prompt, £9 on the page): ONELINE_PRICE is now the one place the price is set and the two shown prices read from it. Optional "Monthly household income, after tax" in Optional context: kept through checkout, sent with the bills, and the free result shows the share of income the bills take (or a prompt to add it). "New Analysis" (which wiped the paid results) is now "Analyse different bills — £9": opens a fresh Bill in a new tab with no order carried over, so the results stay and a new analysis needs its own purchase. Previous: 1LINE Bill v1.4 | Updated: 10 Oct 2026 | Text size A- / A+ buttons (bottom right, remembered per browser) and a larger, wider layout on big screens (108% from 900px, 110% from 1200px; phones unchanged). Display only - nothing else changed. Previous: 1LINE Bill v1.3 | Updated: 8 Oct 2026 | Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE Bill v1.2 | Updated: 1 Oct 2026 | Readability pass + microphone + spelling check wording (Career v1.6.1 template) -->
+<!-- 1LINE Bill v1.6 | Updated: 25 Nov 2026 | Price now £7.95 (agreed with Adrian 25 Nov, matching the home page price tag and Lemon Squeezy). Price text only; nothing else changed. Previous: 1LINE Bill v1.5 | Updated: 23 Nov 2026 | Price £9 everywhere (was £15 in the buy prompt, £9 on the page): ONELINE_PRICE is now the one place the price is set and the two shown prices read from it. Optional "Monthly household income, after tax" in Optional context: kept through checkout, sent with the bills, and the free result shows the share of income the bills take (or a prompt to add it). "New Analysis" (which wiped the paid results) is now "Analyse different bills — £9": opens a fresh Bill in a new tab with no order carried over, so the results stay and a new analysis needs its own purchase. Previous: 1LINE Bill v1.4 | Updated: 10 Oct 2026 | Text size A- / A+ buttons (bottom right, remembered per browser) and a larger, wider layout on big screens (108% from 900px, 110% from 1200px; phones unchanged). Display only - nothing else changed. Previous: 1LINE Bill v1.3 | Updated: 8 Oct 2026 | Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE Bill v1.2 | Updated: 1 Oct 2026 | Readability pass + microphone + spelling check wording (Career v1.6.1 template) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -257,7 +257,7 @@ footer { border-top: 0.5px solid var(--border); padding: 32px 0 24px; margin-top
 /* 1LINE paid access config */
 var ONELINE_MODULE = 'bill';
 var ONELINE_CHECKOUT = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/b195f033-29fc-4e46-9dd4-6fb09ad5d105';
-var ONELINE_PRICE = '£9';   /* the ONE place Bill's price is set: every price shown on this page reads from it */
+var ONELINE_PRICE = '£7.95';   /* the ONE place Bill's price is set: every price shown on this page reads from it */
 </script>
 <script>
 /* ── 1LINE PAID ACCESS (shared, 8 Oct 2026) ─────────────────────────────
@@ -471,7 +471,7 @@ function _olPass() { return window.location.search.indexOf('unlocked=true') !== 
   </div>
 
   <button id="generate-btn" class="generate-btn" onclick="handleGenerate()" disabled>Analyse My Bills</button>
-  <p class="generate-note">One-time access — <span class="ol-price">£9</span> — instant generation</p>
+  <p class="generate-note">One-time access — <span class="ol-price">£7.95</span> — instant generation</p>
 
   <div id="error-card" class="error-card"></div>
 </section>
@@ -535,7 +535,7 @@ function _olPass() { return window.location.search.indexOf('unlocked=true') !== 
       <span class="gate-feat">Priority action</span>
       <span class="gate-feat">PDF download</span>
     </div>
-    <button class="gate-btn" onclick="unlockBill()">Unlock Full Bill Review — <span class="ol-price">£9</span></button>
+    <button class="gate-btn" onclick="unlockBill()">Unlock Full Bill Review — <span class="ol-price">£7.95</span></button>
     <p class="gate-price">One-time · Instant download · No account needed</p>
   </div>
 </section>
@@ -656,7 +656,7 @@ function _olPass() { return window.location.search.indexOf('unlocked=true') !== 
 
   <div class="export-row">
     <button class="export-btn" onclick="exportPDF()">Download PDF</button>
-    <button class="export-btn" onclick="openFreshBill()">Analyse different bills — <span class="ol-price">£9</span></button>
+    <button class="export-btn" onclick="openFreshBill()">Analyse different bills — <span class="ol-price">£7.95</span></button>
   </div>
 
   <hr class="section-rule" />

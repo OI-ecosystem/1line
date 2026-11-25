@@ -1,4 +1,4 @@
-<!-- 1LINE Farm v1.14 | Updated: 23 Nov 2026 | Live bar timestamp fixed: the fresh snapshot time was being written into the "18 above threshold" figure, so the old hard-coded "2026-05-23 02:34 UTC" never changed. The time now goes into its own place; when no live snapshot is available the bar and report say "latest not available — showing an earlier scan" instead of a stale date; a scan more than 12 hours old is flagged "next scan overdue". Works with farm-snapshot v2.0 (kept in the Upstash store). Nothing else changed. Previous: 1LINE Farm v1.13 | Updated: 10 Oct 2026 | Text size A- / A+ buttons (bottom right, remembered per browser) and a larger, wider layout on big screens (108% from 900px, 110% from 1200px; phones unchanged). Display only - nothing else changed. Previous: 1LINE Farm v1.12 | Updated: 10 Oct 2026 | "AI" removed from customer-facing wording. Previous: 1LINE Farm v1.11 | Updated: 8 Oct 2026 | Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE Farm v1.10 | Updated: 1 Oct 2026 | Readability pass (dark theme) + microphone (Career v1.6.1 template) -->
+<!-- 1LINE Farm v1.15 | Updated: 25 Nov 2026 | Price now £18.95 (agreed with Adrian 25 Nov, matching the home page price tag and Lemon Squeezy). Price text only; nothing else changed. Previous: 1LINE Farm v1.14 | Updated: 23 Nov 2026 | Live bar timestamp fixed: the fresh snapshot time was being written into the "18 above threshold" figure, so the old hard-coded "2026-05-23 02:34 UTC" never changed. The time now goes into its own place; when no live snapshot is available the bar and report say "latest not available — showing an earlier scan" instead of a stale date; a scan more than 12 hours old is flagged "next scan overdue". Works with farm-snapshot v2.0 (kept in the Upstash store). Nothing else changed. Previous: 1LINE Farm v1.13 | Updated: 10 Oct 2026 | Text size A- / A+ buttons (bottom right, remembered per browser) and a larger, wider layout on big screens (108% from 900px, 110% from 1200px; phones unchanged). Display only - nothing else changed. Previous: 1LINE Farm v1.12 | Updated: 10 Oct 2026 | "AI" removed from customer-facing wording. Previous: 1LINE Farm v1.11 | Updated: 8 Oct 2026 | Paid reports now checked by the proxy (/api/ai-paid): a real Lemon Squeezy order or the owner key is needed; ?unlocked=true alone no longer gives a report. Previous: 1LINE Farm v1.10 | Updated: 1 Oct 2026 | Readability pass (dark theme) + microphone (Career v1.6.1 template) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -805,7 +805,7 @@
 /* 1LINE paid access config */
 var ONELINE_MODULE = 'farm';
 var ONELINE_CHECKOUT = 'https://opportunity-intelligence.lemonsqueezy.com/checkout/buy/fa96bc90-382b-4fb8-ba09-527a9f3e4124';
-var ONELINE_PRICE = '£19';
+var ONELINE_PRICE = '£18.95';
 </script>
 <script>
 /* ── 1LINE PAID ACCESS (shared, 8 Oct 2026) ─────────────────────────────
@@ -1022,7 +1022,7 @@ function _olPass() { return window.location.search.indexOf('unlocked=true') !== 
     <button class="scan-btn" id="scan-btn" onclick="handleScan()">
       Generate Hunter Snapshot
     </button>
-    <p class="form-note">One-time access — £19 — instant snapshot</p>
+    <p class="form-note">One-time access — £18.95 — instant snapshot</p>
   </div>
 </div>
 
